@@ -3,6 +3,6 @@
 
 ### embed a shopify store on any website
 
-🕹️ live demo: https://sheep-cart.chasemoskal.com/  
+🕹️ live demo: [dev bakery](https://devbakery.chasemoskal.com/)  
 🛒 full shopping cart experience  
 💖 free and open source just for you  

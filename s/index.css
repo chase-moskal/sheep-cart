@@ -1,0 +1,140 @@
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+html {
+	--tiny: 9px;
+	--small: 12px;
+	--medium: 16px;
+	--large: 21px;
+}
+
+html, body {
+	font-size: var(--medium);
+	font-family: sans-serif;
+	background: #1f0e16;
+	color: #fff8;
+}
+
+a {
+	color: cyan;
+	text-decoration: none;
+}
+
+a:hover { text-decoration: underline; }
+a:active { text-decoration: double underline; }
+
+.sheep {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	margin: auto;
+	padding: 1em;
+	width: max-content;
+}
+
+.sheep-logo {
+	height: 6em;
+}
+
+.bakery-logo {
+	height: 6em;
+}
+
+.slice {
+	width: 60em;
+	max-width: 100%;
+	margin: 0.2em auto;
+	box-shadow: 1px 2px 5px #0008;
+}
+
+.header {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	background: #482234;
+	border-radius: 0.5em 0.5em 0 0;
+}
+
+.header .bakery-logo {
+	transform: scale(1.2);
+	filter: drop-shadow(1px 3px 10px #000);
+}
+
+.header > .bar {
+	flex: 1 1 auto;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	padding: 1em;
+	padding-left: 2em;
+}
+
+.header > .bar > * {
+	display: block;
+	width: 100%;
+}
+
+.header .search {
+	font-size: var(--large);
+	background: transparent;
+	border: 0.1em solid;
+	border-radius: 0.5em;
+	padding: 0.3em;
+	color: inherit;
+}
+
+.header .tags {
+	font-size: var(--small);
+	list-style: none;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+
+.header .tags > li {
+	margin: 0.2em;
+	border: 0.05em solid;
+	border-radius: 1em;
+	padding: 0 0.3em;
+}
+
+.cartline {
+	position: relative;
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
+	padding: 0.5em;
+}
+
+.cartbutton {
+	padding: 0.5em;
+}
+
+.cartpanel {
+	position: absolute;
+	top: 100%;
+	left: 1em;
+	right: 1em;
+	min-height: 10em;
+	background: #193b41cc;
+	backdrop-filter: blur(10px);
+	box-shadow: 1px 3px 10px #0008;
+}
+
+.catalog {
+	background: #482234;
+	border-radius: 0 0 0.5em 0.5em;
+}
+
+.catalog ol {
+	list-style: none;
+}
+
+.catalog ol li {
+	padding: 1em;
+}
+
