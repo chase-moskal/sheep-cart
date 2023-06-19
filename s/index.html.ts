@@ -27,7 +27,10 @@ export default template(async basics => {
 					<img class=bakery-logo alt="dev bakery" src="${path.root('assets/devbakery.webp')}"/>
 				</h1>
 				<div class=bar>
-					<input class=search type="text"/>
+					<div class=searchbox>
+						<input class=search type="text"/>
+						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+					</div>
 					<ul class=tags>
 						<li>alpha</li>
 						<li>beta</li>
