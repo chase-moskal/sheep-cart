@@ -1,6 +1,4 @@
 
-import {hash_to_route} from "./utils/hash_to_route.js"
-import {route_to_hash} from "./utils/route_to_hash.js"
 import {OnRouteChange, Route, RouterOptions, SetHash} from "./types.js"
 
 function encode_for_hash(s: string) {
@@ -19,9 +17,11 @@ function parse_hash_parts(prefix: string, hash: string) {
 	if (prefix && hash && hash.startsWith(prefix))
 		hash = hash.slice(prefix.length)
 
-	return hash.includes("/")
+	const parts = hash.includes("/")
 		? hash.split("/").slice(1)
 		: [hash]
+
+	return parts.map(part => decode_from_hash(part))
 }
 
 export class Router {
@@ -36,7 +36,7 @@ export class Router {
 		this.#on_route_change = on_route_change
 	}
 
-	#hash_to_route(hash: string) {
+	#hash_to_route(hash: string): Route {
 		const [zone, ...rest] = parse_hash_parts(this.#prefix, hash)
 		switch (zone) {
 			case "":
@@ -56,7 +56,26 @@ export class Router {
 		}
 	}
 
-	#route_to_hash(route: Route) {
+	#route_to_hash(route: Route): string {
+		const p = this.#prefix
+		const e = (s: string) => encode_for_hash(s)
+
+		switch (route.zone) {
+			case "catalog":
+				return `${p}/`
+
+			case "search":
+				return `${p}/search/${e(route.query)}`
+
+			case "collection":
+				return `${p}/collection/${e(route.id)}/${e(route.label)}`
+
+			case "product":
+				return `${p}/product/${e(route.id)}/${e(route.label)}`
+
+			default:
+				return `${p}/`
+		}
 	}
 
 	get route() {
@@ -64,11 +83,11 @@ export class Router {
 	}
 
 	set route(r: Route) {
-		this.#set_hash(route_to_hash(r))
+		this.#set_hash(this.#route_to_hash(r))
 	}
 
 	update_hash(hash: string) {
-		const route = hash_to_route(hash)
+		const route = this.#hash_to_route(hash)
 		this.#route = route
 		this.#on_route_change(route)
 	}

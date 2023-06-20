@@ -10,15 +10,12 @@ const router = new Router({
 	on_route_change: route => console.log(route),
 })
 
-// addEventListener("hashchange", () => router.update_hash(location.hash))
-
-// router.update_hash(location.hash)
+addEventListener("hashchange", () => router.update_hash(location.hash))
+router.update_hash(location.hash)
 
 ;(window as any).router = router
 
-const context: Context = {
-	router,
-}
+const context = new Context(router)
 
 registerElements(prepareAllComponents(context))
 

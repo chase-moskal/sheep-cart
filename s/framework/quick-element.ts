@@ -13,13 +13,24 @@ export class QuickElement<S> extends HTMLElement {
 
 	static styles?: CSSResultGroup
 
+	constructor() {
+		super()
+		this.#root = this.attachShadow({mode: "open"})
+		const styles = finalizeStyles((this.constructor as any).styles)
+		adoptStyles(this.#root, styles)
+	}
+
+	get root() {
+		return this.#root
+	}
+
 	get state(): S {
 		return this.#state
 	}
 
 	set state(s: S) {
 		this.#state = s
-		this.#update()
+		this.update()
 	}
 
 	get updated() {
@@ -34,7 +45,7 @@ export class QuickElement<S> extends HTMLElement {
 
 	#render_debounced = debounce(0, this.#render)
 
-	#update() {
+	update() {
 		const promise = this.#render_debounced()
 
 		if (!this.#update_promise)
@@ -42,13 +53,6 @@ export class QuickElement<S> extends HTMLElement {
 
 		this.#update_promise = promise
 		return promise
-	}
-
-	constructor() {
-		super()
-		this.#root = this.attachShadow({mode: "open"})
-		const styles = finalizeStyles((this.constructor as any).styles)
-		adoptStyles(this.#root, styles)
 	}
 
 	render(): TemplateResult | void {

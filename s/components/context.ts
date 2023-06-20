@@ -1,7 +1,9 @@
 
 import {Router} from "../framework/routing/router.js"
 
-export type Context = {
-	router: Router
+export class Context {
+	constructor(
+		public readonly router: Router,
+	) {}
 }
 
