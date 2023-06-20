@@ -1,13 +1,19 @@
 
-import {LitElement, html} from "lit"
+import {html} from "lit"
 import {Context} from "../context.js"
-import {mixinContextRequirement} from "@chasemoskal/magical"
+import {QuickElement} from "../../framework/quick-element.js"
 
-export class SheepSearch extends mixinContextRequirement<Context>()(LitElement) {
-	render() {
-		return html`
-			<p>hello hello</p>
-		`
-	}
+type State = {
+	a: number
 }
+
+export const SheepSearch = (context: Context) => (
+	class extends QuickElement<State> {
+		render() {
+			return html`
+				<p>hello hello</p>
+			`
+		}
+	}
+)
 

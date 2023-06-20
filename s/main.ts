@@ -8,5 +8,7 @@ const router = new Router({
 
 addEventListener("hashchange", () => router.update_hash(location.hash))
 
+router.update_hash(location.hash)
+
 ;(window as any).router = router
 

@@ -4,10 +4,10 @@ import {prefix} from "./prefix.js"
 
 export function hash_to_route(hash: string): Route {
 	const [, body] = hash.split(prefix)
-	const [zone, ...rest] = body.split("/")
+	const [, zone, ...rest] = body.split("/")
 
 	switch (zone) {
-		case "catalog":
+		case "":
 			return {zone: "catalog"}
 
 		case "search":
@@ -20,7 +20,7 @@ export function hash_to_route(hash: string): Route {
 			return {zone: "product", id: rest[0], label: rest[1]}
 
 		default:
-			throw new Error(`unknown route zone "${zone}"`)
+			return {zone: "not-found"}
 	}
 }
 

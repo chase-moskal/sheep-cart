@@ -6,7 +6,6 @@ export function route_to_hash(route: Route) {
 	const enc = (s: string) => encodeURIComponent(s)
 
 	switch (route.zone) {
-
 		case "catalog":
 			return `${prefix}/`
 
@@ -20,7 +19,7 @@ export function route_to_hash(route: Route) {
 			return `${prefix}/product/${enc(route.id)}/${enc(route.label)}`
 
 		default:
-			throw new Error(`unknown route zone`)
+			return `${prefix}/`
 	}
 }
 
