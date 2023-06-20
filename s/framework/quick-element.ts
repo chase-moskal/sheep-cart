@@ -1,16 +1,19 @@
 
 import {debounce} from "@chasemoskal/magical"
-import {finalizeStyles} from "./utils/finalize-styles.js"
 import {CSSResultGroup, TemplateResult, adoptStyles, html, render} from "lit"
 
+import {finalizeStyles} from "./utils/finalize-styles.js"
+import {explode_promise} from "./utils/explode_promise.js"
+
 export class QuickElement<S> extends HTMLElement {
+	#state!: S
 	#root: ShadowRoot | HTMLElement
-	#state: S | undefined
-	#update_promise: Promise<void>
+	#update_promise?: Promise<void>
+	#update_promise_initial = explode_promise<void>()
 
 	static styles?: CSSResultGroup
 
-	get state(): S | undefined {
+	get state(): S {
 		return this.#state
 	}
 
@@ -20,13 +23,12 @@ export class QuickElement<S> extends HTMLElement {
 	}
 
 	get updated() {
-		return this.#update_promise
+		return this.#update_promise ?? this.#update_promise_initial.promise
 	}
 
 	#render = () => {
-		const {state} = this
 		const root = this.#root
-		const template = this.render(state)
+		const template = this.render()
 		render(template, root, {host: this})
 	}
 
@@ -34,6 +36,10 @@ export class QuickElement<S> extends HTMLElement {
 
 	#update() {
 		const promise = this.#render_debounced()
+
+		if (!this.#update_promise)
+			promise.then(this.#update_promise_initial.resolve)
+
 		this.#update_promise = promise
 		return promise
 	}
@@ -41,14 +47,11 @@ export class QuickElement<S> extends HTMLElement {
 	constructor() {
 		super()
 		this.#root = this.attachShadow({mode: "open"})
-		this.#update_promise = this.#update()
-
 		const styles = finalizeStyles((this.constructor as any).styles)
 		adoptStyles(this.#root, styles)
 	}
 
-	render(state: S | undefined): TemplateResult | void {
-		void state
+	render(): TemplateResult | void {
 		return html``
 	}
 }

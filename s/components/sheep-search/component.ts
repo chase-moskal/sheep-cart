@@ -1,17 +1,27 @@
 
 import {html} from "lit"
+import {css} from "@chasemoskal/magical"
+
 import {Context} from "../context.js"
 import {QuickElement} from "../../framework/quick-element.js"
 
-type State = {
-	a: number
-}
-
 export const SheepSearch = (context: Context) => (
-	class extends QuickElement<State> {
+	class extends QuickElement<{example: number}> {
+
+		static styles = css`
+			p {
+				color: yellow;
+			}
+		`
+
+		constructor() {
+			super()
+			this.state = {example: 123}
+		}
+
 		render() {
 			return html`
-				<p>hello hello</p>
+				<p>router zone: ${context.router.route.zone}</p>
 			`
 		}
 	}

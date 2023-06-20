@@ -37,6 +37,7 @@ export default template(async basics => {
 							<li>alpha</li>
 							<li>beta</li>
 						</ul>
+						<sheep-search></sheep-search>
 					</div>
 
 					<div class=cart-area>
