@@ -31,6 +31,7 @@ export default template(async basics => {
 
 					<div class=search-area>
 						<sheep-search></sheep-search>
+						<sheep-tags></sheep-tags>
 					</div>
 
 					<div class=cart-area>
