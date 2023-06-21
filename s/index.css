@@ -72,7 +72,6 @@ a:active { text-decoration: double underline; }
 		flex-direction: row;
 		> .search-area {
 			flex: 1 1 auto;
-			outline: 1px solid green;
 			> .search-box {
 				position: relative;
 				> input {
@@ -96,10 +95,6 @@ a:active { text-decoration: double underline; }
 		}
 	}
 
-	> .cart-area {
-		outline: 1px solid lime;
-	}
-
 	> .bar {
 		flex: 1 1 auto;
 		display: flex;
@@ -118,11 +113,9 @@ a:active { text-decoration: double underline; }
 			flex-direction: row;
 			flex-wrap: nowrap;
 			gap: 0.5em;
-			outline: 1px solid #0f08;
 
 			> * {
 				flex: 1 1 auto;
-				outline: 1px solid #f004;
 				padding: 1em;
 				width: 5em;
 			}
