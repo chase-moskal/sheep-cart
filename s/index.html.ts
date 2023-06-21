@@ -1,6 +1,6 @@
 
 import {shopping_cart_icon} from "./icons/feather/shopping_cart_icon.js"
-import {template, html, easypage, startup_scripts_with_debug_mode, html as svg} from "@benev/turtle"
+import {template, html, easypage, startup_scripts_with_dev_mode, html as svg} from "@benev/turtle"
 
 export default template(async basics => {
 	const path = basics.path(import.meta.url)
@@ -9,7 +9,7 @@ export default template(async basics => {
 		css: "index.css",
 		title: "dev bakery (sheep-cart demo)",
 		head: html`
-			${startup_scripts_with_debug_mode(path)}
+			${startup_scripts_with_dev_mode(path)}
 			<link rel="icon" href="${path.root('assets/devbakery.favicon.png')}"/>
 		`,
 		body: html`

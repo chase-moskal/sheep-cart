@@ -10,7 +10,9 @@ export function hash_to_route(prefix: string, hash: string): Route {
 			return {zone: "catalog"}
 
 		case "search":
-			return {zone: "search", query: rest[0]}
+			const [query, tags_raw] = rest[0].split(":")
+			const tags = tags_raw.split(",")
+			return {zone: "search", query, tags}
 
 		case "collection":
 			return {zone: "collection", id: rest[0], label: rest[1]}

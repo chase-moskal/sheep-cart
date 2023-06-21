@@ -1,7 +1,7 @@
 
 export type Routes = {
 	catalog: {zone: "catalog"}
-	search: {zone: "search", query: string}
+	search: {zone: "search", query: string, tags: string[]}
 	collection: {zone: "collection", id: string, label: string}
 	product: {zone: "product", id: string, label: string}
 	not_found: {zone: "not-found"}

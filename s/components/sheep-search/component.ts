@@ -27,7 +27,7 @@ export const SheepSearch = ({router}: Context) => (
 			const {value} = this.input
 
 			if (value.length > 0)
-				router.go_search(value)
+				router.go_search(value, ["alpha", "beta"])
 			else
 				router.go_catalog()
 		}

@@ -33,8 +33,8 @@ export class Router {
 		this.route = {zone: "catalog"}
 	}
 
-	go_search(query: string) {
-		this.route = {zone: "search", query}
+	go_search(query: string, tags: string[]) {
+		this.route = {zone: "search", query, tags}
 	}
 
 	go_collection(id: string, label: string) {
