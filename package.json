@@ -17,6 +17,7 @@
 	},
 	"dependencies": {
 		"@chasemoskal/magical": "^0.1.5",
+		"@chasemoskal/snapstate": "^0.0.9",
 		"es-module-shims": "^1.7.3",
 		"lit": "^2.7.5",
 		"shopify-buy": "^2.19.0"

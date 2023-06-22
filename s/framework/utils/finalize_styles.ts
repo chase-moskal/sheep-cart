@@ -1,7 +1,7 @@
 
 import {CSSResultGroup, CSSResultOrNative, getCompatibleStyle} from "lit"
 
-export function finalizeStyles(styles?: CSSResultGroup): Array<CSSResultOrNative> {
+export function finalize_styles(styles?: CSSResultGroup): Array<CSSResultOrNative> {
 	const elementStyles = []
 
 	if (Array.isArray(styles)) {

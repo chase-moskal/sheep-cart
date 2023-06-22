@@ -1,5 +1,5 @@
 
-import {html, svg} from "lit"
+import {html} from "lit"
 
 import {style} from "./style.css.js"
 import {Context} from "../context.js"

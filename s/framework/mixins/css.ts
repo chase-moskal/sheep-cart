@@ -1,6 +1,6 @@
 
 import {CSSResultGroup} from "lit"
-import {LiteElementClass} from "../utils/lite-element.js"
+import {LiteElementClass} from "../utils/lite_element.js"
 
 export function mixinCss(...newStyles: (undefined | CSSResultGroup)[]) {
 	return function<C extends LiteElementClass>(Base: C): C {

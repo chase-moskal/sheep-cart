@@ -1,22 +1,21 @@
 
 import {debounce} from "@chasemoskal/magical"
-import {CSSResultGroup, TemplateResult, adoptStyles, html, render} from "lit"
+import {TemplateResult, adoptStyles, html, render} from "lit"
 
-import {finalizeStyles} from "./utils/finalize-styles.js"
+import {LiteElement} from "./utils/lite_element.js"
+import {finalize_styles} from "./utils/finalize_styles.js"
 import {explode_promise} from "./utils/explode_promise.js"
 
-export class QuickElement<S> extends HTMLElement {
+export class QuickElement<S> extends HTMLElement implements LiteElement {
 	#state!: S
 	#root: ShadowRoot | HTMLElement
 	#update_promise?: Promise<void>
 	#update_promise_initial = explode_promise<void>()
 
-	static styles?: CSSResultGroup
-
 	constructor() {
 		super()
 		this.#root = this.attachShadow({mode: "open"})
-		const styles = finalizeStyles((this.constructor as any).styles)
+		const styles = finalize_styles((this.constructor as any).styles)
 		adoptStyles(this.#root, styles)
 	}
 
@@ -45,7 +44,7 @@ export class QuickElement<S> extends HTMLElement {
 
 	#render_debounced = debounce(0, this.#render)
 
-	update() {
+	async update() {
 		const promise = this.#render_debounced()
 
 		if (!this.#update_promise)
@@ -54,6 +53,13 @@ export class QuickElement<S> extends HTMLElement {
 		this.#update_promise = promise
 		return promise
 	}
+
+	async requestUpdate() {
+		await this.update()
+	}
+
+	connectedCallback() {}
+	disconnectedCallback() {}
 
 	render(): TemplateResult | void {
 		return html``

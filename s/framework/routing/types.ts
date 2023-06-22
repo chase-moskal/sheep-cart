@@ -1,10 +1,35 @@
 
+export type RouterOptions = {
+	prefix: string
+	set_hash: SetHash
+}
+
 export type Routes = {
-	catalog: {zone: "catalog"}
-	search: {zone: "search", query: string, tags: string[]}
-	collection: {zone: "collection", id: string, label: string}
-	product: {zone: "product", id: string, label: string}
-	not_found: {zone: "not-found"}
+	catalog: {
+		zone: "catalog"
+	}
+
+	search: {
+		zone: "search"
+		query: string
+		tags: string[]
+	}
+
+	collection: {
+		zone: "collection"
+		id: string
+		label: string
+	}
+
+	product: {
+		zone: "product"
+		id: string
+		label: string
+	}
+
+	not_found: {
+		zone: "not-found"
+	}
 }
 
 export type Route =
@@ -16,10 +41,4 @@ export type Route =
 
 export type SetHash = (hash: string) => void
 export type OnRouteChange = (route: Route) => void
-
-export type RouterOptions = {
-	prefix?: string
-	set_hash: SetHash
-	on_route_change: OnRouteChange
-}
 

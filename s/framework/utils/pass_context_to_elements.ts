@@ -1,10 +1,10 @@
 
 import {obtool} from "@chasemoskal/magical"
-import {LiteElementClass} from "./lite-element.js"
+import {LiteElementClass} from "./lite_element.js"
 
 type ElementFuncs<C> = {[key: string]: (context: C) => LiteElementClass}
 
-export function passContextToElements<C, E extends ElementFuncs<C>>(
+export function pass_context_to_elements<C, E extends ElementFuncs<C>>(
 		context: C,
 		elements: E,
 	) {

@@ -15,16 +15,40 @@ export const SheepSearch = ({router}: Context) => (
 			this.state = true
 			this.updated.then(() => {
 				if (router.route.zone === "search")
-					this.input.value = router.route.query
+					this.#input.value = router.route.query
 			})
 		}
 
-		get input() {
+		get #input() {
 			return this.root.querySelector<HTMLInputElement>("input")!
 		}
 
+		get #user_is_focused_on_input() {
+			return document.activeElement === this.#input
+		}
+
+		#unsub_from_route_change: (() => void) | undefined
+
+		connectedCallback() {
+			super.connectedCallback()
+
+			this.#unsub_from_route_change = router.on_route_change.sub(route => {
+				const is_search = route.zone === "search"
+				const not_focused = !this.#user_is_focused_on_input
+
+				if (is_search && not_focused)
+					this.#input.value = route.query
+			})
+		}
+
+		disconnectedCallback() {
+			super.disconnectedCallback()
+			if (this.#unsub_from_route_change)
+				this.#unsub_from_route_change()
+		}
+
 		#search = () => {
-			const {value} = this.input
+			const {value} = this.#input
 
 			if (value.length > 0)
 				router.go_search(value, ["alpha", "beta"])
