@@ -17,6 +17,11 @@ export class QuickElement<S> extends HTMLElement implements LiteElement {
 		this.#root = this.attachShadow({mode: "open"})
 		const styles = finalize_styles((this.constructor as any).styles)
 		adoptStyles(this.#root, styles)
+		this.state = this.init_state()
+	}
+
+	init_state() {
+		return undefined as S
 	}
 
 	get root() {
@@ -58,7 +63,10 @@ export class QuickElement<S> extends HTMLElement implements LiteElement {
 		await this.update()
 	}
 
-	connectedCallback() {}
+	connectedCallback() {
+		this.update()
+	}
+
 	disconnectedCallback() {}
 
 	render(): TemplateResult | void {

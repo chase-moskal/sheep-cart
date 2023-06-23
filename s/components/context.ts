@@ -1,21 +1,14 @@
 
-import {snapstate} from "@chasemoskal/snapstate"
+import {CueGroup} from "../framework/cues/group.js"
 import {Router} from "../framework/routing/router.js"
 
 export class Context {
+	cues = new CueGroup()
 
 	constructor(
 		public readonly router: Router,
 	) {}
 
-	snap = snapstate({})
-
-	get state() {
-		return this.snap.readonly
-	}
-
-	get writable() {
-		return this.snap.writable
-	}
+	count = this.cues.create(0)
 }
 

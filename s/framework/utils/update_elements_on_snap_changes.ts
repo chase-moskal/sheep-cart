@@ -7,7 +7,7 @@ import {LiteElementClass} from "./lite_element.js"
 
 type Elements = {[key: string]: LiteElementClass}
 
-export function update_quick_elements_on_snap_changes<E extends Elements>(
+export function update_elements_on_snap_changes<E extends Elements>(
 		snaps: Snapstate<any>[],
 		elements: E,
 	) {
