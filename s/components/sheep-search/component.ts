@@ -7,7 +7,7 @@ import {QuickElement} from "../../framework/quick-element.js"
 import {search_icon} from "../../icons/feather/search_icon.js"
 
 export const SheepSearch = ({router}: Context) => (
-		class extends QuickElement<boolean> {
+	class extends QuickElement<boolean> {
 
 	static styles = style
 
@@ -36,7 +36,7 @@ export const SheepSearch = ({router}: Context) => (
 	connectedCallback() {
 		super.connectedCallback()
 
-		this.#unsub_from_route_change = router.on_route_change.sub(route => {
+		this.#unsub_from_route_change = router.on_route_change(route => {
 			const is_search = route.zone === "search"
 			const not_focused = !this.#user_is_focused_on_input
 
@@ -55,7 +55,7 @@ export const SheepSearch = ({router}: Context) => (
 		const {value} = this.#input
 
 		if (value.length > 0)
-			router.go_search(value, ["alpha", "beta"])
+			router.go_search(value, router.search_tags)
 		else
 			router.go_catalog()
 	}

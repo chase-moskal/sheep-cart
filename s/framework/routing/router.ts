@@ -1,5 +1,5 @@
 
-import {Pubsub} from "../utils/pubsub.js"
+import {pub} from "../utils/pub.js"
 import {hash_to_route} from "./hashing/hash_to_route.js"
 import {route_to_hash} from "./hashing/route_to_hash.js"
 import {Route, RouterOptions, SetHash} from "./types.js"
@@ -9,7 +9,7 @@ export class Router {
 	#set_hash: SetHash
 	#route: Route = {zone: "catalog"}
 
-	on_route_change = new Pubsub<Route>()
+	on_route_change = pub<Route>()
 
 	constructor({prefix = "", set_hash}: RouterOptions) {
 		this.#prefix = prefix
@@ -27,7 +27,7 @@ export class Router {
 	apply_hash(hash: string) {
 		const route = hash_to_route(this.#prefix, hash)
 		this.#route = route
-		this.on_route_change.pub(route)
+		this.on_route_change.publish(route)
 	}
 
 	hashchange = (event: HashChangeEvent) => {
@@ -49,6 +49,20 @@ export class Router {
 
 	go_product(id: string, label: string) {
 		this.route = {zone: "product", id, label}
+	}
+
+	get search_query() {
+		const route = this.#route
+		return (route && route.zone === "search")
+			? route.query
+			: ""
+	}
+
+	get search_tags() {
+		const route = this.#route
+		return (route && route.zone === "search")
+			? route.tags
+			: []
 	}
 }
 

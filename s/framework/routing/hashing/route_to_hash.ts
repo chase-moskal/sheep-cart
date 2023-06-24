@@ -10,7 +10,11 @@ export function route_to_hash(p: string, route: Route): string {
 			return `${p}/`
 
 		case "search":
-			return `${p}/search/${e(route.query)}:${route.tags.join(",")}`
+			return `${p}/search/${e(route.query)}${
+				route.tags.length > 0
+					? `:${route.tags.join(",")}`
+					: ""
+			}`
 
 		case "collection":
 			return `${p}/collection/${e(route.id)}/${e(route.label)}`

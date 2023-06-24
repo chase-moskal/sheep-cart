@@ -6,9 +6,11 @@ export class Context {
 	cues = new CueGroup()
 
 	constructor(
-		public readonly router: Router,
-	) {}
+			public readonly router: Router,
+		) {
+		router.on_route_change(route => this.route.value = route)
+	}
 
-	count = this.cues.create(0)
+	route = this.cues.create(this.router.route)
 }
 

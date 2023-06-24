@@ -4,23 +4,25 @@ import {css} from "@chasemoskal/magical"
 export const style = css`
 
 :host {
-	display: block;
+	display: flex;
+	gap: 0.5em;
 }
 
-ul {
-	list-style: none;
+label {
 	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
-	gap: 0.5em;
-	padding: 0.5em 0;
+	align-items: center;
+	border: 1px solid;
+	border-radius: 1em;
+	padding: 0 0.3em;
 
-	li {
+	^[data-active] {
+		color: var(--active-tag-color, lime);
+	}
+
+	> span {
 		font-size: var(--small);
-		flex: 0 0 auto;
-		border: 0.1em solid;
-		border-radius: 1em;
-		padding: 0 0.3em;
+		user-select: none;
+		margin-left: 0.5em;
 	}
 }
 
