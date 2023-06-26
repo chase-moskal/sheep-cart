@@ -1,6 +1,10 @@
 
 import {Cue} from "./cue.js"
-import {debounce} from "@chasemoskal/magical"
+import {debounce, obtool} from "@chasemoskal/magical"
+
+export type ManyStates = {
+	[key: string]: any
+}
 
 export class CueGroup {
 	#cues = new Set<Cue<any>>()
@@ -9,6 +13,12 @@ export class CueGroup {
 		const cue = new Cue(s)
 		this.#cues.add(cue)
 		return cue
+	}
+
+	many<S extends {[key: string]: any}>(states: S) {
+		return (
+			obtool(states).map(state => this.create(state))
+		) as any as {[P in keyof S]: Cue<S[P]>}
 	}
 
 	track(reader: () => any, actor: () => any) {

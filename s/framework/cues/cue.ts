@@ -21,11 +21,11 @@ export class Cue<V> {
 		return () => void this.#listeners.delete(listener)
 	}
 
-	clear_all_subscriptions() {
+	clear() {
 		return this.#listeners.clear()
 	}
 
-	#invoke_listeners = debounce(0, () => {
+	publish = debounce(0, () => {
 		const value = this.#value
 		this.#lock = true
 
@@ -51,7 +51,7 @@ export class Cue<V> {
 				"you can't set a cue in a cue's subscription listener (infinite loop forbidden)"
 			)
 		this.#value = s
-		this.#wait = this.#invoke_listeners()
+		this.#wait = this.publish()
 	}
 }
 
