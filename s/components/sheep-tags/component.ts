@@ -1,14 +1,14 @@
 
 import {html} from "lit"
+import {QuickElement} from "@benev/frog"
 
 import {style} from "./style.css.js"
 import {Context} from "../context.js"
-import {QuickElement} from "../../framework/quick-element.js"
 
 export type Tag = {name: string}
 
 export const SheepTags = (context: Context) => (
-	class extends QuickElement<boolean> {
+	class extends QuickElement {
 
 	static styles = style
 
@@ -17,10 +17,6 @@ export const SheepTags = (context: Context) => (
 		{name: "bravo"},
 		{name: "charlie"},
 	]
-
-	init_state() {
-		return true
-	}
 
 	render() {
 		const route = context.route.value

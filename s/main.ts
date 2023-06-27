@@ -1,8 +1,8 @@
 
 import {registerElements} from "@chasemoskal/magical"
 
+import {Router} from "./routing/router.js"
 import {Context} from "./components/context.js"
-import {Router} from "./framework/routing/router.js"
 import {prepare_all_components} from "./components/prepare_all_components.js"
 
 const router = new Router({

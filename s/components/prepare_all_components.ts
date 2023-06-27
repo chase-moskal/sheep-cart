@@ -1,9 +1,8 @@
 
+import {pass_context_to_elements, theme_elements, update_elements_on_cue_changes} from "@benev/frog"
+
 import {Context} from "./context.js"
 import {theme as defaultTheme} from "./theme.css.js"
-import {theme_elements} from "../framework/utils/theme_elements.js"
-import {pass_context_to_elements} from "../framework/utils/pass_context_to_elements.js"
-import {update_elements_on_cue_changes} from "../framework/cues/lite/update_elements_on_cue_changes.js"
 
 import {SheepTags} from "./sheep-tags/component.js"
 import {SheepSearch} from "./sheep-search/component.js"

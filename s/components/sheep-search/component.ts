@@ -1,19 +1,17 @@
 
 import {html, svg} from "lit"
+import {QuickElement} from "@benev/frog"
 
 import {style} from "./style.css.js"
 import {Context} from "../context.js"
-import {QuickElement} from "../../framework/quick-element.js"
 import {search_icon} from "../../icons/feather/search_icon.js"
 
-export const SheepSearch = ({router}: Context) => (
-	class extends QuickElement<boolean> {
-
+export const SheepSearch = ({router}: Context) => (class extends QuickElement {
 	static styles = style
 
 	constructor() {
 		super()
-		this.updated.then(() => {
+		this.wait.then(() => {
 			if (router.route.zone === "search")
 				this.#input.value = router.route.query
 		})

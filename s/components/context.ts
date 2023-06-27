@@ -1,6 +1,6 @@
 
-import {CueGroup} from "../framework/cues/group.js"
-import {Router} from "../framework/routing/router.js"
+import {CueGroup} from "@benev/frog"
+import {Router} from "../routing/router.js"
 
 export class Context {
 	cues = new CueGroup()

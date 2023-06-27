@@ -1,5 +1,6 @@
 
-import {pub} from "../utils/pub.js"
+import {pub} from "@benev/frog"
+
 import {hash_to_route} from "./hashing/hash_to_route.js"
 import {route_to_hash} from "./hashing/route_to_hash.js"
 import {Route, RouterOptions, SetHash} from "./types.js"
