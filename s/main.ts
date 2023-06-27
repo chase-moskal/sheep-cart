@@ -3,6 +3,7 @@ import {registerElements} from "@chasemoskal/magical"
 
 import {Router} from "./routing/router.js"
 import {Context} from "./components/context.js"
+import {ShopifyAdapter, ShopifyAdapter2} from "./shopify/adapter.js"
 import {prepare_all_components} from "./components/prepare_all_components.js"
 
 const router = new Router({
@@ -12,6 +13,27 @@ const router = new Router({
 
 router.apply_hash(location.hash)
 addEventListener("hashchange", router.hashchange)
+
+{
+	const domain = "dev-bakery.myshopify.com"
+	const storefrontAccessToken = "5f636be6b04aeb2a7b96fe9306386f25"
+
+	{
+		const adapter = new ShopifyAdapter({
+			domain,
+			storefrontAccessToken,
+		})
+		console.log(await adapter.fetch_store_info())
+	}
+
+	{
+		const adapter = new ShopifyAdapter2({
+			domain,
+			storefrontAccessToken,
+		})
+		console.log(await adapter.fetch_store_info())
+	}
+}
 
 ;(window as any).router = router
 
