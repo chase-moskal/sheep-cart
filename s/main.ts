@@ -3,7 +3,7 @@ import {registerElements} from "@chasemoskal/magical"
 
 import {Router} from "./routing/router.js"
 import {Context} from "./components/context.js"
-import {ShopifyAdapter, ShopifyAdapter2} from "./shopify/adapter.js"
+import {ShopifyAdapter, ShopifyMachine} from "./shopify/adapter.js"
 import {prepare_all_components} from "./components/prepare_all_components.js"
 
 const router = new Router({
@@ -23,15 +23,15 @@ addEventListener("hashchange", router.hashchange)
 			domain,
 			storefrontAccessToken,
 		})
-		console.log(await adapter.fetch_store_info())
+		console.log("sdk", await adapter.fetch_all())
 	}
 
 	{
-		const adapter = new ShopifyAdapter2({
+		const adapter = new ShopifyMachine({
 			domain,
 			storefrontAccessToken,
 		})
-		console.log(await adapter.fetch_store_info())
+		console.log("gql", await adapter.fetch_store_info())
 	}
 }
 
