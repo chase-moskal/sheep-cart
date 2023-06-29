@@ -3,8 +3,10 @@ import {registerElements} from "@chasemoskal/magical"
 
 import {Router} from "./routing/router.js"
 import {Context} from "./components/context.js"
-import {ShopifyAdapter, ShopifyMachine} from "./shopify/adapter.js"
+import {ShopifyAdapter} from "./shopify/adapter.js"
 import {prepare_all_components} from "./components/prepare_all_components.js"
+import { ShopifyRemote } from "./shopify/shepherd/parts/shopify_remote.js"
+import { ShopifyPal } from "./shopify/shepherd/sketch.js"
 
 const router = new Router({
 	prefix: "",
@@ -27,11 +29,11 @@ addEventListener("hashchange", router.hashchange)
 	}
 
 	{
-		const adapter = new ShopifyMachine({
+		const shopify = new ShopifyPal({
 			domain,
-			storefrontAccessToken,
+			storefront_access_token: storefrontAccessToken,
 		})
-		console.log("gql", await adapter.fetch_store_info())
+		console.log("gql", await shopify.fetch_products(5))
 	}
 }
 
