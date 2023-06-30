@@ -25,7 +25,7 @@ export class ShopifyAdapter {
 
 	async fetch_all() {
 		const products = await this.#client.product.fetchAll()
-		console.log(products)
+		// console.log(products)
 		return products
 	}
 }

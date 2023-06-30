@@ -17,7 +17,7 @@ export function make_request_for_products({
 
 	return {
 		query: graphql`
-			query FetchProducts($first: Int!, $after: Int) {
+			query FetchProducts($first: Int!, $after: String) {
 				products(first: $first, after: $after) {
 					edges {
 						cursor

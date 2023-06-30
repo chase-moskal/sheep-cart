@@ -1,5 +1,7 @@
 
+import {ShepherdResponseError} from "../utils/errors.js"
 import {ShopifySettings} from "../utils/shopify_settings.js"
+import {default_api_version} from "../utils/default_api_version.js"
 
 export class ShopifyRemote {
 	#settings: ShopifySettings
@@ -13,7 +15,11 @@ export class ShopifyRemote {
 			variables?: {[key: string]: any}
 		}) {
 
-		const {domain, storefront_access_token, api_version} = this.#settings
+		const {
+			domain,
+			storefront_access_token,
+			api_version = default_api_version,
+		} = this.#settings
 
 		const url = `https://${domain}/api/${api_version}/graphql`
 		const method = "POST"
@@ -34,7 +40,13 @@ export class ShopifyRemote {
 			body: JSON.stringify(request),
 		})
 
-		return response.json()
+		const result = await response.json()
+
+		if ("errors" in result)
+			for (const error of result.errors)
+				throw new ShepherdResponseError(error)
+
+		return result.data
 	}
 }
 
