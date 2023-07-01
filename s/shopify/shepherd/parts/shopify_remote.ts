@@ -26,6 +26,8 @@ export class ShopifyRemote {
 
 		const headers = {
 			"Content-Type": "application/json",
+			"X-Sdk-Variant": "javascript",
+			"X-Sdk-Version": "2.19.0",
 			"X-Shopify-Storefront-Access-Token": storefront_access_token,
 		}
 

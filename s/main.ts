@@ -3,8 +3,9 @@ import {registerElements} from "@chasemoskal/magical"
 
 import {Router} from "./routing/router.js"
 import {Context} from "./components/context.js"
+import {ShopifyShepherd} from "./shopify/shepherd/shepherd.js"
 import {prepare_all_components} from "./components/prepare_all_components.js"
-import { ShopifyShepherd } from "./shopify/shepherd/shepherd.js"
+import {query_country_info} from "./shopify/shepherd/utils/query_country_info.js"
 
 const router = new Router({
 	prefix: "",
@@ -32,8 +33,14 @@ addEventListener("hashchange", router.hashchange)
 			storefront_access_token: storefrontAccessToken,
 		})
 
-		for await (const products of shopify.products(10))
-			console.log("gql", products)
+		const shop_info = await shopify.fetch_shop_info()
+		console.log("shop_info", shop_info)
+
+		const countries = await query_country_info(shop_info.shipsToCountries)
+		console.log("countries", countries)
+
+		const products = await shopify.fetch_all_products()
+		console.log("all_products", products)
 	}
 }
 

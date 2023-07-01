@@ -1,12 +1,12 @@
 
-import {graphql} from "../../parts/graphql.js"
+import {gql} from "../../utils/gql.js"
 
 export type ImageFormat = "JPG" | "PNG" | "WEBP"
 
 export function image(format: ImageFormat) {
 
 	function url_with_transform(x: number, y: number) {
-		return graphql`
+		return gql`
 			url(
 				transform: {
 					maxWidth: ${x}
@@ -17,7 +17,7 @@ export function image(format: ImageFormat) {
 		`
 	}
 
-	return graphql`
+	return gql`
 		id
 		altText
 		src_original: url

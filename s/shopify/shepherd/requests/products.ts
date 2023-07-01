@@ -1,5 +1,5 @@
 
-import {graphql} from "../parts/graphql.js"
+import {gql} from "../utils/gql.js"
 import {ImageFormat, image} from "./units/image.js"
 import {GraphRequest} from "../utils/graph_request.js"
 
@@ -16,7 +16,7 @@ export function make_request_for_products({
 	}): GraphRequest {
 
 	return {
-		query: graphql`
+		query: gql`
 			query FetchProducts($first: Int!, $after: String) {
 				products(first: $first, after: $after) {
 					edges {
