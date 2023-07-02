@@ -8,8 +8,13 @@ export type PageInfo = {
 	hasNextPage: boolean
 }
 
-export type Fetcher<R> = ({}: PagingDetails) => Promise<{
-	objective: R
+export type GqlEdges<N> = {
+	cursor: string
+	node: N
+}
+
+export type Fetcher<N> = ({}: PagingDetails) => Promise<{
+	edges: GqlEdges<N>[]
 	pageInfo: PageInfo
 }>
 

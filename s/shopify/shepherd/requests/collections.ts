@@ -4,7 +4,7 @@ import {ImageFormat, image} from "./units/image.js"
 import {GraphRequest} from "../utils/graph_request.js"
 import {default_page_size} from "../utils/default_page_size.js"
 
-export function make_request_for_products({
+export function make_request_for_collections({
 		after,
 		image_format = "WEBP",
 		page_size = default_page_size,
@@ -16,44 +16,26 @@ export function make_request_for_products({
 
 	return {
 		query: gql`
-			query FetchProducts($first: Int!, $after: String) {
-				products(first: $first, after: $after) {
+			query FetchCollections($first: Int!, $after: String) {
+				collections(first: $first, after: $after) {
 					edges {
-						cursor
 						node {
 
-							availableForSale
-							createdAt
 							description
 							descriptionHtml
 							handle
 							id
-							isGiftCard
-							onlineStoreUrl
-							productType
-							publishedAt
-							requiresSellingPlan
-							tags
 							title
-							totalInventory
 							updatedAt
-							vendor
+							onlineStoreUrl
 
-							collections(first: ${default_page_size}) {
-								edges {
-									node {
-										id
-									}
-								}
+							image {
+								${image(image_format)}
 							}
 
-							images(first: ${default_page_size}) {
-								edges {
-									cursor
-									node {
-										${image(image_format)}
-									}
-								}
+							seo {
+								description
+								title
 							}
 
 						}

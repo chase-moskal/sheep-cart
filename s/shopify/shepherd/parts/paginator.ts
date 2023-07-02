@@ -1,10 +1,14 @@
 
-import {Fetcher} from "./types/paginator_types.js"
+import {Fetcher, GqlEdges} from "./types/paginator_types.js"
 
 export class Paginator<R> {
 	#fetch: Fetcher<R>
 	#after: string | undefined
 	#fetch_count: number = 0
+
+	static unwrap<N = any>(resource: {edges: GqlEdges<N>[]}) {
+		return resource.edges.map(e => e.node)
+	}
 
 	constructor(fetch: Fetcher<R>) {
 		this.#fetch = fetch
@@ -16,11 +20,10 @@ export class Paginator<R> {
 
 	async next_page() {
 		this.#fetch_count += 1
-		const {objective, pageInfo: {hasNextPage, endCursor}} = (
-			await this.#fetch({after: this.#after})
-		)
+		const result = await this.#fetch({after: this.#after})
+		const {pageInfo: {hasNextPage, endCursor}} = result
 		this.#after = hasNextPage ?endCursor :undefined
-		return objective
+		return result
 	}
 }
 

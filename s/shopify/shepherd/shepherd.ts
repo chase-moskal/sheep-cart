@@ -1,13 +1,14 @@
 
 import {Paginator} from "./parts/paginator.js"
 import {ImageFormat} from "./requests/units/image.js"
-import {Product} from "./parts/types/shepherd_types.js"
 import {ShopifyRemote} from "./parts/shopify_remote.js"
 import {make_request_for_shop} from "./requests/shop.js"
 import {ShopifySettings} from "./utils/shopify_settings.js"
-import {unwrap_gql_edges} from "./utils/unwrap_gql_edges.js"
 import {default_page_size} from "./utils/default_page_size.js"
 import {make_request_for_products} from "./requests/products.js"
+import {Collection, Product} from "./parts/types/shepherd_types.js"
+import {CountryLibrary} from "./parts/countries/country_library.js"
+import {make_request_for_collections} from "./requests/collections.js"
 
 export class ShopifyShepherd {
 	#remote: ShopifyRemote
@@ -16,13 +17,19 @@ export class ShopifyShepherd {
 		return new this(new ShopifyRemote(settings))
 	}
 
+	static async all<T>(generator: AsyncGenerator<T[]>) {
+		const all: T[][] = []
+		for await (const items of generator)
+			all.push(items)
+		return all.flat()
+	}
+
 	constructor(remote: ShopifyRemote) {
 		this.#remote = remote
 	}
 
-	async fetch_shop_info() {
+	async info() {
 		const result = await this.#remote.request(make_request_for_shop())
-
 		return result.shop as {
 			name: string
 			description?: string
@@ -34,49 +41,76 @@ export class ShopifyShepherd {
 		}
 	}
 
-	async *fetch_products({
+	async *products({
 			page_size = default_page_size,
 			image_format = "WEBP",
 		}: {
-			page_size?: number,
-			image_format?: ImageFormat,
+			page_size?: number
+			image_format?: ImageFormat
 		} = {}): AsyncGenerator<Product[]> {
 
 		const paginator = new Paginator<any>(
-			async({after}) => {
-				const data = await this.#remote.request(make_request_for_products({
+			async({after}) => (await this.#remote.request(
+				make_request_for_products({
 					after,
 					page_size,
 					image_format,
-				}))
-				return {
-					objective: data.products,
-					pageInfo: data.products.pageInfo,
-				}
-			}
+				})
+			)).products
 		)
 
 		while (paginator.there_are_more_pages) {
 			const page = await paginator.next_page()
-			const products = unwrap_gql_edges(page)
+			const products = Paginator.unwrap(page)
 			yield products.map((p: any) => ({
 				...p,
-				collections: unwrap_gql_edges(p.collections),
-				images: unwrap_gql_edges(p.images),
+				images: Paginator.unwrap(p.images),
+				collections: Paginator.unwrap(p.collections),
 			}))
 		}
 	}
 
-	async fetch_all_products({image_format = "WEBP"}: {
-			image_format?: ImageFormat,
-		} = {}) {
+	async *collections({
+			page_size = default_page_size,
+			image_format = "WEBP",
+		}: {
+			page_size?: number
+			image_format?: ImageFormat
+		} = {}): AsyncGenerator<Collection[]> {
 
-		const everything: Product[][] = []
+		const paginator = new Paginator<any>(
+			async({after}) => (await this.#remote.request(
+				make_request_for_collections({
+					after,
+					page_size,
+					image_format,
+				})
+			)).collections
+		)
 
-		for await (const products of this.fetch_products({image_format}))
-			everything.push(products)
+		while (paginator.there_are_more_pages) {
+			const page = await paginator.next_page()
+			const collections = Paginator.unwrap(page)
+			yield collections
+		}
+	}
 
-		return everything.flat()
+	async fetch_everything_cool() {
+		const [info, products, collections] = await Promise.all([
+			this.info(),
+			ShopifyShepherd.all(this.products()),
+			ShopifyShepherd.all(this.collections()),
+		])
+
+		const country_library = new CountryLibrary()
+		const countries_with_available_shipping = country_library.query(info.shipsToCountries)
+
+		return {
+			info,
+			products,
+			collections,
+			countries_with_available_shipping,
+		}
 	}
 }
 
