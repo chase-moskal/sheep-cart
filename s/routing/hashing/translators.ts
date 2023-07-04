@@ -11,9 +11,10 @@ export const translators = {
 
 	search: translator<Routes["search"]>({
 		hashify: ({terms, tags}) => {
+			const e = (t: string[]) => t.map(encodeURIComponent).join(":")
 			const query = tags.length > 0
-				? terms.join(":") + "::" + tags.join(":")
-				: terms.join(":")
+				? e(terms) + "::" + e(tags)
+				: e(terms)
 			return `/search/${query}`
 		},
 		routify: hashparts => {

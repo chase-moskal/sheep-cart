@@ -1,6 +1,7 @@
 
 import {html, svg} from "lit"
 import {QuickElement} from "@benev/frog"
+import {debounce} from "@chasemoskal/magical"
 
 import {style} from "./style.css.js"
 import {Context} from "../context.js"
@@ -15,10 +16,6 @@ export const SheepSearch = ({router}: Context) => (class extends QuickElement {
 			if (router.route.zone === "search")
 				this.#input.value = router.route.terms.join(" ")
 		})
-	}
-
-	init_state() {
-		return true
 	}
 
 	get #input() {
@@ -38,8 +35,12 @@ export const SheepSearch = ({router}: Context) => (class extends QuickElement {
 			const is_search = route.zone === "search"
 			const not_focused = !this.#user_is_focused_on_input
 
-			if (is_search && not_focused)
-				this.#input.value = route.terms.join(" ")
+			if (not_focused) {
+				if (is_search)
+					this.#input.value = route.terms.join(" ")
+				else
+					this.#input.value = ""
+			}
 		})
 	}
 
@@ -49,16 +50,17 @@ export const SheepSearch = ({router}: Context) => (class extends QuickElement {
 			this.#unsub_from_route_change()
 	}
 
-	#search = () => {
+	#search = debounce(250, () => {
 		const {value} = this.#input
 		const terms = value.split(/\s+/).filter(t => t.length)
 		const tags = router.search_tags
 		const nada = terms.length === 0 && tags.length === 0
+
 		if (nada)
 			router.go_catalog()
 		else
 			router.go_search(terms, router.search_tags)
-	}
+	})
 
 	render() {
 		return html`
