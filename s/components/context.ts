@@ -1,5 +1,7 @@
 
 import {CueGroup} from "@benev/frog"
+import {GqlCollection} from "shopify-shepherd"
+
 import {Router} from "../routing/router.js"
 
 export class Context {
@@ -12,5 +14,6 @@ export class Context {
 	}
 
 	route = this.cues.create(this.router.route)
+	collections = this.cues.create<GqlCollection[]>([])
 }
 

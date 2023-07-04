@@ -97,6 +97,7 @@ a:active { text-decoration: double underline; }
 .catalog {
 	background: #482234;
 	border-radius: 0 0 0.5em 0.5em;
+	padding: 2em;
 }
 
 .catalog ol {

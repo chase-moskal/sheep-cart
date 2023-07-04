@@ -17,10 +17,10 @@ export function route_to_hash(p: string, route: Route): string {
 			}`
 
 		case "collection":
-			return `${p}/collection/${e(route.id)}/${e(route.label)}`
+			return `${p}/collection/${e(route.label)}/${e(route.id)}`
 
 		case "product":
-			return `${p}/product/${e(route.id)}/${e(route.label)}`
+			return `${p}/product/${e(route.label)}/${e(route.id)}`
 
 		default:
 			return `${p}/`

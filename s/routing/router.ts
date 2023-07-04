@@ -17,6 +17,16 @@ export class Router {
 		this.#set_hash = set_hash
 	}
 
+	static setup(prefix: string = "") {
+		const router = new Router({
+			prefix,
+			set_hash: hash => location.hash = hash,
+		})
+		router.apply_hash(location.hash)
+		addEventListener("hashchange", router.hashchange)
+		return router
+	}
+
 	get route() {
 		return this.#route
 	}

@@ -21,10 +21,10 @@ export function hash_to_route(prefix: string, hash: string): Route {
 		}
 
 		case "collection":
-			return {zone: "collection", id: rest[0], label: rest[1]}
+			return {zone: "collection", label: rest[0], id: rest[1]}
 
 		case "product":
-			return {zone: "product", id: rest[0], label: rest[1]}
+			return {zone: "product", label: rest[0], id: rest[1]}
 
 		default:
 			return {zone: "not-found"}
