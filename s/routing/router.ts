@@ -1,20 +1,29 @@
 
 import {pub} from "@benev/frog"
 
-import {hash_to_route} from "./hashing/hash_to_route.js"
-import {route_to_hash} from "./hashing/route_to_hash.js"
+import {Translation} from "./hashing/translation.js"
 import {Route, RouterOptions, SetHash} from "./types.js"
 
 export class Router {
-	#prefix: string
 	#set_hash: SetHash
+	#translation: Translation
 	#route: Route = {zone: "catalog"}
 
 	on_route_change = pub<Route>()
 
 	constructor({prefix = "", set_hash}: RouterOptions) {
-		this.#prefix = prefix
 		this.#set_hash = set_hash
+		this.#translation = new Translation(prefix)
+	}
+
+	static setup(prefix: string = "") {
+		const router = new Router({
+			prefix,
+			set_hash: hash => location.hash = hash,
+		})
+		router.apply_hash(location.hash)
+		addEventListener("hashchange", router.hashchange)
+		return router
 	}
 
 	get route() {
@@ -22,11 +31,12 @@ export class Router {
 	}
 
 	set route(r: Route) {
-		this.#set_hash(route_to_hash(this.#prefix, r))
+		const hash = this.#translation.hashify(r)
+		this.#set_hash(hash)
 	}
 
 	apply_hash(hash: string) {
-		const route = hash_to_route(this.#prefix, hash)
+		const route = this.#translation.routify(hash)
 		this.#route = route
 		this.on_route_change.publish(route)
 	}
@@ -40,8 +50,8 @@ export class Router {
 		this.route = {zone: "catalog"}
 	}
 
-	go_search(query: string, tags: string[]) {
-		this.route = {zone: "search", query, tags}
+	go_search(terms: string[], tags: string[]) {
+		this.route = {zone: "search", terms, tags}
 	}
 
 	go_collection(id: string, label: string) {
@@ -52,11 +62,11 @@ export class Router {
 		this.route = {zone: "product", id, label}
 	}
 
-	get search_query() {
+	get search_terms() {
 		const route = this.#route
 		return (route && route.zone === "search")
-			? route.query
-			: ""
+			? route.terms
+			: []
 	}
 
 	get search_tags() {

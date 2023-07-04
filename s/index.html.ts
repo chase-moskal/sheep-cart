@@ -47,6 +47,7 @@ export default template(async basics => {
 			</header>
 
 			<section class="catalog slice">
+				<sheep-collections></sheep-collections>
 				<ol>
 					<li>hello</li>
 					<li>world</li>

@@ -6,6 +6,7 @@ import {theme as defaultTheme} from "./theme.css.js"
 
 import {SheepTags} from "./sheep-tags/component.js"
 import {SheepSearch} from "./sheep-search/component.js"
+import {SheepCollections} from "./sheep-collections/component.js"
 
 export const prepare_all_components = (context: Context, theme = defaultTheme) => (
 	theme_elements(theme,
@@ -13,6 +14,7 @@ export const prepare_all_components = (context: Context, theme = defaultTheme) =
 			pass_context_to_elements(context, {
 				SheepTags,
 				SheepSearch,
+				SheepCollections,
 			})
 		)
 	)

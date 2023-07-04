@@ -1,5 +1,5 @@
 
-import {decode_from_hash} from "./decode_from_hash.js"
+// import {decode_from_hash} from "./decode_from_hash.js"
 
 export function parse_hash_parts(prefix: string, hash: string) {
 	if (hash && hash[0] === "#")
@@ -8,10 +8,10 @@ export function parse_hash_parts(prefix: string, hash: string) {
 	if (prefix && hash && hash.startsWith(prefix))
 		hash = hash.slice(prefix.length)
 
-	const parts = hash.includes("/")
+	return hash.includes("/")
 		? hash.split("/").slice(1)
 		: [hash]
 
-	return parts.map(part => decode_from_hash(part))
+	// return parts.map(part => decode_from_hash(part))
 }
 
