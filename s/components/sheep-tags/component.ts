@@ -5,18 +5,9 @@ import {QuickElement} from "@benev/frog"
 import {style} from "./style.css.js"
 import {Context} from "../context.js"
 
-export type Tag = {name: string}
-
-export const SheepTags = (context: Context) => (
-	class extends QuickElement {
+export const SheepTags = (context: Context) => class extends QuickElement {
 
 	static styles = style
-
-	all_tags: Tag[] = [
-		{name: "alpha"},
-		{name: "bravo"},
-		{name: "charlie"},
-	]
 
 	render() {
 		const route = context.route.value
@@ -26,20 +17,20 @@ export const SheepTags = (context: Context) => (
 			? route.tags
 			: []
 
-		function is_tag_active(tag: Tag) {
-			return active_tag_names.includes(tag.name)
+		function is_tag_active(tag: string) {
+			return active_tag_names.includes(tag)
 		}
 
-		function update_tag(tag: Tag) {
+		function update_tag(tag: string) {
 			return (event: InputEvent) => {
 				const target = event.target as HTMLInputElement
 				const terms = router.search_terms
 				const tag_set = new Set<string>(router.search_tags)
 
 				if (target.checked)
-					tag_set.add(tag.name)
+					tag_set.add(tag)
 				else
-					tag_set.delete(tag.name)
+					tag_set.delete(tag)
 
 				const nada = tag_set.size === 0 && terms.length === 0
 
@@ -50,7 +41,7 @@ export const SheepTags = (context: Context) => (
 			}
 		}
 
-		const tag_data = this.all_tags.map(tag => ({
+		const tag_data = context.tags.value.map(tag => ({
 			tag,
 			active: is_tag_active(tag),
 		}))
@@ -63,10 +54,10 @@ export const SheepTags = (context: Context) => (
 						.checked="${active}"
 						@input="${update_tag(tag)}"
 						/>
-					<span>${tag.name}</span>
+					<span>${tag}</span>
 				</label>
 			`)}
 		`
 	}
-})
+}
 
