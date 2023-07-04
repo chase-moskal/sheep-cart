@@ -11,7 +11,7 @@ export type Routes = {
 
 	search: {
 		zone: "search"
-		query: string
+		terms: string[]
 		tags: string[]
 	}
 
@@ -28,7 +28,7 @@ export type Routes = {
 	}
 
 	not_found: {
-		zone: "not-found"
+		zone: "not_found"
 	}
 }
 

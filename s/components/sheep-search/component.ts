@@ -13,7 +13,7 @@ export const SheepSearch = ({router}: Context) => (class extends QuickElement {
 		super()
 		this.wait.then(() => {
 			if (router.route.zone === "search")
-				this.#input.value = router.route.query
+				this.#input.value = router.route.terms.join(" ")
 		})
 	}
 
@@ -26,7 +26,7 @@ export const SheepSearch = ({router}: Context) => (class extends QuickElement {
 	}
 
 	get #user_is_focused_on_input() {
-		return document.activeElement === this.#input
+		return document.activeElement === this || this.contains(document.activeElement)
 	}
 
 	#unsub_from_route_change: (() => void) | undefined
@@ -39,7 +39,7 @@ export const SheepSearch = ({router}: Context) => (class extends QuickElement {
 			const not_focused = !this.#user_is_focused_on_input
 
 			if (is_search && not_focused)
-				this.#input.value = route.query
+				this.#input.value = route.terms.join(" ")
 		})
 	}
 
@@ -51,11 +51,13 @@ export const SheepSearch = ({router}: Context) => (class extends QuickElement {
 
 	#search = () => {
 		const {value} = this.#input
-
-		if (value.length > 0)
-			router.go_search(value, router.search_tags)
-		else
+		const terms = value.split(/\s+/).filter(t => t.length)
+		const tags = router.search_tags
+		const nada = terms.length === 0 && tags.length === 0
+		if (nada)
 			router.go_catalog()
+		else
+			router.go_search(terms, router.search_tags)
 	}
 
 	render() {

@@ -33,7 +33,7 @@ export const SheepTags = (context: Context) => (
 		function update_tag(tag: Tag) {
 			return (event: InputEvent) => {
 				const target = event.target as HTMLInputElement
-				const query = router.search_query
+				const terms = router.search_terms
 				const tag_set = new Set<string>(router.search_tags)
 
 				if (target.checked)
@@ -41,7 +41,12 @@ export const SheepTags = (context: Context) => (
 				else
 					tag_set.delete(tag.name)
 
-				router.go_search(query, [...tag_set])
+				const nada = tag_set.size === 0 && terms.length === 0
+
+				if (nada)
+					router.go_catalog()
+				else
+					router.go_search(terms, [...tag_set])
 			}
 		}
 
