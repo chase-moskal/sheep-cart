@@ -6,18 +6,75 @@ import {Router} from "./routing/router.js"
 import {Context} from "./components/context.js"
 import {prepare_all_components} from "./components/prepare_all_components.js"
 
-const router = Router.setup()
-const context = new Context(router)
-registerElements(prepare_all_components(context))
-
 const domain = "dev-bakery.myshopify.com"
 const storefront_access_token = "5f636be6b04aeb2a7b96fe9306386f25"
+
 const shopify = Shopify.setup({
 	domain,
 	storefront_access_token,
 })
 
+const router = Router.setup()
+const context = new Context(router)
+
+registerElements(prepare_all_components(context))
+
+///////
+///////
+
+async function load_products() {
+	const route = context.route.value
+	const page_size = 10
+
+	context.situation.value = undefined
+
+	switch (route.zone) {
+		case "catalog": {
+			const generator = shopify.products({page_size})
+			async function load_more() {
+				const page = await generator.next()
+				console.log(page)
+				context.situation.value = {
+					type: "ProductListing",
+					products: [
+						...(context.situation.value?.type === "ProductListing"
+							? context.situation.value.products
+							: []),
+						...(page.value ?? [])
+					],
+					load_more: page.done
+						? undefined
+						: load_more,
+				}
+			}
+			context.situation.value = {
+				type: "ProductListing",
+				products: [],
+				load_more,
+			}
+			await load_more()
+			break
+		}
+		case "search": {
+			break
+		}
+		case "collection": {
+			break
+		}
+		case "product": {
+			break
+		}
+		case "not_found": {
+			break
+		}
+	}
+}
+
+router.on_route_change(route => context.route.value = route)
+router.on_route_change(() => load_products())
+
 const {collections, tags} = await concurrent({
+	products: load_products(),
 	tags: Shopify.all(shopify.tags()),
 	collections: Shopify.all(shopify.collections()),
 })

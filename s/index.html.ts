@@ -48,10 +48,7 @@ export default template(async basics => {
 
 			<section class="catalog slice">
 				<sheep-collections></sheep-collections>
-				<ol>
-					<li>hello</li>
-					<li>world</li>
-				</ol>
+				<sheep-catalog></sheep-catalog>
 			</section>
 		`,
 	})

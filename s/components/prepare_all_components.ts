@@ -6,6 +6,7 @@ import {theme as defaultTheme} from "./theme.css.js"
 
 import {SheepTags} from "./sheep-tags/component.js"
 import {SheepSearch} from "./sheep-search/component.js"
+import {SheepCatalog} from "./sheep-catalog/component.js"
 import {SheepCollections} from "./sheep-collections/component.js"
 
 export const prepare_all_components = (context: Context, theme = defaultTheme) => (
@@ -15,6 +16,7 @@ export const prepare_all_components = (context: Context, theme = defaultTheme) =
 				SheepTags,
 				SheepSearch,
 				SheepCollections,
+				SheepCatalog,
 			})
 		)
 	)
