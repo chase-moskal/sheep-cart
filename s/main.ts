@@ -2,6 +2,7 @@
 import {Shopify, concurrent} from "shopify-shepherd"
 import {registerElements} from "@chasemoskal/magical"
 
+import {Pipe} from "./tools/pipe.js"
 import {Router} from "./routing/router.js"
 import {Context} from "./components/context.js"
 import {prepare_all_components} from "./components/prepare_all_components.js"
@@ -17,7 +18,9 @@ const shopify = Shopify.setup({
 const router = Router.setup()
 const context = new Context(router)
 
-registerElements(prepare_all_components(context))
+new Pipe(context)
+	.pipe(prepare_all_components)
+	.pipe(registerElements)
 
 ///////
 ///////
