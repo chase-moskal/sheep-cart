@@ -25,15 +25,19 @@ registerElements(prepare_all_components(context))
 async function load_products() {
 	const route = context.route.value
 	const page_size = 10
-
 	context.situation.value = undefined
 
 	switch (route.zone) {
+
 		case "catalog": {
 			const generator = shopify.products({page_size})
+			context.situation.value = {
+				type: "ProductListing",
+				products: [],
+				load_more,
+			}
 			async function load_more() {
 				const page = await generator.next()
-				console.log(page)
 				context.situation.value = {
 					type: "ProductListing",
 					products: [
@@ -47,26 +51,20 @@ async function load_products() {
 						: load_more,
 				}
 			}
-			context.situation.value = {
-				type: "ProductListing",
-				products: [],
-				load_more,
-			}
 			await load_more()
-			break
-		}
+		} break
+
 		case "search": {
-			break
-		}
+		} break
+
 		case "collection": {
-			break
-		}
+		} break
+
 		case "product": {
-			break
-		}
+		} break
+
 		case "not_found": {
-			break
-		}
+		} break
 	}
 }
 
