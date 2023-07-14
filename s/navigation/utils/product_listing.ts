@@ -1,6 +1,6 @@
 
 import {GqlProduct} from "shopify-shepherd"
-import {Context} from "../../components/context.js"
+import {Context} from "../../context/context.js"
 
 export async function product_listing(
 		context: Context,

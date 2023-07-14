@@ -1,8 +1,7 @@
 
 import {Shopify} from "shopify-shepherd"
-
 import {Route} from "../routing/types.js"
-import {Context} from "../components/context.js"
+import {Context} from "../context/context.js"
 
 export type LoaderParams = {
 	shopify: Shopify

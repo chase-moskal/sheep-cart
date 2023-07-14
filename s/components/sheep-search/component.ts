@@ -4,7 +4,7 @@ import {QuickElement} from "@benev/frog"
 import {debounce} from "@chasemoskal/magical"
 
 import {style} from "./style.css.js"
-import {Context} from "../context.js"
+import {Context} from "../../context/context.js"
 import {search_icon} from "../../icons/feather/search_icon.js"
 
 export const SheepSearch = ({router}: Context) => (class extends QuickElement {

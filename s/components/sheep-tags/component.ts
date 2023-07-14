@@ -3,7 +3,7 @@ import {html} from "lit"
 import {QuickElement} from "@benev/frog"
 
 import {style} from "./style.css.js"
-import {Context} from "../context.js"
+import {Context} from "../../context/context.js"
 
 export const SheepTags = (context: Context) => class extends QuickElement {
 

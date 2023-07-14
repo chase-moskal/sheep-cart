@@ -2,9 +2,9 @@
 import {Shopify} from "shopify-shepherd"
 
 import {LoaderParams} from "./types.js"
-import {Context} from "../components/context.js"
+import {Context} from "../context/context.js"
+import {load_product} from "./load/product.js"
 import {product_listing} from "./utils/product_listing.js"
-import { load_product } from "./load/product.js"
 
 export class Pilot {
 	constructor(
@@ -17,7 +17,7 @@ export class Pilot {
 		const route = context.route.value
 		context.situation.value = undefined
 		const page_size = 10
-		const params: LoaderParams = {shopify, context, page_size: 10}
+		const params: LoaderParams = {shopify, context, page_size}
 
 		switch (route.zone) {
 

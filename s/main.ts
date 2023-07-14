@@ -4,7 +4,7 @@ import {Shopify, concurrent} from "shopify-shepherd"
 
 import {Pipe} from "./tools/pipe.js"
 import {Router} from "./routing/router.js"
-import {Context} from "./components/context.js"
+import {Context} from "./context/context.js"
 import {prepare_all_components} from "./components/prepare_all_components.js"
 
 const domain = "dev-bakery.myshopify.com"

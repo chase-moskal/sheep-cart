@@ -1,22 +1,10 @@
 
 import {Cue, CueGroup} from "@benev/frog"
-import {GqlCollection, GqlProduct, GqlTag} from "shopify-shepherd"
+import {GqlCollection, GqlTag} from "shopify-shepherd"
 
 import {Route} from "../routing/types.js"
 import {Router} from "../routing/router.js"
-
-export type ProductListingSituation = {
-	type: "ProductListing"
-	products: GqlProduct[]
-	load_more: undefined | (() => void)
-}
-
-export type ProductFocusSituation = {
-	type: "ProductFocus"
-	product: GqlProduct
-}
-
-export type Situation = undefined | ProductListingSituation | ProductFocusSituation
+import {Situation} from "./types/situation.js"
 
 export class Context {
 	cues = new CueGroup()

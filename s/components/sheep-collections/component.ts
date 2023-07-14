@@ -3,7 +3,7 @@ import {html} from "lit"
 import {QuickElement} from "@benev/frog"
 
 import {style} from "./style.css.js"
-import {Context} from "../context.js"
+import {Context} from "../../context/context.js"
 import {utransform} from "../../tools/utransform.js"
 
 export const SheepCollections = ({router, collections}: Context) => (class extends QuickElement {
