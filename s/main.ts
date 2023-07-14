@@ -1,6 +1,6 @@
 
+import {register_elements} from "@benev/frog"
 import {Shopify, concurrent} from "shopify-shepherd"
-import {registerElements} from "@chasemoskal/magical"
 
 import {Pipe} from "./tools/pipe.js"
 import {Router} from "./routing/router.js"
@@ -20,7 +20,7 @@ const context = new Context(router)
 
 new Pipe(context)
 	.pipe(prepare_all_components)
-	.pipe(registerElements)
+	.pipe(register_elements)
 
 ///////
 ///////
