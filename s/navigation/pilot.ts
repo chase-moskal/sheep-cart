@@ -1,31 +1,34 @@
 
 import {Shopify} from "shopify-shepherd"
 
-import {LoaderParams} from "./types.js"
-import {Context} from "../context/context.js"
-import {load_product} from "./load/product.js"
-import {product_listing} from "./utils/product_listing.js"
+import {Op} from "../context/utils/op.js"
+import {Route} from "../routing/types.js"
+import {load_single_product} from "./load/product.js"
+import {Situation} from "../context/types/situation.js"
+import {load_product_listing} from "./load/product_listing.js"
+
+type PilotParams = {
+	shopify: Shopify
+	set_situation_op: Op.Setter<Situation>
+}
 
 export class Pilot {
-	constructor(
-		public readonly shopify: Shopify,
-		public readonly context: Context,
-	) {}
+	#params: PilotParams
 
-	async load() {
-		const {shopify, context} = this
-		const route = context.route.value
-		context.situation.value = undefined
+	constructor(params: PilotParams) {
+		this.#params = params
+	}
+
+	async load(route: Route) {
+		const {shopify, set_situation_op} = this.#params
 		const page_size = 10
-		const params: LoaderParams = {shopify, context, page_size}
-
 		switch (route.zone) {
 
 			case "catalog":
-				return product_listing(context, shopify.products({page_size}))
+				return load_product_listing(set_situation_op, shopify.products({page_size}))
 
 			case "search":
-				return product_listing(context, shopify.products({
+				return load_product_listing(set_situation_op, shopify.products({
 					page_size,
 					query: {
 						tags: route.tags,
@@ -34,16 +37,18 @@ export class Pilot {
 				}))
 
 			case "collection":
-				return product_listing(context, shopify.products_in_collection({
+				return load_product_listing(set_situation_op, shopify.products_in_collection({
 					page_size,
 					collection_id: route.id,
 				}))
 
 			case "product":
-				return load_product(route, params)
+				return load_single_product(route, shopify, set_situation_op)
 
-			case "not_found": {
-			} break
+			case "not_found":
+				return set_situation_op(new Op.Ready({
+					type: "NotFound"
+				}))
 		}
 	}
 }

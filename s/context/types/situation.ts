@@ -12,9 +12,14 @@ export type ProductFocusSituation = {
 	product: GqlProduct
 }
 
+export type NotFoundSituation = {
+	type: "NotFound"
+}
+
 export type Situation = (
 	| undefined
 	| ProductListingSituation
 	| ProductFocusSituation
+	| NotFoundSituation
 )
 
