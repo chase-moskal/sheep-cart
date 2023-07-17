@@ -20,8 +20,8 @@ const router = Router.setup()
 const context = new Context(router)
 
 new Pipe(context)
-	.pipe(prepare_all_components)
-	.pipe(register_elements)
+	.to(prepare_all_components)
+	.to(register_elements)
 
 const pilot = new Pilot({
 	shopify,

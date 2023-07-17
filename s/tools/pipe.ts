@@ -13,7 +13,7 @@ export class Pipe<I> {
 		this.#input = input
 	}
 
-	pipe<O>(fun: PipeFun<I, O>) {
+	to<O>(fun: PipeFun<I, O>) {
 		return new Pipe(fun(this.#input))
 	}
 
