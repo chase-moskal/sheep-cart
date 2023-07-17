@@ -60,9 +60,7 @@ export class Pilot {
 
 			case "not_found":
 				return set_situation_op(
-					new Op.Ready({
-						type: "NotFound"
-					})
+					Op.make.ready({type: "NotFound"})
 				)
 		}
 	}

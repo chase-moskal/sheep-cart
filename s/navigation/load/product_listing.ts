@@ -5,7 +5,7 @@ import {Op} from "../../context/utils/op.js"
 import {Situation} from "../../context/types/situation.js"
 
 export async function load_product_listing(
-		set_situation_op: (op: Op.Operation<Situation>) => void,
+		set_situation_op: Op.Setter<Situation>,
 		generator: AsyncGenerator<GqlProduct[]>,
 		previous_products: GqlProduct[] = [],
 	) {
@@ -24,7 +24,7 @@ export async function load_product_listing(
 			type: "ProductListing",
 			products,
 			load_more,
-			load_more_op: new Op.Ready(undefined),
+			load_more_op: Op.make.ready(undefined),
 		}
 	}
 
@@ -35,13 +35,13 @@ export async function load_product_listing(
 		)
 	}
 	else {
-		set_situation_op(new Op.Ready({
+		set_situation_op(Op.make.ready({
 			type: "ProductListing",
 			products: previous_products,
 			load_more: undefined,
-			load_more_op: new Op.Loading(),
+			load_more_op: Op.make.loading(),
 		}))
-		set_situation_op(new Op.Ready(
+		set_situation_op(Op.make.ready(
 			await load_next_page_of_products()
 		))
 	}

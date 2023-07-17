@@ -1,63 +1,69 @@
 
 export namespace Op {
 	export type Mode = "loading" | "err" | "ready"
+	export type Loading = {mode: "loading"}
+	export type Err = {mode: "err", reason: string}
+	export type Ready<X> = {mode: "ready", payload: X}
 
-	export abstract class Base {
-		abstract readonly mode: Mode
+	export type Any<X> = Loading | Err | Ready<X>
+	export type Setter<X> = (op: Any<X>) => void
+
+	export const make = Object.freeze({
+		loading: (): Loading => ({mode: "loading"}),
+		err: (reason: string): Err => ({mode: "err", reason}),
+		ready: <X>(payload: X): Ready<X> => ({mode: "ready", payload}),
+	})
+
+	export const is = Object.freeze({
+		loading: (op: Any<any>) => op.mode === "loading",
+		err: (op: Any<any>) => op.mode === "err",
+		ready: (op: Any<any>) => op.mode === "ready",
+	})
+
+	export function get<X>(op: Any<X>) {
+		return (op.mode === "ready")
+			? op.payload
+			: undefined
 	}
 
-	export class Loading extends Base {
-		readonly mode = "loading"
+	type Choices<X, R> = {
+		loading: () => R
+		err: (reason: string) => R
+		ready: (payload: X) => R
 	}
 
-	export class Err extends Base {
-		readonly mode = "err"
-		constructor(public readonly reason: string) { super() }
-	}
+	export function select<X, R>(op: Any<X>, choices: Choices<X, R>) {
+		switch (op.mode) {
 
-	export class Ready<X> extends Base {
-		readonly mode = "ready"
-		constructor(public readonly value: X) { super() }
-	}
+			case "loading":
+				return choices.loading()
 
-	export type Operation<X> = Loading | Err | Ready<X>
+			case "err":
+				return choices.err(op.reason)
 
-	export type Setter<X> = (op: Op.Operation<X>) => void
+			case "ready":
+				return choices.ready(op.payload)
 
-	export function select<X, A, B, C>(op: Operation<X>, choices: {
-			loading: () => A
-			error: (reason: string) => B
-			ready: (value: X) => C
-		}): A | B | C {
-
-		if (op instanceof Loading)
-			return choices.loading()
-
-		else if (op instanceof Err)
-			return choices.error(op.reason)
-
-		else if (op instanceof Ready)
-			return choices.ready(op.value)
-
-		else {
-			console.error("op", op)
-			throw new Error("unknown op type")
+			default:
+				console.error("op", op)
+				throw new Error("invalid op mode")
 		}
 	}
 
-	export async function run<X>(
-			set_op: Setter<X>,
-			fun: () => Promise<X>,
-		) {
-
-		set_op(new Loading())
+	export async function run<X>(set_op: Setter<X>, fun: () => Promise<X>) {
+		set_op(make.loading())
 
 		try {
-			set_op(new Ready(await fun()))
+			const payload = await fun()
+			set_op(make.ready(payload))
 		}
-		catch (err) {
-			const reason = (err instanceof Error) ?err.message :"error"
-			set_op(new Err(reason))
+		catch (error) {
+			const reason = (error instanceof Error)
+				? error.message
+				: (typeof error === "string")
+					? error
+					: "error"
+			set_op(make.err(reason))
 		}
 	}
 }

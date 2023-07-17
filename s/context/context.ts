@@ -1,6 +1,6 @@
 
 import {Cue, CueGroup} from "@benev/frog"
-import {GqlCollection, GqlProduct, GqlTag} from "shopify-shepherd"
+import {GqlCollection, GqlTag} from "shopify-shepherd"
 
 import {Op} from "./utils/op.js"
 import {Route} from "../routing/types.js"
@@ -16,7 +16,7 @@ export class Context {
 
 	collections = this.cues.create<GqlCollection[]>([])
 
-	situation = this.cues.create<Op.Operation<Situation>>(new Op.Loading())
+	situation = this.cues.create<Op.Any<Situation>>(Op.make.loading())
 
 	constructor(public router: Router) {
 		this.route = this.cues.create(router.route)

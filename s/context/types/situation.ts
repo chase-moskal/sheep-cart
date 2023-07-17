@@ -6,7 +6,7 @@ export type ProductListingSituation = {
 	type: "ProductListing"
 	products: GqlProduct[]
 	load_more: undefined | (() => void)
-	load_more_op: Op.Operation<void>
+	load_more_op: Op.Any<void>
 }
 
 export type ProductFocusSituation = {
