@@ -1,14 +1,22 @@
 
 export namespace Op {
-	export class Base {}
+	export type Mode = "loading" | "err" | "ready"
 
-	export class Loading extends Base {}
+	export abstract class Base {
+		abstract readonly mode: Mode
+	}
+
+	export class Loading extends Base {
+		readonly mode = "loading"
+	}
 
 	export class Err extends Base {
+		readonly mode = "err"
 		constructor(public readonly reason: string) { super() }
 	}
 
 	export class Ready<X> extends Base {
+		readonly mode = "ready"
 		constructor(public readonly value: X) { super() }
 	}
 
@@ -31,8 +39,10 @@ export namespace Op {
 		else if (op instanceof Ready)
 			return choices.ready(op.value)
 
-		else
+		else {
+			console.error("op", op)
 			throw new Error("unknown op type")
+		}
 	}
 
 	export async function run<X>(

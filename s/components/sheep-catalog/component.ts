@@ -22,9 +22,9 @@ export const SheepCatalog = (context: Context) => class extends QuickElement {
 							<li>${product.title}</li>
 						`)}
 					</ol>
-					${situation.load_more
+					${render_op(situation.load_more_op, () => situation.load_more
 						? html`<button @click=${situation.load_more}>load more</button>`
-						: undefined}
+						: undefined)}
 				`
 				: undefined
 			)}

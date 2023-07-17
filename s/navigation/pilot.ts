@@ -25,30 +25,45 @@ export class Pilot {
 		switch (route.zone) {
 
 			case "catalog":
-				return load_product_listing(set_situation_op, shopify.products({page_size}))
+				return load_product_listing(
+					set_situation_op,
+					shopify.products({page_size}),
+				)
 
 			case "search":
-				return load_product_listing(set_situation_op, shopify.products({
-					page_size,
-					query: {
-						tags: route.tags,
-						terms: route.terms,
-					},
-				}))
+				return load_product_listing(
+					set_situation_op,
+					shopify.products({
+						page_size,
+						query: {
+							tags: route.tags,
+							terms: route.terms,
+						},
+					})
+				)
 
 			case "collection":
-				return load_product_listing(set_situation_op, shopify.products_in_collection({
-					page_size,
-					collection_id: route.id,
-				}))
+				return load_product_listing(
+					set_situation_op,
+					shopify.products_in_collection({
+						page_size,
+						collection_id: route.id,
+					})
+				)
 
 			case "product":
-				return load_single_product(route, shopify, set_situation_op)
+				return load_single_product(
+					route,
+					shopify,
+					set_situation_op,
+				)
 
 			case "not_found":
-				return set_situation_op(new Op.Ready({
-					type: "NotFound"
-				}))
+				return set_situation_op(
+					new Op.Ready({
+						type: "NotFound"
+					})
+				)
 		}
 	}
 }
