@@ -50,7 +50,7 @@ export const SheepSearch = ({router}: Context) => (class extends QuickElement {
 			this.#unsub_from_route_change()
 	}
 
-	#search = debounce(250, () => {
+	#search: () => Promise<void> = debounce(250, () => {
 		const {value} = this.#input
 		const terms = value.split(/\s+/).filter(t => t.length)
 		const tags = router.search_tags

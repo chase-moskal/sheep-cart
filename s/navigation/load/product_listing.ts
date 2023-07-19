@@ -1,7 +1,7 @@
 
+import {Op} from "@benev/frog"
 import {GqlProduct} from "shopify-shepherd"
 
-import {Op} from "../../context/utils/op.js"
 import {Situation} from "../../context/types/situation.js"
 
 export async function load_product_listing(

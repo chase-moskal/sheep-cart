@@ -1,7 +1,7 @@
 
+import {Op} from "@benev/frog"
 import {Shopify} from "shopify-shepherd"
 
-import {Op} from "../context/utils/op.js"
 import {Route} from "../routing/types.js"
 import {load_single_product} from "./load/product.js"
 import {Situation} from "../context/types/situation.js"

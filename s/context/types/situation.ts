@@ -1,5 +1,5 @@
 
-import {Op} from "../utils/op"
+import {Op} from "@benev/frog"
 import {GqlProduct} from "shopify-shepherd"
 
 export type ProductListingSituation = {

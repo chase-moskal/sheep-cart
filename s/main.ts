@@ -1,8 +1,7 @@
 
-import {register_elements} from "@benev/frog"
+import {Pipe, register_elements} from "@benev/frog"
 import {Shopify, concurrent} from "shopify-shepherd"
 
-import {Pipe} from "./tools/pipe.js"
 import {Router} from "./routing/router.js"
 import {Pilot} from "./navigation/pilot.js"
 import {Context} from "./context/context.js"
