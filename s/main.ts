@@ -1,5 +1,5 @@
 
-import {Pipe, register_elements} from "@benev/frog"
+import {Pipe, register_to_dom} from "@benev/frog"
 import {Shopify, concurrent} from "shopify-shepherd"
 
 import {Router} from "./routing/router.js"
@@ -20,7 +20,7 @@ const context = new Context(router)
 
 new Pipe(context)
 	.to(prepare_all_components)
-	.to(register_elements)
+	.to(register_to_dom)
 
 const pilot = new Pilot({
 	shopify,

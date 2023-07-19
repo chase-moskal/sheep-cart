@@ -1,5 +1,5 @@
 
-import {Pipe, pass_context_to_elements, theme_elements, update_elements_on_cue_changes} from "@benev/frog"
+import {Pipe, provide_context, cue_reactivity, flatstate_reactivity, apply_theme} from "@benev/frog"
 
 import {Context} from "../context/context.js"
 import {theme as defaultTheme} from "./theme.css.js"
@@ -16,9 +16,9 @@ export const prepare_all_components = (context: Context, theme = defaultTheme) =
 			SheepCollections,
 			SheepCatalog,
 		})
-		.to(e => pass_context_to_elements(context, e))
-		.to(e => update_elements_on_cue_changes(context.cues, e))
-		.to(e => theme_elements(theme, e))
+		.to(provide_context(context))
+		.to(cue_reactivity(context.cues))
+		.to(apply_theme(theme))
 		.done()
 )
 

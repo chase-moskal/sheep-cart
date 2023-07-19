@@ -24,7 +24,7 @@ export async function load_product_listing(
 			type: "ProductListing",
 			products,
 			load_more,
-			load_more_op: Op.make.ready(undefined),
+			load_more_op: Op.ready(undefined),
 		}
 	}
 
@@ -35,13 +35,13 @@ export async function load_product_listing(
 		)
 	}
 	else {
-		set_situation_op(Op.make.ready({
+		set_situation_op(Op.ready({
 			type: "ProductListing",
 			products: previous_products,
 			load_more: undefined,
-			load_more_op: Op.make.loading(),
+			load_more_op: Op.loading(),
 		}))
-		set_situation_op(Op.make.ready(
+		set_situation_op(Op.ready(
 			await load_next_page_of_products()
 		))
 	}

@@ -1,11 +1,11 @@
 
-import { Cue, CueGroup } from "@benev/frog"
-import { GqlCollection, GqlTag } from "shopify-shepherd"
+import {Cue, CueGroup} from "@benev/frog"
+import {GqlCollection, GqlTag} from "shopify-shepherd"
 
-import { Op } from "@benev/frog"
-import { Route } from "../routing/types.js"
-import { Router } from "../routing/router.js"
-import { Situation } from "./types/situation.js"
+import {Op} from "@benev/frog"
+import {Route} from "../routing/types.js"
+import {Router} from "../routing/router.js"
+import {Situation} from "./types/situation.js"
 
 export class Context {
 	cues = new CueGroup()
@@ -16,7 +16,7 @@ export class Context {
 
 	collections = this.cues.create<GqlCollection[]>([])
 
-	situation = this.cues.create<Op.Any<Situation>>(Op.make.loading())
+	situation = this.cues.create<Op.Any<Situation>>(Op.loading())
 
 	constructor(public router: Router) {
 		this.route = this.cues.create(router.route)
