@@ -1,25 +1,26 @@
 
-import {Cue, CueGroup} from "@benev/frog"
+import {Flatstate, Op} from "@benev/frog"
 import {GqlCollection, GqlTag} from "shopify-shepherd"
 
-import {Op} from "@benev/frog"
 import {Route} from "../routing/types.js"
 import {Router} from "../routing/router.js"
 import {Situation} from "./types/situation.js"
+import {State, init_state} from "./parts/init_state.js"
 
 export class Context {
-	cues = new CueGroup()
+	readonly flat = new Flatstate()
 
-	route: Cue<Route>
-
-	tags = this.cues.create<GqlTag[]>([])
-
-	collections = this.cues.create<GqlCollection[]>([])
-
-	situation = this.cues.create<Op.Any<Situation>>(Op.loading())
+	#state: State
+	readonly state: State
 
 	constructor(public router: Router) {
-		this.route = this.cues.create(router.route)
+		this.#state = init_state(this.flat, router)
+		this.state = Flatstate.readonly(this.#state)
 	}
+
+	set_route = (route: Route) => this.#state.route = route
+	set_tags = (tags: GqlTag[]) => this.#state.tags = tags
+	set_collections = (collections: GqlCollection[]) => this.#state.collections = collections
+	set_situation_op = (op: Op.Any<Situation>) => this.#state.situation_op = op
 }
 

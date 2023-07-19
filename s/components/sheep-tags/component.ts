@@ -5,14 +5,12 @@ import {QuickElement} from "@benev/frog"
 import {style} from "./style.css.js"
 import {Context} from "../../context/context.js"
 
-export const SheepTags = (context: Context) => class extends QuickElement {
+export const SheepTags = ({router, state}: Context) => class extends QuickElement {
 
 	static styles = style
 
 	render() {
-		const route = context.route.value
-		const router = context.router
-
+		const {route, tags} = state
 		const active_tag_names = (route && route.zone === "search")
 			? route.tags
 			: []
@@ -41,7 +39,7 @@ export const SheepTags = (context: Context) => class extends QuickElement {
 			}
 		}
 
-		const tag_data = context.tags.value.map(tag => ({
+		const tag_data = tags.map(tag => ({
 			tag,
 			active: is_tag_active(tag),
 		}))

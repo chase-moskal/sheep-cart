@@ -6,13 +6,11 @@ import {style} from "./style.css.js"
 import {render_op} from "../utils/render_op.js"
 import {Context} from "../../context/context.js"
 
-export const SheepCatalog = (context: Context) => class extends QuickElement {
+export const SheepCatalog = ({state}: Context) => class extends QuickElement {
 	static styles = style
 
 	render() {
-		const route = context.route.value
-		const situation_op = context.situation.value
-
+		const {route, situation_op} = state
 		return html`
 			<p>route: zone ${route.zone}</p>
 			${render_op(situation_op, situation => situation?.type === "ProductListing"

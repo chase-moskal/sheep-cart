@@ -24,21 +24,21 @@ new Pipe(context)
 
 const pilot = new Pilot({
 	shopify,
-	set_situation_op: op => context.situation.value = op,
+	set_situation_op: context.set_situation_op,
 })
 
 ///////
 ///////
 
-router.on_route_change(route => context.route.value = route)
-router.on_route_change(() => pilot.load(context.route.value))
+router.on_route_change(context.set_route)
+router.on_route_change(() => pilot.load(context.state.route))
 
 const {collections, tags} = await concurrent({
-	pilot: pilot.load(context.route.value),
+	pilot: pilot.load(context.state.route),
 	tags: Shopify.all(shopify.tags()),
 	collections: Shopify.all(shopify.collections()),
 })
 
-context.tags.value = tags
-context.collections.value = collections
+context.set_tags(tags)
+context.set_collections(collections)
 
