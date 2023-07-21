@@ -9,8 +9,8 @@ import {SheepSearch} from "./sheep-search/component.js"
 import {SheepCatalog} from "./sheep-catalog/component.js"
 import {SheepCollections} from "./sheep-collections/component.js"
 
-export const prepare_all_components = (context: Context, theme = defaultTheme) => (
-	new Pipe({
+export const prepare_all_components = (context: Context, theme = defaultTheme) => {
+	return Pipe.with({
 			SheepTags,
 			SheepSearch,
 			SheepCollections,
@@ -20,5 +20,5 @@ export const prepare_all_components = (context: Context, theme = defaultTheme) =
 		.to(flatstate_reactivity(context.flat))
 		.to(apply_theme(theme))
 		.done()
-)
+}
 

@@ -1,4 +1,5 @@
 
+import { utransform } from "../../tools/utransform.js"
 import {Routes} from "../types.js"
 import {translator} from "./parts/translator.js"
 
@@ -32,13 +33,21 @@ export const translators = {
 	}),
 
 	collection: translator<Routes["collection"]>({
-		hashify: ({label, id}) => `/collection/${label}/${id}`,
-		routify: ([label, id]) => ({zone: "collection", label, id}),
+		hashify: ({label, id}) => `/collection/${label}/${utransform.id.shorten(id)}`,
+		routify: ([label, id]) => ({
+			zone: "collection",
+			label,
+			id: utransform.id.expand.collection(id),
+		}),
 	}),
 
 	product: translator<Routes["product"]>({
-		hashify: ({label, id}) => `/product/${label}/${id}`,
-		routify: ([label, id]) => ({zone: "product", label, id}),
+		hashify: ({label, id}) => `/product/${label}/${utransform.id.shorten(id)}`,
+		routify: ([label, id]) => ({
+			zone: "product",
+			label,
+			id: utransform.id.expand.product(id),
+		}),
 	}),
 
 	not_found: translator<Routes["not_found"]>({
