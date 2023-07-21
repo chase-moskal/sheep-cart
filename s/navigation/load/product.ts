@@ -20,7 +20,7 @@ export async function load_single_product(
 			}
 			catch (error) {
 				if (error instanceof NotFoundError)
-					return {type: "NotFound"}
+					return {type: "NotFound", message: "Product not found"}
 				else
 					throw error
 			}

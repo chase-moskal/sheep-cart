@@ -16,6 +16,7 @@ export type ProductFocusSituation = {
 
 export type NotFoundSituation = {
 	type: "NotFound"
+	message?: string
 }
 
 export type Situation = (

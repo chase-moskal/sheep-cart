@@ -46,9 +46,12 @@ export const SheepCatalog = ({state, router}: Context) => class extends QuickEle
 		`
 	}
 
-	#render_not_found({}: NotFoundSituation) {
+	#render_not_found({message}: NotFoundSituation) {
 		return html`
-			not found
+			${message
+				? html`<h1>${message}</h1>`
+				: html`<h1>Not found</h1>`}
+			<p><a href="${router.routes.catalog().url}">back</a></p>
 		`
 	}
 
