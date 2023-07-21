@@ -1,7 +1,6 @@
 
 import {html} from "lit"
 import {QuickElement} from "@benev/frog"
-import {GqlProduct} from "shopify-shepherd"
 import {unsafeHTML} from "lit/directives/unsafe-html.js"
 
 import {style} from "./style.css.js"
@@ -11,13 +10,6 @@ import {NotFoundSituation, ProductFocusSituation, ProductListingSituation} from 
 
 export const SheepCatalog = ({state, router}: Context) => class extends QuickElement {
 	static styles = style
-
-	#on_click_product(product: GqlProduct) {
-		return (event: MouseEvent) => {
-			router.routes.product(product.id, product.handle).go()
-			event.preventDefault()
-		}
-	}
 
 	#render_product_listing({
 			products,
