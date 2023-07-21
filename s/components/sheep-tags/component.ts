@@ -6,7 +6,6 @@ import {style} from "./style.css.js"
 import {Context} from "../../context/context.js"
 
 export const SheepTags = ({router, state}: Context) => class extends QuickElement {
-
 	static styles = style
 
 	render() {
