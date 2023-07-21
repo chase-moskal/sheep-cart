@@ -14,7 +14,7 @@ export const SheepCatalog = ({state, router}: Context) => class extends QuickEle
 
 	#on_click_product(product: GqlProduct) {
 		return (event: MouseEvent) => {
-			router.go_product(product.id, product.handle)
+			router.routes.product(product.id, product.handle).go()
 			event.preventDefault()
 		}
 	}
@@ -29,12 +29,13 @@ export const SheepCatalog = ({state, router}: Context) => class extends QuickEle
 			<ol>
 				${products.map(product => html`
 					<li>
-						<a href="" @click=${this.#on_click_product(product)}>
+						<a href="${router.routes.product(product.id, product.handle).url}">
 							${product.title}
 						</a>
 					</li>
 				`)}
 			</ol>
+
 			${render_op(load_more_op, () => load_more
 				? html`<button @click=${load_more}>load more</button>`
 				: undefined)}

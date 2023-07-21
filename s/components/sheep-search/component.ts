@@ -57,9 +57,9 @@ export const SheepSearch = ({router}: Context) => (class extends QuickElement {
 		const nada = terms.length === 0 && tags.length === 0
 
 		if (nada)
-			router.go_catalog()
+			router.routes.catalog().go()
 		else
-			router.go_search(terms, router.search_tags)
+			router.routes.search(terms, router.search_tags).go()
 	})
 
 	render() {

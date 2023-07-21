@@ -32,9 +32,9 @@ export const SheepTags = ({router, state}: Context) => class extends QuickElemen
 				const nada = tag_set.size === 0 && terms.length === 0
 
 				if (nada)
-					router.go_catalog()
+					router.routes.catalog().go()
 				else
-					router.go_search(terms, [...tag_set])
+					router.routes.search(terms, [...tag_set]).go()
 			}
 		}
 

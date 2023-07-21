@@ -46,20 +46,19 @@ export class Router {
 		this.apply_hash(hash)
 	}
 
-	go_catalog() {
-		this.route = {zone: "catalog"}
+	#routefor(route: Route) {
+		const hash = this.#translation.hashify(route)
+		return {
+			url: "#" + hash,
+			go: () => this.#set_hash(hash),
+		}
 	}
 
-	go_search(terms: string[], tags: string[]) {
-		this.route = {zone: "search", terms, tags}
-	}
-
-	go_collection(id: string, label: string) {
-		this.route = {zone: "collection", id, label}
-	}
-
-	go_product(id: string, label: string) {
-		this.route = {zone: "product", id, label}
+	routes = {
+		catalog: () => this.#routefor({zone: "catalog"}),
+		search: (terms: string[], tags: string[]) => this.#routefor({zone: "search", terms, tags}),
+		collection: (id: string, label: string) => this.#routefor({zone: "collection", id, label}),
+		product: (id: string, label: string) => this.#routefor({zone: "product", id, label}),
 	}
 
 	get search_terms() {

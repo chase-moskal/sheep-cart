@@ -10,10 +10,10 @@ export const SheepCollections = ({router, state}: Context) => (class extends Qui
 	static styles = style
 
 	#click = (id: string, label: string) => () => {
-		router.go_collection(
+		router.routes.collection(
 			utransform.id.shorten(id),
 			utransform.label(label),
-		)
+		).go()
 	}
 
 	render() {
