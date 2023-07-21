@@ -13,7 +13,6 @@ export async function load_product_listing(
 	const this_is_the_initial_listing_call = previous_products.length === 0
 
 	async function load_next_page_of_products(): Promise<Situation> {
-
 		const page = await generator.next()
 		const products = [...previous_products, ...(page.value ?? [])]
 		const load_more = page.done

@@ -1,22 +1,30 @@
 
 import {Op} from "@benev/frog"
-import {Shopify} from "shopify-shepherd"
+import {GqlProduct, NotFoundError} from "shopify-shepherd"
 
-import {Routes} from "../../routing/types.js"
 import {Situation} from "../../context/types/situation.js"
 
 export async function load_single_product(
-		route: Routes["product"],
-		shopify: Shopify,
 		set_situation_op: Op.Setter<Situation>,
+		product: Promise<GqlProduct>,
 	) {
 
 	await Op.run<Situation>(
 		set_situation_op,
-		async() => ({
-			type: "ProductFocus",
-			product: await shopify.product({id: route.id}),
-		}),
+		async() => {
+			try {
+				return {
+					type: "ProductFocus",
+					product: await product,
+				}
+			}
+			catch (error) {
+				if (error instanceof NotFoundError)
+					return {type: "NotFound"}
+				else
+					throw error
+			}
+		},
 	)
 }
 

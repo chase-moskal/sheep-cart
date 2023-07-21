@@ -53,9 +53,8 @@ export class Pilot {
 
 			case "product":
 				return load_single_product(
-					route,
-					shopify,
 					set_situation_op,
+					shopify.product({id: route.id}),
 				)
 
 			case "not_found":
