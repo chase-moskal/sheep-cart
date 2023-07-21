@@ -2,8 +2,8 @@
 import {Pipe, register_to_dom} from "@benev/frog"
 import {Shopify, concurrent} from "shopify-shepherd"
 
+import {Pilot} from "./piloting/pilot.js"
 import {Router} from "./routing/router.js"
-import {Pilot} from "./navigation/pilot.js"
 import {Context} from "./context/context.js"
 import {prepare_all_components} from "./components/prepare_all_components.js"
 
