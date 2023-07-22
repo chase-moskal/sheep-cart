@@ -18,7 +18,7 @@ const shopify = Shopify.setup({
 const router = Router.setup()
 const context = new Context(router)
 
-new Pipe(context)
+Pipe.with(context)
 	.to(prepare_all_components)
 	.to(register_to_dom)
 

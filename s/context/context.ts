@@ -2,19 +2,18 @@
 import {Flatstate, Op} from "@benev/frog"
 import {GqlCollection, GqlTag} from "shopify-shepherd"
 
+import {flat} from "./flat.js"
 import {Route} from "../routing/types.js"
 import {Router} from "../routing/router.js"
 import {Situation} from "./types/situation.js"
 import {State, init_state} from "./parts/init_state.js"
 
 export class Context {
-	readonly flat = new Flatstate()
-
 	#state: State
 	readonly state: State
 
 	constructor(public router: Router) {
-		this.#state = init_state(this.flat, router)
+		this.#state = init_state(flat, router)
 		this.state = Flatstate.readonly(this.#state)
 	}
 

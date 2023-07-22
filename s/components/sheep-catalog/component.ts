@@ -5,6 +5,7 @@ import {unsafeHTML} from "lit/directives/unsafe-html.js"
 
 import {style} from "./style.css.js"
 import {render_op} from "../utils/render_op.js"
+import {ProductView} from "../views/product.js"
 import {Context} from "../../context/context.js"
 import {NotFoundSituation, ProductFocusSituation, ProductListingSituation} from "../../context/types/situation.js"
 
@@ -16,7 +17,6 @@ export const SheepCatalog = ({state, router}: Context) => class extends QuickEle
 			load_more_op,
 			load_more,
 		}: ProductListingSituation) {
-
 		return html`
 			<ol>
 				${products.map(product => html`
@@ -27,7 +27,6 @@ export const SheepCatalog = ({state, router}: Context) => class extends QuickEle
 					</li>
 				`)}
 			</ol>
-
 			${render_op(load_more_op, () => load_more
 				? html`<button @click=${load_more}>load more</button>`
 				: undefined)}
@@ -36,13 +35,7 @@ export const SheepCatalog = ({state, router}: Context) => class extends QuickEle
 
 	#render_product_focus({product}: ProductFocusSituation) {
 		return html`
-			<div class=product>
-				<p>${product.title}<p>
-				<ul>
-					${product.tags.map(tag => html`<li>${tag}</li>`)}
-				</ul>
-				<div>${unsafeHTML(product.descriptionHtml)}</div>
-			</div>
+			${ProductView(product)}
 		`
 	}
 
