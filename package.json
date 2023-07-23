@@ -16,7 +16,7 @@
 		"test": "exit 0"
 	},
 	"dependencies": {
-		"@benev/frog": "^0.1.1",
+		"@benev/frog": "^0.2.0",
 		"@chasemoskal/magical": "^0.1.5",
 		"@chasemoskal/snapstate": "^0.0.9",
 		"es-module-shims": "^1.8.0",
@@ -27,7 +27,7 @@
 	"devDependencies": {
 		"@benev/turtle": "^0.4.1",
 		"@rollup/plugin-node-resolve": "^15.1.0",
-		"@types/node": "^20.4.2",
+		"@types/node": "^20.4.4",
 		"@types/shopify-buy": "^2.17.1",
 		"chokidar": "^3.5.3",
 		"chokidar-cli": "^3.0.0",
