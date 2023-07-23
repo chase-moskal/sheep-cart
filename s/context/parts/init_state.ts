@@ -1,11 +1,11 @@
 
-import {Flatstate, Op} from "@benev/frog"
+import {Flat, Op} from "@benev/frog"
 import {GqlCollection, GqlTag} from "shopify-shepherd"
 
 import {Router} from "../../routing/router.js"
 import {Situation} from "../types/situation.js"
 
-export function init_state(flat: Flatstate, router: Router) {
+export function init_state(flat: Flat, router: Router) {
 	return flat.state({
 		route: router.route,
 		tags: [] as GqlTag[],

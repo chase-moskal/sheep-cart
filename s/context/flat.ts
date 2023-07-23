@@ -1,5 +1,5 @@
 
-import {Flatstate} from "@benev/frog"
+import {Flat} from "@benev/frog"
 
-export const flat = new Flatstate()
+export const flat = new Flat()
 
