@@ -1,20 +1,13 @@
 
 import {css, html} from "lit"
 import {flatview} from "@benev/frog"
-import {flat} from "../../context/flat.js"
 import {GqlProduct} from "shopify-shepherd"
 import {unsafeHTML} from "lit/directives/unsafe-html.js"
 
-export const PlainView = flatview({flat, shadow: false, strict: true})
-	.state({})
-	.actions(() => ({}))
-	.setup(() => () => {})
-	.render(() => () => html`
-		<p>hello</p>
-	`)
-	.css()
+import {setupView} from "../setup_view.js"
+import {flat} from "../../../context/flat.js"
 
-export const ProductView = flatview({flat, shadow: false, strict: true})
+export const Product = setupView(theme => flatview({flat, strict: true})
 	.state({count: 0})
 	.actions(state => ({
 		increment() {
@@ -36,9 +29,9 @@ export const ProductView = flatview({flat, shadow: false, strict: true})
 			<button @click=${actions.increment}>increment</button>
 		</div>
 	`)
-	.css(css`
+	.css(theme, css`
 		.product {
 			color: red;
 		}
 	`)
-
+)

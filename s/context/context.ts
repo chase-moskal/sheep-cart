@@ -7,10 +7,13 @@ import {Route} from "../routing/types.js"
 import {Router} from "../routing/router.js"
 import {Situation} from "./types/situation.js"
 import {State, init_state} from "./parts/init_state.js"
+import {prepare_all_views} from "../components/prepare_all_views.js"
 
 export class Context {
 	#state: State
 	readonly state: State
+
+	views = prepare_all_views()
 
 	constructor(public router: Router) {
 		this.#state = init_state(flat, router)

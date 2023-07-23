@@ -5,11 +5,10 @@ import {unsafeHTML} from "lit/directives/unsafe-html.js"
 
 import {style} from "./style.css.js"
 import {render_op} from "../utils/render_op.js"
-import {ProductView} from "../views/product.js"
 import {Context} from "../../context/context.js"
 import {NotFoundSituation, ProductFocusSituation, ProductListingSituation} from "../../context/types/situation.js"
 
-export const SheepCatalog = ({state, router}: Context) => class extends QuickElement {
+export const SheepCatalog = ({state, router, views}: Context) => class extends QuickElement {
 	static styles = style
 
 	#render_product_listing({
@@ -35,7 +34,7 @@ export const SheepCatalog = ({state, router}: Context) => class extends QuickEle
 
 	#render_product_focus({product}: ProductFocusSituation) {
 		return html`
-			${ProductView(product)}
+			${views.Product(product)}
 		`
 	}
 
