@@ -2,7 +2,6 @@
 import {Flat, Op} from "@benev/frog"
 import {GqlCollection, GqlTag} from "shopify-shepherd"
 
-import {flat} from "./flat.js"
 import {Route} from "../routing/types.js"
 import {Router} from "../routing/router.js"
 import {Situation} from "./types/situation.js"
@@ -12,14 +11,16 @@ import {prepare_all_views} from "../components/prepare_all_views.js"
 
 export class Context {
 	flat = new Flat()
+	views = prepare_all_views(this)
 
 	#state: State
 	readonly state: State
 
-	views = prepare_all_views(this)
-
-	constructor(public router: Router, public theme = defaultTheme) {
-		this.#state = init_state(flat, router)
+	constructor(
+			public router: Router,
+			public theme = defaultTheme,
+		) {
+		this.#state = init_state(this.flat, router)
 		this.state = Flat.readonly(this.#state)
 	}
 

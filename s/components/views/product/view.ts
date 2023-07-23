@@ -4,9 +4,9 @@ import {flatview} from "@benev/frog"
 import {GqlProduct} from "shopify-shepherd"
 import {unsafeHTML} from "lit/directives/unsafe-html.js"
 
-import {setup} from "../../setup.js"
+import {Context} from "../../../context/context.js"
 
-export const Product = setup(({flat, theme}) => flatview({flat, strict: true})
+export const Product = (context: Context) => flatview(context.flat)
 
 	.state({count: 0})
 
@@ -33,10 +33,9 @@ export const Product = setup(({flat, theme}) => flatview({flat, strict: true})
 		</div>
 	`)
 
-	.css(theme, css`
+	.css(context.theme, css`
 		.product {
 			color: lime;
 		}
 	`)
-)
 

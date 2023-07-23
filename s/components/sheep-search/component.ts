@@ -3,11 +3,11 @@ import {html, svg} from "lit"
 import {QuickElement} from "@benev/frog"
 import {debounce} from "@chasemoskal/magical"
 
-import {setup} from "../setup.js"
 import {style} from "./style.css.js"
+import {Context} from "../../context/context.js"
 import {search_icon} from "../../icons/feather/search_icon.js"
 
-export const SheepSearch = setup(({router}) => class extends QuickElement {
+export const SheepSearch = ({router}: Context) => class extends QuickElement {
 	static styles = style
 
 	constructor() {
@@ -68,5 +68,5 @@ export const SheepSearch = setup(({router}) => class extends QuickElement {
 			${search_icon(svg)}
 		`
 	}
-})
+}
 

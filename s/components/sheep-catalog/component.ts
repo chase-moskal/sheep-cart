@@ -2,12 +2,12 @@
 import {html} from "lit"
 import {QuickElement} from "@benev/frog"
 
-import {setup} from "../setup.js"
 import {style} from "./style.css.js"
 import {render_op} from "../utils/render_op.js"
+import {Context} from "../../context/context.js"
 import {NotFoundSituation, ProductFocusSituation, ProductListingSituation} from "../../context/types/situation.js"
 
-export const SheepCatalog = setup(({state, router, views}) => class extends QuickElement {
+export const SheepCatalog = ({state, router, views}: Context) => class extends QuickElement {
 	static styles = style
 
 	#render_product_listing({
@@ -69,5 +69,5 @@ export const SheepCatalog = setup(({state, router, views}) => class extends Quic
 			})}
 		`
 	}
-})
+}
 

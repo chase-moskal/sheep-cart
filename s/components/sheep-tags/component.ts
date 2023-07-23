@@ -2,10 +2,10 @@
 import {html} from "lit"
 import {QuickElement} from "@benev/frog"
 
-import {setup} from "../setup.js"
 import {style} from "./style.css.js"
+import {Context} from "../../context/context.js"
 
-export const SheepTags = setup(({router, state}) => class extends QuickElement {
+export const SheepTags = ({router, state}: Context) => class extends QuickElement {
 	static styles = style
 
 	render() {
@@ -56,5 +56,5 @@ export const SheepTags = setup(({router, state}) => class extends QuickElement {
 			`)}
 		`
 	}
-})
+}
 
