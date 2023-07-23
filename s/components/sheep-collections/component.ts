@@ -2,11 +2,11 @@
 import {html} from "lit"
 import {QuickElement} from "@benev/frog"
 
+import {setup} from "../setup.js"
 import {style} from "./style.css.js"
-import {Context} from "../../context/context.js"
 import {utransform} from "../../tools/utransform.js"
 
-export const SheepCollections = ({router, state}: Context) => (class extends QuickElement {
+export const SheepCollections = setup(({router, state}) => class extends QuickElement {
 	static styles = style
 
 	#click = (id: string, label: string) => () => {

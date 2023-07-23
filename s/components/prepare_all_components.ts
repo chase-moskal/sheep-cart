@@ -1,5 +1,5 @@
 
-import {Pipe, provide_context, flatstate_reactivity, apply_theme, requirement} from "@benev/frog"
+import {Pipe, flatstate_reactivity, apply_theme, requirement} from "@benev/frog"
 
 import {flat} from "../context/flat.js"
 import {Context} from "../context/context.js"
@@ -17,7 +17,7 @@ export const prepare_all_components = (context: Context, theme = defaultTheme) =
 			SheepCollections,
 			SheepCatalog,
 		})
-		.to(provide_context(context))
+		.to(requirement.provide(context))
 		.to(flatstate_reactivity(flat))
 		.to(apply_theme(theme))
 		.done()

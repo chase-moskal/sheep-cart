@@ -7,15 +7,18 @@ import {Route} from "../routing/types.js"
 import {Router} from "../routing/router.js"
 import {Situation} from "./types/situation.js"
 import {State, init_state} from "./parts/init_state.js"
+import {theme as defaultTheme} from "../components/theme.css.js"
 import {prepare_all_views} from "../components/prepare_all_views.js"
 
 export class Context {
+	flat = new Flat()
+
 	#state: State
 	readonly state: State
 
-	views = prepare_all_views()
+	views = prepare_all_views(this)
 
-	constructor(public router: Router) {
+	constructor(public router: Router, public theme = defaultTheme) {
 		this.#state = init_state(flat, router)
 		this.state = Flat.readonly(this.#state)
 	}
