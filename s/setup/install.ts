@@ -4,7 +4,7 @@ import {Shopify, ShopifySettings} from "shopify-shepherd"
 import {Pilot} from "../piloting/pilot.js"
 import {Router} from "../routing/router.js"
 import {Context} from "../context/context.js"
-import {prepare_all_components} from "../components/prepare_all_components.js"
+import {prepare_all_components} from "../elements/prepare_all_components.js"
 
 export function install_sheep_cart({
 		domain,

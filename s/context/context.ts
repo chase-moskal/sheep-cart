@@ -6,8 +6,8 @@ import {Route} from "../routing/types.js"
 import {Router} from "../routing/router.js"
 import {Situations} from "./types/situations.js"
 import {State, init_state} from "./parts/init_state.js"
-import {theme as defaultTheme} from "../components/theme.css.js"
-import {prepare_all_views} from "../components/prepare_all_views.js"
+import {theme as defaultTheme} from "../elements/theme.css.js"
+import {prepare_all_views} from "../elements/prepare_all_views.js"
 
 export class Context {
 	flat = new Flat()
