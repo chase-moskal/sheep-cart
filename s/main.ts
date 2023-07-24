@@ -11,3 +11,5 @@ register_to_dom(elements)
 
 await load()
 
+console.log("🐑")
+
