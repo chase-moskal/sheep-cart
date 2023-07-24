@@ -17,7 +17,7 @@ export const SheepCatalog = ({state, router, views}: Context) => class extends Q
 		)
 		return html`
 			${collections.map(collection => html`
-				<a href="${link(collection)}">
+				<a href="${link(collection)}" part="a">
 					${collection.title}
 				</a>
 			`)}
@@ -47,7 +47,7 @@ export const SheepCatalog = ({state, router, views}: Context) => class extends Q
 
 	#render_single_product({product}: Situations.SingleProduct) {
 		return html`
-			${views.Product(product)}
+			${views.Product({exportparts: "a"})(product)}
 		`
 	}
 

@@ -19,13 +19,13 @@ html, body {
 	color: #fff8;
 }
 
-a {
+a, ::part(a) {
 	color: cyan;
 	text-decoration: none;
 }
 
-a:hover { text-decoration: underline; }
-a:active { text-decoration: double underline; }
+a:hover, ::part(a):hover { text-decoration: underline; }
+a:active, ::part(a):active { text-decoration: double underline; }
 
 .sheep {
 	display: flex;

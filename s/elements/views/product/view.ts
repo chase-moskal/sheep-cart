@@ -30,6 +30,7 @@ export const Product = (context: Context) => flatview(context.flat)
 			<div>${unsafeHTML(product.descriptionHtml)}</div>
 			<p>count: ${state.count}</p>
 			<button @click=${actions.increment}>increment</button>
+			<a href="https://github.com/" part="a">github.com</a>
 		</div>
 	`)
 
