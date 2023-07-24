@@ -68,6 +68,9 @@ export const SheepCatalog = ({state, router, views}: Context) => class extends Q
 			${render_op(situation_op, situation => {
 				switch (situation?.type) {
 
+					case "collection_listing":
+						return this.#render_collection_listing(situation)
+
 					case "product_listing":
 						return this.#render_product_listing(situation)
 

@@ -22,8 +22,12 @@ export function install_sheep_cart({
 	const router = Router.setup()
 	const context = new Context(router, theme)
 
+	const collections_promise = Shopify.all(shopify.collections())
+
 	const pilot = new Pilot({
 		shopify,
+		collections_promise,
+		home: "show_collections",
 		set_situation_op: context.set_situation_op,
 	})
 
@@ -48,7 +52,7 @@ export function install_sheep_cart({
 
 				void async function load_product_collections() {
 					context.set_collections(
-						await Shopify.all(shopify.collections())
+						await collections_promise
 					)
 				}(),
 

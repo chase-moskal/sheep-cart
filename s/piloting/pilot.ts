@@ -1,6 +1,6 @@
 
 import {Op} from "@benev/frog"
-import {Shopify} from "shopify-shepherd"
+import {GqlCollection, Shopify} from "shopify-shepherd"
 
 import {Route} from "../routing/types.js"
 import {load_single_product} from "./load/product.js"
@@ -10,6 +10,16 @@ import {load_product_listing} from "./load/product_listing.js"
 type PilotParams = {
 	shopify: Shopify
 	set_situation_op: Op.Setter<Situations.Whatever>
+	home: "list_all_products" | "show_collections"
+	collections_promise: Promise<GqlCollection[]>
+}
+
+function op_morph<A, B>(op: Op.Any<A>, transmute: (a: A) => B) {
+	return Op.select<A, Op.Any<B>>(op, {
+		loading: () => Op.loading(),
+		err: reason => Op.err(reason),
+		ready: a => Op.ready(transmute(a)),
+	})
 }
 
 export class Pilot {
@@ -20,15 +30,25 @@ export class Pilot {
 	}
 
 	async load(route: Route) {
-		const {shopify, set_situation_op} = this.#params
+		const {shopify, set_situation_op, home, collections_promise} = this.#params
 		const page_size = 10
 		switch (route.zone) {
 
 			case "catalog":
-				return load_product_listing(
-					set_situation_op,
-					shopify.products({page_size}),
-				)
+				return home === "list_all_products"
+					? load_product_listing(
+						set_situation_op,
+						shopify.products({page_size}),
+					)
+					: Op.run(
+						op => set_situation_op(
+							op_morph(op, collections => ({
+								type: "collection_listing",
+								collections,
+							} as Situations.CollectionListing))
+						),
+						async() => collections_promise,
+					)
 
 			case "search":
 				return load_product_listing(
