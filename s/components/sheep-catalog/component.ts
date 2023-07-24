@@ -5,7 +5,7 @@ import {QuickElement} from "@benev/frog"
 import {style} from "./style.css.js"
 import {render_op} from "../utils/render_op.js"
 import {Context} from "../../context/context.js"
-import {NotFoundSituation, ProductFocusSituation, ProductListingSituation} from "../../context/types/situation.js"
+import {Situations} from "../../context/types/situations.js"
 
 export const SheepCatalog = ({state, router, views}: Context) => class extends QuickElement {
 	static styles = style
@@ -14,7 +14,7 @@ export const SheepCatalog = ({state, router, views}: Context) => class extends Q
 			products,
 			load_more_op,
 			load_more,
-		}: ProductListingSituation) {
+		}: Situations.ProductListing) {
 		return html`
 			<ol>
 				${products.map(product => html`
@@ -31,13 +31,13 @@ export const SheepCatalog = ({state, router, views}: Context) => class extends Q
 		`
 	}
 
-	#render_product_focus({product}: ProductFocusSituation) {
+	#render_product_focus({product}: Situations.SingleProduct) {
 		return html`
 			${views.Product(product)}
 		`
 	}
 
-	#render_not_found({message}: NotFoundSituation) {
+	#render_not_found({message}: Situations.NotFound) {
 		return html`
 			${message
 				? html`<h1>${message}</h1>`
@@ -54,13 +54,13 @@ export const SheepCatalog = ({state, router, views}: Context) => class extends Q
 			${render_op(situation_op, situation => {
 				switch (situation?.type) {
 
-					case "ProductListing":
+					case "product_listing":
 						return this.#render_product_listing(situation)
 
-					case "ProductFocus":
+					case "single_product":
 						return this.#render_product_focus(situation)
 
-					case "NotFound":
+					case "not_found":
 						return this.#render_not_found(situation)
 
 					default:

@@ -1,5 +1,5 @@
 
-import {Shopify, ShopifySettings, concurrent} from "shopify-shepherd"
+import {Shopify, ShopifySettings} from "shopify-shepherd"
 
 import {Pilot} from "../piloting/pilot.js"
 import {Router} from "../routing/router.js"
@@ -31,13 +31,25 @@ export function install_sheep_cart({
 		elements: prepare_all_components(context),
 
 		async load() {
-			const {collections, tags} = await concurrent({
-				pilot: pilot.load(context.state.route),
-				tags: Shopify.all(shopify.tags()),
-				collections: Shopify.all(shopify.collections()),
-			})
-			context.set_tags(tags)
-			context.set_collections(collections)
+			await Promise.all([
+
+				void async function load_the_initial_route() {
+					await pilot.load(context.state.route)
+				}(),
+
+				void async function load_product_tags() {
+					context.set_tags(
+						await Shopify.all(shopify.tags())
+					)
+				}(),
+
+				void async function load_product_collections() {
+					context.set_collections(
+						await Shopify.all(shopify.collections())
+					)
+				}(),
+
+			])
 		},
 	}
 }

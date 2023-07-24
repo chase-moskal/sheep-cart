@@ -1,26 +1,29 @@
 
 import {Op} from "@benev/frog"
-import {GqlProduct, NotFoundError} from "shopify-shepherd"
+import {GqlProduct, ShopifyNotFoundError} from "shopify-shepherd"
 
-import {Situation} from "../../context/types/situation.js"
+import {Situations} from "../../context/types/situations.js"
 
 export async function load_single_product(
-		set_situation_op: Op.Setter<Situation>,
+		set_situation_op: Op.Setter<Situations.Whatever>,
 		product: Promise<GqlProduct>,
 	) {
 
-	await Op.run<Situation>(
+	await Op.run<Situations.Whatever>(
 		set_situation_op,
 		async() => {
 			try {
 				return {
-					type: "ProductFocus",
+					type: "single_product",
 					product: await product,
-				}
+				} satisfies Situations.SingleProduct
 			}
 			catch (error) {
-				if (error instanceof NotFoundError)
-					return {type: "NotFound", message: "Product not found"}
+				if (error instanceof ShopifyNotFoundError)
+					return {
+						type: "not_found",
+						message: "Product not found",
+					} satisfies Situations.NotFound
 				else
 					throw error
 			}

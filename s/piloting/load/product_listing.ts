@@ -1,26 +1,27 @@
 
 import {Op} from "@benev/frog"
-import {GqlProduct} from "shopify-shepherd"
+import {GqlProduct, PageGenerator} from "shopify-shepherd"
 
-import {Situation} from "../../context/types/situation.js"
+import {Situations} from "../../context/types/situations.js"
 
 export async function load_product_listing(
-		set_situation_op: Op.Setter<Situation>,
-		generator: AsyncGenerator<GqlProduct[]>,
+		set_situation_op: Op.Setter<Situations.Whatever>,
+		generator: PageGenerator<GqlProduct>,
 		previous_products: GqlProduct[] = [],
 	) {
 
 	const this_is_the_initial_listing_call = previous_products.length === 0
 
-	async function load_next_page_of_products(): Promise<Situation> {
-		const page = await generator.next()
-		const products = [...previous_products, ...(page.value ?? [])]
-		const load_more = page.done
-			? undefined
-			: () => load_product_listing(set_situation_op, generator, products)
+	async function load_next_page_of_products(): Promise<Situations.Whatever> {
+		const {value} = await generator.next()
+		const [new_products, more] = value!
+		const products = [...previous_products, ...new_products]
+		const load_more = more
+			? () => load_product_listing(set_situation_op, generator, products)
+			: undefined
 
 		return {
-			type: "ProductListing",
+			type: "product_listing",
 			products,
 			load_more,
 			load_more_op: Op.ready(undefined),
@@ -28,14 +29,14 @@ export async function load_product_listing(
 	}
 
 	if (this_is_the_initial_listing_call) {
-		await Op.run<Situation>(
+		await Op.run<Situations.Whatever>(
 			set_situation_op,
 			async() => await load_next_page_of_products(),
 		)
 	}
 	else {
 		set_situation_op(Op.ready({
-			type: "ProductListing",
+			type: "product_listing",
 			products: previous_products,
 			load_more: undefined,
 			load_more_op: Op.loading(),

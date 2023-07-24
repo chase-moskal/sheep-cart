@@ -4,7 +4,7 @@ import {GqlCollection, GqlTag} from "shopify-shepherd"
 
 import {Route} from "../routing/types.js"
 import {Router} from "../routing/router.js"
-import {Situation} from "./types/situation.js"
+import {Situations} from "./types/situations.js"
 import {State, init_state} from "./parts/init_state.js"
 import {theme as defaultTheme} from "../components/theme.css.js"
 import {prepare_all_views} from "../components/prepare_all_views.js"
@@ -27,6 +27,6 @@ export class Context {
 	set_route = (route: Route) => this.#state.route = route
 	set_tags = (tags: GqlTag[]) => this.#state.tags = tags
 	set_collections = (collections: GqlCollection[]) => this.#state.collections = collections
-	set_situation_op = (op: Op.Any<Situation>) => this.#state.situation_op = op
+	set_situation_op = (op: Op.Any<Situations.Whatever>) => this.#state.situation_op = op
 }
 

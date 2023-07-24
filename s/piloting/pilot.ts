@@ -4,12 +4,12 @@ import {Shopify} from "shopify-shepherd"
 
 import {Route} from "../routing/types.js"
 import {load_single_product} from "./load/product.js"
-import {Situation} from "../context/types/situation.js"
+import {Situations} from "../context/types/situations.js"
 import {load_product_listing} from "./load/product_listing.js"
 
 type PilotParams = {
 	shopify: Shopify
-	set_situation_op: Op.Setter<Situation>
+	set_situation_op: Op.Setter<Situations.Whatever>
 }
 
 export class Pilot {
@@ -59,7 +59,7 @@ export class Pilot {
 
 			case "not_found":
 				return set_situation_op(
-					Op.ready({type: "NotFound"})
+					Op.ready({type: "not_found"})
 				)
 		}
 	}
