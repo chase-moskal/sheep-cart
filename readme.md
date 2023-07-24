@@ -1,5 +1,7 @@
 
-# ![sheep-cart](./assets/sheep-title.webp)
+![sheep-cart](./assets/sheep-title.webp)
+
+# 🐑 sheep-cart
 
 ### embed a shopify store on any website
 
