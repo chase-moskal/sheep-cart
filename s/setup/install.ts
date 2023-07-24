@@ -1,15 +1,18 @@
 
+import {CSSResultGroup} from "lit"
 import {Shopify, ShopifySettings} from "shopify-shepherd"
 
 import {Pilot} from "../piloting/pilot.js"
 import {Router} from "../routing/router.js"
 import {Context} from "../context/context.js"
+import {theme as default_theme} from "../elements/theme.css.js"
 import {prepare_all_components} from "../elements/prepare_all_elements.js"
 
 export function install_sheep_cart({
 		domain,
 		storefront_access_token,
-	}: ShopifySettings) {
+		theme = default_theme,
+	}: ShopifySettings & {theme?: CSSResultGroup}) {
 
 	const shopify = Shopify.setup({
 		domain,
@@ -17,7 +20,7 @@ export function install_sheep_cart({
 	})
 
 	const router = Router.setup()
-	const context = new Context(router)
+	const context = new Context(router, theme)
 
 	const pilot = new Pilot({
 		shopify,

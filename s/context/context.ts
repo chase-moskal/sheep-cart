@@ -1,4 +1,5 @@
 
+import {CSSResultGroup} from "lit"
 import {Flat, Op} from "@benev/frog"
 import {GqlCollection, GqlTag} from "shopify-shepherd"
 
@@ -6,7 +7,6 @@ import {Route} from "../routing/types.js"
 import {Router} from "../routing/router.js"
 import {Situations} from "./types/situations.js"
 import {State, init_state} from "./parts/init_state.js"
-import {theme as defaultTheme} from "../elements/theme.css.js"
 import {prepare_all_views} from "../elements/prepare_all_views.js"
 
 export class Context {
@@ -18,7 +18,7 @@ export class Context {
 
 	constructor(
 			public router: Router,
-			public theme = defaultTheme,
+			public theme: CSSResultGroup,
 		) {
 		this.#state = init_state(this.flat, router)
 		this.state = Flat.readonly(this.#state)
