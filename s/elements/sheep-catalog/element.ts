@@ -1,9 +1,8 @@
 
 import {html} from "lit"
-import {QuickElement} from "@benev/frog"
+import {QuickElement, render_op} from "@benev/frog"
 
 import {style} from "./style.css.js"
-import {render_op} from "../utils/render_op.js"
 import {Context} from "../../context/context.js"
 
 export const SheepCatalog = ({state, router, views}: Context) => class extends QuickElement {
