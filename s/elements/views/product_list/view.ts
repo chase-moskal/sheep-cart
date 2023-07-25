@@ -10,7 +10,7 @@ export const ProductList = (context: Context): Flatview<[Options]> => flatview(c
 	.state()
 	.actions()
 	.setup()
-	.render(() => ({situation: {products}, make_link}: Options) => html`
+	.render(() => ({situation: {products}}: Options) => html`
 		${products.map(product => html`
 			${context.views.ProductCard()(product)}
 		`)}

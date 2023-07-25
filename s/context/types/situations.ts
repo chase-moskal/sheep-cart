@@ -4,13 +4,13 @@ import {GqlCollection, GqlProduct} from "shopify-shepherd"
 
 export namespace Situations {
 
-	export type CollectionListing = {
-		type: "collection_listing"
+	export type CollectionList = {
+		type: "collection_list"
 		collections: GqlCollection[]
 	}
 
-	export type ProductListing = {
-		type: "product_listing"
+	export type ProductList = {
+		type: "product_list"
 		products: GqlProduct[]
 		load_more: (() => void) | undefined
 		load_more_op: Op.For<void>
@@ -27,8 +27,8 @@ export namespace Situations {
 	}
 
 	export type Whatever = (
-		| CollectionListing
-		| ProductListing
+		| CollectionList
+		| ProductList
 		| SingleProduct
 		| NotFound
 	)

@@ -12,21 +12,11 @@ export const SheepCatalog = ({state, router, views}: Context) => class extends Q
 		return render_op(state.situation_op, situation => {
 			switch (situation?.type) {
 
-				case "collection_listing":
-					return views.CollectionList()({
-						collections: situation.collections,
-						make_link: collection => (
-							router.routes.collection(collection).url
-						)
-					})
+				case "collection_list":
+					return views.CollectionList()({collections: situation.collections})
 
-				case "product_listing":
-					return views.ProductList()({
-						situation,
-						make_link: product => (
-							router.routes.product(product).url
-						),
-					})
+				case "product_list":
+					return views.ProductList()({situation})
 
 				case "single_product":
 					return views.ProductFocus({exportparts: "a"})(situation.product)
@@ -36,7 +26,11 @@ export const SheepCatalog = ({state, router, views}: Context) => class extends Q
 						${situation.message
 							? html`<h1>${situation.message}</h1>`
 							: html`<h1>Not found</h1>`}
-						<p><a href="${router.routes.catalog().url}">back to catalog</a></p>
+						<p>
+							<a href="${router.routes.catalog().url}">
+								back to catalog
+							</a>
+						</p>
 					`
 
 				default:

@@ -35,9 +35,9 @@ export class Pilot {
 					: Op.run(
 						op => set_situation_op(
 							Op.morph(op, collections => ({
-								type: "collection_listing",
+								type: "collection_list",
 								collections,
-							} as Situations.CollectionListing))
+							} as Situations.CollectionList))
 						),
 						async() => collections_promise,
 					)

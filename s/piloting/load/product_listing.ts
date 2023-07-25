@@ -21,7 +21,7 @@ export async function load_product_listing(
 			: undefined
 
 		return {
-			type: "product_listing",
+			type: "product_list",
 			products,
 			load_more,
 			load_more_op: Op.ready(undefined),
@@ -36,7 +36,7 @@ export async function load_product_listing(
 	}
 	else {
 		set_situation_op(Op.ready({
-			type: "product_listing",
+			type: "product_list",
 			products: previous_products,
 			load_more: undefined,
 			load_more_op: Op.loading(),

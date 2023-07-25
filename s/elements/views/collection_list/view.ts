@@ -11,10 +11,12 @@ export const CollectionList = (context: Context) => flatview(context.flat)
 	.state()
 	.actions()
 	.setup()
-	.render(() => ({collections, make_link}: Options) => html`
+	.render(() => ({collections}: Options) => html`
 		${collections.map(collection => html`
-			<a style="${bgstyle(collection)}" href="${make_link(collection)}">
-				${collection.title}
+			<a
+				style="${bgstyle(collection)}"
+				href="${context.router.routes.collection(collection).url}">
+					${collection.title}
 			</a>
 		`)}
 	`)
