@@ -5,7 +5,7 @@ import {GqlCollection, Shopify} from "shopify-shepherd"
 import {Route} from "../routing/types.js"
 import {load_single_product} from "./load/product.js"
 import {Situation} from "../context/types/situations.js"
-import {load_product_listing} from "./load/product_listing.js"
+import {load_products_with_recursive_apparatus} from "./load/load_products_with_recursive_apparatus.js"
 
 type PilotParams = {
 	shopify: Shopify
@@ -28,11 +28,11 @@ export class Pilot {
 
 			case "catalog":
 				return home === "all_products"
-					? load_product_listing(
-						list => ({...list, type: "all_products"}),
+					? load_products_with_recursive_apparatus({
+						wrap: list => ({...list, type: "all_products"}),
 						set_situation_op,
-						shopify.products({page_size}),
-					)
+						generator: shopify.products({page_size}),
+					})
 					: Op.run(
 						op => set_situation_op(
 							Op.morph(op, collections => ({
@@ -44,31 +44,31 @@ export class Pilot {
 					)
 
 			case "search":
-				return load_product_listing(
-					list => ({...list, type: "search_results"}),
+				return load_products_with_recursive_apparatus({
+					wrap: list => ({...list, type: "search_results"}),
 					set_situation_op,
-					shopify.products({
+					generator: shopify.products({
 						page_size,
 						query: {
 							tags: route.tags,
 							terms: route.terms,
 						},
 					})
-				)
+				})
 
 			case "collection":
-				return load_product_listing(
-					list => ({
+				return load_products_with_recursive_apparatus({
+					wrap: list => ({
 						...list,
 						type: "products_in_collection",
 						collection_id: route.id,
 					}),
 					set_situation_op,
-					shopify.products_in_collection({
+					generator: shopify.products_in_collection({
 						page_size,
 						collection_id: route.id,
 					})
-				)
+				})
 
 			case "product":
 				return load_single_product(
