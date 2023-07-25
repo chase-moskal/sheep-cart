@@ -13,7 +13,7 @@ export namespace Situations {
 		type: "product_listing"
 		products: GqlProduct[]
 		load_more: (() => void) | undefined
-		load_more_op: Op.Any<void>
+		load_more_op: Op.For<void>
 	}
 
 	export type SingleProduct = {

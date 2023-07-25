@@ -14,14 +14,6 @@ type PilotParams = {
 	collections_promise: Promise<GqlCollection[]>
 }
 
-function op_morph<A, B>(op: Op.Any<A>, transmute: (a: A) => B) {
-	return Op.select<A, Op.Any<B>>(op, {
-		loading: () => Op.loading(),
-		err: reason => Op.err(reason),
-		ready: a => Op.ready(transmute(a)),
-	})
-}
-
 export class Pilot {
 	#params: PilotParams
 
@@ -42,7 +34,7 @@ export class Pilot {
 					)
 					: Op.run(
 						op => set_situation_op(
-							op_morph(op, collections => ({
+							Op.morph(op, collections => ({
 								type: "collection_listing",
 								collections,
 							} as Situations.CollectionListing))

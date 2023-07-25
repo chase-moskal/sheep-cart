@@ -10,7 +10,7 @@ export function init_state(flat: Flat, router: Router) {
 		route: router.route,
 		tags: [] as GqlTag[],
 		collections: [] as GqlCollection[],
-		situation_op: Op.loading() as Op.Any<Situations.Whatever>,
+		situation_op: Op.loading() as Op.For<Situations.Whatever>,
 	})
 }
 

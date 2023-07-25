@@ -27,6 +27,6 @@ export class Context {
 	set_route = (route: Route) => this.#state.route = route
 	set_tags = (tags: GqlTag[]) => this.#state.tags = tags
 	set_collections = (collections: GqlCollection[]) => this.#state.collections = collections
-	set_situation_op = (op: Op.Any<Situations.Whatever>) => this.#state.situation_op = op
+	set_situation_op = (op: Op.For<Situations.Whatever>) => this.#state.situation_op = op
 }
 
