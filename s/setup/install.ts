@@ -2,9 +2,9 @@
 import {CSSResultGroup} from "lit"
 import {Shopify, ShopifySettings} from "shopify-shepherd"
 
-import {Pilot} from "../piloting/pilot.js"
 import {Router} from "../routing/router.js"
 import {Context} from "../context/context.js"
+import {prepare_pilot} from "../piloting/pilot.js"
 import {theme as default_theme} from "../elements/theme.css.js"
 import {prepare_all_components} from "../elements/prepare_all_elements.js"
 
@@ -24,7 +24,7 @@ export function install_sheep_cart({
 
 	const collections_promise = Shopify.all(shopify.collections())
 
-	const pilot = new Pilot({
+	const pilot = prepare_pilot({
 		shopify,
 		collections_promise,
 		home: "collection_list",
@@ -32,7 +32,7 @@ export function install_sheep_cart({
 	})
 
 	router.on_route_change(context.set_route)
-	router.on_route_change(() => pilot.load(context.state.route))
+	router.on_route_change(() => pilot(context.state.route))
 
 	return {
 		elements: prepare_all_components(context),
@@ -41,7 +41,7 @@ export function install_sheep_cart({
 			await Promise.all([
 
 				void async function load_the_initial_route() {
-					await pilot.load(context.state.route)
+					await pilot(context.state.route)
 				}(),
 
 				void async function load_product_tags() {
