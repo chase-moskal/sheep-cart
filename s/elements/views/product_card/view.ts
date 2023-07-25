@@ -1,46 +1,45 @@
 
 import {html} from "lit"
 import {flatview} from "@benev/frog"
-import {GqlProduct, GqlVariant} from "shopify-shepherd"
+import {GqlProduct} from "shopify-shepherd"
 
 import {style} from "./style.css.js"
 import {Context} from "../../../context/context.js"
+import {display_price} from "./parts/display_price.js"
+import {featured_thumbnail} from "./parts/featured_thumbnail.js"
+import {number_of_variants} from "./parts/number_of_variants.js"
 
 export const ProductCard = (context: Context) => flatview(context.flat)
 	.state()
 	.actions()
 	.setup()
-	.render(() => (product: GqlProduct) => {
+	.render(() => (product: GqlProduct) => html`
 
-		const imageEdge = product.images.edges
-			.find(n => n.node.id === product.featuredImage?.id)
-		const more_than_one_variant = product.variants.edges.length > 1
-		const all_the_same_price = product.variants.edges
-			.every(p => p.node.price.amount === product.variants.edges[0].node.price.amount)
-		function price_for({node: variant}: {node: GqlVariant}) {
-			return parseFloat(variant.price.amount)
-		}
-		const lowest_price = product.variants.edges.reduce(
-			(previous, current) => (price_for(current) < previous)
-				? price_for(current)
-				: previous,
-			price_for(product.variants.edges[0])
-		)
+		<img alt="" src="${featured_thumbnail(product)}"/>
 
-		const link = context.router.routes.product(product).url
+		<div>
+			<p>
+				<a href="${context.router.routes.product(product).url}">
+					${product.title}
+				</a>
+			</p>
 
-		return html`
-			<img src="${imageEdge!.node.url_tiny}"/>
-			<div>
-				<p><a href="${link}">${product.title}</a></p>
-				<ul>${product.tags.map(tag => html`<li>${tag}</li>`)}</ul>
-				<p>variants: ${product.variants.edges.length}</p>
-				${more_than_one_variant && !all_the_same_price
-					? html`starts at ${lowest_price}`
-					: html`${lowest_price}`}
-				<button>ADD TO CART</button>
-			</div>
-		`})
+			<ul>${product.tags.map(tag => html`<li>${tag}</li>`)}</ul>
 
+			<p>variants: ${number_of_variants(product)}</p>
+
+			${display_price({
+				product,
+				single_price: price => html`
+					${price}
+				`,
+				multiple_prices: price => html`
+					starts at ${price}
+				`,
+			})}
+
+			<button>ADD TO CART</button>
+		</div>
+	`)
 	.css(context.theme, style)
 
