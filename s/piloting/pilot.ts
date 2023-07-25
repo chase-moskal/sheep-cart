@@ -4,12 +4,12 @@ import {GqlCollection, Shopify} from "shopify-shepherd"
 
 import {Route} from "../routing/types.js"
 import {load_single_product} from "./load/product.js"
-import {Situations} from "../context/types/situations.js"
+import {Situation} from "../context/types/situations.js"
 import {load_product_listing} from "./load/product_listing.js"
 
 type PilotParams = {
 	shopify: Shopify
-	set_situation_op: Op.Setter<Situations.Whatever>
+	set_situation_op: Op.Setter<Situation.Whatever>
 	home: "all_products" | "collection_list"
 	collections_promise: Promise<GqlCollection[]>
 }
@@ -38,7 +38,7 @@ export class Pilot {
 							Op.morph(op, collections => ({
 								type: "collection_list",
 								collections,
-							} as Situations.CollectionList))
+							} as Situation.CollectionList))
 						),
 						async() => collections_promise,
 					)

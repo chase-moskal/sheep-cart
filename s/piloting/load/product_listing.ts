@@ -2,18 +2,18 @@
 import {Op} from "@benev/frog"
 import {GqlProduct, PageGenerator} from "shopify-shepherd"
 
-import {Situations} from "../../context/types/situations.js"
+import {Situation} from "../../context/types/situations.js"
 
 export async function load_product_listing(
-		wrap: (list: Situations.Base.ProductList) => Situations.Whatever,
-		set_situation_op: Op.Setter<Situations.Whatever>,
+		wrap: (list: Situation.Base.ProductList) => Situation.Whatever,
+		set_situation_op: Op.Setter<Situation.Whatever>,
 		generator: PageGenerator<GqlProduct>,
 		previous_products: GqlProduct[] = [],
 	) {
 
 	const this_is_the_initial_listing_call = previous_products.length === 0
 
-	async function load_next_page_of_products(): Promise<Situations.Whatever> {
+	async function load_next_page_of_products(): Promise<Situation.Whatever> {
 		const {value} = await generator.next()
 		const [new_products, more] = value!
 		const products = [...previous_products, ...new_products]
@@ -29,7 +29,7 @@ export async function load_product_listing(
 	}
 
 	if (this_is_the_initial_listing_call) {
-		await Op.run<Situations.Whatever>(
+		await Op.run<Situation.Whatever>(
 			set_situation_op,
 			async() => await load_next_page_of_products(),
 		)

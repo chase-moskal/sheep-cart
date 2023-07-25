@@ -1,7 +1,7 @@
 
-import {Situations} from "../../../../context/types/situations.js"
+import {Situation} from "../../../../context/types/situations.js"
 
 export type Options = {
-	situation: Situations.Group.ProductList
+	situation: Situation.Group.ProductList
 }
 

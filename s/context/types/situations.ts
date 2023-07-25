@@ -2,7 +2,7 @@
 import {Op} from "@benev/frog"
 import {GqlCollection, GqlProduct} from "shopify-shepherd"
 
-export namespace Situations {
+export namespace Situation {
 	export namespace Base {
 		export type ProductList = {
 			products: GqlProduct[]
