@@ -1,4 +1,5 @@
-import {Router} from "../../../routing/router.js"
+
+import {Router} from "../../../../routing/router.js"
 
 export function update_tag(tag: string, router: Router) {
 	return (event: InputEvent) => {

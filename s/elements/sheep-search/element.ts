@@ -6,11 +6,12 @@ import {debounce} from "@chasemoskal/magical"
 import {style} from "./style.css.js"
 import {Context} from "../../context/context.js"
 import {search_icon} from "../../icons/feather/search_icon.js"
+import {render_search_tags} from "./tags/render_search_tags.js"
 import {ascertain_search_details} from "./parts/ascertain_search_details.js"
 import {populate_input_with_route_search_terms} from "./parts/populate_input_with_route_search_terms.js"
 import {populate_input_with_route_search_terms_when_user_is_not_focused_on_input} from "./parts/populate_input_with_route_search_terms_when_user_is_not_focused_on_input.js"
 
-export const SheepSearch = ({router}: Context) => class extends QuickElement {
+export const SheepSearch = (context: Context) => class extends QuickElement {
 	static styles = style
 
 	constructor() {
@@ -18,11 +19,11 @@ export const SheepSearch = ({router}: Context) => class extends QuickElement {
 
 		populate_input_with_route_search_terms(
 			this.wait,
-			router,
+			context.router,
 			() => this.#input,
 		)
 
-		this.add_setup(() => router.on_route_change(route =>
+		this.add_setup(() => context.router.on_route_change(route =>
 			populate_input_with_route_search_terms_when_user_is_not_focused_on_input(
 				route,
 				this.#user_is_focused_on_input,
@@ -40,6 +41,7 @@ export const SheepSearch = ({router}: Context) => class extends QuickElement {
 	}
 
 	#search: () => Promise<void> = debounce(250, () => {
+		const {router} = context
 		const details = ascertain_search_details(router, this.#input.value)
 
 		if (details.there_is_nothing_to_search_for)
@@ -50,8 +52,13 @@ export const SheepSearch = ({router}: Context) => class extends QuickElement {
 
 	render() {
 		return html`
-			<input type="text" @input="${this.#search}"/>
-			${search_icon(svg)}
+			<div class=searchbox>
+				<input type="text" @input="${this.#search}"/>
+				${search_icon(svg)}
+			</div>
+			<div class=searchtags>
+				${render_search_tags(context)}
+			</div>
 		`
 	}
 }

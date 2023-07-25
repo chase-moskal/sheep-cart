@@ -98,13 +98,14 @@ a:active, ::part(a):active { text-decoration: double underline; }
 	background: #482234;
 	border-radius: 0 0 0.5em 0.5em;
 	padding: 2em;
+
+	& ol {
+		list-style: none;
+	}
+
+	& ol li {
+		padding: 1em;
+	}
 }
 
-.catalog ol {
-	list-style: none;
-}
-
-.catalog ol li {
-	padding: 1em;
-}
 
