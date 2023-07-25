@@ -1,7 +1,6 @@
 
 import {html} from "lit"
 import {QuickElement} from "@benev/frog"
-import {GqlCollection} from "shopify-shepherd"
 
 import {style} from "./style.css.js"
 import {render_op} from "../utils/render_op.js"
@@ -10,19 +9,6 @@ import {Situations} from "../../context/types/situations.js"
 
 export const SheepCatalog = ({state, router, views}: Context) => class extends QuickElement {
 	static styles = style
-
-	#render_collection_listing({collections}: Situations.CollectionListing) {
-		const link = (collection: GqlCollection) => (
-			router.routes.collection(collection.id, collection.handle).url
-		)
-		return html`
-			${collections.map(collection => html`
-				<a href="${link(collection)}" part="a">
-					${collection.title}
-				</a>
-			`)}
-		`
-	}
 
 	#render_product_listing({
 			products,
@@ -69,7 +55,15 @@ export const SheepCatalog = ({state, router, views}: Context) => class extends Q
 				switch (situation?.type) {
 
 					case "collection_listing":
-						return this.#render_collection_listing(situation)
+						return views.CollectionList({exportparts: "a"})({
+							collections: situation.collections,
+							make_link: collection => (
+								router.routes.collection(
+									collection.id,
+									collection.handle,
+								).url
+							)
+						})
 
 					case "product_listing":
 						return this.#render_product_listing(situation)
