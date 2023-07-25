@@ -55,10 +55,17 @@ export class Router {
 	}
 
 	routes = {
-		catalog: () => this.#routefor({zone: "catalog"}),
-		search: (terms: string[], tags: string[]) => this.#routefor({zone: "search", terms, tags}),
-		collection: (id: string, label: string) => this.#routefor({zone: "collection", id, label}),
-		product: (id: string, label: string) => this.#routefor({zone: "product", id, label}),
+		catalog: () =>
+			this.#routefor({zone: "catalog"}),
+
+		search: (terms: string[], tags: string[]) =>
+			this.#routefor({zone: "search", terms, tags}),
+
+		collection: ({id, handle: label}: {id: string, handle: string}) =>
+			this.#routefor({zone: "collection", id, label}),
+
+		product: ({id, handle: label}: {id: string, handle: string}) =>
+			this.#routefor({zone: "product", id, label}),
 	}
 
 	get search_terms() {

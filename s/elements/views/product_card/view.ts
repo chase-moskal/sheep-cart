@@ -27,7 +27,7 @@ export const ProductCard = (context: Context) => flatview(context.flat)
 			price_for(product.variants.edges[0])
 		)
 
-		const link = context.router.routes.product(product.id, product.handle).url
+		const link = context.router.routes.product(product).url
 
 		return html`
 			<img src="${imageEdge!.node.url_tiny}"/>

@@ -16,10 +16,7 @@ export const SheepCatalog = ({state, router, views}: Context) => class extends Q
 					return views.CollectionList()({
 						collections: situation.collections,
 						make_link: collection => (
-							router.routes.collection(
-								collection.id,
-								collection.handle,
-							).url
+							router.routes.collection(collection).url
 						)
 					})
 
@@ -27,10 +24,7 @@ export const SheepCatalog = ({state, router, views}: Context) => class extends Q
 					return views.ProductList()({
 						situation,
 						make_link: product => (
-							router.routes.product(
-								product.id,
-								product.handle,
-							).url
+							router.routes.product(product).url
 						),
 					})
 
