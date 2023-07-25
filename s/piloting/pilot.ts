@@ -10,7 +10,7 @@ import {load_product_listing} from "./load/product_listing.js"
 type PilotParams = {
 	shopify: Shopify
 	set_situation_op: Op.Setter<Situations.Whatever>
-	home: "list_all_products" | "show_collections"
+	home: "all_products" | "collection_list"
 	collections_promise: Promise<GqlCollection[]>
 }
 
@@ -27,8 +27,9 @@ export class Pilot {
 		switch (route.zone) {
 
 			case "catalog":
-				return home === "list_all_products"
+				return home === "all_products"
 					? load_product_listing(
+						list => ({...list, type: "all_products"}),
 						set_situation_op,
 						shopify.products({page_size}),
 					)
@@ -44,6 +45,7 @@ export class Pilot {
 
 			case "search":
 				return load_product_listing(
+					list => ({...list, type: "search_results"}),
 					set_situation_op,
 					shopify.products({
 						page_size,
@@ -56,6 +58,11 @@ export class Pilot {
 
 			case "collection":
 				return load_product_listing(
+					list => ({
+						...list,
+						type: "products_in_collection",
+						collection_id: route.id,
+					}),
 					set_situation_op,
 					shopify.products_in_collection({
 						page_size,

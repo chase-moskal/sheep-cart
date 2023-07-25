@@ -15,7 +15,13 @@ export const SheepCatalog = ({state, router, views}: Context) => class extends Q
 				case "collection_list":
 					return views.CollectionList()({collections: situation.collections})
 
-				case "product_list":
+				case "products_in_collection":
+					return views.ProductList()({situation})
+
+				case "all_products":
+					return views.ProductList()({situation})
+
+				case "search_results":
 					return views.ProductList()({situation})
 
 				case "single_product":
