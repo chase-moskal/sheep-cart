@@ -47,38 +47,41 @@ export const SheepCatalog = ({state, router, views}: Context) => class extends Q
 	}
 
 	render() {
-		const {route, situation_op} = state
-		return html`
-			<p>route: zone ${route.zone}</p>
+		return render_op(state.situation_op, situation => {
+			switch (situation?.type) {
 
-			${render_op(situation_op, situation => {
-				switch (situation?.type) {
+				case "collection_listing":
+					return views.CollectionList()({
+						collections: situation.collections,
+						make_link: collection => (
+							router.routes.collection(
+								collection.id,
+								collection.handle,
+							).url
+						)
+					})
 
-					case "collection_listing":
-						return views.CollectionList({exportparts: "a"})({
-							collections: situation.collections,
-							make_link: collection => (
-								router.routes.collection(
-									collection.id,
-									collection.handle,
-								).url
-							)
-						})
+				case "product_listing":
+					return views.ProductList()({
+						situation,
+						make_link: product => (
+							router.routes.product(
+								product.id,
+								product.handle,
+							).url
+						),
+					})
 
-					case "product_listing":
-						return this.#render_product_listing(situation)
+				case "single_product":
+					return this.#render_single_product(situation)
 
-					case "single_product":
-						return this.#render_single_product(situation)
+				case "not_found":
+					return this.#render_not_found(situation)
 
-					case "not_found":
-						return this.#render_not_found(situation)
-
-					default:
-						return undefined
-				}
-			})}
-		`
+				default:
+					return undefined
+			}
+		})
 	}
 }
 
