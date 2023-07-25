@@ -36,7 +36,7 @@ export const SheepCatalog = ({state, router, views}: Context) => class extends Q
 						${situation.message
 							? html`<h1>${situation.message}</h1>`
 							: html`<h1>Not found</h1>`}
-						<p><a href="${router.routes.catalog().url}">back</a></p>
+						<p><a href="${router.routes.catalog().url}">back to catalog</a></p>
 					`
 
 				default:
