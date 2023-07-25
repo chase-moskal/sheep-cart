@@ -10,10 +10,14 @@ export const ProductList = (context: Context): Flatview<[Options]> => flatview(c
 	.state()
 	.actions()
 	.setup()
-	.render(() => ({situation: {products}}: Options) => html`
-		${products.map(product => html`
-			${context.views.ProductCard()(product)}
-		`)}
-	`)
+	.render(() => ({situation: {products}}: Options) => products.length > 0
+		? html`
+			${products.map(product => html`
+				${context.views.ProductCard()(product)}
+			`)}
+		`
+		: html`
+			<p>No products found</p>
+		`)
 	.css(context.theme, style)
 
