@@ -78,6 +78,9 @@ export const style = css`
 	> aside {
 		> img {
 			display: block;
+			width: 100%;
+			aspect-ratio: 1 / 1;
+			object-fit: cover;
 		}
 	}
 

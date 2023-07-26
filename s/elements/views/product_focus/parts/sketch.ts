@@ -1,30 +1,41 @@
 
 import {html} from "lit"
-import {GqlCollection, GqlProduct} from "shopify-shepherd"
+import {GqlCollection, GqlImage, GqlProduct, GqlVariant} from "shopify-shepherd"
 
 export type Img = {src: string, alt: string}
 
-export const placeholder_image: Img = {
+export const placeholder_img: Img = {
 	src: "https://i.imgur.com/hoPxt3T.webp",
 	alt: "",
 }
 
-export function render_featured_image(product: GqlProduct) {
-	let img = placeholder_image
-	const has_image = product.featuredImage && product.images.edges.length
+export function get_featured_image(product: GqlProduct) {
+	let image: GqlImage | undefined
 
-	if (has_image) {
-		const id = product.featuredImage?.id
-		const image = product.images.edges
+	const product_has_any_image_at_all = (
+		product.featuredImage &&
+		product.images.edges.length
+	)
+
+	if (product_has_any_image_at_all) {
+		image = product.images.edges
 			.map(e => e.node)
-			.find(node => node.id === id)
-		if (image)
-			img = {src: image.url_large, alt: image.altText}
+			.find(node => node.id === product.featuredImage?.id)
 	}
 
-	return html`
-		<img alt="${img.alt}" src="${img.src}"/>
-	`
+	return image
+}
+
+export function get_featured_img(product: GqlProduct) {
+	const image = get_featured_image(product)
+	return image
+		? {src: image.url_large, alt: image.altText}
+		: placeholder_img
+}
+
+export function render_featured_image(product: GqlProduct) {
+	const img = get_featured_img(product)
+	return render_img(img)
 }
 
 export function render_tags_and_collections(
@@ -56,19 +67,147 @@ export function render_tags_and_collections(
 	`
 }
 
-export function render_side_images(product: GqlProduct) {
-	const imgs: Img[] = []
+export function render_side_images(
+		product: GqlProduct,
+		choices: Choice[],
+	) {
 
-	for (const {node: {id, altText, url_tiny}} of product.images.edges) {
-		if (id !== product.featuredImage?.id)
-			imgs.push({
-				src: url_tiny,
-				alt: altText,
-			})
+	const imgs: Img[] = []
+	const primary_image = get_primary_image(product, choices)
+
+	const available_images = product.images.edges
+		.map(e => e.node)
+		.filter(image => image.id !== primary_image?.id)
+
+	for (const image of available_images) {
+		imgs.push({
+			src: image.url_large,
+			alt: image.altText,
+		})
 	}
 
-	return imgs.map(img => html`
-		<img alt="${img.alt}" src="${img.src}"/>
+	return imgs.map(render_img)
+}
+
+export type Choice = {
+	name: string
+	value: string
+}
+
+export function get_choice(name: string, product: GqlProduct, choices: Choice[]) {
+	const [{node: first_variant}] = product.variants.edges
+	const initial_choices = first_variant.selectedOptions
+
+	const found = choices.find(choice => choice.name === name)
+		?? initial_choices.find(choice => choice.name === name)
+
+	if (!found)
+		throw new Error(`choice not found (${name})`)
+
+	return found.value
+}
+
+export function get_selected_variant(product: GqlProduct, choices: Choice[]) {
+	const [{node: first_variant}] = product.variants.edges
+	return (product.variants.edges
+
+		.find(({node: variant}) =>
+			variant.selectedOptions
+
+				.every(({name, value}) =>
+					value === get_choice(name, product, choices)))
+
+	)?.node ?? first_variant
+}
+
+export function get_primary_image(
+		product: GqlProduct,
+		choices: Choice[],
+	) {
+
+	const variant = get_selected_variant(product, choices)
+
+	let image: GqlImage | undefined
+
+	if (variant.image) {
+		const edge = product.images.edges
+			.find(({node: image}) => image.id === variant.image?.id)
+		if (edge)
+			image = edge.node
+	}
+
+	if (!image)
+		image = get_featured_image(product)
+
+	return image
+}
+
+export function get_primary_img(
+		product: GqlProduct,
+		choices: Choice[],
+	): Img {
+	const image = get_primary_image(product, choices)
+	return image
+		? {src: image.url_large, alt: image.altText}
+		: placeholder_img
+}
+
+export function render_img(img: Img) {
+	return html`
+		<img src="${img.src}" alt="${img.alt}"/>
+	`
+}
+
+export function render_image_for_variant(
+		product: GqlProduct,
+		variant: GqlVariant,
+	) {
+
+	let img: Img | undefined
+
+	if (variant.image) {
+		const edge = product.images.edges
+			.find(({node: image}) => image.id === variant.image?.id)
+		if (edge) {
+			const {url_large, altText} = edge.node
+			img = {src: url_large, alt: altText}
+		}
+	}
+
+	if (!img)
+		img = get_featured_img(product)
+
+	return render_img(img)
+}
+
+export function render_options(
+		product: GqlProduct,
+		choices: Choice[],
+		set_choice: (name: string, value: string) => void,
+	) {
+
+	function is_selected(name: string, value: string) {
+		return value === get_choice(name, product, choices)
+	}
+
+	function handle_input(name: string) {
+		return (event: InputEvent) => {
+			const target = event.target as HTMLSelectElement
+			set_choice(name, target.value)
+		}
+	}
+
+	return product.options.map(({name, values}) => html`
+		<label>
+			<span>${name}</span>
+			<select @input=${handle_input(name)}>
+				${values.map(value => html`
+					<option ?selected=${is_selected(name, value)}>
+						${value}
+					</option>
+				`)}
+			</select>
+		</label>
 	`)
 }
 
