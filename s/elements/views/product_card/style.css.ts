@@ -5,19 +5,68 @@ export const style = css`
 
 :host {
 	display: flex;
+}
 
-	& button {
-		border: 2px solid #38f538;
-		padding: 0.5em 1em;
-		color: #38f538;
-		background-color: transparent;
-		cursor: pointer;
+header, .corner, .product-card-info {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5em;
+}
 
-		&:hover {
-			background-color: #0080004d;
-		}
+.product-card-info {
+	flex: 1;
+}
+
+h1 {
+	font-size: 1.5em;
+}
+
+.tags, h1, .price, .corner {
+	padding: 0em 0.6em;
+}
+
+.price {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+}
+
+.tag {
+	margin: 0.3em;
+	border: 1px solid white;
+	padding: 0.3em;
+	border-radius: 15px;
+}
+
+button {
+	border: 2px solid #38f538;
+	padding: 0.5em 1em;
+	color: #38f538;
+	background-color: transparent;
+	cursor: pointer;
+
+	&:hover {
+		background-color: #0080004d;
 	}
 }
 
+:is(.tags, .product-card-info > div) {
+	display: flex;
+	margin-top: auto;
+	margin-bottom: 0.3em;
+	justify-content: end;
+}
+
+.price-text {
+	font-size: 2em;
+}
+
+.option {
+	font-size: 0.8em;
+}
+
+.tags, .options {
+	list-style-type: none;
+}
 `
 
