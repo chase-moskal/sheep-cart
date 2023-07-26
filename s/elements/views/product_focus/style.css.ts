@@ -19,7 +19,7 @@ export const style = css`
 		"feature feature feature price   price   button "
 		"feature feature feature .       .       .      "
 		"side    side    essay   essay   essay   essay  ";
-	grid-template-columns: repeat(6, minmax(1em, 1fr));
+	grid-template-columns: repeat(auto-fit, minmax(1em, 1fr));
 	align-items: start;
 }
 
@@ -34,6 +34,7 @@ export const style = css`
 			"essay   essay  "
 			"side    side   "
 			/ 1fr    1fr;
+		grid-template-columns: repeat(auto-fit, minmax(1em, 1fr));
 	}
 }
 
