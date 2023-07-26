@@ -19,7 +19,7 @@ export const style = css`
 		"feature feature price   button "
 		"feature feature .       .      " 1fr
 		"side    essay   essay   essay  "
-		/ 25% 25% 1fr 1fr;
+		/ 25%    25%     1fr     1fr;
 }
 
 @container (max-width: 30em) {
