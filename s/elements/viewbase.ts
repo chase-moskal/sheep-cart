@@ -1,11 +1,11 @@
 
 import {Context} from "../context/context.js"
-import {Flatview, flatview} from "@benev/frog"
+import {Flatview, ShadowableTag, flatview} from "@benev/frog"
 
 export type Viewbase<P extends any[]> = (context: Context) => Flatview<P>
 
 export type V = {
-	tag(tag: string): {
+	tag(tag: ShadowableTag): {
 		name(name: string): ReturnType<typeof flatview>
 	}
 }

@@ -40,7 +40,7 @@ export const style = css`
 .grid {
 	> figure { grid-area: feature; }
 	> h1 { grid-area: heading; }
-	> ul { grid-area: tags; }
+	> .pills { grid-area: tags; }
 	> .options { grid-area: options; }
 	> .price { grid-area: price; }
 	> button { grid-area: button; }
@@ -59,23 +59,12 @@ export const style = css`
 		}
 	}
 
-	> ul {
-		list-style: none;
-		display: flex;
-		flex-wrap: wrap;
-		gap: 0.5em;
+	> .pills {
+		font-size: var(--small);
+	}
 
-		> li {
-			border: 1px solid white;
-			background: #fff2;
-			border-radius: 1em;
-			padding: 0 0.5em;
-
-			&[data-collection] {
-				background: #8af2;
-				border-color: cyan;
-			}
-		}
+	> .options {
+		justify-self: flex-end;
 	}
 
 	> aside {

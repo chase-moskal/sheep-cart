@@ -4,8 +4,8 @@ import {GqlProduct} from "shopify-shepherd"
 import {unsafeHTML} from "lit/directives/unsafe-html.js"
 
 import {style} from "./style.css.js"
-import {viewbase} from "../../viewbase.js"
-import {Choice, get_primary_img, render_img, render_options, render_side_images, render_tags_and_collections, number_of_images} from "./parts/sketch.js"
+import {Viewbase, viewbase} from "../../viewbase.js"
+import {Choice, get_primary_img, render_img, render_options, render_side_images, number_of_images} from "./parts/sketch.js"
 
 export const ProductFocus = viewbase(context => v => v
 	.tag("article")
@@ -37,12 +37,7 @@ export const ProductFocus = viewbase(context => v => v
 
 			<h1>${product.title}</h1>
 
-			<ul>
-				${render_tags_and_collections(
-					product,
-					context.state.collections,
-				)}
-			</ul>
+			${context.views.Pills({class: "pills"})(product)}
 
 			${product.variants.edges.length > 1
 				? html`
@@ -67,5 +62,5 @@ export const ProductFocus = viewbase(context => v => v
 		</div>
 	`)
 	.css(context.theme, style)
-)
+) as Viewbase<[GqlProduct]>
 
