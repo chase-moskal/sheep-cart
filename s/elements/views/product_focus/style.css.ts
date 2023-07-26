@@ -10,40 +10,41 @@ export const style = css`
 
 .grid {
 	display: grid;
-	gap: 0.5em;
+	gap: 1em;
 	grid-template:
-		"f f h h"
-		"f f t t"
-		"f f o o"
-		"f f p b"
-		"f f . ." 1fr
-		"x d d d"
+		"feature feature .       .      " 1fr
+		"feature feature heading heading"
+		"feature feature tags    tags   "
+		"feature feature options options"
+		"feature feature price   button "
+		"feature feature .       .      " 1fr
+		"side    essay   essay   essay  "
 		/ 25% 25% 1fr 1fr;
 }
 
 @container (max-width: 30em) {
 	.grid {
 		grid-template:
-			"h h"
-			"t t"
-			"o o"
-			"p b"
-			"f f"
-			"x x"
-			"d d"
+			"heading heading"
+			"tags    tags   "
+			"options options"
+			"price   button "
+			"feature feature"
+			"side    side   "
+			"essay   essay  "
 			/ 1fr 1fr;
 	}
 }
 
 .grid {
-	> figure { grid-area: f; }
-	> h1 { grid-area: h; }
-	> ul { grid-area: t; }
-	> .options { grid-area: o; }
-	> .price { grid-area: p; }
-	> button { grid-area: b; }
-	> aside { grid-area: x; }
-	> section { grid-area: d; }
+	> figure { grid-area: feature; }
+	> h1 { grid-area: heading; }
+	> ul { grid-area: tags; }
+	> .options { grid-area: options; }
+	> .price { grid-area: price; }
+	> button { grid-area: button; }
+	> aside { grid-area: side; }
+	> section { grid-area: essay; }
 
 	> figure {
 		background: #fff2;
@@ -74,8 +75,10 @@ export const style = css`
 		}
 	}
 
-	> :is(aside, section) {
-		margin-top: 1em;
+	> aside {
+		> img {
+			display: block;
+		}
 	}
 
 }

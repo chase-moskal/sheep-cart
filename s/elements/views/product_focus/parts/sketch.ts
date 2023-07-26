@@ -56,3 +56,19 @@ export function render_tags_and_collections(
 	`
 }
 
+export function render_side_images(product: GqlProduct) {
+	const imgs: Img[] = []
+
+	for (const {node: {id, altText, url_tiny}} of product.images.edges) {
+		if (id !== product.featuredImage?.id)
+			imgs.push({
+				src: url_tiny,
+				alt: altText,
+			})
+	}
+
+	return imgs.map(img => html`
+		<img alt="${img.alt}" src="${img.src}"/>
+	`)
+}
+
