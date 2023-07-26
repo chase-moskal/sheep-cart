@@ -1,13 +1,12 @@
 
 import {html} from "lit"
-import {flatview} from "@benev/frog"
 
 import {style} from "./style.css.js"
+import {view} from "../../view-base.js"
 import {Options} from "./utils/options.js"
 import {bgstyle} from "./utils/bgstyle.js"
-import {Context} from "../../../context/context.js"
 
-export const CollectionList = (context: Context) => flatview(context.flat)
+export const CollectionList = view("div", "collection-list", context => v => v
 	.state()
 	.actions()
 	.setup()
@@ -21,4 +20,5 @@ export const CollectionList = (context: Context) => flatview(context.flat)
 		`)}
 	`)
 	.css(context.theme, style)
+)
 
