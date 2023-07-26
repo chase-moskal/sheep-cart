@@ -13,6 +13,10 @@ export const theme = css`
 	& * + * {
 		margin-top: 0.7em;
 	}
+
+	:is(ul, ol) {
+		padding-left: 1.2em;
+	}
 }
 
 `

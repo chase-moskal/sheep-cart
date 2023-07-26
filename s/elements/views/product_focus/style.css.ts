@@ -10,7 +10,6 @@ export const style = css`
 
 .grid {
 	display: grid;
-	width: 100%;
 	gap: 0.5em;
 	grid-template:
 		"f f h h"
@@ -19,17 +18,17 @@ export const style = css`
 		"f f p b"
 		"f f . ." 1fr
 		"x d d d"
-		/ 1fr 1fr 1fr 1fr;
+		/ 25% 25% 1fr 1fr;
 }
 
 @container (max-width: 30em) {
 	.grid {
 		grid-template:
-			"f f"
 			"h h"
 			"t t"
 			"o o"
 			"p b"
+			"f f"
 			"x x"
 			"d d"
 			/ 1fr 1fr;
@@ -37,10 +36,9 @@ export const style = css`
 }
 
 .grid {
-
 	> figure { grid-area: f; }
 	> h1 { grid-area: h; }
-	> .tags { grid-area: t; }
+	> ul { grid-area: t; }
 	> .options { grid-area: o; }
 	> .price { grid-area: p; }
 	> button { grid-area: b; }
@@ -60,6 +58,7 @@ export const style = css`
 	> ul {
 		list-style: none;
 		display: flex;
+		flex-wrap: wrap;
 		gap: 0.5em;
 
 		> li {
