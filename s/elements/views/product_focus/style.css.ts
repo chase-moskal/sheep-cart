@@ -92,6 +92,15 @@ export const style = css`
 		}
 	}
 
+	&[data-no-side] {
+		> aside {
+			display: none;
+		}
+		> section {
+			grid-area: side / side / essay / essay;
+		}
+	}
+
 }
 
 `

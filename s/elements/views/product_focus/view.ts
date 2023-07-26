@@ -5,7 +5,7 @@ import {unsafeHTML} from "lit/directives/unsafe-html.js"
 
 import {style} from "./style.css.js"
 import {viewbase} from "../../viewbase.js"
-import {Choice, get_primary_img, render_img, render_options, render_side_images, render_tags_and_collections} from "./parts/sketch.js"
+import {Choice, get_primary_img, render_img, render_options, render_side_images, render_tags_and_collections, number_of_images} from "./parts/sketch.js"
 
 export const ProductFocus = viewbase(context => v => v
 	.tag("article")
@@ -29,7 +29,7 @@ export const ProductFocus = viewbase(context => v => v
 	}))
 	.setup()
 	.render(({state, actions}) => (product: GqlProduct) => html`
-		<div class=grid>
+		<div class=grid ?data-no-side=${number_of_images(product) < 2}>
 
 			<figure>
 				${render_img(get_primary_img(product, state.choices))}
