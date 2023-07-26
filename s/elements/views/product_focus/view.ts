@@ -5,7 +5,7 @@ import {unsafeHTML} from "lit/directives/unsafe-html.js"
 
 import {style} from "./style.css.js"
 import {viewbase} from "../../viewbase.js"
-import {Choice, get_primary_img, get_selected_variant, render_featured_image, render_image_for_variant, render_img, render_options, render_side_images, render_tags_and_collections} from "./parts/sketch.js"
+import {Choice, get_primary_img, render_img, render_options, render_side_images, render_tags_and_collections} from "./parts/sketch.js"
 
 export const ProductFocus = viewbase(context => v => v
 	.tag("article")
