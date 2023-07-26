@@ -16,7 +16,7 @@ export const ProductCard = viewbase(context => v => v
 	.setup()
 	.render(() => (product: GqlProduct) => html`
 		${featured_thumbnail(product) && html`
-			<img alt="" src="${featured_thumbnail(product)}"/>
+			<img class="thumbnail" alt="" src="${featured_thumbnail(product)!}"/>
 		`}
 
 		<div class=product-card-info>

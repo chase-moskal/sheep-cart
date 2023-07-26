@@ -5,6 +5,8 @@ export const style = css`
 
 :host {
 	display: flex;
+	background-color: white;
+	box-shadow: 0px 0px 10px gray;
 }
 
 header, .corner, .product-card-info {
@@ -18,7 +20,7 @@ header, .corner, .product-card-info {
 }
 
 h1 {
-	font-size: 1.5em;
+	font-size: var(--small);
 }
 
 .tags, h1, .price, .corner {
@@ -29,6 +31,7 @@ h1 {
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-end;
+	font-size: var(--small);
 }
 
 .tag {
@@ -40,11 +43,10 @@ h1 {
 
 button {
 	border: 2px solid #38f538;
-	padding: 0.5em 1em;
 	color: #38f538;
 	background-color: transparent;
 	cursor: pointer;
-
+	font-size: var(--tiny);
 	&:hover {
 		background-color: #0080004d;
 	}
@@ -55,10 +57,12 @@ button {
 	margin-top: auto;
 	margin-bottom: 0.3em;
 	justify-content: end;
+	color: black;
 }
 
 .price-text {
-	font-size: 2em;
+	font-size: var(--medium);
+	color: black;
 }
 
 .option {
@@ -67,6 +71,11 @@ button {
 
 .tags, .options {
 	list-style-type: none;
+	font-size: var(--tiny);
+}
+
+.thumbnail {
+	width: 45%;
 }
 `
 
