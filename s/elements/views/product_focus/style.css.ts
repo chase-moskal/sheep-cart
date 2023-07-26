@@ -20,12 +20,6 @@ export const style = css`
 		"f f . ." 1fr
 		"x d d d"
 		/ 1fr 1fr 1fr 1fr;
-
-	> * {
-		background: #fff2;
-		border: 1px solid white;
-		border-radius: 0.2rem;
-	}
 }
 
 @container (max-width: 30em) {
@@ -42,26 +36,49 @@ export const style = css`
 	}
 }
 
-figure { grid-area: f; }
-h1 { grid-area: h; }
-.tags { grid-area: t; }
-.options { grid-area: o; }
-.price { grid-area: p; }
-button { grid-area: b; }
-aside { grid-area: x; }
-section { grid-area: d; }
+.grid {
 
-figure {
-	background: #fff2;
-	> img {
-		width: 100%;
-		aspect-ratio: 1 / 1;
-		object-fit: cover;
+	> figure { grid-area: f; }
+	> h1 { grid-area: h; }
+	> .tags { grid-area: t; }
+	> .options { grid-area: o; }
+	> .price { grid-area: p; }
+	> button { grid-area: b; }
+	> aside { grid-area: x; }
+	> section { grid-area: d; }
+
+	> figure {
+		background: #fff2;
+		> img {
+			display: block;
+			width: 100%;
+			aspect-ratio: 1 / 1;
+			object-fit: cover;
+		}
 	}
-}
 
-aside, section {
-	margin-top: 1em;
+	> ul {
+		list-style: none;
+		display: flex;
+		gap: 0.5em;
+
+		> li {
+			border: 1px solid white;
+			background: #fff2;
+			border-radius: 1em;
+			padding: 0 0.5em;
+
+			&[data-collection] {
+				background: #8af2;
+				border-color: cyan;
+			}
+		}
+	}
+
+	> :is(aside, section) {
+		margin-top: 1em;
+	}
+
 }
 
 `

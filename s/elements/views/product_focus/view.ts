@@ -5,7 +5,7 @@ import {unsafeHTML} from "lit/directives/unsafe-html.js"
 
 import {style} from "./style.css.js"
 import {viewbase} from "../../viewbase.js"
-import {render_featured_image} from "./parts/sketch.js"
+import {render_featured_image, render_tags_and_collections} from "./parts/sketch.js"
 
 export const ProductFocus = viewbase(context => v => v
 	.tag("article")
@@ -21,10 +21,8 @@ export const ProductFocus = viewbase(context => v => v
 
 			<h1>${product.title}</h1>
 
-			<ul class=tags>
-				${product.tags.map(tag => html`
-					<li>${tag}</li>
-				`)}
+			<ul>
+				${render_tags_and_collections(product, context.state.collections)}
 			</ul>
 
 			<div class=options>options</div>

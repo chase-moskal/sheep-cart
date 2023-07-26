@@ -1,6 +1,6 @@
 
 import {html} from "lit"
-import {GqlProduct} from "shopify-shepherd"
+import {GqlCollection, GqlProduct} from "shopify-shepherd"
 
 export type Img = {src: string, alt: string}
 
@@ -24,6 +24,35 @@ export function render_featured_image(product: GqlProduct) {
 
 	return html`
 		<img alt="${img.alt}" src="${img.src}"/>
+	`
+}
+
+export function render_tags_and_collections(
+		product: GqlProduct,
+		collections: GqlCollection[],
+	) {
+
+	const pills = {
+		tags: [] as string[],
+		collections: [] as string[],
+	}
+
+	for (const {node: {id}} of product.collections.edges) {
+		const collection = collections.find(c => c.id === id)
+		if (collection)
+			pills.collections.push(collection.title)
+	}
+
+	for (const tag of product.tags)
+		pills.tags.push(tag)
+
+	return html`
+		${pills.collections.map(collection => html`
+			<li data-collection>${collection}</li>
+		`)}
+		${pills.tags.map(tag => html`
+			<li data-tag>${tag}</li>
+		`)}
 	`
 }
 
