@@ -12,13 +12,13 @@ export const style = css`
 	display: grid;
 	gap: 1em;
 	grid:
-		"feature feature feature .       .       .      "
+		"feature feature feature .       .       .      " 1fr
 		"feature feature feature heading heading heading"
-		"feature feature feature tags    tags    tags   "
+		"feature feature feature pills   pills   pills  "
 		"feature feature feature options options options"
 		"feature feature feature price   price   button "
-		"feature feature feature .       .       .      "
-		"side    side    essay   essay   essay   essay  ";
+		"feature feature feature .       .       .      " 1fr
+		"images  images  essay   essay   essay   essay  ";
 	grid-template-columns: repeat(auto-fit, minmax(1em, 1fr));
 	align-items: start;
 }
@@ -28,11 +28,11 @@ export const style = css`
 		grid:
 			"feature feature"
 			"heading heading"
-			"tags    tags   "
+			"pills   pills  "
 			"options options"
 			"price   button "
 			"essay   essay  "
-			"side    side   "
+			"images  images "
 			/ 1fr    1fr;
 		grid-template-columns: repeat(auto-fit, minmax(1em, 1fr));
 	}
@@ -41,17 +41,20 @@ export const style = css`
 .grid {
 	> figure { grid-area: feature; }
 	> h1 { grid-area: heading; }
-	> .pills { grid-area: tags; }
+	> .pills { grid-area: pills; }
 	> .options { grid-area: options; }
 	> .price { grid-area: price; }
 	> button { grid-area: button; }
-	> aside { grid-area: side; }
+	> aside { grid-area: images; }
 	> section { grid-area: essay; }
 
 	> figure {
 		background: #fff2;
 		width: 100%;
 		height: 100%;
+		align-self: center;
+		justify-self: end;
+
 		> img {
 			display: block;
 			width: 100%;
@@ -65,7 +68,7 @@ export const style = css`
 	}
 
 	> .options {
-		justify-self: flex-end;
+		justify-self: end;
 	}
 
 	> aside {
@@ -82,12 +85,21 @@ export const style = css`
 		}
 	}
 
-	&[data-no-side] {
+	&[data-no-additional-images] {
 		> aside {
 			display: none;
 		}
 		> section {
-			grid-area: side / side / essay / essay;
+			grid-area: images / images / essay / essay;
+		}
+	}
+
+	&[data-no-options] {
+		> .options {
+			display: none;
+		}
+		> .pills {
+			grid-row: span 2;
 		}
 	}
 

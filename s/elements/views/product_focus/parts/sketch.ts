@@ -146,6 +146,10 @@ export function number_of_images(product: GqlProduct) {
 	return product.images.edges.length
 }
 
+export function number_of_variants(product: GqlProduct) {
+	return product.variants.edges.length
+}
+
 export function get_primary_img(
 		product: GqlProduct,
 		choices: Choice[],

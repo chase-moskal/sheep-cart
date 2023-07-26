@@ -5,7 +5,7 @@ import {unsafeHTML} from "lit/directives/unsafe-html.js"
 
 import {style} from "./style.css.js"
 import {Viewbase, viewbase} from "../../viewbase.js"
-import {Choice, get_primary_img, render_img, render_options, render_side_images, number_of_images} from "./parts/sketch.js"
+import {Choice, get_primary_img, render_img, render_options, render_side_images, number_of_images, number_of_variants} from "./parts/sketch.js"
 
 export const ProductFocus = viewbase(context => v => v
 	.tag("article")
@@ -29,7 +29,10 @@ export const ProductFocus = viewbase(context => v => v
 	}))
 	.setup()
 	.render(({state, actions}) => (product: GqlProduct) => html`
-		<div class=grid ?data-no-side=${number_of_images(product) < 2}>
+		<div
+			class=grid
+			?data-no-additional-images=${number_of_images(product) < 2}
+			?data-no-options=${number_of_variants(product) < 2}>
 
 			<figure>
 				${render_img(get_primary_img(product, state.choices))}
@@ -39,13 +42,9 @@ export const ProductFocus = viewbase(context => v => v
 
 			${context.views.Pills({class: "pills"})(product)}
 
-			${product.variants.edges.length > 1
-				? html`
-					<div class=options>
-						${render_options(product, state.choices, actions.set_choice)}
-					</div>
-				`
-				: undefined}
+			<div class=options>
+				${render_options(product, state.choices, actions.set_choice)}
+			</div>
 
 			<div class=price>price</div>
 
