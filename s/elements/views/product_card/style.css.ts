@@ -4,27 +4,31 @@ import {css} from "lit"
 export const style = css`
 
 :host {
-	display: flex;
+	display: grid;
+	gap: 0.3em;
 	background-color: white;
 	box-shadow: 0px 0px 10px gray;
+	grid:
+		"image title title"
+		"image pills pills"
+		"image info options"
+		"image price button";
+	grid-template-columns: repeat(3, minmax(1em, 1fr));
 }
 
-header, .corner, .product-card-info {
-	display: flex;
-	flex-direction: column;
+
+.corner, .product-card-info {
 	gap: 0.5em;
 }
 
-.product-card-info {
-	flex: 1;
-}
-
 h1 {
+	grid-area: title;
 	font-size: var(--small);
 }
 
-.tags, h1, .price, .corner {
-	padding: 0em 0.6em;
+.price-info {
+	grid-area: info;
+	color: black;
 }
 
 .price {
@@ -32,6 +36,7 @@ h1 {
 	flex-direction: column;
 	justify-content: flex-end;
 	font-size: var(--small);
+	grid-area: price;
 }
 
 .tag {
@@ -45,6 +50,7 @@ button {
 	border: 2px solid #38f538;
 	color: #38f538;
 	background-color: transparent;
+	grid-area: button;
 	cursor: pointer;
 	font-size: var(--tiny);
 	&:hover {
@@ -53,29 +59,39 @@ button {
 }
 
 :is(.tags, .product-card-info > div) {
-	display: flex;
 	margin-top: auto;
 	margin-bottom: 0.3em;
 	justify-content: end;
 	color: black;
 }
 
-.price-text {
+.price {
 	font-size: var(--medium);
 	color: black;
 }
 
 .option {
 	font-size: 0.8em;
+	color: black;
 }
 
-.tags, .options {
+.options {
 	list-style-type: none;
+	grid-area: options;
 	font-size: var(--tiny);
 }
 
 .thumbnail {
-	width: 45%;
+	width: 100%;
+	grid-area: image;
+	height: 100%;
+	object-fit: cover;
+}
+
+div[data-name="pills"] {
+	grid-area: pills;
+	color: black;
+	font-size: var(--tiny);
 }
 `
 
