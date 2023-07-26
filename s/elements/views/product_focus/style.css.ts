@@ -18,20 +18,21 @@ export const style = css`
 		"feature feature options options"
 		"feature feature price   button "
 		"feature feature .       .      " 1fr
-		"side    essay   essay   essay  "
+		"side    side    essay   essay  "
 		/ 25%    25%     1fr     1fr;
+	align-items: start;
 }
 
-@container (max-width: 30em) {
+@container (width < 30em) {
 	.grid {
 		grid-template:
+			"feature feature"
 			"heading heading"
 			"tags    tags   "
 			"options options"
 			"price   button "
-			"feature feature"
-			"side    side   "
 			"essay   essay  "
+			"side    side   "
 			/ 1fr 1fr;
 	}
 }
@@ -48,10 +49,12 @@ export const style = css`
 
 	> figure {
 		background: #fff2;
+		width: 100%;
+		height: 100%;
 		> img {
 			display: block;
 			width: 100%;
-			aspect-ratio: 1 / 1;
+			height: 100%;
 			object-fit: cover;
 		}
 	}
@@ -76,9 +79,14 @@ export const style = css`
 	}
 
 	> aside {
+		display: flex;
+		flex-wrap: wrap;
+		container-type: inline-size;
+
 		> img {
 			display: block;
-			width: 100%;
+			width: 50cqi;
+			height: 50cqi;
 			aspect-ratio: 1 / 1;
 			object-fit: cover;
 		}
