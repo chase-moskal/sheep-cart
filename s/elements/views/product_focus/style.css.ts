@@ -11,21 +11,21 @@ export const style = css`
 .grid {
 	display: grid;
 	gap: 1em;
-	grid-template:
-		"feature feature .       .      " 1fr
-		"feature feature heading heading"
-		"feature feature tags    tags   "
-		"feature feature options options"
-		"feature feature price   button "
-		"feature feature .       .      " 1fr
-		"side    side    essay   essay  "
-		/ 25%    25%     1fr     1fr;
+	grid:
+		"feature feature feature .       .       .      "
+		"feature feature feature heading heading heading"
+		"feature feature feature tags    tags    tags   "
+		"feature feature feature options options options"
+		"feature feature feature price   price   button "
+		"feature feature feature .       .       .      "
+		"side    side    essay   essay   essay   essay  ";
+	grid-template-columns: repeat(6, minmax(1em, 1fr));
 	align-items: start;
 }
 
 @container (width < 30em) {
 	.grid {
-		grid-template:
+		grid:
 			"feature feature"
 			"heading heading"
 			"tags    tags   "
@@ -33,7 +33,7 @@ export const style = css`
 			"price   button "
 			"essay   essay  "
 			"side    side   "
-			/ 1fr 1fr;
+			/ 1fr    1fr;
 	}
 }
 
