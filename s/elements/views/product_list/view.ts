@@ -3,9 +3,11 @@ import {html} from "lit"
 
 import {style} from "./style.css.js"
 import {Options} from "./utils/options.js"
-import {View, view} from "../../view-base.js"
+import {Viewbase, viewbase} from "../../viewbase.js"
 
-export const ProductList = view("section", "product-list", context => v => v
+export const ProductList = viewbase(context => v => v
+	.tag("section")
+	.name("product-list")
 	.state()
 	.actions()
 	.setup()
@@ -17,5 +19,5 @@ export const ProductList = view("section", "product-list", context => v => v
 			<p>No products found</p>
 		`)
 	.css(context.theme, style)
-) as View<[Options]>
+) as Viewbase<[Options]>
 

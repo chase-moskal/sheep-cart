@@ -2,11 +2,13 @@
 import {html} from "lit"
 
 import {style} from "./style.css.js"
-import {view} from "../../view-base.js"
 import {Options} from "./utils/options.js"
 import {bgstyle} from "./utils/bgstyle.js"
+import {viewbase} from "../../viewbase.js"
 
-export const CollectionList = view("div", "collection-list", context => v => v
+export const CollectionList = viewbase(context => v => v
+	.tag("div")
+	.name("collection-list")
 	.state()
 	.actions()
 	.setup()

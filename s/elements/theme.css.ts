@@ -9,5 +9,11 @@ export const theme = css`
 	box-sizing: border-box;
 }
 
+.standard-content {
+	& * + * {
+		margin-top: 0.7em;
+	}
+}
+
 `
 

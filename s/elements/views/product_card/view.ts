@@ -1,15 +1,16 @@
 
 import {html} from "lit"
-import {flatview} from "@benev/frog"
 import {GqlProduct} from "shopify-shepherd"
 
 import {style} from "./style.css.js"
-import {Context} from "../../../context/context.js"
+import {viewbase} from "../../viewbase.js"
 import {display_price} from "./parts/display_price.js"
 import {featured_thumbnail} from "./parts/featured_thumbnail.js"
 import {number_of_variants} from "./parts/number_of_variants.js"
 
-export const ProductCard = (context: Context) => flatview(context.flat)
+export const ProductCard = viewbase(context => v => v
+	.tag("article")
+	.name("product-card")
 	.state()
 	.actions()
 	.setup()
@@ -24,7 +25,7 @@ export const ProductCard = (context: Context) => flatview(context.flat)
 						${product.title}
 					</a>
 				</h1>
-	
+
 				<ul class=tags>
 					${product.tags.map(tag => html`<li class=tag>${tag}</li>`)}
 				</ul>
@@ -61,4 +62,5 @@ export const ProductCard = (context: Context) => flatview(context.flat)
 		</div>
 	`)
 	.css(context.theme, style)
+)
 
