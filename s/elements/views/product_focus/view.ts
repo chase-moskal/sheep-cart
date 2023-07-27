@@ -10,9 +10,7 @@ import {Choice, get_primary_img, render_img, render_options, render_side_images,
 export const ProductFocus = viewbase(context => v => v
 	.tag("article")
 	.name("product-focus")
-	.state({
-		choices: [] as Choice[],
-	})
+	.state({choices: [] as Choice[]})
 	.actions(state => ({
 
 		set_choice(name: string, value: undefined | string) {
