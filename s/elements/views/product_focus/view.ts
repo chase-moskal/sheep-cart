@@ -44,7 +44,7 @@ export const ProductFocus = viewbase(context => v => v
 				${render_options(product, state.choices, actions.set_choice)}
 			</div>
 
-			<div class=price>price</div>
+			<div class=price>${context.views.Price(product.variants.edges[0].node.price)}</div>
 
 			<button>button</button>
 
