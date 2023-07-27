@@ -2,15 +2,10 @@
 import {css, html} from "lit"
 import {GqlCollection, GqlProduct} from "shopify-shepherd"
 
-import {viewbase} from "../../viewbase.js"
+import {flappy} from "../../flappy.js"
 
-export const Pills = viewbase(context => v => v
-	.tag("div")
-	.name("pills")
-	.state()
-	.actions()
-	.setup()
-	.render(() => (product: GqlProduct) => {
+export const Pills = flappy("div", "pills")
+	.render(context => _ => (product: GqlProduct) => {
 
 		const collections = product.collections.edges
 			.map(e => e.node.id)
@@ -27,9 +22,8 @@ export const Pills = viewbase(context => v => v
 				`)}
 			</ol>
 		`
-
 	})
-	.css(context.theme, css`
+	.styles(css`
 
 		ol {
 			display: flex;
@@ -49,7 +43,5 @@ export const Pills = viewbase(context => v => v
 				border-color: cyan;
 			}
 		}
-
 	`)
-)
 
