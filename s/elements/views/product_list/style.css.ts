@@ -19,3 +19,5 @@ export const style = css`
 }
 `
 
+// #DBB68F
+// #BB7e5D

@@ -27,16 +27,18 @@ export const ProductCard = viewbase(context => v => v
 
 			${context.views.Pills()(product)}
 
-			${display_price({
-				product,
-				single_price: price => html`
-					<p class=price>$${price}</p>
-				`,
-				multiple_prices: price => html`
-					<p class=price-info>starts at</p>
-					<p class=price>$${price}</p>
-				`,
-			})}
+			<div class=price>
+				${display_price({
+					product,
+					single_price: price => html`
+						<p>$${price}</p>
+					`,
+					multiple_prices: price => html`
+						<span class=price-info>starts at</span>
+						<p>$${price}</p>
+					`,
+				})}
+			</div>
 
 			${number_of_variants(product) > 1
 				? html`

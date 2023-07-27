@@ -20,7 +20,7 @@ html, body {
 }
 
 a, ::part(a) {
-	color: cyan;
+	color: #083D77;
 	text-decoration: none;
 }
 

@@ -36,7 +36,6 @@ h1 {
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-end;
-	font-size: var(--small);
 	grid-area: price;
 }
 
@@ -48,11 +47,17 @@ h1 {
 }
 
 button {
-	border: 2px solid #38f538;
-	color: #38f538;
-	background-color: transparent;
+	border: none;
+	background-color: #F6D8AE;
+	color: #2E4057;
 	grid-area: button;
 	cursor: pointer;
+	border-radius: 5px;
+	width: 7.8em;
+	height: 2em;
+	justify-self: flex-end;
+	align-self: self-end;
+	margin: 0 0.2em 0.2em 0;
 	font-size: var(--tiny);
 	&:hover {
 		background-color: #0080004d;

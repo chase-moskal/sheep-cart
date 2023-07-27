@@ -39,8 +39,8 @@ export const Pills = flappy("div", "pills")
 			padding: 0 0.5em;
 
 			&[data-collection] {
-				background: #8af2;
-				border-color: cyan;
+				background: rgb(244, 211, 94);
+				border-color: rgb(244, 211, 94);
 			}
 		}
 	`)
