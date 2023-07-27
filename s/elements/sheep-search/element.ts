@@ -23,7 +23,7 @@ export const SheepSearch = (context: Context) => class extends QuickElement {
 			() => this.#input,
 		)
 
-		this.add_setup(() => context.router.on_route_change(route =>
+		this.setup(() => context.router.on_route_change(route =>
 			populate_input_with_route_search_terms_when_user_is_not_focused_on_input(
 				route,
 				this.#user_is_focused_on_input,
