@@ -16,7 +16,7 @@ export const style = css`
 		"feature feature feature heading heading heading"
 		"feature feature feature pills   pills   pills  "
 		"feature feature feature options options options"
-		"feature feature feature price   price   button "
+		"feature feature feature buy     buy     buy    "
 		"feature feature feature .       .       .      " 1fr
 		"images  images  essay   essay   essay   essay  ";
 	grid-template-columns: repeat(auto-fit, minmax(1em, 1fr));
@@ -26,14 +26,14 @@ export const style = css`
 @container (width < 30em) {
 	.grid {
 		grid:
-			"feature feature"
-			"heading heading"
-			"pills   pills  "
-			"options options"
-			"price   button "
-			"essay   essay  "
-			"images  images "
-			/ 1fr    1fr;
+			"feature"
+			"heading"
+			"pills"
+			"options"
+			"buy"
+			"essay"
+			"images"
+			/ 1fr;
 		grid-template-columns: repeat(auto-fit, minmax(1em, 1fr));
 	}
 }
@@ -43,8 +43,7 @@ export const style = css`
 	> h1 { grid-area: heading; }
 	> .pills { grid-area: pills; }
 	> .options { grid-area: options; }
-	> .price { grid-area: price; }
-	> button { grid-area: button; }
+	> .buy { grid-area: buy; }
 	> aside { grid-area: images; }
 	> section { grid-area: essay; }
 
@@ -69,6 +68,16 @@ export const style = css`
 
 	> .options {
 		justify-self: end;
+	}
+
+	.buy {
+		display: flex;
+		justify-content: end;
+		gap: 0.5em;
+
+		> button {
+			flex: 1;
+		}
 	}
 
 	> aside {

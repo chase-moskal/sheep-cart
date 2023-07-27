@@ -44,9 +44,10 @@ export const ProductFocus = flappy("article", "product-focus")
 					${render_options(product, state.choices, set_choice)}
 				</div>
 
-				<div class=price>${context.views.Price()(product.variants.edges[0].node.price)}</div>
-
-				<button>button</button>
+				<div class=buy>
+					${context.views.Price({class: "price"})(product.variants.edges[0].node.price)}
+					<button>Add to Cart</button>
+				</div>
 
 				<aside>
 					${render_side_images(product, state.choices)}
