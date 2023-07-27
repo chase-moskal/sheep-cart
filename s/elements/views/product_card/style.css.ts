@@ -14,6 +14,7 @@ export const style = css`
 		"image info options"
 		"image price button";
 	grid-template-columns: repeat(3, minmax(1em, 1fr));
+	max-width: 25em;
 }
 
 

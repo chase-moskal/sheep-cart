@@ -20,7 +20,7 @@ export const ProductCard = viewbase(context => v => v
 		`}
 
 			<h1>
-				<a href="${context.router.routes.product(product).url}">
+				<a part="a" href="${context.router.routes.product(product).url}">
 					${product.title}
 				</a>
 			</h1>

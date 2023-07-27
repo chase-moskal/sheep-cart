@@ -13,7 +13,7 @@ export const ProductList = viewbase(context => v => v
 	.setup()
 	.render(() => ({situation: {products}}: Options) => products.length > 0
 		? html`
-			${products.map(product => html`${context.views.ProductCard()(product)}`)}
+			${products.map(product => html`${context.views.ProductCard({exportparts: "a"})(product)}`)}
 		`
 		: html`
 			<p>No products found</p>

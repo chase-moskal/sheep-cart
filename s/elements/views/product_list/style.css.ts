@@ -14,5 +14,8 @@ export const style = css`
 	display: block;
 }
 
+[data-name="product-card"] {
+	justify-self: center;
+}
 `
 
