@@ -17,6 +17,8 @@ export class Context {
 	#state: State
 	readonly state: State
 
+	cart: Cart
+
 	constructor(
 			public shopify: Shopify,
 			public router: Router,
@@ -24,7 +26,7 @@ export class Context {
 		) {
 		this.#state = init_state(this.flat, router)
 		this.state = Flat.readonly(this.#state)
-		this.cart = new Cart()
+		this.cart = new Cart(this.flat, this.shopify)
 	}
 
 	set_route = (route: Route) => this.#state.route = route
