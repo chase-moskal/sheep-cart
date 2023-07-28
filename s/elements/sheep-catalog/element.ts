@@ -25,7 +25,7 @@ export const SheepCatalog = ({state, router, views}: Context) => class extends Q
 					return views.ProductList({exportparts: "a, card, plate:card-plate, title:card-title, price:card-price"})({situation})
 
 				case "single_product":
-					return views.ProductFocus({exportparts: "a"})(situation.product)
+					return views.ProductFocus({exportparts: "a, card, title:card-title, price:card-price, plate:card-plate"})(situation.product)
 
 				case "not_found":
 					return html`

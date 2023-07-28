@@ -125,5 +125,8 @@ export const style = css`
 
 }
 
+[data-view="product-recommendation"] {
+	justify-content: center;
+}
 `
 

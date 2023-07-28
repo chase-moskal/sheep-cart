@@ -1,7 +1,7 @@
 
 import {CSSResultGroup} from "lit"
 import {Flat, Op} from "@benev/frog"
-import {GqlCollection, GqlTag} from "shopify-shepherd"
+import {GqlCollection, GqlTag, Shopify} from "shopify-shepherd"
 
 import {Route} from "../routing/types.js"
 import {Router} from "../routing/router.js"
@@ -17,6 +17,7 @@ export class Context {
 	readonly state: State
 
 	constructor(
+			public shopify: Shopify,
 			public router: Router,
 			public theme: CSSResultGroup,
 		) {

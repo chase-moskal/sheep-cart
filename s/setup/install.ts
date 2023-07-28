@@ -20,7 +20,7 @@ export function install_sheep_cart({
 	})
 
 	const router = Router.setup()
-	const context = new Context(router, theme)
+	const context = new Context(shopify, router, theme)
 
 	const collections_promise = Shopify.all(shopify.collections())
 

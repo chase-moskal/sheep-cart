@@ -9,6 +9,7 @@ export const style = css`
 	height: 100%;
 	text-decoration: none;
 	color: inherit;
+	padding: 0.5rem;
 
 	> img {
 		flex: 1;
