@@ -62,6 +62,10 @@ export const style = css`
 		}
 	}
 
+	> h1 {
+		font-size: 2em;
+	}
+
 	> .pills {
 		font-size: var(--small);
 	}
@@ -73,17 +77,17 @@ export const style = css`
 	.buy {
 		display: flex;
 		justify-content: end;
-		gap: 1em;
+		font-size: 1em;
+		gap: 1rem;
 
 		> .price {
 			flex: 1;
 			display: flex;
-			justify-content: end;
+			justify-content: center;
 		}
 
 		> [data-view="addbutton"] {
 			flex: 2;
-			font-size: 1.5em;
 		}
 	}
 

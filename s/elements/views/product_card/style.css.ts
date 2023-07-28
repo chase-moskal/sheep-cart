@@ -3,31 +3,31 @@ import {css} from "lit"
 
 export const style = css`
 
-:host {
+:host > a {
 	display: flex;
-	color: #000a;
-	background: #fffd;
-	box-shadow: 0.2em 0.3em 0.5em #0004;
-}
+	width: 100%;
+	height: 100%;
+	text-decoration: none;
+	color: inherit;
 
-:host > img {
-	flex: 1;
-	max-width: 4rem;
-	object-fit: cover;
-}
+	> img {
+		flex: 1;
+		max-width: 4rem;
+		object-fit: cover;
+	}
 
-.plate {
-	display: grid;
-	flex: 3;
-	grid:
-		"title title"
-		"pills pills"
-		"info options" 1fr
-		"price button";
-	grid-template-columns: minmax(auto, 1fr) minmax(1em, 2fr);
-	gap: 0.2rem;
-	padding: 0.4rem;
-	background: #fff;
+	> [part="plate"] {
+		display: grid;
+		flex: 3;
+		grid:
+			"title title"
+			"pills pills"
+			"info options" 1fr
+			"price button";
+		grid-template-columns: minmax(auto, 1fr) minmax(1em, 1fr);
+		gap: 0.2rem;
+		padding: 0.4rem;
+	}
 }
 
 h1 {
@@ -52,7 +52,7 @@ h1 {
 .options {
 	grid-area: options;
 	opacity: 0.4;
-	font-size: 0.8em;
+	font-size: 0.9em;
 	list-style: none;
 	justify-self: center;
 	align-self: end;
@@ -70,10 +70,6 @@ h1 {
 	grid-area: button;
 	width: 100%;
 	height: 100%;
-
-	&.select::part(button) {
-		/* background: #0bb; */
-	}
 }
 
 `

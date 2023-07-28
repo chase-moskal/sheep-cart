@@ -41,6 +41,7 @@ export const Price = flappy("div", "price")
 
 			> .currency {
 				opacity: 0.5;
+				font-size: 0.75em;
 			}
 		}
 

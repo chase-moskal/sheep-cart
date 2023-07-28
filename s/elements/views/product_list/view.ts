@@ -14,11 +14,13 @@ export const ProductList = viewbase(context => v => v
 	.setup()
 	.render(() => ({situation: {products, load_more_op, load_more}}: Options) => products.length > 0
 		? html`
+
 			<div class=grid>
 				${products.map(product => html`${
-					context.views.ProductCard({exportparts: "a, product-card-title"})(product)
+					context.views.ProductCard({part: "card", exportparts: "a, plate, title, price"})(product)
 				}`)}
 			</div>
+
 			<footer>
 				${render_op(load_more_op, () => load_more
 					? html`<button @click=${load_more}>load more</button>`

@@ -15,45 +15,47 @@ export const ProductCard = viewbase(context => v => v
 	.actions()
 	.setup()
 	.render(() => (product: GqlProduct) => html`
+		<a href="${context.router.routes.product(product).url}">
 
-		${render_featured_image(product)}
+			${render_featured_image(product)}
 
-		<div class=plate>
-			<h1>
-				<a part="a product-card-title" href="${context.router.routes.product(product).url}">
+			<div part=plate>
+				<h1 part="a title">
 					${product.title}
-				</a>
-			</h1>
+				</h1>
 
-			${context.views.Pills()(product)}
+				${context.views.Pills()(product)}
 
-			${display_price({
-				product,
-				single_price: price => html`
-					${context.views.Price()(price)}
-				`,
-				multiple_prices: price => html`
-					<div class=info>starts at</div>
-					${context.views.Price()(price)}
-				`,
-			})}
+				${display_price({
+					product,
+					single_price: price => html`
+						${context.views.Price({part: "price"})(price)}
+					`,
+					multiple_prices: price => html`
+						<div class=info>starts at</div>
+						${context.views.Price({part: "price"})(price)}
+					`,
+				})}
 
-			${number_of_variants(product) > 1
-				? html`
-					<ul class=options>
-						${product.options.map(o => html`
-							<li class=option>
-								${o.values.length} ${o.name.toLowerCase()} options
-							</li>
-						`)}
-					</ul>
-					${context.views.Coolbutton({class: "select"})("Select", () => {})}
-				`
-				: html`
-					${context.views.Coolbutton({class: "add"})("Add to Cart", () => {})}
-				`}
-		</div>
-
+				${number_of_variants(product) > 1
+					? html`
+						<ul class=options>
+							${product.options.map(o => html`
+								<li class=option>
+									${o.values.length} ${o.name.toLowerCase()} options
+								</li>
+							`)}
+						</ul>
+						${context.views.Coolbutton({class: "select"})("Select", () => {})}
+					`
+					: html`
+						${context.views.Coolbutton({class: "add"})("Add to Cart", event => {
+							event.preventDefault()
+						})}
+					`}
+			</div>
+		</a>
 	`)
 	.css(context.theme, style)
 ) as Viewbase<[GqlProduct]>
+

@@ -26,8 +26,19 @@ a, ::part(a) {
 a:hover, ::part(a):hover { text-decoration: underline; }
 a:active, ::part(a):active { text-decoration: double underline; }
 
-::part(product-card-title) {
-	color: #002bff;
+sheep-catalog {
+	&::part(card) {
+		color: white;
+		background: #fff2;
+	}
+
+	&::part(card-plate) {
+		background: #fff2;
+	}
+
+	&::part(card-title) {
+		color: white;
+	}
 }
 
 .sheep {
