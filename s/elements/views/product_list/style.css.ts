@@ -12,7 +12,6 @@ export const style = css`
 
 [data-view="product-card"] {
 	font-size: var(--small);
-	padding: 0.5rem;
 	max-width: 100%;
 }
 
