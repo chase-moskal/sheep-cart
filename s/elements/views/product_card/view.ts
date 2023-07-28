@@ -47,10 +47,10 @@ export const ProductCard = viewbase(context => v => v
 							</li>
 						`)}
 					</ul>
-					<button>Select</button>
+					${context.views.Addbutton({class: "select"})("Select", () => {})}
 				`
 				: html`
-					${context.views.Addbutton()()}
+					${context.views.Addbutton({class: "add"})("Add to Cart", () => {})}
 				`}
 		</div>
 

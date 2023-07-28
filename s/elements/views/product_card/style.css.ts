@@ -70,23 +70,9 @@ h1 {
 	grid-area: button;
 	width: 100%;
 	height: 100%;
-}
 
-button {
-	grid-area: button;
-	width: 100%;
-	height: 100%;
-	border: none;
-	background-color: #F6D8AE;
-	color: #2E4057;
-	cursor: pointer;
-	border-radius: 5px;
-	justify-self: flex-end;
-	align-self: self-end;
-	margin: 0 0.2em 0.2em 0;
-	font-size: 1em;
-	&:hover {
-		background-color: #0080004d;
+	&.select::part(button) {
+		/* background: #0bb; */
 	}
 }
 

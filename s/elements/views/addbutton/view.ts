@@ -3,8 +3,10 @@ import {css, html} from "lit"
 import {flappy} from "../../flappy.js"
 
 export const Addbutton = flappy("div", "addbutton")
-	.render(_ => _ => () => html`
-			<button>Add to Cart</button>
+	.render(_ => _ => (text: string, onclick: () => void) => html`
+		<button part=button @click=${() => onclick()}>
+			${text}
+		</button>
 	`)
 	.styles(css`
 
@@ -21,16 +23,17 @@ export const Addbutton = flappy("div", "addbutton")
 			border-radius: 0.5em;
 			text-transform: uppercase;
 
+			opacity: 0.7;
 			color: white;
 			background: #0b0;
 			text-shadow: 0.1em 0.1em 0.1em #0004;
 
 			&:is(:hover, :focus) {
-				background: #0c0;
+				opacity: 0.9;
 			}
 
 			&:active {
-				background: #0e0;
+				opacity: 1;
 			}
 		}
 	`)

@@ -6,7 +6,7 @@ import {unsafeHTML} from "lit/directives/unsafe-html.js"
 import {style} from "./style.css.js"
 import {flappy} from "../../flappy.js"
 import {Viewbase} from "../../viewbase.js"
-import {Choice, get_primary_img, render_img, render_options, render_side_images, number_of_images, number_of_variants} from "./parts/sketch.js"
+import {Choice, get_primary_img, render_img, render_options, render_side_images, number_of_images, number_of_variants, first_variant} from "./parts/sketch.js"
 
 export const ProductFocus = flappy("article", "product-focus")
 	.render(context => use => (product: GqlProduct) => {
@@ -41,8 +41,8 @@ export const ProductFocus = flappy("article", "product-focus")
 				</div>
 
 				<div class=buy>
-					${context.views.Price({class: "price"})(product.variants.edges[0].node.price)}
-					${context.views.Addbutton()()}
+					${context.views.Price({class: "price"})(first_variant(product).price)}
+					${context.views.Addbutton()("Add to Cart", () => {})}
 				</div>
 
 				<aside>

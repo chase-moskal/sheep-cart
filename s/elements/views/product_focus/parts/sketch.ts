@@ -9,6 +9,10 @@ export const placeholder_img: Img = {
 	alt: "",
 }
 
+export function first_variant(product: GqlProduct) {
+	return product.variants.edges[0].node
+}
+
 export function get_featured_image(product: GqlProduct) {
 	let image: GqlImage | undefined
 
