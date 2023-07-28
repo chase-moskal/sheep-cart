@@ -4,60 +4,83 @@ import {css} from "lit"
 export const style = css`
 
 :host {
-	display: grid;
-	gap: 0.3em;
-	background-color: white;
+	display: flex;
+	color: #000a;
+	background: #fffd;
 	box-shadow: 0.2em 0.3em 0.5em #0004;
-	grid:
-		"image title title"
-		"image pills pills"
-		"image info options"
-		"image price button";
-	grid-template-columns: repeat(3, minmax(1em, 1fr));
 }
 
-.corner, .product-card-info {
-	gap: 0.5em;
+:host > img {
+	flex: 1;
+	max-width: 4rem;
+	object-fit: cover;
+}
+
+.plate {
+	display: grid;
+	flex: 3;
+	grid:
+		"title title"
+		"pills pills"
+		"info options" 1fr
+		"price button";
+	grid-template-columns: minmax(auto, 1fr) minmax(1em, 2fr);
+	gap: 0.2rem;
+	padding: 0.4rem;
+	background: #fff;
 }
 
 h1 {
 	grid-area: title;
-	font-size: 1em;
+	font-size: 1.2em;
 }
 
-.price-info {
+[data-view="pills"] {
+	grid-area: pills;
+	font-size: 0.8em;
+	opacity: 0.7;
+	margin-bottom: 0.5rem;
+}
+
+.info {
 	grid-area: info;
-	color: black;
+	opacity: 0.8;
+	align-self: end;
+	justify-self: center;
 }
 
-.price {
-	display: flex;
-	flex-direction: column;
-	justify-content: flex-end;
+.options {
+	grid-area: options;
+	opacity: 0.4;
+	font-size: 0.8em;
+	list-style: none;
+	justify-self: center;
+	align-self: end;
+	font-style: italic;
+}
+
+[data-view="price"] {
 	grid-area: price;
-}
-
-.tag {
-	margin: 0.3em;
-	border: 1px solid white;
-	padding: 0.3em;
-	border-radius: 15px;
+	font-size: 0.8em;
+	justify-self: center;
+	padding: 0 0.5em;
 }
 
 [data-view="addbutton"] {
 	grid-area: button;
-	font-size: 1em;
+	width: 100%;
+	height: 100%;
 }
 
 button {
+	grid-area: button;
+	width: 100%;
+	height: 100%;
 	border: none;
 	background-color: #F6D8AE;
 	color: #2E4057;
-	grid-area: button;
 	cursor: pointer;
 	border-radius: 5px;
-	width: 7.8em;
-	height: 2em;
 	justify-self: flex-end;
 	align-self: self-end;
 	margin: 0 0.2em 0.2em 0;
@@ -65,45 +88,6 @@ button {
 	&:hover {
 		background-color: #0080004d;
 	}
-}
-
-:is(.tags, .product-card-info > div) {
-	margin-top: auto;
-	margin-bottom: 0.3em;
-	justify-content: end;
-	color: black;
-}
-
-.price {
-	color: black;
-
-	[data-view="price"] {
-		font-size: 0.75em;
-	}
-}
-
-.option {
-	font-size: 0.8em;
-	color: black;
-}
-
-.options {
-	list-style-type: none;
-	grid-area: options;
-	font-size: 1em;
-}
-
-.thumbnail {
-	width: 100%;
-	grid-area: image;
-	height: 100%;
-	object-fit: cover;
-}
-
-[data-view="pills"] {
-	grid-area: pills;
-	color: black;
-	font-size: 0.8em;
 }
 
 `

@@ -31,7 +31,7 @@ export const Price = flappy("div", "price")
 		}
 
 		.dollars {
-			font-size: 3em;
+			font-size: 2.4em;
 		}
 
 		.stack {

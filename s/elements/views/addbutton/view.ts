@@ -19,6 +19,7 @@ export const Addbutton = flappy("div", "addbutton")
 			border: none;
 			border: 0.2em solid #fff8;
 			border-radius: 0.5em;
+			text-transform: uppercase;
 
 			color: white;
 			background: #0b0;

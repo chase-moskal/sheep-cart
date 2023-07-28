@@ -29,18 +29,20 @@ export const Pills = flappy("div", "pills")
 			display: flex;
 			flex-wrap: wrap;
 			list-style: none;
-			gap: 0.5em;
+			gap: 0.1em;
 		}
 
 		li {
-			border: 1px solid white;
-			background: #fff2;
-			border-radius: 1em;
-			padding: 0 0.5em;
+			border: 1px solid currentColor;
+			padding: 0 0.3em;
 
 			&[data-collection] {
-				background: rgb(244, 211, 94);
-				border-color: rgb(244, 211, 94);
+				border-radius: 0.3em;
+			}
+
+			&[data-tag] {
+				opacity: 0.7;
+				border-radius: 1em;
 			}
 		}
 	`)

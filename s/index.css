@@ -20,12 +20,15 @@ html, body {
 }
 
 a, ::part(a) {
-	color: #083D77;
+	color: cyan;
 	text-decoration: none;
 }
-
 a:hover, ::part(a):hover { text-decoration: underline; }
 a:active, ::part(a):active { text-decoration: double underline; }
+
+::part(product-card-title) {
+	color: #002bff;
+}
 
 .sheep {
 	display: flex;
@@ -45,7 +48,7 @@ a:active, ::part(a):active { text-decoration: double underline; }
 }
 
 .slice {
-	width: 60em;
+	width: 90em;
 	max-width: 100%;
 	margin: 0.2em auto;
 	box-shadow: 1px 2px 5px #0008;

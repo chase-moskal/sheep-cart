@@ -27,7 +27,7 @@ export function install_sheep_cart({
 	const pilot = prepare_pilot({
 		shopify,
 		collections_promise,
-		home: "collection_list",
+		home: "all_products",
 		set_situation_op: context.set_situation_op,
 	})
 

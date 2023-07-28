@@ -3,23 +3,40 @@ import {css} from "lit"
 
 export const style = css`
 
-:host {
+.grid {
 	display: grid;
 	grid-template-columns: repeat(auto-fill, minmax(16em, 1fr));
 	width: 100%;
 	gap: 0.5rem;
 }
 
-:host > a {
-	display: block;
-}
-
 [data-view="product-card"] {
 	font-size: var(--small);
+	padding: 0.5rem;
+	max-width: 100%;
+}
+
+footer {
+	display: flex;
+	padding: 1em;
+	justify-content: center;
+	align-items: center;
+
+	> button {
+		opacity: 0.7;
+		font: inherit;
+		text-transform: uppercase;
+		font-size: 1em;
+		padding: 1em 2em;
+		background: #fffa;
+		color: #000a;
+		border: none;
+		cursor: pointer;
+		border-radius: 3em;
+		&:is(:hover, :focus) { opacity: 0.8; }
+		&:active { opacity: 1; }
+	}
 }
 
 `
-
-// #DBB68F
-// #BB7e5D
 
