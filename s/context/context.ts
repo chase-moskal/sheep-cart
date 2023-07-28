@@ -3,6 +3,7 @@ import {CSSResultGroup} from "lit"
 import {Flat, Op} from "@benev/frog"
 import {GqlCollection, GqlTag, Shopify} from "shopify-shepherd"
 
+import {Cart} from "../carting/cart.js"
 import {Route} from "../routing/types.js"
 import {Router} from "../routing/router.js"
 import {Situation} from "./types/situations.js"
@@ -23,6 +24,7 @@ export class Context {
 		) {
 		this.#state = init_state(this.flat, router)
 		this.state = Flat.readonly(this.#state)
+		this.cart = new Cart()
 	}
 
 	set_route = (route: Route) => this.#state.route = route
