@@ -21,20 +21,20 @@ export const Price = flappy("div", "price")
 
 		:host {
 			display: inline-flex;
-			font-size: 3em;
 			align-items: center;
 			gap: 0.1em;
 		}
 
 		.symbol {
-			font-size: 0.8em;
-			align-self: start;
+			font-size: 2em;
+			align-self: center;
 		}
 
-		.dollars {}
+		.dollars {
+			font-size: 3em;
+		}
 
 		.stack {
-			font-size: 0.4em;
 			display: inline-flex;
 			flex-direction: column;
 			line-height: 1em;

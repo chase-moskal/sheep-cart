@@ -1,6 +1,6 @@
 
 import {TemplateResult} from "lit"
-import {GqlProduct, GqlVariant} from "shopify-shepherd"
+import {GqlPrice, GqlProduct} from "shopify-shepherd"
 
 export function display_price({
 		product,
@@ -8,8 +8,8 @@ export function display_price({
 		multiple_prices,
 	}: {
 		product: GqlProduct
-		single_price: (price: string) => TemplateResult
-		multiple_prices: (price: string) => TemplateResult
+		single_price: (price: GqlPrice) => TemplateResult
+		multiple_prices: (price: GqlPrice) => TemplateResult
 	}) {
 
 	const more_than_one_variant = product.variants.edges.length > 1
@@ -17,21 +17,21 @@ export function display_price({
 	const all_the_same_price = product.variants.edges
 		.every(p => p.node.price.amount === product.variants.edges[0].node.price.amount)
 
-	function price_for({node: variant}: {node: GqlVariant}) {
-		return parseFloat(variant.price.amount)
+	function numerical(price: GqlPrice) {
+		return parseFloat(price.amount)
 	}
 
-	const lowest_price = product.variants.edges.reduce(
-		(previous, current) => (price_for(current) < previous)
-			? price_for(current)
-			: previous,
-		price_for(product.variants.edges[0])
-	)
+	const prices = product.variants.edges.map(e => e.node.price)
 
-	const formatted_price = lowest_price.toFixed(2)
+	let lowest_price: GqlPrice = prices[0]
+
+	for (const price of prices) {
+		if (numerical(price) < numerical(lowest_price))
+			lowest_price = price
+	}
 
 	return (more_than_one_variant && !all_the_same_price)
-		? multiple_prices(formatted_price)
-		: single_price(formatted_price)
+		? multiple_prices(lowest_price)
+		: single_price(lowest_price)
 }
 

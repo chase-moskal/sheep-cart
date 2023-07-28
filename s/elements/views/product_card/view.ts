@@ -31,11 +31,11 @@ export const ProductCard = viewbase(context => v => v
 				${display_price({
 					product,
 					single_price: price => html`
-						<p>$${price}</p>
+						${context.views.Price()(price)}
 					`,
 					multiple_prices: price => html`
 						<span class=price-info>starts at</span>
-						<p>$${price}</p>
+						${context.views.Price()(price)}
 					`,
 				})}
 			</div>
@@ -50,7 +50,7 @@ export const ProductCard = viewbase(context => v => v
 					<button>SELECT</button>
 				`
 				: html`<button>ADD TO CART</button>`}
-			
+
 	`)
 	.css(context.theme, style)
 ) as Viewbase<[GqlProduct]>

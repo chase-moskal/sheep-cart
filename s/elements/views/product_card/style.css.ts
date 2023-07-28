@@ -74,6 +74,10 @@ button {
 .price {
 	font-size: var(--medium);
 	color: black;
+
+	[data-view="price"] {
+		font-size: 0.75em;
+	}
 }
 
 .option {
@@ -94,10 +98,11 @@ button {
 	object-fit: cover;
 }
 
-div[data-name="pills"] {
+[data-view="pills"] {
 	grid-area: pills;
 	color: black;
 	font-size: var(--tiny);
 }
+
 `
 
