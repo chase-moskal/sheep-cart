@@ -42,7 +42,7 @@ export const ProductFocus = flappy("article", "product-focus")
 
 				<div class=buy>
 					${context.views.Price({class: "price"})(first_variant(product).price)}
-					${context.views.Addbutton()("Add to Cart", () => {})}
+					${context.views.Coolbutton()("Add to Cart", () => {})}
 				</div>
 
 				<aside>

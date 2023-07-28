@@ -2,9 +2,9 @@
 import {css, html} from "lit"
 import {flappy} from "../../flappy.js"
 
-export const Addbutton = flappy("div", "addbutton")
-	.render(_ => _ => (text: string, onclick: () => void) => html`
-		<button part=button @click=${() => onclick()}>
+export const Coolbutton = flappy("div", "addbutton")
+	.render(_ => _ => (text: string, onclick: (event: MouseEvent) => void) => html`
+		<button part=button @click=${onclick}>
 			${text}
 		</button>
 	`)
