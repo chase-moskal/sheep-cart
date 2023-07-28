@@ -3,10 +3,15 @@ import {html} from "lit"
 import {GqlProduct} from "shopify-shepherd"
 import {unsafeHTML} from "lit/directives/unsafe-html.js"
 
+import {img} from "./parts/img.js"
 import {style} from "./style.css.js"
 import {flappy} from "../../flappy.js"
+import {Choice} from "./parts/types.js"
 import {Viewbase} from "../../viewbase.js"
-import {Choice, get_primary_img, render_img, render_options, render_side_images, number_of_images, number_of_variants, get_selected_variant} from "./parts/sketch.js"
+import {render_img} from "./parts/render_img.js"
+import {ChoiceHelper} from "./parts/choice_helper.js"
+import {ProductHelper} from "./parts/product_helper.js"
+import {render_options} from "./parts/render_options.js"
 
 export const ProductFocus = flappy("article", "product-focus")
 	.render(context => use => (product: GqlProduct) => {
@@ -15,6 +20,9 @@ export const ProductFocus = flappy("article", "product-focus")
 		const state = use.state({
 			choices: [] as Choice[],
 		})
+
+		const productHelper = new ProductHelper(product)
+		const choiceHelper = new ChoiceHelper(productHelper, state.choices)
 
 		function set_choice(name: string, value: undefined | string) {
 			state.choices = state.choices
@@ -28,11 +36,11 @@ export const ProductFocus = flappy("article", "product-focus")
 		return html`
 			<div
 				class=grid
-				?data-no-additional-images=${number_of_images(product) < 2}
-				?data-no-options=${number_of_variants(product) < 2}>
+				?data-no-additional-images=${productHelper.images.length < 2}
+				?data-no-options=${productHelper.variants.length < 2}>
 
 				<figure>
-					${render_img(get_primary_img(product, state.choices))}
+					${render_img(img.large(choiceHelper.chosen_image))}
 				</figure>
 
 				<h1>${product.title}</h1>
@@ -40,18 +48,18 @@ export const ProductFocus = flappy("article", "product-focus")
 				${views.Pills({class: "pills"})(product)}
 
 				<div class=options>
-					${render_options(product, state.choices, set_choice)}
+					${render_options(choiceHelper, set_choice)}
 				</div>
 
 				<div class=buy>
 					${views.Price({class: "price"})(
-						get_selected_variant(product, state.choices).price
+						choiceHelper.selected_variant.price
 					)}
 					${views.Coolbutton()("Add to Cart", () => {})}
 				</div>
 
 				<aside>
-					${render_side_images(product, state.choices)}
+					${choiceHelper.side_images.map(image => render_img(img.large(image)))}
 				</aside>
 
 				<section class="standard-content">

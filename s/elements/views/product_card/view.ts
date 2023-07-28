@@ -3,10 +3,12 @@ import {html} from "lit"
 import {GqlProduct} from "shopify-shepherd"
 
 import {style} from "./style.css.js"
+import {img} from "../product_focus/parts/img.js"
 import {Viewbase, viewbase} from "../../viewbase.js"
 import {display_price} from "./parts/display_price.js"
+import {render_img} from "../product_focus/parts/render_img.js"
 import {number_of_variants} from "./parts/number_of_variants.js"
-import {render_featured_image} from "./parts/render_featured_image.js"
+import {ProductHelper} from "../product_focus/parts/product_helper.js"
 
 export const ProductCard = viewbase(context => v => v
 	.tag("article")
@@ -17,7 +19,7 @@ export const ProductCard = viewbase(context => v => v
 	.render(() => (product: GqlProduct) => html`
 		<a href="${context.router.routes.product(product).url}">
 
-			${render_featured_image(product)}
+			${render_img(img.tiny(new ProductHelper(product).featured_image))}
 
 			<div part=plate>
 				<h1 part="a title">
