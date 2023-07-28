@@ -5,7 +5,7 @@ export const style = css`
 
 :host {
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+	grid-template-columns: repeat(auto-fill, minmax(16em, 1fr));
 	width: 100%;
 	gap: 0.5rem;
 }
@@ -16,10 +16,10 @@ export const style = css`
 
 [data-view="product-card"] {
 	font-size: var(--small);
-	max-width: 36rem;
 }
 
 `
 
 // #DBB68F
 // #BB7e5D
+

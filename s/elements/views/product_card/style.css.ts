@@ -7,7 +7,7 @@ export const style = css`
 	display: grid;
 	gap: 0.3em;
 	background-color: white;
-	box-shadow: 0px 0px 10px gray;
+	box-shadow: 0.2em 0.3em 0.5em #0004;
 	grid:
 		"image title title"
 		"image pills pills"
@@ -15,7 +15,6 @@ export const style = css`
 		"image price button";
 	grid-template-columns: repeat(3, minmax(1em, 1fr));
 }
-
 
 .corner, .product-card-info {
 	gap: 0.5em;

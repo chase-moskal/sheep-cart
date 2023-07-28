@@ -15,43 +15,44 @@ export const ProductCard = viewbase(context => v => v
 	.actions()
 	.setup()
 	.render(() => (product: GqlProduct) => html`
+
 		${featured_thumbnail(product) && html`
 			<img class="thumbnail" alt="" src="${featured_thumbnail(product)!}"/>
 		`}
 
-			<h1>
-				<a part="a" href="${context.router.routes.product(product).url}">
-					${product.title}
-				</a>
-			</h1>
+		<h1>
+			<a part="a" href="${context.router.routes.product(product).url}">
+				${product.title}
+			</a>
+		</h1>
 
-			${context.views.Pills()(product)}
+		${context.views.Pills()(product)}
 
-			<div class=price>
-				${display_price({
-					product,
-					single_price: price => html`
-						${context.views.Price()(price)}
-					`,
-					multiple_prices: price => html`
-						<span class=price-info>starts at</span>
-						${context.views.Price()(price)}
-					`,
-				})}
-			</div>
+		<div class=price>
+			${display_price({
+				product,
+				single_price: price => html`
+					${context.views.Price()(price)}
+				`,
+				multiple_prices: price => html`
+					<span class=price-info>starts at</span>
+					${context.views.Price()(price)}
+				`,
+			})}
+		</div>
 
-			${number_of_variants(product) > 1
-				? html`
-					<ul class=options>
-						${product.options.map(o => html`
-							<li class=option>${o.values.length} ${o.name.toUpperCase()} OPTIONS</li>
-						`)}
-					</ul>
-					<button>SELECT</button>
-				`
-				: html`
-					${context.views.Addbutton()()}
-				`}
+		${number_of_variants(product) > 1
+			? html`
+				<ul class=options>
+					${product.options.map(o => html`
+						<li class=option>${o.values.length} ${o.name.toUpperCase()} OPTIONS</li>
+					`)}
+				</ul>
+				<button>SELECT</button>
+			`
+			: html`
+				${context.views.Addbutton()()}
+			`}
 
 	`)
 	.css(context.theme, style)
