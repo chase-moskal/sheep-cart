@@ -5,7 +5,7 @@ import {GqlCollection, GqlImage, GqlProduct, GqlVariant} from "shopify-shepherd"
 export type Img = {src: string, alt: string}
 
 export const placeholder_img: Img = {
-	src: "https://i.imgur.com/hoPxt3T.webp",
+	src: "https://i.imgur.com/h1v2noQ.webp",
 	alt: "",
 }
 
