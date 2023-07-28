@@ -16,13 +16,9 @@ export const ProductFocus = flappy("article", "product-focus")
 		})
 
 		function set_choice(name: string, value: undefined | string) {
-			state.choices = state.choices
-				.filter(choice => choice.name !== name)
+			state.choices = state.choices.filter(choice => choice.name !== name)
 			if (value !== undefined) {
-				state.choices.push({
-					name,
-					value,
-				})
+				state.choices.push({name, value})
 			}
 		}
 
