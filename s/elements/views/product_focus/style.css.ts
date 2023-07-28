@@ -73,10 +73,17 @@ export const style = css`
 	.buy {
 		display: flex;
 		justify-content: end;
-		gap: 0.5em;
+		gap: 1em;
 
-		> button {
+		> .price {
 			flex: 1;
+			display: flex;
+			justify-content: end;
+		}
+
+		> [data-view="addbutton"] {
+			flex: 2;
+			font-size: 1.5em;
 		}
 	}
 

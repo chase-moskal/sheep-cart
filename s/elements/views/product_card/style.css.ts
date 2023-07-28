@@ -14,7 +14,6 @@ export const style = css`
 		"image info options"
 		"image price button";
 	grid-template-columns: repeat(3, minmax(1em, 1fr));
-	max-width: 25em;
 }
 
 
@@ -24,7 +23,7 @@ export const style = css`
 
 h1 {
 	grid-area: title;
-	font-size: var(--small);
+	font-size: 1em;
 }
 
 .price-info {
@@ -46,6 +45,11 @@ h1 {
 	border-radius: 15px;
 }
 
+[data-view="addbutton"] {
+	grid-area: button;
+	font-size: 1em;
+}
+
 button {
 	border: none;
 	background-color: #F6D8AE;
@@ -58,7 +62,7 @@ button {
 	justify-self: flex-end;
 	align-self: self-end;
 	margin: 0 0.2em 0.2em 0;
-	font-size: var(--tiny);
+	font-size: 1em;
 	&:hover {
 		background-color: #0080004d;
 	}
@@ -72,7 +76,6 @@ button {
 }
 
 .price {
-	font-size: var(--medium);
 	color: black;
 
 	[data-view="price"] {
@@ -88,7 +91,7 @@ button {
 .options {
 	list-style-type: none;
 	grid-area: options;
-	font-size: var(--tiny);
+	font-size: 1em;
 }
 
 .thumbnail {
@@ -101,7 +104,7 @@ button {
 [data-view="pills"] {
 	grid-area: pills;
 	color: black;
-	font-size: var(--tiny);
+	font-size: 0.8em;
 }
 
 `

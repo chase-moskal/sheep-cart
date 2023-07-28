@@ -49,7 +49,9 @@ export const ProductCard = viewbase(context => v => v
 					</ul>
 					<button>SELECT</button>
 				`
-				: html`<button>ADD TO CART</button>`}
+				: html`
+					${context.views.Addbutton()()}
+				`}
 
 	`)
 	.css(context.theme, style)

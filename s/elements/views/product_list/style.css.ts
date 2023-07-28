@@ -5,9 +5,9 @@ export const style = css`
 
 :host {
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(14em, 1fr));
+	grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
 	width: 100%;
-	gap: 0.5em;
+	gap: 0.5rem;
 }
 
 :host > a {
@@ -15,8 +15,10 @@ export const style = css`
 }
 
 [data-view="product-card"] {
-	justify-self: center;
+	font-size: var(--small);
+	max-width: 36rem;
 }
+
 `
 
 // #DBB68F
