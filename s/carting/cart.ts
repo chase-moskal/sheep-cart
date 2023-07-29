@@ -1,36 +1,50 @@
 
-import {Flat, Op} from "@benev/frog"
+import {Flat, Op, clone} from "@benev/frog"
 import {GqlProduct, Shopify} from "shopify-shepherd"
 
-export type CartState = ReturnType<typeof Cart.init_state>
-
-export type CartItem = {
-	product_id: string
-	variant_id: string
-	quantity: number
-}
-
-export type ProductCache = {
-	product_id: string
-	op: Op.For<GqlProduct>
-}
+import {CartStore} from "./parts/cart_store.js"
+import {CartItem, CartState, CartUnit, ProductCache} from "./parts/types.js"
 
 export class Cart {
-	static init_state = () => ({
-		items: [] as CartItem[],
-		products: [] as ProductCache[],
-	})
-
 	#flat: Flat
 	#shopify: Shopify
+	#store: CartStore
+
 	#state: CartState
 	readonly state: CartState
 
-	constructor(flat: Flat, shopify: Shopify) {
+	constructor(flat: Flat, shopify: Shopify, store: CartStore) {
 		this.#flat = flat
 		this.#shopify = shopify
-		this.#state = flat.state(Cart.init_state())
+		this.#store = store
+		this.#state = flat.state({
+			items: [],
+			products: [],
+		})
 		this.state = Flat.readonly(this.#state)
+		flat.auto({
+			debounce: true,
+			discover: true,
+			collector: () => {
+				const items = this.#state.items
+				void clone(items)
+			},
+			responder: () => this.save(),
+		})
+	}
+
+	save() {
+		const {items} = this.#state
+		console.log("cart save", clone(items))
+		this.#store.save({items})
+	}
+
+	async load() {
+		const pack = this.#store.load()
+		this.#state.items = [
+			...this.#state.items,
+			...pack.items.map(this.#flat.state),
+		]
 	}
 
 	#get_item(variant_id: string) {
@@ -41,13 +55,35 @@ export class Cart {
 		return this.#state.products.find(i => i.product_id === product_id)
 	}
 
-	add(product_id: string, variant_id: string, product: GqlProduct) {
+	get units() {
+		return this.#state.items
+			.map(item => ({item, product: this.#get_product(item.product_id)}))
+			.filter(data => !!data.product && Op.is.ready(data.product.op))
+			.map(data => {
+				const product = Op.payload(data.product!.op)
+				const variant = product?.variants.edges
+					.map(e => e.node)
+					.find(v => v.id === data.item.variant_id)
+				return (!!product && !!variant)
+					? {
+						product,
+						variant,
+						product_id: data.item.product_id,
+						variant_id: data.item.variant_id,
+						quantity: data.item.quantity,
+					} as CartUnit
+					: undefined
+			})
+			.filter(u => !!u) as CartUnit[]
+	}
+
+	add(variant_id: string, product: GqlProduct) {
 
 		// add item
 		this.#state.items = [
 			...this.#state.items.filter(i => i.variant_id !== variant_id),
 			this.#flat.state({
-				product_id,
+				product_id: product.id,
 				variant_id,
 				quantity: 1,
 			}),
@@ -63,29 +99,35 @@ export class Cart {
 		]
 	}
 
-	set_quantity(product_id: string, variant_id: string, quantity: number) {
+	set_quantity(variant_id: string, quantity: number) {
 		const item = this.#get_item(variant_id)!
 		item.quantity = quantity
 	}
 
-	async load(items: CartItem[]) {
-		const not_already_loading = items
+	async #fetch_products(items: CartItem[]) {
+		const new_product_ids = items
 			.filter(i => !this.#get_product(i.product_id))
 			.map(i => i.product_id)
 
-		const new_caches: ProductCache[] = not_already_loading.map(product_id => this.#flat.state({product_id, op: Op.loading()}))
+		const new_caches: ProductCache[] = new_product_ids
+			.map(product_id => ({product_id, op: Op.loading()}))
+			.map(this.#flat.state)
+
 		this.#state.products = [
 			...this.#state.products,
 			...new_caches
 		]
 
-		const products = await this.#shopify.specific_products({ids: not_already_loading})
+		if (new_product_ids.length > 0) {
+			const products = await this.#shopify
+				.specific_products({ids: new_product_ids})
 
-		for (const cache of new_caches) {
-			const product = products.find(p => p.id === cache.product_id)
-			cache.op = product
-				? Op.ready(product)
-				: Op.error("error retrieving product")
+			for (const cache of new_caches) {
+				const product = products.find(p => p.id === cache.product_id)
+				cache.op = product
+					? Op.ready(product)
+					: Op.error("error retrieving product")
+			}
 		}
 	}
 }

@@ -9,24 +9,25 @@ import {Router} from "../routing/router.js"
 import {Situation} from "./types/situations.js"
 import {State, init_state} from "./parts/init_state.js"
 import {prepare_all_views} from "../elements/prepare_all_views.js"
+import { CartStore } from "../carting/parts/cart_store.js"
 
 export class Context {
 	flat = new Flat()
-	views = prepare_all_views(this)
-
 	#state: State
 	readonly state: State
 
+	views = prepare_all_views(this)
 	cart: Cart
 
 	constructor(
 			public shopify: Shopify,
 			public router: Router,
 			public theme: CSSResultGroup,
+			cart_store: CartStore,
 		) {
 		this.#state = init_state(this.flat, router)
 		this.state = Flat.readonly(this.#state)
-		this.cart = new Cart(this.flat, this.shopify)
+		this.cart = new Cart(this.flat, this.shopify, cart_store)
 	}
 
 	set_route = (route: Route) => this.#state.route = route

@@ -1,5 +1,6 @@
 
 import {html} from "lit"
+import {clone} from "@benev/frog"
 import {GqlProduct} from "shopify-shepherd"
 import {unsafeHTML} from "lit/directives/unsafe-html.js"
 
@@ -55,7 +56,14 @@ export const ProductFocus = flappy("article", "product-focus")
 					${views.Price({class: "price"})(
 						choiceHelper.selected_variant.price
 					)}
-					${views.Coolbutton()("Add to Cart", () => {})}
+					${views.Coolbutton()("Add to Cart", () => {
+						context.cart.add(choiceHelper.selected_variant.id, product)
+
+						// TODO
+						context.flat.wait.then(() => {
+							console.log(clone(context.cart.units))
+						})
+					})}
 				</div>
 
 				<aside>

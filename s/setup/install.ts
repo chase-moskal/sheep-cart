@@ -7,6 +7,7 @@ import {Context} from "../context/context.js"
 import {prepare_pilot} from "../piloting/pilot.js"
 import {theme as default_theme} from "../elements/theme.css.js"
 import {prepare_all_components} from "../elements/prepare_all_elements.js"
+import { CartStore } from "../carting/parts/cart_store.js"
 
 export function install_sheep_cart({
 		domain,
@@ -20,7 +21,12 @@ export function install_sheep_cart({
 	})
 
 	const router = Router.setup()
-	const context = new Context(shopify, router, theme)
+	const context = new Context(
+		shopify,
+		router,
+		theme,
+		new CartStore("sheep_cart", localStorage),
+	)
 
 	const collections_promise = Shopify.all(shopify.collections())
 
