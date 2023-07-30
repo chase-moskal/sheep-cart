@@ -34,8 +34,12 @@ export class ProductHelper {
 		return image
 	}
 
+	get_variant(variant_id: string) {
+		return this.variants.find(v => v.id === variant_id)
+	}
+
 	get_variant_image(variant_id: string) {
-		const variant = this.variants.find(v => v.id === variant_id)
+		const variant = this.get_variant(variant_id)
 		if (variant && variant.image) {
 			return this.images.find(i => i.id === variant!.image!.id)
 		}
