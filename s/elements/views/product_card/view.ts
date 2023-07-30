@@ -53,6 +53,8 @@ export const ProductCard = viewbase(context => v => v
 					: html`
 						${context.views.Coolbutton({class: "add"})("Add to Cart", event => {
 							event.preventDefault()
+							const helper = new ProductHelper(product)
+							context.cart.add(helper.first_variant.id, helper.product)
 						})}
 					`}
 			</div>

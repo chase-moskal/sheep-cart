@@ -99,6 +99,11 @@ export class Cart {
 		]
 	}
 
+	remove(variant_id: string) {
+		this.#state.items = this.#state.items
+			.filter(i => i.variant_id !== variant_id)
+	}
+
 	set_quantity(variant_id: string, quantity: number) {
 		const item = this.#get_item(variant_id)!
 		item.quantity = quantity
