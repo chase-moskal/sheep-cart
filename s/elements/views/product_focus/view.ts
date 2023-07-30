@@ -13,6 +13,7 @@ import {render_img} from "./parts/render_img.js"
 import {ChoiceHelper} from "./parts/choice_helper.js"
 import {ProductHelper} from "./parts/product_helper.js"
 import {render_options} from "./parts/render_options.js"
+import { add_to_cart_button } from "../coolbutton/helpers/add_to_cart_button.js"
 
 export const ProductFocus = flappy("article", "product-focus")
 	.render(context => use => (product: GqlProduct) => {
@@ -56,14 +57,13 @@ export const ProductFocus = flappy("article", "product-focus")
 					${views.Price({class: "price"})(
 						choiceHelper.selected_variant.price
 					)}
-					${views.Coolbutton()("Add to Cart", () => {
-						context.cart.add(choiceHelper.selected_variant.id, product)
-
-						// TODO
-						context.flat.wait.then(() => {
-							console.log(clone(context.cart.units))
-						})
-					})}
+					${views.Coolbutton()(
+						add_to_cart_button(
+							context.cart,
+							choiceHelper.selected_variant.id,
+							product,
+						)
+					)}
 				</div>
 
 				<aside>

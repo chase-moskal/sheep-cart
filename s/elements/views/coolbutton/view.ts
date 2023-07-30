@@ -2,9 +2,15 @@
 import {css, html} from "lit"
 import {flappy} from "../../flappy.js"
 
+export type CoolbuttonParams = {
+	active: boolean
+	text: string
+	onclick: (event: MouseEvent) => void
+}
+
 export const Coolbutton = flappy("div", "addbutton")
-	.render(_ => _ => (text: string, onclick: (event: MouseEvent) => void) => html`
-		<button part=button @click=${onclick}>
+	.render(_ => _ => ({active, text, onclick}: CoolbuttonParams) => html`
+		<button part=button @click=${onclick} ?disabled=${!active}>
 			${text}
 		</button>
 	`)
@@ -34,6 +40,13 @@ export const Coolbutton = flappy("div", "addbutton")
 
 			&:active {
 				opacity: 1;
+			}
+
+			&[disabled] {
+				opacity: 1;
+				background: #888;
+				color: white;
+				cursor: default;
 			}
 		}
 	`)

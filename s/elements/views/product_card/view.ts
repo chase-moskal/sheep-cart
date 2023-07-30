@@ -9,6 +9,7 @@ import {display_price} from "./parts/display_price.js"
 import {render_img} from "../product_focus/parts/render_img.js"
 import {number_of_variants} from "./parts/number_of_variants.js"
 import {ProductHelper} from "../product_focus/parts/product_helper.js"
+import { add_to_cart_button } from "../coolbutton/helpers/add_to_cart_button.js"
 
 export const ProductCard = viewbase(context => v => v
 	.tag("article")
@@ -48,14 +49,20 @@ export const ProductCard = viewbase(context => v => v
 								</li>
 							`)}
 						</ul>
-						${context.views.Coolbutton({class: "select"})("Select", () => {})}
+						${context.views.Coolbutton({class: "select"})({
+							active: true,
+							text: "Select",
+							onclick: () => {},
+						})}
 					`
 					: html`
-						${context.views.Coolbutton({class: "add"})("Add to Cart", event => {
-							event.preventDefault()
-							const helper = new ProductHelper(product)
-							context.cart.add(helper.first_variant.id, helper.product)
-						})}
+						${context.views.Coolbutton({class: "add"})(
+							add_to_cart_button(
+								context.cart,
+								new ProductHelper(product).first_variant.id,
+								product,
+							)
+						)}
 					`}
 			</div>
 		</a>
