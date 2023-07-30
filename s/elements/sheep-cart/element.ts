@@ -31,7 +31,11 @@ export const SheepCart = (context: Context) => class extends QuickElement {
 					<p>${unit.product.title}</p>
 					<p>${unit.variant.title}</p>
 					<div class="quantity-control">
-						<input type="number" min="0" .value="${unit.quantity}" @change="${handle_quantity_change}">
+						<input
+							type=number
+							min=1
+							.value="${unit.quantity}"
+							@change="${handle_quantity_change}">
 					</div>
 				</div>
 			</div>
@@ -42,7 +46,9 @@ export const SheepCart = (context: Context) => class extends QuickElement {
 		const {cart} = context
 		return html`
 			<h2>Your Cart</h2>
-			${cart.units.map(this.#render_unit)}
+			<div class=grid>
+				${cart.units.map(this.#render_unit)}
+			</div>
 		`
 	}
 }
