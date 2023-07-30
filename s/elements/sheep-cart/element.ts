@@ -1,32 +1,66 @@
 
 import {css, html} from "lit"
 import {QuickElement} from "@benev/frog"
+import {GqlPrice} from "shopify-shepherd"
 
 import {Context} from "../../context/context.js"
 import {CartUnit} from "../../carting/parts/types.js"
 import {img} from "../views/product_focus/parts/img.js"
 import {render_img} from "../views/product_focus/parts/render_img.js"
 import {ProductHelper} from "../views/product_focus/parts/product_helper.js"
-import { GqlPrice } from "shopify-shepherd"
 
 export const SheepCart = (context: Context) => class extends QuickElement {
 	static styles = css`
 		:host {
 			display: block;
 		}
-		table {
-			width: 100%;
-			& td {
-				width: max-content;
-			}
-			& td.title {
-				max-width: 99%;
+
+		h2 {
+			text-align: center;
+			margin-bottom: 1em;
+		}
+
+		.listing {
+			list-style: none;
+			display: grid;
+			grid-template-columns: auto auto 2fr auto;
+			grid-auto-rows: auto;
+			gap: 1em;
+			align-items: center;
+
+			> li {
+				display: contents;
+
+				> .thumb {
+					grid-column: 1;
+					> img {
+						display: block;
+						width: 3em;
+						height: 5em;
+						object-fit: cover;
+					}
+				}
+
+				> .quantity {
+					grid-column: 2;
+				}
+
+				> .title {
+					grid-column: 3;
+				}
+
+				> .price {
+					grid-column: 4;
+					justify-self: end;
+				}
+
+				> .remove {
+					grid-column: 5;
+				}
 			}
 		}
+
 		.quantity input {
-			width: 3em;
-		}
-		img {
 			width: 3em;
 		}
 	`
@@ -56,28 +90,35 @@ export const SheepCart = (context: Context) => class extends QuickElement {
 		}
 
 		return html`
-			<tr class=item>
-				<td class=thumb>
-					${render_img(img.tiny(image))}
-				</td>
-				<td class=quantity>
-					<input
-						type=number
-						min=1
-						.value="${unit.quantity}"
-						@change="${handle_quantity_change}"/>
-				</td>
-				<td class=title>
-					<p>${unit.product.title}</p>
-					<p>${variant.title}</p>
-				</td>
-				<td class=price>
-					${context.views.Price()(coolprice)}
-				</td>
-				<td class=remove>
-					<button @click="${handle_remove}">remove</button>
-				</td>
-			</tr>
+			<div class=thumb>
+				${render_img(img.tiny(image))}
+			</div>
+
+			<div class=quantity>
+				<input
+					type=number
+					min=1
+					.value="${unit.quantity}"
+					@change="${handle_quantity_change}"/>
+			</div>
+
+			<div class=title>
+				<h3>${unit.product.title}</h3>
+				${producthelp.variants.length > 1
+					? html`<p>${variant.title}</p>`
+					: undefined}
+			</div>
+
+			<div class=price>
+				${context.views.Price()(coolprice)}
+			</div>
+
+			<div class=remove>
+				<button
+					@click="${handle_remove}">
+					X
+				</button>
+			</div>
 		`
 	}
 
@@ -85,16 +126,13 @@ export const SheepCart = (context: Context) => class extends QuickElement {
 		const {cart} = context
 		return html`
 			<h2>Your Cart</h2>
-			<table>
-				<tr>
-					<th></th>
-					<th>quantity</th>
-					<th>item</th>
-					<th>price</th>
-					<th></th>
-				</tr>
-				${cart.units.map(this.#render_unit)}
-			</table>
+			<ol class=listing>
+				${cart.units.map(unit => html`
+					<li class=row>
+						${this.#render_unit(unit)}
+					</li>
+				`)}
+			</ol>
 		`
 	}
 }

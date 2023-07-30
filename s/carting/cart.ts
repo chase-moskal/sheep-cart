@@ -81,21 +81,21 @@ export class Cart {
 
 		// add item
 		this.#state.items = [
-			...this.#state.items.filter(i => i.variant_id !== variant_id),
 			this.#flat.state({
 				product_id: product.id,
 				variant_id,
 				quantity: 1,
 			}),
+			...this.#state.items.filter(i => i.variant_id !== variant_id),
 		]
 
 		// add product in ready state
 		this.#state.products = [
-			...this.#state.products.filter(p => p.product_id !== product.id),
 			this.#flat.state({
 				product_id: product.id,
 				op: Op.ready(product),
 			}),
+			...this.#state.products.filter(p => p.product_id !== product.id),
 		]
 	}
 

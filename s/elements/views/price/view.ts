@@ -6,7 +6,9 @@ import {GqlPrice} from "shopify-shepherd"
 export const Price = flappy("div", "price")
 	.render(_ => _ => (price: GqlPrice) => {
 
-		const [price_dollars, price_cents] = parseFloat(price.amount).toFixed(2).split(".")
+		const [price_dollars, price_cents] = parseFloat(price.amount)
+			.toFixed(2)
+			.split(".")
 
 		return html`
 			<span class=symbol>$</span>

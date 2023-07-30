@@ -105,8 +105,9 @@ sheep-catalog {
 		position: absolute;
 		z-index: 1;
 		right: 0;
-		width: 40em;
+		width: 60em;
 		min-height: 20em;
+		padding: 1em;
 
 		color: #222c;
 		background: #ccce;
