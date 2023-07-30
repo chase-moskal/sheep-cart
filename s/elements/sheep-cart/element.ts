@@ -43,6 +43,10 @@ export const SheepCart = (context: Context) => class extends QuickElement {
 
 				> .quantity {
 					grid-column: 2;
+					> input {
+						font-size: 1.5em;
+						width: 2.5em;
+					}
 				}
 
 				> .title {
@@ -58,10 +62,6 @@ export const SheepCart = (context: Context) => class extends QuickElement {
 					grid-column: 5;
 				}
 			}
-		}
-
-		.quantity input {
-			width: 3em;
 		}
 	`
 
