@@ -10,7 +10,7 @@ import {ProductList} from "./views/product_list/view.js"
 import {ProductCard} from "./views/product_card/view.js"
 import {ProductFocus} from "./views/product_focus/view.js"
 import {CollectionList} from "./views/collection_list/view.js"
-import {ProductRecommendation} from "./views/product-recommendation/view.js"
+import {ProductRecommendation} from "./views/product_recommendation/view.js"
 
 export function prepare_all_views(context: Context) {
 	return Pipe.with({
@@ -21,7 +21,7 @@ export function prepare_all_views(context: Context) {
 			ProductCard,
 			ProductFocus,
 			CollectionList,
-			ProductRecommendation
+			ProductRecommendation,
 		})
 		.to(requirement.provide(context))
 		.done()
