@@ -34,6 +34,13 @@ export class ProductHelper {
 		return image
 	}
 
+	get_variant_image(variant_id: string) {
+		const variant = this.variants.find(v => v.id === variant_id)
+		if (variant && variant.image) {
+			return this.images.find(i => i.id === variant!.image!.id)
+		}
+	}
+
 	cross_reference_collections(all_collections: GqlCollection[]) {
 		const collections: GqlCollection[] = []
 		const product_collection_records = this.product.collections.edges

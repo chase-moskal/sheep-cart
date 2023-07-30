@@ -94,19 +94,25 @@ sheep-catalog {
 	}
 }
 
-.cartbutton {
-	padding: 0.5em;
-}
+.cart-area {
+	position: relative;
 
-.cartpanel {
-	position: absolute;
-	top: 100%;
-	left: 1em;
-	right: 1em;
-	min-height: 10em;
-	background: #193b41cc;
-	backdrop-filter: blur(10px);
-	box-shadow: 1px 3px 10px #0008;
+	> button {
+		padding: 0.5em;
+	}
+
+	> sheep-cart {
+		position: absolute;
+		z-index: 1;
+		right: 0;
+		width: 40em;
+		min-height: 20em;
+
+		color: #222c;
+		background: #ccce;
+		backdrop-filter: blur(10px);
+		box-shadow: 0.1em 0.3em 1em #0008;
+	}
 }
 
 .catalog {

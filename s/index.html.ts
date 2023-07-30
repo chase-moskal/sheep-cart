@@ -34,12 +34,8 @@ export default template(async basics => {
 					</div>
 
 					<div class=cart-area>
-						<button class=cart-button>
-							${shopping_cart_icon(svg)}
-						</button>
-						<div class=cartpanel hidden>
-							shopping cart
-						</div>
+						<button>${shopping_cart_icon(svg)}</button>
+						<sheep-cart></sheep-cart>
 					</div>
 
 				</div>
