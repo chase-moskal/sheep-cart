@@ -35,7 +35,6 @@ export class Cart {
 
 	save() {
 		const {items} = this.#state
-		console.log("cart save", clone(items))
 		this.#store.save({items})
 	}
 
@@ -107,6 +106,10 @@ export class Cart {
 	set_quantity(variant_id: string, quantity: number) {
 		const item = this.#get_item(variant_id)!
 		item.quantity = quantity
+	}
+
+	clear() {
+		this.#state.items = []
 	}
 
 	async #fetch_products(items: CartItem[]) {

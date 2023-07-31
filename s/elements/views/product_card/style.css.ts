@@ -66,7 +66,7 @@ h1 {
 	padding: 0 0.5em;
 }
 
-[data-view="addbutton"] {
+[data-view="coolbutton"] {
 	grid-area: button;
 	width: 100%;
 	height: 100%;

@@ -8,13 +8,17 @@ export type CoolbuttonParams = {
 	onclick: (event: MouseEvent) => void
 }
 
-export const Coolbutton = flappy("div", "addbutton")
+export const Coolbutton = flappy("div", "coolbutton")
 	.render(_ => _ => ({active, text, onclick}: CoolbuttonParams) => html`
 		<button part=button @click=${onclick} ?disabled=${!active}>
 			${text}
 		</button>
 	`)
 	.styles(css`
+
+		:host {
+			width: max-content;
+		}
 
 		button {
 			width: 100%;

@@ -86,7 +86,7 @@ export const style = css`
 			justify-content: center;
 		}
 
-		> [data-view="addbutton"] {
+		> [data-view="coolbutton"] {
 			flex: 2;
 		}
 	}

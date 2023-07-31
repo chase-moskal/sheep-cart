@@ -1,8 +1,9 @@
 
-import {css, html} from "lit"
+import {html} from "lit"
 import {QuickElement} from "@benev/frog"
 import {GqlPrice} from "shopify-shepherd"
 
+import {style} from "./style.css.js"
 import {Context} from "../../context/context.js"
 import {CartUnit} from "../../carting/parts/types.js"
 import {img} from "../views/product_focus/parts/img.js"
@@ -10,64 +11,7 @@ import {render_img} from "../views/product_focus/parts/render_img.js"
 import {ProductHelper} from "../views/product_focus/parts/product_helper.js"
 
 export const SheepCart = (context: Context) => class extends QuickElement {
-	static styles = css`
-		:host {
-			display: block;
-		}
-
-		:host([hidden]) {
-			display: none;
-		}
-
-		h2 {
-			text-align: center;
-			margin-bottom: 1em;
-		}
-
-		.listing {
-			list-style: none;
-			display: grid;
-			grid-template-columns: auto auto 2fr auto;
-			grid-auto-rows: auto;
-			gap: 1em;
-			align-items: center;
-
-			> li {
-				display: contents;
-
-				> .thumb {
-					grid-column: 1;
-					> img {
-						display: block;
-						width: 3em;
-						height: 5em;
-						object-fit: cover;
-					}
-				}
-
-				> .quantity {
-					grid-column: 2;
-					> input {
-						font-size: 1.5em;
-						width: 2.5em;
-					}
-				}
-
-				> .title {
-					grid-column: 3;
-				}
-
-				> .price {
-					grid-column: 4;
-					justify-self: end;
-				}
-
-				> .remove {
-					grid-column: 5;
-				}
-			}
-		}
-	`
+	static styles = style
 
 	#render_unit = (unit: CartUnit) => {
 		const producthelp = new ProductHelper(unit.product)
@@ -79,9 +23,8 @@ export const SheepCart = (context: Context) => class extends QuickElement {
 		const handle_quantity_change = (e: Event) => {
 			const target = e.target as HTMLInputElement
 			const quantity = parseInt(target.value)
-			if (!isNaN(quantity)) {
+			if (!isNaN(quantity))
 				context.cart.set_quantity(unit.variant_id, quantity)
-			}
 		}
 
 		const handle_remove = () => {
@@ -127,33 +70,61 @@ export const SheepCart = (context: Context) => class extends QuickElement {
 	}
 
 	#checkout = async() => {
-		const line_items = context.cart.units.map(({variant_id, quantity}) => ({
-			variant_id,
-			quantity,
-		}))
-		const result = await context.shopify.checkout({line_items})
-		console.log("CHECKOUT", result)
+		const {webUrl} = await context.shopify.checkout({
+			line_items: (context.cart.units
+				.map(({variant_id, quantity}) => ({
+					variant_id,
+					quantity,
+				}))
+			)
+		})
+		const win = window.open("", "_blank")
+		if (win) {
+			win.document.body.innerHTML = `
+				<h1>
+					loading checkout...
+				</h1>
+				<style>
+					html, body {
+						background: #888;
+						color: white;
+						padding: 10%;
+					}
+					h1 {
+						text-align: center;
+					}
+				</style>
+			`
+			win.location.href = webUrl
+			win.focus()
+			context.cart.clear()
+		}
 	}
 
 	render() {
-		const {cart, views} = context
+		const {cart: {units}, views} = context
 		return html`
-			<h2>Your Cart</h2>
+			<h2>
+				${units.length > 0
+					? "Your Cart"
+					: "Empty Cart"}
+			</h2>
+
 			<ol class=listing>
-				${cart.units.map(unit => html`
+				${units.map(unit => html`
 					<li class=row>
 						${this.#render_unit(unit)}
 					</li>
 				`)}
 			</ol>
-			<div>
-				${views.Coolbutton()({
+
+			${units.length > 0
+				? views.Coolbutton({class: "checkout-button"})({
 					active: true,
 					text: "Checkout",
 					onclick: this.#checkout,
-				})}
-				<button></button>
-			</div>
+				})
+				: undefined}
 		`
 	}
 }
