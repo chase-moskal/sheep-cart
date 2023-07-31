@@ -33,6 +33,8 @@ export class Cart {
 		})
 	}
 
+	#flatstate = <X extends {}>(x: X) => this.#flat.state<X>(x)
+
 	save() {
 		const {items} = this.#state
 		this.#store.save({items})
@@ -40,10 +42,12 @@ export class Cart {
 
 	async load() {
 		const pack = this.#store.load()
+		const promise = this.#fetch_products(pack.items)
 		this.#state.items = [
 			...this.#state.items,
-			...pack.items.map(this.#flat.state),
+			...pack.items.map(this.#flatstate),
 		]
+		await promise
 	}
 
 	#get_item(variant_id: string) {
@@ -80,7 +84,7 @@ export class Cart {
 
 		// add item
 		this.#state.items = [
-			this.#flat.state({
+			this.#flatstate({
 				product_id: product.id,
 				variant_id,
 				quantity: 1,
@@ -90,7 +94,7 @@ export class Cart {
 
 		// add product in ready state
 		this.#state.products = [
-			this.#flat.state({
+			this.#flatstate({
 				product_id: product.id,
 				op: Op.ready(product),
 			}),
@@ -119,7 +123,7 @@ export class Cart {
 
 		const new_caches: ProductCache[] = new_product_ids
 			.map(product_id => ({product_id, op: Op.loading()}))
-			.map(this.#flat.state)
+			.map(this.#flatstate)
 
 		this.#state.products = [
 			...this.#state.products,

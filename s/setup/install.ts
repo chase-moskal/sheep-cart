@@ -30,6 +30,8 @@ export function install_sheep_cart({
 		new CartStore("sheep_cart", localStorage),
 	)
 
+	context.cart.load()
+
 	const collections_promise = Shopify.all(shopify.collections())
 
 	const pilot = prepare_pilot({
