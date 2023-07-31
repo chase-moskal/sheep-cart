@@ -14,6 +14,8 @@ export const style = css`
 		background-color: red;
 		background-color: #0000006b;
 		backdrop-filter: blur(5px);
+		border: none;
+		top: 0;
 	}
 
 	img {

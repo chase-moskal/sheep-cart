@@ -12,8 +12,11 @@ export const SheepModal = (context: Context) => class extends QuickElement {
 			<dialog
 				part="dialog"
 				@click=${context.modal.close}
-				?open=${context.modal.modal_state.img}>
-				<img @click=${context.modal.close} src=${context.modal.modal_state.img!}>
+				?open=${!!context.modal.modal_state}>
+				<img
+					@click=${context.modal.close}
+					alt=${context.modal.modal_state.img?.alt!}
+					src=${context.modal.modal_state.img?.src!}>
 			</dialog>`
 	}
 }

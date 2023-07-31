@@ -1,26 +1,21 @@
 import {Flat} from "@benev/frog"
+import {Img} from "../elements/views/product_focus/parts/types.js"
 
 export class Modal {
-	
-	state: {img: string} = {
-		img: ""
-	}
+	state: {img: Img | undefined}
+
 	constructor(flat: Flat) {
 		this.state = flat.state({
-			img: ""
+			img: undefined
 		})
 	}
 
-	enlarge_image = (img: string) => {
+	enlarge_image = (img: Img) => {
 		this.state.img = img
 	}
 
 	close = () => {
-		this.state.img = ""
-	}
-
-	toggle_modal = (img: string) => {
-		this.state.img ? "" : this.state.img = img
+		this.state.img = undefined
 	}
 
 	get modal_state() {
