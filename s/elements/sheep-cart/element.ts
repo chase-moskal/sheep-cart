@@ -15,6 +15,10 @@ export const SheepCart = (context: Context) => class extends QuickElement {
 			display: block;
 		}
 
+		:host([hidden]) {
+			display: none;
+		}
+
 		h2 {
 			text-align: center;
 			margin-bottom: 1em;
@@ -122,8 +126,17 @@ export const SheepCart = (context: Context) => class extends QuickElement {
 		`
 	}
 
+	#checkout = async() => {
+		const line_items = context.cart.units.map(({variant_id, quantity}) => ({
+			variant_id,
+			quantity,
+		}))
+		const result = await context.shopify.checkout({line_items})
+		console.log("CHECKOUT", result)
+	}
+
 	render() {
-		const {cart} = context
+		const {cart, views} = context
 		return html`
 			<h2>Your Cart</h2>
 			<ol class=listing>
@@ -133,6 +146,14 @@ export const SheepCart = (context: Context) => class extends QuickElement {
 					</li>
 				`)}
 			</ol>
+			<div>
+				${views.Coolbutton()({
+					active: true,
+					text: "Checkout",
+					onclick: this.#checkout,
+				})}
+				<button></button>
+			</div>
 		`
 	}
 }

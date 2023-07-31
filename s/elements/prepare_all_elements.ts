@@ -5,12 +5,14 @@ import {Context} from "../context/context.js"
 import {SheepCart} from "./sheep-cart/element.js"
 import {SheepSearch} from "./sheep-search/element.js"
 import {SheepCatalog} from "./sheep-catalog/element.js"
+import {SheepCartToggler} from "./sheep-cart-toggler/element.js"
 
 export const prepare_all_components = (context: Context) => {
 	return Pipe.with({
 			SheepCart,
 			SheepSearch,
 			SheepCatalog,
+			SheepCartToggler,
 		})
 		.to(requirement.provide(context))
 		.to(flatstate_reactivity(context.flat))

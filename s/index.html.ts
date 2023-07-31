@@ -28,16 +28,10 @@ export default template(async basics => {
 					<img class=bakery-logo alt="dev bakery" src="${path.root('assets/devbakery.webp')}"/>
 				</h1>
 				<div class=bigbar>
-
 					<div class=search-area>
 						<sheep-search></sheep-search>
 					</div>
-
-					<div class=cart-area>
-						<button>${shopping_cart_icon(svg)}</button>
-						<sheep-cart></sheep-cart>
-					</div>
-
+					<sheep-cart-toggler></sheep-cart-toggler>
 				</div>
 			</header>
 

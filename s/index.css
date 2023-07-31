@@ -94,7 +94,7 @@ sheep-catalog {
 	}
 }
 
-.cart-area {
+sheep-cart-toggler {
 	position: relative;
 
 	> button {
