@@ -4,7 +4,9 @@ import {css} from "@chasemoskal/magical"
 export const style = css`
 
 :host {
-	display: block;
+	display: flex;
+	flex-direction: column;
+	gap: 0.5em;
 }
 
 .searchbox {
@@ -33,6 +35,8 @@ export const style = css`
 .searchtags {
 	display: flex;
 	gap: 0.5em;
+
+	margin-left: 0.5em;
 
 	label {
 		display: flex;
