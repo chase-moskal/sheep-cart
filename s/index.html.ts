@@ -12,7 +12,7 @@ export default template(async basics => {
 			<link rel="icon" href="${path.root('assets/devbakery.favicon.png')}"/>
 		`,
 		body: html`
-
+			<sheep-modal></sheep-modal>
 			<header class="header slice">
 				<img
 					class=bakery-logo

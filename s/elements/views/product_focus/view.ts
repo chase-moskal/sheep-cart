@@ -6,7 +6,7 @@ import {unsafeHTML} from "lit/directives/unsafe-html.js"
 import {img} from "./parts/img.js"
 import {style} from "./style.css.js"
 import {flappy} from "../../flappy.js"
-import {Choice} from "./parts/types.js"
+import {Choice, Img} from "./parts/types.js"
 import {Viewbase} from "../../viewbase.js"
 import {render_img} from "./parts/render_img.js"
 import {ChoiceHelper} from "./parts/choice_helper.js"
@@ -33,7 +33,7 @@ export const ProductFocus = flappy("article", "product-focus")
 				state.choices.push({name, value})
 			}
 		}
-
+		console.log(context.modal.state)
 		return html`
 			<div
 				class=grid
@@ -41,7 +41,8 @@ export const ProductFocus = flappy("article", "product-focus")
 				?data-no-options=${productHelper.variants.length < 2}>
 
 				<figure>
-					${render_img(img.large(choiceHelper.chosen_image))}
+					${render_img(img.large(choiceHelper.chosen_image),
+						(ev: MouseEvent, img: Img) => context.modal.enlarge_image(img.src))}
 				</figure>
 
 				<h1>${product.title}</h1>
@@ -66,7 +67,8 @@ export const ProductFocus = flappy("article", "product-focus")
 				</div>
 
 				<aside>
-					${choiceHelper.side_images.map(image => render_img(img.large(image)))}
+					${choiceHelper.side_images.map(image => render_img(img.large(image),
+						(ev: MouseEvent, img: Img) => context.modal.enlarge_image(img.src)))}
 				</aside>
 
 				<section class="standard-content">

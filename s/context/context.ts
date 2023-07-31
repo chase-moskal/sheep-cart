@@ -10,12 +10,13 @@ import {Situation} from "./types/situations.js"
 import {State, init_state} from "./parts/init_state.js"
 import {prepare_all_views} from "../elements/prepare_all_views.js"
 import { CartStore } from "../carting/parts/cart_store.js"
+import {Modal} from "../modaling/modal.js"
 
 export class Context {
 	flat = new Flat()
 	#state: State
 	readonly state: State
-
+	modal: Modal
 	views = prepare_all_views(this)
 	cart: Cart
 
@@ -28,6 +29,7 @@ export class Context {
 		this.#state = init_state(this.flat, router)
 		this.state = Flat.readonly(this.#state)
 		this.cart = new Cart(this.flat, this.shopify, cart_store)
+		this.modal = new Modal(this.flat)
 	}
 
 	set_route = (route: Route) => this.#state.route = route
