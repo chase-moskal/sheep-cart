@@ -15,8 +15,27 @@ html {
 html, body {
 	font-size: var(--medium);
 	font-family: sans-serif;
-	background: #1f0e16;
-	color: #fff8;
+
+	background: #31393d;
+	color: #fffe;
+	text-shadow: 0.1em 0.1em 0.05em #0004;
+}
+
+.header {
+	background: #50a7cc;
+	background: linear-gradient(
+		to bottom,
+		#99e0ff,
+		#1aa9e7
+	);
+	& a {
+		color: #fff700;
+		text-shadow: 0.1em 0.1em 0.05em #0004;
+	}
+}
+
+.catalog {
+	background: #497e97;
 }
 
 a, ::part(a) {
@@ -26,72 +45,50 @@ a, ::part(a) {
 a:hover, ::part(a):hover { text-decoration: underline; }
 a:active, ::part(a):active { text-decoration: double underline; }
 
-sheep-catalog {
-	&::part(card) {
-		color: white;
-		background: #fff2;
-		padding: 0.5rem;
-	}
-
-	&::part(card-plate) {
-		background: #fff2;
-	}
-
-	&::part(card-title) {
-		color: white;
-	}
-}
-
-.sheep {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	margin: auto;
-	padding: 1em;
-	width: max-content;
-}
-
-.sheep-logo {
-	height: 6em;
-}
-
-.bakery-logo {
-	height: 6em;
-}
-
 .slice {
 	width: 90em;
-	max-width: 100%;
+	max-width: 96%;
 	margin: 0.2em auto;
 	box-shadow: 1px 2px 5px #0008;
 }
 
 .header {
+	position: relative;
+	margin-top: 2em;
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
-	background: #482234;
 	border-radius: 0.5em 0.5em 0 0;
 
-	> h1 {
-		margin-right: 1em;
-		> .bakery-logo {
-			transform: scale(1.2);
-			filter: drop-shadow(1px 3px 10px #000);
+	& h1 {
+		& a > * {
+			vertical-align: middle;
 		}
+		& small {
+			font-size: 0.5em;
+			font-weight: normal;
+		}
+	}
+
+	> .bakery-logo {
+		margin-right: 1em;
+		height: 12em;
+		transform: scale(1.2);
+		filter: drop-shadow(1px 3px 10px #000);
 	}
 
 	> .bigbar {
 		flex: 1 0 auto;
 		display: flex;
-		flex-direction: row;
-		> .search-area {
-			flex: 1 1 auto;
-			display: flex;
-			flex-direction: column;
-			justify-content: center;
-		}
+		flex-direction: column;
+		justify-content: center;
+		gap: 0.5em;
 	}
+}
+
+.catalog {
+	border-radius: 0 0 0.5em 0.5em;
+	padding: 1em;
 }
 
 sheep-cart-toggler {
@@ -116,8 +113,19 @@ sheep-cart-toggler {
 	}
 }
 
-.catalog {
-	background: #482234;
-	border-radius: 0 0 0.5em 0.5em;
-	padding: 1em;
+sheep-catalog {
+	&::part(card) {
+		color: white;
+		background: #fff2;
+		padding: 0.5rem;
+	}
+
+	&::part(card-plate) {
+		background: #fff2;
+	}
+
+	&::part(card-title) {
+		color: white;
+	}
 }
+

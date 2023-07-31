@@ -1,6 +1,5 @@
 
-import {shopping_cart_icon} from "./icons/feather/shopping_cart_icon.js"
-import {template, html, easypage, startup_scripts_with_dev_mode, html as svg} from "@benev/turtle"
+import {template, html, easypage, startup_scripts_with_dev_mode} from "@benev/turtle"
 
 export default template(async basics => {
 	const path = basics.path(import.meta.url)
@@ -14,25 +13,21 @@ export default template(async basics => {
 		`,
 		body: html`
 
-			<a class="sheep" href="https://github.com/chase-moskal/sheep-cart">
-				<div>
-					<p>this is a live demo for <strong>sheep-cart</strong></p>
-				</div>
-				<div>
-					<img class=sheep-logo alt="sheep-cart" src="${path.root('assets/sheep-logo.webp')}"/>
-				</div>
-			</a>
-
 			<header class="header slice">
-				<h1>
-					<img class=bakery-logo alt="dev bakery" src="${path.root('assets/devbakery.webp')}"/>
-				</h1>
+				<img
+					class=bakery-logo
+					alt=""
+					src="${path.root('assets/sheep-logo.webp')}"/>
 				<div class=bigbar>
-					<div class=search-area>
-						<sheep-search></sheep-search>
-					</div>
-					<sheep-cart-toggler></sheep-cart-toggler>
+					<h1>
+						<a href="https://github.com/chase-moskal/sheep-cart">
+							<span>sheep-cart</span>
+							<small>(on github)</small>
+						</a>
+					</h1>
+					<sheep-search></sheep-search>
 				</div>
+				<sheep-cart-toggler></sheep-cart-toggler>
 			</header>
 
 			<section class="catalog slice">
