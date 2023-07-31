@@ -15,7 +15,7 @@ export function update_tag(tag: string, router: Router) {
 		const nada = tag_set.size === 0 && terms.length === 0
 
 		if (nada)
-			router.routes.catalog().go()
+			router.routes.home().go()
 		else
 			router.routes.search(terms, [...tag_set]).go()
 	}

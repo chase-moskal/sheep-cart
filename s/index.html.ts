@@ -26,6 +26,7 @@ export default template(async basics => {
 						</a>
 					</h1>
 					<sheep-search></sheep-search>
+					<sheep-nav></sheep-nav>
 				</div>
 				<sheep-cart-toggler></sheep-cart-toggler>
 			</header>

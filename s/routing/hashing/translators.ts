@@ -1,13 +1,23 @@
 
-import { utransform } from "../../tools/utransform.js"
-import {Routes} from "../types.js"
+import {HomeArea, Routes} from "../types.js"
 import {translator} from "./parts/translator.js"
+import {utransform} from "../../tools/utransform.js"
 
-export const translators = {
+export const translators = (home: HomeArea) => ({
 
-	catalog: translator<Routes["catalog"]>({
+	home: translator<Routes["home"]>({
 		hashify: () => "/",
-		routify: () => ({zone: "catalog"}),
+		routify: () => ({zone: "home", area: home}),
+	}),
+
+	products: translator<Routes["products"]>({
+		hashify: () => "/products",
+		routify: () => ({zone: "products"}),
+	}),
+
+	collections: translator<Routes["collections"]>({
+		hashify: () => "/collections",
+		routify: () => ({zone: "collections"}),
 	}),
 
 	search: translator<Routes["search"]>({
@@ -54,5 +64,5 @@ export const translators = {
 		hashify: () => "/",
 		routify: () => ({zone: "not_found"}),
 	}),
-}
+})
 

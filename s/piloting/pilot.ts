@@ -10,26 +10,41 @@ import {load_products_with_recursive_apparatus} from "./load/load_products_with_
 export const prepare_pilot = (params: PilotParams) => (route: Route) => {
 	const {shopify, home, collections_promise, set_situation_op} = params
 	const page_size = 10
+
+	function go_collections() {
+		return Op.run(
+			op => set_situation_op(
+				Op.morph(op, collections => ({
+					type: "collection_list",
+					collections,
+				} as Situation.CollectionList))
+			),
+			async() => collections_promise,
+		)
+	}
+
+	function go_products() {
+		return load_products_with_recursive_apparatus({
+			subject: "Products",
+			wrap: list => ({...list, type: "all_products"}),
+			set_situation_op,
+			generator: shopify.products({page_size}),
+		})
+	}
+
 	try {
 		switch (route.zone) {
 
-			case "catalog":
-				return home === "all_products"
-					? load_products_with_recursive_apparatus({
-						subject: "Products",
-						wrap: list => ({...list, type: "all_products"}),
-						set_situation_op,
-						generator: shopify.products({page_size}),
-					})
-					: Op.run(
-						op => set_situation_op(
-							Op.morph(op, collections => ({
-								type: "collection_list",
-								collections,
-							} as Situation.CollectionList))
-						),
-						async() => collections_promise,
-					)
+			case "home":
+				return home === "products"
+					? go_products()
+					: go_collections()
+
+			case "products":
+				return go_products()
+
+			case "collections":
+				return go_collections()
 
 			case "search":
 				return load_products_with_recursive_apparatus({

@@ -113,6 +113,11 @@ sheep-cart-toggler {
 	}
 }
 
+sheep-nav {
+	margin-left: auto;
+	margin-top: 1em;
+}
+
 sheep-catalog {
 	&::part(card) {
 		color: white;

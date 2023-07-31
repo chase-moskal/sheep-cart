@@ -1,24 +1,28 @@
 
-import {Route} from "../types.js"
+import {HomeArea, Route} from "../types.js"
 import {translators} from "./translators.js"
 import {Translator} from "./parts/translator.js"
 import {parse_hash_parts} from "./parts/parse_hash_parts.js"
 
 export class Translation {
 	#prefix: string
+	#home: HomeArea
 
-	constructor(prefix: string) {
+	constructor(home: HomeArea, prefix: string) {
 		this.#prefix = prefix
+		this.#home = home
 	}
 
 	#get(zone: string) {
-		if (zone === "")
-			zone = "catalog"
+		const t = translators(this.#home)
 
-		if (!(zone in translators))
+		if (zone === "")
+			zone = "home"
+
+		if (!(zone in t))
 			zone = "not_found"
 
-		return translators[zone as keyof typeof translators] as Translator<Route>
+		return t[zone as keyof typeof translators] as Translator<Route>
 	}
 
 	routify(hash: string) {

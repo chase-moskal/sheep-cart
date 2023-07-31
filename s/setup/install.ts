@@ -5,9 +5,9 @@ import {Shopify, ShopifySettings} from "shopify-shepherd"
 import {Router} from "../routing/router.js"
 import {Context} from "../context/context.js"
 import {prepare_pilot} from "../piloting/pilot.js"
+import {CartStore} from "../carting/parts/cart_store.js"
 import {theme as default_theme} from "../elements/theme.css.js"
 import {prepare_all_components} from "../elements/prepare_all_elements.js"
-import { CartStore } from "../carting/parts/cart_store.js"
 
 export function install_sheep_cart({
 		domain,
@@ -20,7 +20,9 @@ export function install_sheep_cart({
 		storefront_access_token,
 	})
 
-	const router = Router.setup()
+	const home = "products"
+
+	const router = Router.setup(home)
 	const context = new Context(
 		shopify,
 		router,
@@ -31,9 +33,9 @@ export function install_sheep_cart({
 	const collections_promise = Shopify.all(shopify.collections())
 
 	const pilot = prepare_pilot({
+		home,
 		shopify,
 		collections_promise,
-		home: "all_products",
 		set_situation_op: context.set_situation_op,
 	})
 

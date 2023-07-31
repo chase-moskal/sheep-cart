@@ -2,22 +2,26 @@
 import {pub} from "@benev/frog"
 
 import {Translation} from "./hashing/translation.js"
-import {Route, RouterOptions, SetHash} from "./types.js"
+import {HomeArea, Route, RouterOptions, SetHash} from "./types.js"
 
 export class Router {
 	#set_hash: SetHash
 	#translation: Translation
-	#route: Route = {zone: "catalog"}
+	#route: Route
+	#home: HomeArea
 
 	on_route_change = pub<Route>()
 
-	constructor({prefix = "", set_hash}: RouterOptions) {
+	constructor({home, prefix = "", set_hash}: RouterOptions) {
+		this.#home = home
 		this.#set_hash = set_hash
-		this.#translation = new Translation(prefix)
+		this.#route = {zone: "home", area: home}
+		this.#translation = new Translation(home, prefix)
 	}
 
-	static setup(prefix: string = "") {
+	static setup(home: HomeArea, prefix: string = "") {
 		const router = new Router({
+			home,
 			prefix,
 			set_hash: hash => location.hash = hash,
 		})
@@ -55,8 +59,14 @@ export class Router {
 	}
 
 	routes = {
-		catalog: () =>
-			this.#routefor({zone: "catalog"}),
+		home: () =>
+			this.#routefor({zone: "home", area: this.#home}),
+
+		collections: () =>
+			this.#routefor({zone: "collections"}),
+
+		products: () =>
+			this.#routefor({zone: "products"}),
 
 		search: (terms: string[], tags: string[]) =>
 			this.#routefor({zone: "search", terms, tags}),

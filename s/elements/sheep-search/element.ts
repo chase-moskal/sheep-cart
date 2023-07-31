@@ -45,7 +45,7 @@ export const SheepSearch = (context: Context) => class extends QuickElement {
 		const details = ascertain_search_details(router, this.#input.value)
 
 		if (details.there_is_nothing_to_search_for)
-			router.routes.catalog().go()
+			router.routes.home().go()
 		else
 			router.routes.search(details.terms, router.search_tags).go()
 	})

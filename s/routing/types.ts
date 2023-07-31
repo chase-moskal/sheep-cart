@@ -2,11 +2,23 @@
 export type RouterOptions = {
 	prefix: string
 	set_hash: SetHash
+	home: HomeArea
 }
 
+export type HomeArea = "collections" | "products"
+
 export type Routes = {
-	catalog: {
-		zone: "catalog"
+	home: {
+		zone: "home"
+		area: HomeArea
+	}
+
+	collections: {
+		zone: "collections"
+	}
+
+	products: {
+		zone: "products"
 	}
 
 	search: {
@@ -33,7 +45,9 @@ export type Routes = {
 }
 
 export type Route =
-	| Routes["catalog"]
+	| Routes["home"]
+	| Routes["collections"]
+	| Routes["products"]
 	| Routes["search"]
 	| Routes["collection"]
 	| Routes["product"]
