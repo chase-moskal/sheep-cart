@@ -19,13 +19,19 @@ export function add_to_cart_button(
 			active: false,
 			onclick: () => {},
 		}
-		: {
-			text: "Add to Cart",
-			active: true,
-			onclick: event => {
-				event.preventDefault()
-				cart.add(variant_id, product)
-			},
-		}
+		: product.availableForSale
+			? {
+				text: "Add to Cart",
+				active: true,
+				onclick: event => {
+					event.preventDefault()
+					cart.add(variant_id, product)
+				},
+			}
+			: {
+				text: "Sold Out",
+				active: false,
+				onclick: () => {},
+			}
 }
 

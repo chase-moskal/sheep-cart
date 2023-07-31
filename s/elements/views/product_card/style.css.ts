@@ -70,6 +70,9 @@ h1 {
 	grid-area: button;
 	width: 100%;
 	height: 100%;
+	&.select::part(button) {
+		background: #00bb98;
+	}
 }
 
 `

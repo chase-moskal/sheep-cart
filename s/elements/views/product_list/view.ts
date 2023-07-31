@@ -16,9 +16,14 @@ export const ProductList = viewbase(context => v => v
 		? html`
 
 			<div class=grid>
-				${products.map(product => html`${
-					context.views.ProductCard({part: "card", exportparts: "a, plate, title, price"})(product)
-				}`)}
+				${products
+					.filter(p => p.availableForSale)
+					.map(product =>
+						context.views.ProductCard({
+							part: "card",
+							exportparts: "a, plate, title, price",
+						})(product)
+					)}
 			</div>
 
 			<footer>

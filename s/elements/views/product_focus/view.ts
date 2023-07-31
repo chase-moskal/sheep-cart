@@ -1,6 +1,5 @@
 
 import {html} from "lit"
-import {clone} from "@benev/frog"
 import {GqlProduct} from "shopify-shepherd"
 import {unsafeHTML} from "lit/directives/unsafe-html.js"
 
@@ -13,7 +12,7 @@ import {render_img} from "./parts/render_img.js"
 import {ChoiceHelper} from "./parts/choice_helper.js"
 import {ProductHelper} from "./parts/product_helper.js"
 import {render_options} from "./parts/render_options.js"
-import { add_to_cart_button } from "../coolbutton/helpers/add_to_cart_button.js"
+import {add_to_cart_button} from "../coolbutton/helpers/add_to_cart_button.js"
 
 export const ProductFocus = flappy("article", "product-focus")
 	.render(context => use => (product: GqlProduct) => {
