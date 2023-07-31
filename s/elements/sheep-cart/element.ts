@@ -70,6 +70,27 @@ export const SheepCart = (context: Context) => class extends QuickElement {
 	}
 
 	#checkout = async() => {
+		const win = window.open("", "_blank")
+
+		if (!win)
+			throw new Error("error opening window")
+
+		win.document.body.innerHTML = `
+			<h1>
+				loading checkout...
+			</h1>
+			<style>
+				html, body {
+					background: #888;
+					color: white;
+					padding: 10%;
+				}
+				h1 {
+					text-align: center;
+				}
+			</style>
+		`
+
 		const {webUrl} = await context.shopify.checkout({
 			line_items: (context.cart.units
 				.map(({variant_id, quantity}) => ({
@@ -78,27 +99,10 @@ export const SheepCart = (context: Context) => class extends QuickElement {
 				}))
 			)
 		})
-		const win = window.open("", "_blank")
-		if (win) {
-			win.document.body.innerHTML = `
-				<h1>
-					loading checkout...
-				</h1>
-				<style>
-					html, body {
-						background: #888;
-						color: white;
-						padding: 10%;
-					}
-					h1 {
-						text-align: center;
-					}
-				</style>
-			`
-			win.location.href = webUrl
-			win.focus()
-			context.cart.clear()
-		}
+
+		win.location.href = webUrl
+		win.focus()
+		context.cart.clear()
 	}
 
 	render() {
