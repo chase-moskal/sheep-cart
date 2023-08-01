@@ -35,10 +35,9 @@ export const style = css`
 .searchtags {
 	display: flex;
 	gap: 0.5em;
-
 	margin-left: 0.5em;
 
-	label {
+	> label {
 		display: flex;
 		align-items: center;
 		border: 1px solid;
