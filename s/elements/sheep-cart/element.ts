@@ -1,5 +1,5 @@
 
-import {html} from "lit"
+import {html, svg} from "lit"
 import {QuickElement} from "@benev/frog"
 import {GqlPrice} from "shopify-shepherd"
 
@@ -10,7 +10,7 @@ import {img} from "../views/product_focus/parts/img.js"
 import {render_img} from "../views/product_focus/parts/render_img.js"
 import {ProductHelper} from "../views/product_focus/parts/product_helper.js"
 
-import icon_x from "../../icons/akar/x-small.svg.js"
+import icon_x from "../../icons/feather/icon_x.js"
 
 export const SheepCart = (context: Context) => class extends QuickElement {
 	static styles = style
@@ -65,7 +65,7 @@ export const SheepCart = (context: Context) => class extends QuickElement {
 			<div class=remove>
 				<button
 					@click="${handle_remove}">
-					${icon_x}
+					${icon_x(svg)}
 				</button>
 			</div>
 		`
@@ -113,7 +113,7 @@ export const SheepCart = (context: Context) => class extends QuickElement {
 			<h2>
 				${units.length > 0
 					? "Your Cart"
-					: "Empty Cart"}
+					: "Cart is Empty"}
 			</h2>
 
 			<ol class=listing>

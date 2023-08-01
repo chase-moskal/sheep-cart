@@ -3,7 +3,8 @@ import {css, html, svg} from "lit"
 import {QuickElement} from "@benev/frog"
 
 import {Context} from "../../context/context.js"
-import {shopping_cart_icon} from "../../icons/feather/shopping_cart_icon.js"
+
+import icon_shopping_cart from "../../icons/feather/icon_shopping_cart.js"
 
 export const SheepCartButton = (context: Context) => class extends QuickElement {
 
@@ -13,7 +14,7 @@ export const SheepCartButton = (context: Context) => class extends QuickElement 
 				part=button
 				@click=${() => context.toggle_cart_open()}>
 
-				${shopping_cart_icon(svg)}
+				${icon_shopping_cart(svg)}
 			</button>
 		`
 	}

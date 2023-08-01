@@ -12,30 +12,46 @@ dialog {
 		background: #000a;
 		backdrop-filter: blur(1em);
 	}
+}
 
+.actions, sheep-cart {
+	width: 86em;
+	max-width: 92%;
+	margin: 0.2em auto;
 }
 
 .actions {
 	display: flex;
-	justify-content: center;
+	justify-content: end;
 	align-items: center;
+}
 
-	> .close {
-		padding: 0.5em 1em;
-		font-size: 1.2em;
+.close {
+	font: inherit;
+	background: transparent;
+	color: #fffc;
+	border: none;
+
+	opacity: 0.7;
+	cursor: pointer;
+
+	&:focus { opacity: 0.8; }
+	&:hover { opacity: 0.9; }
+	&:active { opacity: 1; }
+
+	> svg {
+		width: 2em;
+		height: 2em;
 	}
 }
 
 sheep-cart {
-	width: 86em;
-	max-width: 92%;
-	margin: 0.2em auto;
-	box-shadow: 1px 2px 5px #0008;
-
 	padding: 1em;
 
 	background: #444c;
 	color: #eeec;
+	box-shadow: 1px 2px 5px #0008;
 }
 
 `
+

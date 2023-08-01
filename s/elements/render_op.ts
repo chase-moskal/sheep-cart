@@ -1,19 +1,19 @@
 
-import {html} from "lit"
+import {html, svg} from "lit"
 import {prep_render_op} from "@benev/frog"
 
-import loaderSvg from "../icons/feather/loader.svg.js"
-import alertSvg from "../icons/akar/alert.svg.js"
+import icon_loader from "../icons/feather/icon_loader.js"
+import icon_alert_circle from "../icons/feather/icon_alert_circle.js"
 
 export const render_op = prep_render_op({
 	loading: () => html`
 		<span class="op loading">
-			${loaderSvg}
+			${icon_loader(svg)}
 		</span>
 	`,
 	error: reason => html`
 		<span class="op error">
-			${alertSvg}
+			${icon_alert_circle(svg)}
 			${reason}
 		</span>
 	`

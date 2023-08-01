@@ -1,9 +1,11 @@
 
-import {html} from "lit"
+import {html, svg} from "lit"
 import {QuickElement, attributes} from "@benev/frog"
 
 import {style} from "./style.css.js"
 import {Context} from "../../context/context.js"
+
+import icon_x_circle from "../../icons/feather/icon_x_circle.js"
 
 export const SheepCartModal = (context: Context) => class extends QuickElement {
 	static styles = style
@@ -40,15 +42,15 @@ export const SheepCartModal = (context: Context) => class extends QuickElement {
 		return html`
 			<dialog @click=${this.#backdrop_close}>
 
+				<div class=actions>
+					<button class=close @click=${this.#close}>
+						${icon_x_circle(svg)}
+					</button>
+				</div>
+
 				<sheep-cart part=cart>
 					<slot></slot>
 				</sheep-cart>
-
-				<div class=actions>
-					<button class=close @click=${this.#close}>
-						close
-					</button>
-				</div>
 
 			</dialog>
 		`

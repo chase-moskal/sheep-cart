@@ -5,11 +5,12 @@ import {debounce} from "@chasemoskal/magical"
 
 import {style} from "./style.css.js"
 import {Context} from "../../context/context.js"
-import {search_icon} from "../../icons/feather/search_icon.js"
 import {render_search_tags} from "./tags/render_search_tags.js"
 import {ascertain_search_details} from "./parts/ascertain_search_details.js"
 import {populate_input_with_route_search_terms} from "./parts/populate_input_with_route_search_terms.js"
 import {populate_input_with_route_search_terms_when_user_is_not_focused_on_input} from "./parts/populate_input_with_route_search_terms_when_user_is_not_focused_on_input.js"
+
+import icon_search from "../../icons/feather/icon_search.js"
 
 export const SheepSearch = (context: Context) => class extends QuickElement {
 	static styles = style
@@ -54,7 +55,7 @@ export const SheepSearch = (context: Context) => class extends QuickElement {
 		return html`
 			<div class=searchbox>
 				<input type="text" @input="${this.#search}"/>
-				${search_icon(svg)}
+				${icon_search(svg)}
 			</div>
 			<div class=searchtags>
 				${render_search_tags(context)}

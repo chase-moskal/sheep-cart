@@ -26,9 +26,6 @@ h2 {
 	gap: 1em;
 	align-items: center;
 
-	max-height: 60vh;
-	overflow: auto;
-
 	> li {
 		display: contents;
 
