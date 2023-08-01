@@ -1,9 +1,9 @@
 
 import {html} from "lit"
-import {render_op} from "@benev/frog"
 
 import {style} from "./style.css.js"
 import {Options} from "./utils/options.js"
+import {render_op} from "../../render_op.js"
 import {Viewbase, viewbase} from "../../viewbase.js"
 
 export const ProductList = viewbase(context => v => v
