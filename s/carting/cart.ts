@@ -1,5 +1,5 @@
 
-import {Flat, Op, clone} from "@benev/frog"
+import {Flat, Op} from "@benev/frog"
 import {GqlProduct, Shopify} from "shopify-shepherd"
 
 import {CartStore} from "./parts/cart_store.js"
@@ -22,15 +22,6 @@ export class Cart {
 			products: [],
 		})
 		this.state = Flat.readonly(this.#state)
-		flat.auto({
-			debounce: true,
-			discover: true,
-			collector: () => {
-				const items = this.#state.items
-				void clone(items)
-			},
-			responder: () => this.save(),
-		})
 	}
 
 	#flatstate = <X extends {}>(x: X) => this.#flat.state<X>(x)
@@ -43,10 +34,7 @@ export class Cart {
 	async load() {
 		const pack = this.#store.load()
 		const promise = this.#fetch_products(pack.items)
-		this.#state.items = [
-			...this.#state.items,
-			...pack.items.map(this.#flatstate),
-		]
+		this.#state.items = pack.items.map(this.#flatstate)
 		await promise
 	}
 
@@ -100,20 +88,27 @@ export class Cart {
 			}),
 			...this.#state.products.filter(p => p.product_id !== product.id),
 		]
+
+		this.save()
 	}
 
 	remove(variant_id: string) {
 		this.#state.items = this.#state.items
 			.filter(i => i.variant_id !== variant_id)
+
+		this.save()
 	}
 
 	set_quantity(variant_id: string, quantity: number) {
 		const item = this.#get_item(variant_id)!
 		item.quantity = quantity
+
+		this.save()
 	}
 
 	clear() {
 		this.#state.items = []
+		this.save()
 	}
 
 	async #fetch_products(items: CartItem[]) {
