@@ -34,16 +34,11 @@ export const SheepCartToggler = (context: Context) => class extends QuickElement
 			position: relative;
 		}
 
-		:host([sprawl="rightwards"]) sheep-cart {
-			right: unset;
-			left: 0;
-		}
-
 		sheep-cart {
 			position: absolute;
 			z-index: 1;
 			right: 0;
-			width: 60em;
+			width: 40em;
 			min-height: 20em;
 			padding: 1em;
 
@@ -51,6 +46,11 @@ export const SheepCartToggler = (context: Context) => class extends QuickElement
 			background: #ccce;
 			backdrop-filter: blur(10px);
 			box-shadow: 0.1em 0.3em 1em #0008;
+		}
+
+		:host([sprawl="rightwards"]) sheep-cart {
+			right: unset;
+			left: 0;
 		}
 	`
 }

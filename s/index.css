@@ -60,16 +60,6 @@ a:active, ::part(a):active { text-decoration: double underline; }
 	flex-wrap: wrap;
 	border-radius: 0.5em 0.5em 0 0;
 
-	& h1 {
-		& a > * {
-			vertical-align: middle;
-		}
-		& small {
-			font-size: 0.5em;
-			font-weight: normal;
-		}
-	}
-
 	> .bakery-logo {
 		margin-right: 1em;
 		height: 12em;
@@ -83,39 +73,58 @@ a:active, ::part(a):active { text-decoration: double underline; }
 		flex-direction: column;
 		justify-content: center;
 		gap: 0.5em;
+
+		> h1 {
+			& a > * {
+				vertical-align: middle;
+			}
+			& a > small {
+				font-size: 0.5em;
+				font-weight: normal;
+			}
+		}
+
+		> sheep-nav {
+			margin-left: auto;
+			padding: 1em;
+		}
+	}
+
+	> sheep-cart-toggler {
+		position: absolute;
+		inset: 0;
+		padding: 1em;
+		display: flex;
+		justify-content: end;
+		align-items: start;
+		z-index: 1;
+		outline: 1px solid red;
+
+		&::part(button) {
+			padding: 0.5em;
+		}
+
+		&::part(cart) {
+			position: absolute;
+			top: 4em;
+			z-index: 1;
+			width: 100%;
+			min-height: 20em;
+
+			padding: 1em;
+
+			color: #222c;
+			text-shadow: none;
+			background: #ccce;
+			backdrop-filter: blur(10px);
+			box-shadow: 0.1em 0.3em 1em #0008;
+		}
 	}
 }
 
 .catalog {
 	border-radius: 0 0 0.5em 0.5em;
 	padding: 1em;
-}
-
-sheep-cart-toggler {
-	position: relative;
-
-	> button {
-		padding: 0.5em;
-	}
-
-	> sheep-cart {
-		position: absolute;
-		z-index: 1;
-		right: 0;
-		width: 60em;
-		min-height: 20em;
-		padding: 1em;
-
-		color: #222c;
-		background: #ccce;
-		backdrop-filter: blur(10px);
-		box-shadow: 0.1em 0.3em 1em #0008;
-	}
-}
-
-sheep-nav {
-	margin-left: auto;
-	margin-top: 1em;
 }
 
 sheep-catalog {

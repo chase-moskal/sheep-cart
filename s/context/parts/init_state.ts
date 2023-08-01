@@ -11,6 +11,7 @@ export function init_state(flat: Flat, router: Router) {
 		tags: [] as GqlTag[],
 		collections: [] as GqlCollection[],
 		situation_op: Op.loading() as Op.For<Situation.Whatever>,
+		cart_open: false,
 	})
 }
 

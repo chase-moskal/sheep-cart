@@ -13,6 +13,8 @@ export default template(async basics => {
 		`,
 		body: html`
 			<sheep-modal></sheep-modal>
+			<sheep-cart></sheep-cart>
+
 			<header class="header slice">
 				<img
 					class=bakery-logo
@@ -28,7 +30,7 @@ export default template(async basics => {
 					<sheep-search></sheep-search>
 					<sheep-nav></sheep-nav>
 				</div>
-				<sheep-cart-toggler></sheep-cart-toggler>
+				<sheep-cart-button></sheep-cart-button>
 			</header>
 
 			<section class="catalog slice">

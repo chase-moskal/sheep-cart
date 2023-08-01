@@ -5,12 +5,12 @@ import {GqlCollection, GqlTag, Shopify} from "shopify-shepherd"
 
 import {Cart} from "../carting/cart.js"
 import {Route} from "../routing/types.js"
+import {Modal} from "../modaling/modal.js"
 import {Router} from "../routing/router.js"
 import {Situation} from "./types/situations.js"
 import {State, init_state} from "./parts/init_state.js"
+import {CartStore} from "../carting/parts/cart_store.js"
 import {prepare_all_views} from "../elements/prepare_all_views.js"
-import { CartStore } from "../carting/parts/cart_store.js"
-import {Modal} from "../modaling/modal.js"
 
 export class Context {
 	flat = new Flat()
