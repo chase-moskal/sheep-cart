@@ -1,47 +1,73 @@
 
 import {css, html} from "lit"
-import {QuickElement} from "@benev/frog"
+import {QuickElement, attributes} from "@benev/frog"
 import {Context} from "../../context/context.js"
 
 export const SheepCartToggler = (context: Context) => class extends QuickElement {
 
+	#attrs = attributes<{open: string}>(this)
+
+	get #dialog() {
+		return this.root.querySelector("dialog")!
+	}
+
+	init() {
+		this.setup(() => context.flat.auto({
+			debounce: false,
+			discover: false,
+			collector: () => ({cart_open: context.state.cart_open}),
+			responder: ({cart_open}) => {
+				this.#attrs.boolean.open = cart_open
+				if (cart_open)
+					this.#dialog.showModal()
+				else
+					this.#dialog.close()
+			},
+		}))
+	}
+
+	#close = () => context.toggle_cart_open(false)
+
+	#backdrop_close = (event: MouseEvent) => {
+		if (event.target === this.#dialog)
+			this.#close()
+	}
+
 	render() {
-		const close = () => context.toggle_cart_open(false)
 		return html`
-			${context.state.cart_open
-				? html`
-
-					<div class=backdrop @click=${close}></div>
-
-					<slot
-						@click=${(event: MouseEvent) => {
-							const target = event.target as HTMLElement
-							if (target.tagName.toLowerCase() === "slot")
-								close()
-						}}>
-					</slot>
-				`
-				: undefined}
+			<dialog @click=${this.#backdrop_close}>
+				<slot></slot>
+				<div class=actions>
+					<button class=close @click=${this.#close}>
+						close
+					</button>
+				</div>
+			</dialog>
 		`
 	}
 
 	static styles = css`
 
-		.backdrop {
-			position: fixed;
-			z-index: 1;
-			inset: 0;
-			background: #2228;
-			backdrop-filter: blur(1em);
-		}
+		dialog {
+			margin: auto;
+			background: transparent;
+			border: none;
 
-		slot {
-			display: block;
-			position: absolute;
-			z-index: 2;
-			inset: 0;
-			top: 0;
-			margin-top: 1em;
+			&::backdrop {
+				background: #000a;
+				backdrop-filter: blur(1em);
+			}
+
+			> .actions {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+
+				> .close {
+					padding: 0.5em 1em;
+					font-size: 1.2em;
+				}
+			}
 		}
 	`
 }

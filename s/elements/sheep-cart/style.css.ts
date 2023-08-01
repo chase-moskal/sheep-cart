@@ -12,6 +12,8 @@ export const style = css`
 }
 
 h2 {
+	opacity: 0.2;
+	text-transform: uppercase;
 	text-align: center;
 	margin-bottom: 1em;
 }
@@ -23,6 +25,9 @@ h2 {
 	grid-auto-rows: auto;
 	gap: 1em;
 	align-items: center;
+
+	max-height: 60vh;
+	overflow: auto;
 
 	> li {
 		display: contents;

@@ -12,6 +12,10 @@ html {
 	--large: 21px;
 }
 
+html:has(sheep-cart-toggler[open]) {
+	overflow: hidden;
+}
+
 html, body {
 	font-size: var(--medium);
 	font-family: sans-serif;
