@@ -12,7 +12,7 @@ export const style = css`
 }
 
 h2 {
-	opacity: 0.2;
+	opacity: 0.4;
 	text-transform: uppercase;
 	text-align: center;
 	margin-bottom: 1em;
@@ -46,7 +46,12 @@ h2 {
 			grid-column: 2;
 			> input {
 				font-size: 1.5em;
-				width: 2.5em;
+				width: 3em;
+				background: transparent;
+				color: currentColor;
+				border: 1px solid currentColor;
+				border-radius: 0.5em;
+				padding: 0.2em 0.5em;
 			}
 		}
 
@@ -67,6 +72,7 @@ h2 {
 				background: transparent;
 				opacity: 0.4;
 				cursor: pointer;
+				color: currentColor;
 				&:is(:hover, :focus) {
 					opacity: 0.8;
 				}

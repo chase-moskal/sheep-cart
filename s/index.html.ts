@@ -14,9 +14,9 @@ export default template(async basics => {
 		body: html`
 			<sheep-modal></sheep-modal>
 
-			<sheep-cart-toggler>
-				<sheep-cart class="slice smaller"></sheep-cart>
-			</sheep-cart-toggler>
+			<sheep-cart-modal>
+				<sheep-cart></sheep-cart>
+			</sheep-cart-modal>
 
 			<header class="header slice">
 				<img

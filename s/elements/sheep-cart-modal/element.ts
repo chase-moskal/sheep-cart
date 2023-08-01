@@ -1,9 +1,12 @@
 
-import {css, html} from "lit"
+import {html} from "lit"
 import {QuickElement, attributes} from "@benev/frog"
+
+import {style} from "./style.css.js"
 import {Context} from "../../context/context.js"
 
-export const SheepCartToggler = (context: Context) => class extends QuickElement {
+export const SheepCartModal = (context: Context) => class extends QuickElement {
+	static styles = style
 
 	#attrs = attributes<{open: string}>(this)
 
@@ -36,39 +39,19 @@ export const SheepCartToggler = (context: Context) => class extends QuickElement
 	render() {
 		return html`
 			<dialog @click=${this.#backdrop_close}>
-				<slot></slot>
+
+				<sheep-cart part=cart>
+					<slot></slot>
+				</sheep-cart>
+
 				<div class=actions>
 					<button class=close @click=${this.#close}>
 						close
 					</button>
 				</div>
+
 			</dialog>
 		`
 	}
-
-	static styles = css`
-
-		dialog {
-			margin: auto;
-			background: transparent;
-			border: none;
-
-			&::backdrop {
-				background: #000a;
-				backdrop-filter: blur(1em);
-			}
-
-			> .actions {
-				display: flex;
-				justify-content: center;
-				align-items: center;
-
-				> .close {
-					padding: 0.5em 1em;
-					font-size: 1.2em;
-				}
-			}
-		}
-	`
 }
 

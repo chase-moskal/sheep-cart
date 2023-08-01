@@ -12,7 +12,7 @@ html {
 	--large: 21px;
 }
 
-html:has(sheep-cart-toggler[open]) {
+html:has(sheep-cart-modal[open]) {
 	overflow: hidden;
 }
 
@@ -50,6 +50,10 @@ sheep-cart {
 	}
 }
 
+sheep-cart-modal::part(cart) {
+	background: #00817b85;
+}
+
 .catalog {
 	background: #497e97;
 }
@@ -66,11 +70,6 @@ a:active, ::part(a):active { text-decoration: double underline; }
 	max-width: 96%;
 	margin: 0.2em auto;
 	box-shadow: 1px 2px 5px #0008;
-
-	&.smaller {
-		width: 86em;
-		max-width: 92%;
-	}
 }
 
 .header {
@@ -108,37 +107,6 @@ a:active, ::part(a):active { text-decoration: double underline; }
 		> sheep-nav {
 			margin-left: auto;
 			padding: 1em;
-		}
-	}
-
-	> sheep-cart-toggler {
-		position: absolute;
-		inset: 0;
-		padding: 1em;
-		display: flex;
-		justify-content: end;
-		align-items: start;
-		z-index: 1;
-		outline: 1px solid red;
-
-		&::part(button) {
-			padding: 0.5em;
-		}
-
-		&::part(cart) {
-			position: absolute;
-			top: 4em;
-			z-index: 1;
-			width: 100%;
-			min-height: 20em;
-
-			padding: 1em;
-
-			color: #222c;
-			text-shadow: none;
-			background: #ccce;
-			backdrop-filter: blur(10px);
-			box-shadow: 0.1em 0.3em 1em #0008;
 		}
 	}
 }
