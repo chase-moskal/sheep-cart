@@ -9,6 +9,7 @@ import {CartUnit} from "../../carting/parts/types.js"
 import {img} from "../views/product_focus/parts/img.js"
 import {render_img} from "../views/product_focus/parts/render_img.js"
 import {ProductHelper} from "../views/product_focus/parts/product_helper.js"
+import xSmallSvg from "../../icons/akar/x-small.svg.js"
 
 export const SheepCart = (context: Context) => class extends QuickElement {
 	static styles = style
@@ -63,7 +64,7 @@ export const SheepCart = (context: Context) => class extends QuickElement {
 			<div class=remove>
 				<button
 					@click="${handle_remove}">
-					X
+					${xSmallSvg}
 				</button>
 			</div>
 		`

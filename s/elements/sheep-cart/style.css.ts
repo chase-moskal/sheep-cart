@@ -56,6 +56,19 @@ h2 {
 
 		> .remove {
 			grid-column: 5;
+			& button {
+				display: flex;
+				border: none;
+				background: transparent;
+				opacity: 0.4;
+				cursor: pointer;
+				&:is(:hover, :focus) {
+					opacity: 0.8;
+				}
+				&:active {
+					opacity: 1;
+				}
+			}
 		}
 	}
 }
