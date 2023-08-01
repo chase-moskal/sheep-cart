@@ -1,56 +1,47 @@
 
-import {css, html, svg} from "lit"
+import {css, html} from "lit"
 import {QuickElement} from "@benev/frog"
-
 import {Context} from "../../context/context.js"
-import {shopping_cart_icon} from "../../icons/feather/shopping_cart_icon.js"
 
 export const SheepCartToggler = (context: Context) => class extends QuickElement {
 
-	#state = context.flat.state({open: false})
-
-	#toggle = () => {
-		this.#state.open = !this.#state.open
-	}
-
 	render() {
+		const close = () => context.toggle_cart_open(false)
 		return html`
+			${context.state.cart_open
+				? html`
 
-			<button
-				part=button
-				@click=${this.#toggle}>
-				${shopping_cart_icon(svg)}
-			</button>
+					<div class=backdrop @click=${close}></div>
 
-			<sheep-cart
-				part=cart
-				?hidden=${!this.#state.open}>
-			</sheep-cart>
+					<slot
+						@click=${(event: MouseEvent) => {
+							const target = event.target as HTMLElement
+							if (target.tagName.toLowerCase() === "slot")
+								close()
+						}}>
+					</slot>
+				`
+				: undefined}
 		`
 	}
 
 	static styles = css`
-		:host {
-			position: relative;
-		}
 
-		sheep-cart {
-			position: absolute;
+		.backdrop {
+			position: fixed;
 			z-index: 1;
-			right: 0;
-			width: 40em;
-			min-height: 20em;
-			padding: 1em;
-
-			color: #222c;
-			background: #ccce;
-			backdrop-filter: blur(10px);
-			box-shadow: 0.1em 0.3em 1em #0008;
+			inset: 0;
+			background: #2228;
+			backdrop-filter: blur(1em);
 		}
 
-		:host([sprawl="rightwards"]) sheep-cart {
-			right: unset;
-			left: 0;
+		slot {
+			display: block;
+			position: absolute;
+			z-index: 2;
+			inset: 0;
+			top: 0;
+			margin-top: 1em;
 		}
 	`
 }

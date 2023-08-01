@@ -7,7 +7,7 @@ import {Context} from "../context/context.js"
 import {prepare_pilot} from "../piloting/pilot.js"
 import {CartStore} from "../carting/parts/cart_store.js"
 import {theme as default_theme} from "../elements/theme.css.js"
-import {prepare_all_components} from "../elements/prepare_all_elements.js"
+import {prepare_all_elements} from "../elements/prepare_all_elements.js"
 
 export function install_sheep_cart({
 		domain,
@@ -49,7 +49,7 @@ export function install_sheep_cart({
 	router.on_route_change(() => pilot(context.state.route))
 
 	return {
-		elements: prepare_all_components(context),
+		elements: prepare_all_elements(context),
 
 		async load() {
 			await Promise.all([

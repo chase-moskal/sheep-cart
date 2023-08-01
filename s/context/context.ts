@@ -14,8 +14,10 @@ import {prepare_all_views} from "../elements/prepare_all_views.js"
 
 export class Context {
 	flat = new Flat()
+
 	#state: State
 	readonly state: State
+
 	modal: Modal
 	views = prepare_all_views(this)
 	cart: Cart
@@ -36,5 +38,9 @@ export class Context {
 	set_tags = (tags: GqlTag[]) => this.#state.tags = tags
 	set_collections = (collections: GqlCollection[]) => this.#state.collections = collections
 	set_situation_op = (op: Op.For<Situation.Whatever>) => this.#state.situation_op = op
+
+	toggle_cart_open = (open = !this.#state.cart_open) => {
+		this.#state.cart_open = open
+	}
 }
 

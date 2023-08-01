@@ -7,15 +7,11 @@ import {shopping_cart_icon} from "../../icons/feather/shopping_cart_icon.js"
 
 export const SheepCartButton = (context: Context) => class extends QuickElement {
 
-	#toggle = () => {
-		context.state.cart_open = !context.state.cart_open
-	}
-
 	render() {
 		return html`
 			<button
 				part=button
-				@click=${this.#toggle}>
+				@click=${() => context.toggle_cart_open()}>
 
 				${shopping_cart_icon(svg)}
 			</button>

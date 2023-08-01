@@ -9,6 +9,10 @@ export const theme = css`
 	box-sizing: border-box;
 }
 
+:not(:defined) {
+	display: none;
+}
+
 .standard-content {
 	& * + * {
 		margin-top: 0.7em;
@@ -19,18 +23,22 @@ export const theme = css`
 	}
 }
 
-.error {
-	display: flex;
-	color: #d94c4c;
-	align-items: center;
+.op {
 	& svg {
-		margin-right: 0.5em;
-		width: 1.8em;
+		width: 2em;
+		height: 2em;
 	}
-}
 
-.loading {
-	& svg {
+	&.error {
+		display: flex;
+		color: red;
+		align-items: center;
+		& svg {
+			margin-right: 0.5em;
+		}
+	}
+
+	&.loading svg {
 		animation: rotate-animation 10s infinite linear;
 	}
 }
@@ -38,13 +46,14 @@ export const theme = css`
 @keyframes rotate-animation {
 	0% {
 		transform: rotate(0deg);
-  }
-  50% {
+	}
+	50% {
 		transform: rotate(180deg);
 	}
 	100% {
 		transform: rotate(360deg);
 	}
 }
+
 `
 

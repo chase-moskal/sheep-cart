@@ -108,7 +108,7 @@ export const SheepCart = (context: Context) => class extends QuickElement {
 	}
 
 	render() {
-		const {cart: {units}, views} = context
+		const {views, cart: {units}} = context
 		return html`
 			<h2>
 				${units.length > 0
@@ -118,7 +118,7 @@ export const SheepCart = (context: Context) => class extends QuickElement {
 
 			<ol class=listing>
 				${units.map(unit => html`
-					<li class=row>
+					<li>
 						${this.#render_unit(unit)}
 					</li>
 				`)}

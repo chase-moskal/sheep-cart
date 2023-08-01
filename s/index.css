@@ -21,6 +21,18 @@ html, body {
 	text-shadow: 0.1em 0.1em 0.05em #0004;
 }
 
+:not(:defined) {
+	display: none;
+}
+
+sheep-cart {
+	padding: 1em;
+	color: #222c;
+	background: #fffc;
+	text-shadow: none;
+	box-shadow: 0.1em 0.1em 0.5em #0008;
+}
+
 .header {
 	background: #50a7cc;
 	background: linear-gradient(
@@ -50,6 +62,11 @@ a:active, ::part(a):active { text-decoration: double underline; }
 	max-width: 96%;
 	margin: 0.2em auto;
 	box-shadow: 1px 2px 5px #0008;
+
+	&.smaller {
+		width: 86em;
+		max-width: 92%;
+	}
 }
 
 .header {

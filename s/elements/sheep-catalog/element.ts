@@ -1,6 +1,6 @@
 
 import {html} from "lit"
-import {Op, QuickElement} from "@benev/frog"
+import {QuickElement} from "@benev/frog"
 
 import {style} from "./style.css.js"
 import {render_op} from "../render_op.js"
@@ -34,7 +34,7 @@ export const SheepCatalog = ({state, router, views}: Context) => class extends Q
 							? html`<h1>${situation.message}</h1>`
 							: html`<h1>Not found</h1>`}
 						<p>
-							<a href="${router.routes.home().url}">
+							<a part=a href="${router.routes.home().url}">
 								back
 							</a>
 						</p>
