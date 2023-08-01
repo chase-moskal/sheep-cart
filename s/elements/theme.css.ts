@@ -19,5 +19,32 @@ export const theme = css`
 	}
 }
 
+.error {
+	display: flex;
+	color: #d94c4c;
+	align-items: center;
+	& svg {
+		margin-right: 0.5em;
+		width: 1.8em;
+	}
+}
+
+.loading {
+	& svg {
+		animation: rotate-animation 10s infinite linear;
+	}
+}
+
+@keyframes rotate-animation {
+	0% {
+		transform: rotate(0deg);
+  }
+  50% {
+		transform: rotate(180deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}
 `
 

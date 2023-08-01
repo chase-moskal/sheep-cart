@@ -1,6 +1,6 @@
 
 import {html} from "lit"
-import {QuickElement} from "@benev/frog"
+import {Op, QuickElement} from "@benev/frog"
 
 import {style} from "./style.css.js"
 import {render_op} from "../render_op.js"
