@@ -76,8 +76,10 @@ export const ProductFocus = flappy("article", "product-focus")
 				</section>
 
 			</div>
-			<h2>Product recommendations:</h2>
-			${views.ProductRecommendation({exportparts: "title, price, plate, card"})(product.id, 3)}
+			<div class=recommendations>
+				<h2>Customers also bought:</h2>
+				${views.ProductRecommendation({exportparts: "title, price, plate, card"})(product.id, 3)}
+			</div>
 		`
 	})
 	.styles(style) as Viewbase<[GqlProduct]>

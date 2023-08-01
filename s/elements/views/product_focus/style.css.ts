@@ -72,6 +72,11 @@ export const style = css`
 
 	> .options {
 		justify-self: end;
+		display: flex;
+		flex-direction: column;
+		align-items: end;
+		gap: 1em;
+		padding: 1em;
 	}
 
 	.buy {
@@ -125,8 +130,19 @@ export const style = css`
 
 }
 
-[data-view="product-recommendation"] {
-	justify-content: center;
+.recommendations {
+	margin-top: 4em;
+
+	> h2 {
+		text-align: center;
+		margin-bottom: 1em;
+	}
+
+	> [data-view="product-recommendation"] {
+		justify-content: center;
+	}
 }
+
+
 `
 
