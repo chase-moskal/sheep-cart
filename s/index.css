@@ -29,14 +29,6 @@ html, body {
 	display: none;
 }
 
-sheep-cart {
-	padding: 1em;
-	color: #222c;
-	background: #fffc;
-	text-shadow: none;
-	box-shadow: 0.1em 0.1em 0.5em #0008;
-}
-
 .header {
 	background: #50a7cc;
 	background: linear-gradient(
@@ -48,14 +40,17 @@ sheep-cart {
 		color: #fff700;
 		text-shadow: 0.1em 0.1em 0.05em #0004;
 	}
+	box-shadow: 1px 2px 5px #0008;
 }
 
 sheep-cart-modal::part(cart) {
-	background: #77c5c185;
+	color: white;
+	background: #33ecffa1;
 }
 
-.catalog {
+sheep-catalog {
 	background: #497e97;
+	box-shadow: 1px 2px 5px #0008;
 }
 
 a, ::part(a) {
@@ -69,7 +64,20 @@ a:active, ::part(a):active { text-decoration: double underline; }
 	width: 90em;
 	max-width: 96%;
 	margin: 0.2em auto;
-	box-shadow: 1px 2px 5px #0008;
+}
+
+.follower {
+	position: fixed;
+	z-index: 1;
+	left: 0;
+	right: 0;
+
+	display: flex;
+	justify-content: end;
+	padding: 1em;
+
+	pointer-events: none;
+	> * { pointer-events: all; }
 }
 
 .header {
@@ -111,12 +119,10 @@ a:active, ::part(a):active { text-decoration: double underline; }
 	}
 }
 
-.catalog {
+sheep-catalog {
 	border-radius: 0 0 0.5em 0.5em;
 	padding: 1em;
-}
 
-sheep-catalog {
 	&::part(card) {
 		color: white;
 		background: #fff2;

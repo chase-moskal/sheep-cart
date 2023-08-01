@@ -18,11 +18,16 @@ export default template(async basics => {
 				<sheep-cart></sheep-cart>
 			</sheep-cart-modal>
 
+			<div class="follower slice">
+				<sheep-cart-button></sheep-cart-button>
+			</div>
+
 			<header class="header slice">
 				<img
 					class=bakery-logo
 					alt=""
 					src="${path.root('assets/sheep-logo.webp')}"/>
+
 				<div class=bigbar>
 					<h1>
 						<a href="https://github.com/chase-moskal/sheep-cart">
@@ -33,12 +38,9 @@ export default template(async basics => {
 					<sheep-search></sheep-search>
 					<sheep-nav></sheep-nav>
 				</div>
-				<sheep-cart-button></sheep-cart-button>
 			</header>
 
-			<section class="catalog slice">
-				<sheep-catalog></sheep-catalog>
-			</section>
+			<sheep-catalog class=slice></sheep-catalog>
 		`,
 	})
 })

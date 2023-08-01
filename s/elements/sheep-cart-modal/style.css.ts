@@ -5,6 +5,7 @@ export const style = css`
 
 dialog {
 	margin: auto;
+	margin-top: 2em;
 	background: transparent;
 	border: none;
 
@@ -49,7 +50,7 @@ sheep-cart {
 	padding: 1em;
 
 	background: #444c;
-	color: #eeec;
+	color: #fff;
 	box-shadow: 1px 2px 5px #0008;
 }
 

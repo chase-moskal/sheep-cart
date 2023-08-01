@@ -22,6 +22,11 @@ export const SheepCartButton = (context: Context) => class extends QuickElement 
 	static styles = css`
 		button {
 			padding: 1em;
+			background: #eeee;
+			color: #222;
+			border: none;
+			border-radius: 1em;
+			box-shadow: 0.1em 0.1em 0.3em #0008;
 		}
 	`
 }
