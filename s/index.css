@@ -11,7 +11,6 @@ html {
 	--medium: 16px;
 	--large: 21px;
 	padding-bottom: 4em;
-	scrollbar-gutter: stable;
 }
 
 html:has(sheep-cart-modal[open]) {
