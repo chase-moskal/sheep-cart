@@ -23,8 +23,8 @@ export const style = css`
 			"title title"
 			"pills pills"
 			"info options" 1fr
-			"price button";
-		grid-template-columns: minmax(auto, 1fr) minmax(1em, 1fr);
+			"price button"
+			/ 1fr  2fr;
 		gap: 0.2rem;
 		padding: 0.4rem;
 	}
