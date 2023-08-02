@@ -1,52 +1,33 @@
 
-import {html, css} from "lit"
+import {html} from "lit"
+
+import {style} from "./style.css.js"
 import {flappy} from "../../flappy.js"
-import {GqlPrice} from "shopify-shepherd"
+import {VariantPricing} from "./parts/types.js"
+import {parse_money} from "./parts/parse_money.js"
+import {render_sale_tag} from "./parts/render_sale_tag.js"
+import {render_money_value} from "./parts/render_money_value.js"
 
 export const Price = flappy("div", "price")
-	.render(_ => _ => (price: GqlPrice) => {
-
-		const [price_dollars, price_cents] = parseFloat(price.amount)
-			.toFixed(2)
-			.split(".")
+	.render(_ => _ => (variant: VariantPricing) => {
+		const {value, comparison} = parse_money(variant)
 
 		return html`
-			<span class=symbol>$</span>
-			<span class=dollars>${price_dollars}</span>
-			<span class=stack>
-				<span class=cents>${price_cents}</span>
-				<span class=currency>${price.currencyCode}</span>
-			</span>
+			<div class=pricetag ?data-sale=${!!comparison}>
+				${comparison
+					? render_sale_tag(value, comparison)
+					: undefined}
+				${render_money_value(value)}
+			</div>
+
+			${comparison
+				? html`
+					<div class=comparetag>
+						${render_money_value(comparison)}
+					</div>
+				`
+				: undefined}
 		`
 	})
-	.styles(css`
-
-		:host {
-			display: inline-flex;
-			align-items: center;
-			gap: 0.1em;
-		}
-
-		.symbol {
-			font-size: 2em;
-			align-self: center;
-		}
-
-		.dollars {
-			font-size: 2.4em;
-		}
-
-		.stack {
-			display: inline-flex;
-			flex-direction: column;
-			line-height: 1em;
-
-			> .currency {
-				opacity: 0.5;
-				font-size: 0.75em;
-			}
-		}
-
-
-	`)
+	.styles(style)
 

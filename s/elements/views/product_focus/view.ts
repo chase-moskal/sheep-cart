@@ -55,7 +55,7 @@ export const ProductFocus = flappy("article", "product-focus")
 
 				<div class=buy>
 					${views.Price({class: "price"})(
-						choiceHelper.selected_variant.price
+						choiceHelper.selected_variant,
 					)}
 					${views.Coolbutton()(
 						add_to_cart_button(

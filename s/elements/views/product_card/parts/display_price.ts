@@ -1,6 +1,6 @@
 
 import {TemplateResult} from "lit"
-import {GqlPrice, GqlProduct} from "shopify-shepherd"
+import {GqlPrice, GqlProduct, GqlVariant} from "shopify-shepherd"
 
 export function display_price({
 		product,
@@ -8,8 +8,8 @@ export function display_price({
 		multiple_prices,
 	}: {
 		product: GqlProduct
-		single_price: (price: GqlPrice) => TemplateResult
-		multiple_prices: (price: GqlPrice) => TemplateResult
+		single_price: (variant: GqlVariant) => TemplateResult
+		multiple_prices: (variant: GqlVariant) => TemplateResult
 	}) {
 
 	const more_than_one_variant = product.variants.edges.length > 1
@@ -21,17 +21,16 @@ export function display_price({
 		return parseFloat(price.amount)
 	}
 
-	const prices = product.variants.edges.map(e => e.node.price)
+	const variants = product.variants.edges.map(e => e.node)
+	let cheapest_variant = variants[0]
 
-	let lowest_price: GqlPrice = prices[0]
-
-	for (const price of prices) {
-		if (numerical(price) < numerical(lowest_price))
-			lowest_price = price
+	for (const variant of variants) {
+		if (numerical(variant.price) < numerical(cheapest_variant.price))
+			cheapest_variant = variant
 	}
 
 	return (more_than_one_variant && !all_the_same_price)
-		? multiple_prices(lowest_price)
-		: single_price(lowest_price)
+		? multiple_prices(cheapest_variant)
+		: single_price(cheapest_variant)
 }
 

@@ -8,6 +8,7 @@ import {Context} from "../../context/context.js"
 import {sum_subtotal} from "./parts/sum_subtotal.js"
 import {CartUnit} from "../../carting/parts/types.js"
 import {img} from "../views/product_focus/parts/img.js"
+import {VariantPricing} from "../views/price/parts/types.js"
 import {render_img} from "../views/product_focus/parts/render_img.js"
 import {ProductHelper} from "../views/product_focus/parts/product_helper.js"
 
@@ -34,9 +35,18 @@ export const SheepCart = (context: Context) => class extends QuickElement {
 			context.cart.remove(unit.variant_id)
 		}
 
-		const coolprice: GqlPrice = {
-			amount: (parseFloat(variant.price.amount) * unit.quantity).toString(),
-			currencyCode: variant.price.currencyCode,
+		const currencyCode = variant.price.currencyCode
+		const summed_pricing: VariantPricing = {
+			price: {
+				currencyCode,
+				amount: (parseFloat(variant.price.amount) * unit.quantity).toString(),
+			},
+			compareAtPrice: variant.compareAtPrice
+				? {
+					currencyCode,
+					amount: (parseFloat(variant.compareAtPrice.amount) * unit.quantity).toString(),
+				}
+				: undefined,
 		}
 
 		return html`
@@ -60,7 +70,7 @@ export const SheepCart = (context: Context) => class extends QuickElement {
 			</div>
 
 			<div class=price>
-				${context.views.Price()(coolprice)}
+				${context.views.Price()(summed_pricing)}
 			</div>
 
 			<div class=remove>
@@ -124,7 +134,6 @@ export const SheepCart = (context: Context) => class extends QuickElement {
 					</li>
 				`)}
 			</ol>
-
 
 			${units.length > 0
 				? html`

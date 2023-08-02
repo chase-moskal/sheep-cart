@@ -31,12 +31,12 @@ export const ProductCard = viewbase(context => v => v
 
 				${display_price({
 					product,
-					single_price: price => html`
-						${context.views.Price({part: "price"})(price)}
+					single_price: variant => html`
+						${context.views.Price({part: "price"})(variant)}
 					`,
-					multiple_prices: price => html`
+					multiple_prices: variant => html`
 						<div class=info>starts at</div>
-						${context.views.Price({part: "price"})(price)}
+						${context.views.Price({part: "price"})(variant)}
 					`,
 				})}
 
