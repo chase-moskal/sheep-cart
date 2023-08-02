@@ -16,7 +16,8 @@ function parse_money_value(price: GqlPrice): MoneyValue {
 	const {amount, currencyCode: currency} = price
 	const number = parseFloat(amount)
 	const symbol = get_symbol_for_currency_code(currency)
-	const [big, smallraw] = amount
+	const [big, smallraw] = number
+		.toFixed(2)
 		.split(".")
 		.map(part => parseInt(part).toLocaleString())
 	const small = (smallraw ?? "0").padStart(2, "0")
