@@ -2,23 +2,19 @@
 import {CartUnit} from "../../../carting/parts/types.js"
 import {VariantPricing} from "../../views/price/parts/types.js"
 
-export function sum_subtotal([first, ...units]: CartUnit[]): VariantPricing {
-	const currencyCode = first.variant.price.currencyCode
-	const first_value = parseFloat(first.variant.price.amount)
+export function sum_subtotal([firstunit, ...units]: CartUnit[]): VariantPricing {
+	const currencyCode = firstunit.variant.price.currencyCode
+	const first = get_values(firstunit)
 
 	const totals = {
-		price: first_value,
-		compared: first.variant.compareAtPrice
-			? parseFloat(first.variant.compareAtPrice.amount)
-			: first_value
+		price: first.price,
+		comparison: first.comparison ?? first.price,
 	}
 
-	for (const {variant} of units) {
-		const value = parseFloat(variant.price.amount)
-		totals.price += value
-		totals.compared += variant.compareAtPrice
-			? parseFloat(variant.compareAtPrice.amount)
-			: value
+	for (const unit of units) {
+		const {price, comparison} = get_values(unit)
+		totals.price += price
+		totals.comparison += comparison ?? price
 	}
 
 	return {
@@ -26,12 +22,19 @@ export function sum_subtotal([first, ...units]: CartUnit[]): VariantPricing {
 			currencyCode,
 			amount: totals.price.toString(),
 		},
-		compareAtPrice: (totals.price !== totals.compared)
+		compareAtPrice: (totals.price !== totals.comparison)
 			? {
 				currencyCode,
-				amount: totals.compared.toString(),
+				amount: totals.comparison.toString(),
 			}
 			: undefined,
+	}
+}
+
+function get_values({variant, quantity}: CartUnit) {
+	return {
+		price: parseFloat(variant.price.amount) * quantity,
+		comparison: variant.compareAtPrice && parseFloat(variant.compareAtPrice.amount) * quantity,
 	}
 }
 

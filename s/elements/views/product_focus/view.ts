@@ -33,7 +33,7 @@ export const ProductFocus = flappy("article", "product-focus")
 				state.choices.push({name, value})
 			}
 		}
-		console.log(context.modal.state)
+
 		return html`
 			<div
 				class=grid

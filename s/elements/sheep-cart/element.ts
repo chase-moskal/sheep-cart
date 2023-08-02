@@ -1,7 +1,6 @@
 
 import {html, svg} from "lit"
 import {QuickElement} from "@benev/frog"
-import {GqlPrice} from "shopify-shepherd"
 
 import {style} from "./style.css.js"
 import {Context} from "../../context/context.js"
