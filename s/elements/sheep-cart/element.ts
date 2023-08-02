@@ -75,6 +75,7 @@ export const SheepCart = (context: Context) => class extends QuickElement {
 
 			<div class=remove>
 				<button
+					title="remove from cart"
 					@click="${handle_remove}">
 					${icon_x(svg)}
 				</button>
