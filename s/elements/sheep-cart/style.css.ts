@@ -70,14 +70,49 @@ h2 {
 				opacity: 0.4;
 				cursor: pointer;
 				color: currentColor;
-				&:is(:hover, :focus) {
-					opacity: 0.8;
-				}
-				&:active {
-					opacity: 1;
+				&:is(:hover, :focus) { opacity: 0.8; }
+				&:active { opacity: 1; }
+				& svg {
+					width: 1.5rem;
+					height: 1.5rem;
 				}
 			}
 		}
+	}
+}
+
+.subtotal {
+	display: flex;
+	justify-content: end;
+	padding-right: 2.5rem;
+
+	& .group {
+		display: flex;
+		flex-direction: column;
+		width: max-content;
+	}
+
+	& hr {
+		opacity: 0.3;
+		display: block;
+		border: none;
+		width: 100%;
+		height: 0.1em;
+		margin: 1em auto;
+		background: currentColor;
+	}
+
+	& .block {
+		display: flex;
+	}
+
+	& .heading {
+		opacity: 0.4;
+		display: flex;
+		align-items: center;
+		padding-right: 3em;
+		text-transform: uppercase;
+		font-weight: bold;
 	}
 }
 
@@ -85,6 +120,7 @@ h2 {
 	font-size: 1.5em;
 	margin-top: 1em;
 	margin-left: auto;
+	margin-right: 2.5rem;
 	&::part(button) {
 		padding: 0.5em 1em;
 	}

@@ -5,6 +5,7 @@ import {GqlPrice} from "shopify-shepherd"
 
 import {style} from "./style.css.js"
 import {Context} from "../../context/context.js"
+import {sum_subtotal} from "./parts/sum_subtotal.js"
 import {CartUnit} from "../../carting/parts/types.js"
 import {img} from "../views/product_focus/parts/img.js"
 import {render_img} from "../views/product_focus/parts/render_img.js"
@@ -124,12 +125,28 @@ export const SheepCart = (context: Context) => class extends QuickElement {
 				`)}
 			</ol>
 
+
 			${units.length > 0
-				? views.Coolbutton({class: "checkout-button"})({
-					active: true,
-					text: "Checkout",
-					onclick: this.#checkout,
-				})
+				? html`
+					<div class=subtotal>
+						<div class=group>
+							<hr/>
+							<div class=block>
+								<div class=heading>
+									Subtotal
+								</div>
+								<div class=price>
+									${context.views.Price()(sum_subtotal(units))}
+								</div>
+							</div>
+						</div>
+					</div>
+					${views.Coolbutton({class: "checkout-button"})({
+						active: true,
+						text: "Checkout",
+						onclick: this.#checkout,
+					})}
+				`
 				: undefined}
 		`
 	}
