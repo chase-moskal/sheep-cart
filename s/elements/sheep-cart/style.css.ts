@@ -109,7 +109,8 @@ h2 {
 	& .heading {
 		opacity: 0.4;
 		display: flex;
-		align-items: center;
+		align-items: end;
+		padding-bottom: 0.5em;
 		padding-right: 3em;
 		text-transform: uppercase;
 		font-weight: bold;
