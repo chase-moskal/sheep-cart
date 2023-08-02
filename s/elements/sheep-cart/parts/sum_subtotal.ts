@@ -26,7 +26,7 @@ export function sum_subtotal([first, ...units]: CartUnit[]): VariantPricing {
 			currencyCode,
 			amount: totals.price.toString(),
 		},
-		compareAtPrice: (totals.price === totals.compared)
+		compareAtPrice: (totals.price !== totals.compared)
 			? {
 				currencyCode,
 				amount: totals.compared.toString(),
