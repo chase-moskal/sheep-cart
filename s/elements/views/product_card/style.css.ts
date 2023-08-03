@@ -69,7 +69,12 @@ h1 {
 [data-view="coolbutton"] {
 	grid-area: button;
 	width: 100%;
-	height: 100%;
+	align-self: end;
+
+	&::part(button) {
+		min-height: 2.5em;
+	}
+
 	&.select::part(button) {
 		background: #00bb98;
 	}

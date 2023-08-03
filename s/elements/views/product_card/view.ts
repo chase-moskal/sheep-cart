@@ -9,7 +9,7 @@ import {display_price} from "./parts/display_price.js"
 import {render_img} from "../product_focus/parts/render_img.js"
 import {number_of_variants} from "./parts/number_of_variants.js"
 import {ProductHelper} from "../product_focus/parts/product_helper.js"
-import { add_to_cart_button } from "../coolbutton/helpers/add_to_cart_button.js"
+import {add_to_cart_button} from "../coolbutton/helpers/add_to_cart_button.js"
 
 export const ProductCard = viewbase(context => v => v
 	.tag("article")

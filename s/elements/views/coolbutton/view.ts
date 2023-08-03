@@ -21,8 +21,10 @@ export const Coolbutton = flappy("div", "coolbutton")
 		}
 
 		button {
+			display: inline-flex;
+			justify-content: center;
+			align-items: center;
 			width: 100%;
-			height: 100%;
 
 			cursor: pointer;
 			padding: 0.2em 0.5em;
