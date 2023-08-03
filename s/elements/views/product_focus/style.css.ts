@@ -6,6 +6,7 @@ export const style = css`
 :host {
 	display: block;
 	container-type: inline-size;
+	--frame-color: var(--sheep-frame-color, #fff2);
 }
 
 .grid {
@@ -48,7 +49,8 @@ export const style = css`
 	> section { grid-area: essay; }
 
 	> figure {
-		background: #fff2;
+		background: var(--frame-color);
+		padding: 1em;
 		width: 100%;
 		height: 100%;
 		align-self: center;
@@ -100,6 +102,8 @@ export const style = css`
 		display: flex;
 		flex-wrap: wrap;
 		container-type: inline-size;
+		padding: 1em;
+		background: var(--frame-color);
 
 		> img {
 			display: block;
