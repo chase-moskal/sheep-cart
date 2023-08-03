@@ -11,7 +11,7 @@ export const style = css`
 }
 
 [data-view="product-card"] {
-	font-size: var(--small);
+	font-size: 0.8em;
 	max-width: 100%;
 }
 

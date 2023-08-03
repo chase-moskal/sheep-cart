@@ -69,7 +69,7 @@ export const style = css`
 	}
 
 	> .pills {
-		font-size: var(--small);
+		font-size: 0.8em;
 	}
 
 	> .options {

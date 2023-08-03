@@ -58,7 +58,7 @@ export const style = css`
 		}
 
 		> span {
-			font-size: var(--small);
+			font-size: 0.8em;
 			user-select: none;
 			margin-left: 0.5em;
 		}
