@@ -10,8 +10,7 @@ dialog {
 	border: none;
 
 	&::backdrop {
-		background: #000a;
-		backdrop-filter: blur(1em);
+		background: #222222f8;
 	}
 }
 

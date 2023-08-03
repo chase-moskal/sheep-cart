@@ -11,9 +11,7 @@ export const style = css`
 		position: fixed;
 		width: 100%;
 		height: 100%;
-		background-color: red;
-		background-color: #0000006b;
-		backdrop-filter: blur(5px);
+		background-color: #222222f8;
 		border: none;
 		top: 0;
 	}
