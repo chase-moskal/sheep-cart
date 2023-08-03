@@ -120,6 +120,7 @@ a:active, ::part(a):active { text-decoration: double underline; }
 sheep-catalog {
 	border-radius: 0 0 0.5em 0.5em;
 	padding: 1em;
+	padding-bottom: 5em;
 
 	&::part(card) {
 		color: white;
