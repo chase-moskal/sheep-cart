@@ -85,23 +85,24 @@ a:active, ::part(a):active { text-decoration: double underline; }
 	position: relative;
 	margin-top: 2em;
 	display: flex;
-	flex-direction: row;
 	flex-wrap: wrap;
+	justify-content: center;
+	gap: 1em;
 	border-radius: 0.5em 0.5em 0 0;
 
 	> .bakery-logo {
-		margin-right: 1em;
 		height: 12em;
 		transform: scale(1.2);
 		filter: drop-shadow(1px 3px 10px #000);
 	}
 
 	> .bigbar {
-		flex: 1 0 auto;
+		flex: 1 1 auto;
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
 		gap: 0.5em;
+		padding: 0 1em;
 
 		> h1 {
 			& a > * {

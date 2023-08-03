@@ -14,7 +14,10 @@ export const style = css`
 
 	> input {
 		display: block;
-		font-size: var(--large);
+		font-size: 1.5em;
+		width: 100%;
+		min-width: 4em;
+		max-width: 20em;
 		background: transparent;
 		border: 0.1em solid;
 		border-radius: 0.5em;
@@ -34,8 +37,9 @@ export const style = css`
 
 .searchtags {
 	display: flex;
-	gap: 0.5em;
-	margin-left: 0.5em;
+	flex-wrap: wrap;
+	gap: 0.1em;
+	min-width: 0;
 
 	> label {
 		display: flex;
@@ -43,9 +47,14 @@ export const style = css`
 		border: 1px solid;
 		border-radius: 1em;
 		padding: 0 0.3em;
+		min-width: 0;
+
+		& input { display: none; }
+		& input { opacity: 0.5; }
 
 		&[data-active] {
 			color: var(--active-tag-color, lime);
+			& input { opacity: 1; }
 		}
 
 		> span {
