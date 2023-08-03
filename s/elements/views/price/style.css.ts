@@ -6,6 +6,7 @@ export const style = css`
 :host {
 	display: flex;
 	flex-direction: column;
+	--slash-color: var(--sheep-slash-color, #f008);
 }
 
 .sale {
@@ -58,17 +59,8 @@ export const style = css`
 			opacity: 0.4;
 		}
 
-		& svg {
-			display: none;
-			position: absolute;
-			inset: 0;
-			width: 100%;
-			height: 100%;
-			color: red;
-		}
-
 		& [part="slash"] {
-			color: #f008;
+			color: var(--slash-color);
 			position: absolute;
 			inset: 0;
 			width: 100%;

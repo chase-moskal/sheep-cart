@@ -1,10 +1,8 @@
 
-![sheep-cart](./assets/sheep-title.webp)
+![sheep-cart](./assets/sheep-logo.webp)
 
-# 🐑 sheep-cart
+# 🐑 sheep-cart: embed shopify onto any website
 
-### embed a shopify store on any website
-
-🕹️ live demo: [dev bakery](https://devbakery.chasemoskal.com/)  
+🕹️ live demo: [sheep-cart.chasemoskal.com](https://sheep-cart.chasemoskal.com/)  
 🛒 full shopping cart experience  
 💖 free and open source just for you  
