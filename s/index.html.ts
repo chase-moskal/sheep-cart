@@ -5,7 +5,7 @@ export default template(async basics => {
 	const path = basics.path(import.meta.url)
 	return easypage({
 		path,
-		css: "index.css",
+		css: "index.compat.css",
 		title: "dev bakery (sheep-cart demo)",
 		head: html`
 			${startup_scripts_with_dev_mode(path)}

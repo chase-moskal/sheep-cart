@@ -13,6 +13,7 @@
 	"scripts": {
 		"build": "turtle-standard && ln -s $(realpath assets) x/assets",
 		"start": "turtle-standard-watch",
+		"links": "npm link ../shopify-shepherd ../magical ../@benev/frog ../@benev/turtle",
 		"test": "exit 0"
 	},
 	"dependencies": {
