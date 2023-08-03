@@ -48,9 +48,12 @@ export const style = css`
 		border-radius: 1em;
 		padding: 0 0.3em;
 		min-width: 0;
+		gap: 0.5em;
 
-		& input { display: none; }
-		& input { opacity: 0.5; }
+		& input {
+			display: none;
+			opacity: 0.5;
+		}
 
 		&[data-active] {
 			color: var(--active-tag-color, lime);
@@ -60,7 +63,6 @@ export const style = css`
 		> span {
 			font-size: 0.8em;
 			user-select: none;
-			margin-left: 0.5em;
 		}
 	}
 }
