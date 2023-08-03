@@ -1,5 +1,6 @@
 
-import {css, html, svg} from "lit"
+import {html, svg} from "lit"
+import {css} from "@chasemoskal/magical"
 import {QuickElement} from "@benev/frog"
 
 import {Context} from "../../context/context.js"

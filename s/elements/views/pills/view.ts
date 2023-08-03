@@ -1,6 +1,7 @@
 
-import {css, html} from "lit"
-import {GqlCollection, GqlProduct} from "shopify-shepherd"
+import {html} from "lit"
+import {css} from "@chasemoskal/magical"
+import {GqlProduct} from "shopify-shepherd"
 
 import {flappy} from "../../flappy.js"
 import {ProductHelper} from "../product_focus/parts/product_helper.js"

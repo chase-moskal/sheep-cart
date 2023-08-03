@@ -1,5 +1,7 @@
 
-import {css, html} from "lit"
+import {html} from "lit"
+import {css} from "@chasemoskal/magical"
+
 import {flappy} from "../../flappy.js"
 
 export type CoolbuttonParams = {

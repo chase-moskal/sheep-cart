@@ -1,5 +1,5 @@
 
-import {css} from "lit"
+import {css} from "@chasemoskal/magical"
 
 export const theme = css`
 
