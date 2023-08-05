@@ -36,6 +36,8 @@ h2 {
 				width: 3em;
 				height: 5em;
 				object-fit: cover;
+				padding: 0.3rem;
+				background: #fff4;
 			}
 		}
 
@@ -125,6 +127,72 @@ h2 {
 	&::part(button) {
 		padding: 0.5em 1em;
 	}
+}
+
+:host {
+	container: layout / inline-size;
+}
+
+@container (width < 40em) {
+	.listing {
+		display: flex;
+		grid: none;
+		flex-direction: column;
+		align-items: stretch;
+		gap: 1em;
+
+		> li {
+			display: grid;
+			grid:
+				"thumb  title quantity"
+				"remove price price   "
+				/ auto 1fr   auto;
+
+			background: #fff4;
+			padding: 0.5rem;
+			box-shadow: 0.2em 0.3em 0.2em #0001;
+
+			> .thumb { grid-area: thumb; }
+			> .title { grid-area: title; }
+			> .quantity { grid-area: quantity; }
+			> .price { grid-area: price; }
+			> .remove { grid-area: remove; }
+
+			> .title { padding: 0 0.5rem; }
+
+			> .remove {
+				justify-self: center;
+				align-self: end;
+				> button > svg {
+					width: 3rem;
+					height: 3rem;
+				}
+			}
+
+			& input {
+				font-size: 1em !important;
+			}
+
+			& [data-view="price"] {
+				font-size: 0.8em;
+			}
+		}
+	}
+
+	.subtotal {
+		padding: 0;
+		margin-top: 2rem;
+		& hr { display: none; }
+		& .block {
+			justify-content: end;
+			flex-wrap: wrap;
+			gap: 0.5rem;
+			padding: 0;
+		}
+		& .heading { }
+	}
+
+	.checkout-button { padding: 0.5rem; }
 }
 
 `

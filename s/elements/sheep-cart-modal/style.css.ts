@@ -16,7 +16,7 @@ dialog {
 
 .actions, sheep-cart {
 	width: 86em;
-	max-width: 92%;
+	max-width: 100%;
 	margin: 0.2em auto;
 }
 
