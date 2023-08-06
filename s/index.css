@@ -128,10 +128,6 @@ sheep-catalog {
 		padding: 0.5rem;
 	}
 
-	&::part(card-plate) {
-		background: #fff2;
-	}
-
 	&::part(card-title) {
 		color: white;
 	}

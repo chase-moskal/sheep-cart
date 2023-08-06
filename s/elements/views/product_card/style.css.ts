@@ -7,6 +7,7 @@ export const style = css`
 	display: flex;
 	width: 100%;
 	height: 100%;
+	gap: 0.5em;
 	text-decoration: none;
 	color: inherit;
 
@@ -17,66 +18,46 @@ export const style = css`
 	}
 
 	> [part="plate"] {
-		display: grid;
-		flex: 3;
-		grid:
-			"title title"
-			"pills pills"
-			"info options" 1fr
-			"price button"
-			/ 1fr  2fr;
-		gap: 0.2rem;
-		padding: 0.4rem;
-	}
-}
+		display: flex;
+		flex-direction: column;
+		flex: 1 1 auto;
+		gap: 0.5em;
 
-h1 {
-	grid-area: title;
-	font-size: 1.2em;
-}
+		> h1 {
+			font-size: 1.2em;
+		}
 
-[data-view="pills"] {
-	grid-area: pills;
-	font-size: 0.8em;
-	opacity: 0.7;
-	margin-bottom: 0.5rem;
-}
+		> .action {
+			display: flex;
+			margin-top: auto;
+			gap: 0.5em;
+			align-items: end;
+			flex-wrap: wrap-reverse;
 
-.info {
-	grid-area: info;
-	opacity: 0.8;
-	align-self: end;
-	justify-self: center;
-}
+			> .button {
+				flex: 1 1 6em;
+				width: 100%;
+				max-width: 10em;
 
-.options {
-	grid-area: options;
-	opacity: 0.4;
-	font-size: 0.9em;
-	list-style: none;
-	justify-self: center;
-	align-self: end;
-	font-style: italic;
-}
+				&::part(button) {
+					min-height: 3em;
+				}
 
-[data-view="price"] {
-	grid-area: price;
-	font-size: 0.8em;
-	justify-self: center;
-	padding: 0 0.5em;
-}
+				&::part(slot) {
+					display: flex;
+					flex-direction: column;
+					justify-content: center;
+				}
 
-[data-view="coolbutton"] {
-	grid-area: button;
-	width: 100%;
-	align-self: end;
+				small {
+					font-weight: normal;
+				}
+			}
 
-	&::part(button) {
-		min-height: 2.5em;
-	}
-
-	&.select::part(button) {
-		background: #00bb98;
+			> .pricebox {
+				margin-left: auto;
+			}
+		}
 	}
 }
 

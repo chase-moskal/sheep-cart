@@ -27,43 +27,48 @@ export const ProductCard = viewbase(context => v => v
 					${product.title}
 				</h1>
 
-				${context.views.Pills()(product)}
+				${context.views.Pills({part: "pills"})(product)}
 
-				${display_price({
-					product,
-					single_price: variant => html`
-						${context.views.Price({part: "price"})(variant)}
-					`,
-					multiple_prices: variant => html`
-						<div class=info>starts at</div>
-						${context.views.Price({part: "price"})(variant)}
-					`,
-				})}
+				<div class=action>
 
-				${number_of_variants(product) > 1
-					? html`
-						<ul class=options>
-							${product.options.map(o => html`
-								<li class=option>
-									${o.values.length} ${o.name.toLowerCase()} options
-								</li>
-							`)}
-						</ul>
-						${context.views.Coolbutton({class: "select"})({
-							active: true,
-							text: "Select",
-							onclick: () => {},
+					${number_of_variants(product) > 1
+						? html`
+							${context.views.Coolbutton({
+								class: "button select",
+								content: html`
+									<strong>Choose</strong>
+									<small>from ${number_of_variants(product)} variants</small>
+								`,
+							})({
+								active: true,
+								onclick: () => {},
+							})}
+						`
+						: html`
+							${context.views.Coolbutton({class: "button add"})(
+								add_to_cart_button(
+									context.cart,
+									new ProductHelper(product).first_variant.id,
+									product,
+								)
+							)}
+						`
+					}
+
+					<div class=pricebox>
+						${display_price({
+							product,
+							single_price: variant => html`
+								${context.views.Price({part: "price"})(variant)}
+							`,
+							multiple_prices: variant => html`
+								<div class=info>starts at</div>
+								${context.views.Price({part: "price"})(variant)}
+							`,
 						})}
-					`
-					: html`
-						${context.views.Coolbutton({class: "add"})(
-							add_to_cart_button(
-								context.cart,
-								new ProductHelper(product).first_variant.id,
-								product,
-							)
-						)}
-					`}
+					</div>
+
+				</div>
 			</div>
 		</a>
 	`)

@@ -1,24 +1,26 @@
 
-import {html} from "lit"
+import {TemplateResult, html} from "lit"
 import {css} from "@chasemoskal/magical"
 
 import {flappy} from "../../flappy.js"
 
 export type CoolbuttonParams = {
 	active: boolean
-	text: string
+	text?: string | TemplateResult
 	onclick: (event: MouseEvent) => void
 }
 
 export const Coolbutton = flappy("div", "coolbutton")
 	.render(_ => _ => ({active, text, onclick}: CoolbuttonParams) => html`
 		<button part=button @click=${onclick} ?disabled=${!active}>
+			<slot part=slot></slot>
 			${text}
 		</button>
 	`)
 	.styles(css`
 
 		:host {
+			height: max-content;
 			width: max-content;
 		}
 
@@ -51,7 +53,7 @@ export const Coolbutton = flappy("div", "coolbutton")
 			}
 
 			&[disabled] {
-				opacity: 1;
+				opacity: 0.5;
 				background: #888;
 				color: white;
 				cursor: default;
