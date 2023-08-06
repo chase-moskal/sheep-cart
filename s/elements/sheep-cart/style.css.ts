@@ -146,7 +146,7 @@ h2 {
 			grid:
 				"thumb  title quantity"
 				"remove price price   "
-				/ auto 1fr   auto;
+				/ auto  minmax(1em, 1fr)   auto;
 
 			background: #fff4;
 			padding: 0.5rem;
@@ -193,6 +193,23 @@ h2 {
 	}
 
 	.checkout-button { padding: 0.5rem; }
+}
+
+@container (width < 20em) {
+	.listing > li {
+		position: relative;
+		grid:
+			"thumb  title"
+			"remove quantity"
+			"price  price"
+			/ auto  minmax(1em, 1fr);
+	}
+	:is(.quantity, .remove) {
+		align-self: center;
+	}
+	.quantity {
+		margin-left: auto;
+	}
 }
 
 `

@@ -23,6 +23,7 @@ export const style = css`
 	flex-direction: row-reverse;
 	align-items: center;
 	gap: 0.5em;
+	flex: flex-wrap;
 }
 
 .pricetag {
