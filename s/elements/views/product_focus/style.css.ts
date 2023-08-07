@@ -96,7 +96,7 @@ export const style = css`
 		> [data-view="coolbutton"] {
 			flex: 2;
 			&::part(button) {
-				height: 100%;
+				padding: 1em;
 			}
 		}
 	}
@@ -149,7 +149,6 @@ export const style = css`
 		justify-content: center;
 	}
 }
-
 
 `
 
