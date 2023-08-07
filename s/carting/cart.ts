@@ -126,14 +126,22 @@ export class Cart {
 		]
 
 		if (new_product_ids.length > 0) {
-			const products = await this.#shopify
-				.specific_products({ids: new_product_ids})
+			try {
+				const products = (await this
+					.#shopify
+					.specific_products({ids: new_product_ids})
+				) ?? []
 
-			for (const cache of new_caches) {
-				const product = products.find(p => p.id === cache.product_id)
-				cache.op = product
-					? Op.ready(product)
-					: Op.error("error retrieving product")
+				for (const cache of new_caches) {
+					const product = products.find(p => p?.id === cache.product_id)
+					cache.op = product
+						? Op.ready(product)
+						: Op.error("error retrieving product")
+				}
+			}
+			catch (error) {
+				console.error("a cart product could not be loaded,", error)
+				this.clear()
 			}
 		}
 	}
