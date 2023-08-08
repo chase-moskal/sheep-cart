@@ -1,6 +1,6 @@
 
 import {html} from "lit"
-import {QuickElement} from "@benev/frog"
+import {QuickElement, attributes} from "@benev/frog"
 
 import {style} from "./style.css.js"
 import {render_op} from "../render_op.js"
@@ -9,12 +9,33 @@ import {Context} from "../../context/context.js"
 export const SheepCatalog = ({state, router, views}: Context) => class extends QuickElement {
 	static styles = style
 
+	#attrs = attributes<{
+		"prioritized-collections": string
+		"hidden-collections": string
+	}>(this)
+
+	get #prioritized_collections() {
+		const raw: string = this.#attrs.string["prioritized-collections"]
+		return raw
+			? raw.split(/\s+/).map(id => id.trim())
+			: []
+	}
+
+	get #hidden_collections() {
+		const raw: string = this.#attrs.string["hidden-collections"]
+		return raw
+			? raw.split(/\s+/).map(id => id.trim())
+			: []
+	}
+
 	render() {
+		const prioritized = this.#prioritized_collections
+		const hidden = this.#hidden_collections
 		return render_op(state.situation_op, situation => {
 			switch (situation?.type) {
 
 				case "collection_list":
-					return views.CollectionList()({collections: situation.collections})
+					return views.CollectionList()({collections: situation.collections, prioritized, hidden})
 
 				case "products_in_collection":
 					return views.ProductList({exportparts: "a, card, plate:card-plate, title:card-title, price:card-price"})({situation})

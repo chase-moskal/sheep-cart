@@ -5,6 +5,7 @@ import {style} from "./style.css.js"
 import {Options} from "./utils/options.js"
 import {bgstyle} from "./utils/bgstyle.js"
 import {viewbase} from "../../viewbase.js"
+import { sort_collections } from "./utils/sort_collections.js"
 
 export const CollectionList = viewbase(context => v => v
 	.tag("div")
@@ -12,9 +13,10 @@ export const CollectionList = viewbase(context => v => v
 	.state()
 	.actions()
 	.setup()
-	.render(() => ({collections}: Options) => html`
-		${collections.map(collection => html`
+	.render(() => ({collections, prioritized, hidden}: Options) => html`
+		${sort_collections(collections, prioritized, hidden).map(collection => html`
 			<a
+				data-id="${collection.id}"
 				style="${bgstyle(collection)}"
 				href="${context.router.routes.collection(collection).url}">
 					${collection.title}
