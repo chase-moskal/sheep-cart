@@ -36,8 +36,7 @@ export const ProductCard = viewbase(context => v => v
 							${context.views.Coolbutton({
 								class: "button select",
 								content: html`
-									<strong>Choose</strong>
-									<small>from ${number_of_variants(product)} variants</small>
+									${number_of_variants(product)} Options
 								`,
 							})({
 								active: true,
