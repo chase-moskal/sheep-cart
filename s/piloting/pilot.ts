@@ -8,8 +8,13 @@ import {Situation} from "../context/types/situations.js"
 import {load_products_with_recursive_apparatus} from "./load/load_products_with_recursive_apparatus.js"
 
 export const prepare_pilot = (params: PilotParams) => (route: Route) => {
-	const {shopify, home, collections_promise, set_situation_op} = params
-	const page_size = 10
+	const {
+		home,
+		shopify,
+		page_size,
+		collections_promise,
+		set_situation_op,
+	} = params
 
 	function go_collections() {
 		return Op.run(

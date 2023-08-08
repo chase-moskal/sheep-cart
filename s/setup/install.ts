@@ -3,6 +3,7 @@ import {CSSResultGroup} from "lit"
 import {Shopify, ShopifySettings} from "shopify-shepherd"
 
 import {Router} from "../routing/router.js"
+import {HomeArea} from "../routing/types.js"
 import {Context} from "../context/context.js"
 import {prepare_pilot} from "../piloting/pilot.js"
 import {CartStore} from "../carting/parts/cart_store.js"
@@ -12,15 +13,19 @@ import {prepare_all_elements} from "../elements/prepare_all_elements.js"
 export function install_sheep_cart({
 		domain,
 		storefront_access_token,
+		page_size = 50,
+		home = "products",
 		theme = default_theme,
-	}: ShopifySettings & {theme?: CSSResultGroup}) {
+	}: ShopifySettings & {
+		home?: HomeArea,
+		page_size?: number,
+		theme?: CSSResultGroup,
+	}) {
 
 	const shopify = Shopify.setup({
 		domain,
 		storefront_access_token,
 	})
-
-	const home = "products"
 
 	const router = Router.setup(home)
 	const context = new Context(
@@ -41,6 +46,7 @@ export function install_sheep_cart({
 	const pilot = prepare_pilot({
 		home,
 		shopify,
+		page_size,
 		collections_promise,
 		set_situation_op: context.set_situation_op,
 	})
