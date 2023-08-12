@@ -2,12 +2,25 @@
 import {html} from "lit"
 import {Img} from "./types.js"
 
-export function render_img(img: Img, onclick: ((event: MouseEvent, img: Img) => void) = () => {}) {
+export function render_img({
+		img,
+		part = "",
+		onclick = () => {},
+	}: RenderImgParams) {
+
 	return html`
-		<img @click=${(event: MouseEvent) => onclick(event, img)}
-		alt="${img.alt}"
-		src="${img.src}"
-		/>
+		<img
+			alt="${img.alt}"
+			src="${img.src}"
+			part="${part}"
+			@click=${(event: MouseEvent) => onclick(event, img)}
+			/>
 	`
+}
+
+export type RenderImgParams = {
+	img: Img
+	part?: string
+	onclick?: (event: MouseEvent, img: Img) => void
 }
 

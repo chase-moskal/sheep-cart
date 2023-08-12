@@ -50,7 +50,10 @@ export const SheepCart = (context: Context) => class extends QuickElement {
 
 		return html`
 			<div class=thumb>
-				${render_img(img.tiny(image))}
+				${render_img({
+					img: img.tiny(image),
+					part: "img",
+				})}
 			</div>
 
 			<div class=quantity>

@@ -1,6 +1,6 @@
 
-import {TemplateResult, html} from "lit"
 import {css} from "@chasemoskal/magical"
+import {TemplateResult, html} from "lit"
 
 import {flappy} from "../../flappy.js"
 
@@ -12,10 +12,15 @@ export type CoolbuttonParams = {
 
 export const Coolbutton = flappy("div", "coolbutton")
 	.render(_ => _ => ({active, text, onclick}: CoolbuttonParams) => html`
-		<button part=button @click=${onclick} ?disabled=${!active}>
+
+		<button
+			part=button
+			@click=${onclick}
+			?disabled=${!active}>
 			<slot part=slot></slot>
 			${text}
 		</button>
+
 	`)
 	.styles(css`
 

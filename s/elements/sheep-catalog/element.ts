@@ -5,6 +5,7 @@ import {QuickElement, attributes} from "@benev/frog"
 import {style} from "./style.css.js"
 import {render_op} from "../render_op.js"
 import {Context} from "../../context/context.js"
+import {list_details, focus_details} from "./parts/view_details.js"
 
 export const SheepCatalog = ({state, router, views}: Context) => class extends QuickElement {
 	static styles = style
@@ -31,31 +32,28 @@ export const SheepCatalog = ({state, router, views}: Context) => class extends Q
 	render() {
 		const prioritized = this.#prioritized_collections
 		const hidden = this.#hidden_collections
+
 		return render_op(state.situation_op, situation => {
 			switch (situation?.type) {
 
 				case "collection_list":
-					return views.CollectionList()({collections: situation.collections, prioritized, hidden})
+					return views.CollectionList()({
+						hidden,
+						prioritized,
+						collections: situation.collections,
+					})
 
 				case "products_in_collection":
-					return views.ProductList({
-						exportparts: "a, card, plate:card-plate, title:card-title, price:card-price, pill-collection, pill-tag",
-					})({situation})
+					return views.ProductList(list_details)({situation})
 
 				case "all_products":
-					return views.ProductList({
-						exportparts: "a, card, plate:card-plate, title:card-title, price:card-price, pill-collection, pill-tag",
-					})({situation})
+					return views.ProductList(list_details)({situation})
 
 				case "search_results":
-					return views.ProductList({
-						exportparts: "a, card, plate:card-plate, title:card-title, price:card-price, pill-collection, pill-tag",
-					})({situation})
+					return views.ProductList(list_details)({situation})
 
 				case "single_product":
-					return views.ProductFocus({
-						exportparts: "a, card, title:card-title, price:card-price, plate:card-plate, pill-collection, pill-tag",
-					})(situation.product)
+					return views.ProductFocus(focus_details)(situation.product)
 
 				case "not_found":
 					return html`

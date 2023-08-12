@@ -4,6 +4,7 @@ import {html} from "lit"
 import {style} from "./style.css.js"
 import {Options} from "./utils/options.js"
 import {render_op} from "../../render_op.js"
+import {card_parts} from "../product_card/view.js"
 import {Viewbase, viewbase} from "../../viewbase.js"
 
 export const ProductList = viewbase(context => v => v
@@ -16,13 +17,12 @@ export const ProductList = viewbase(context => v => v
 		? html`
 
 			<div class=grid>
-				${products
-					.map(product =>
-						context.views.ProductCard({
-							part: "card",
-							exportparts: "a, plate, title, price, pill-collection, pill-tag",
-						})(product)
-					)}
+				${products.map(product =>
+					context.views.ProductCard({
+						part: "card",
+						exportparts: card_parts,
+					})(product)
+				)}
 			</div>
 
 			<footer>

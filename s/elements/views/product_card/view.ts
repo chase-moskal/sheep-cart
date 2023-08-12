@@ -6,10 +6,10 @@ import {style} from "./style.css.js"
 import {img} from "../product_focus/parts/img.js"
 import {Viewbase, viewbase} from "../../viewbase.js"
 import {display_price} from "./parts/display_price.js"
+import {prefix_parts} from "../../../tools/prefix_parts.js"
 import {render_img} from "../product_focus/parts/render_img.js"
-import {number_of_variants} from "./parts/number_of_variants.js"
 import {ProductHelper} from "../product_focus/parts/product_helper.js"
-import {add_to_cart_button} from "../coolbutton/helpers/add_to_cart_button.js"
+import {add_button, addbutton_states} from "../coolbutton/helpers/add_button.js"
 
 export const ProductCard = viewbase(context => v => v
 	.tag("article")
@@ -20,7 +20,10 @@ export const ProductCard = viewbase(context => v => v
 	.render(() => (product: GqlProduct) => html`
 		<a href="${context.router.routes.product(product).url}">
 
-			${render_img(img.tiny(new ProductHelper(product).featured_image))}
+			${render_img({
+				part: "img",
+				img: img.tiny(new ProductHelper(product).featured_image),
+			})}
 
 			<div part=plate>
 				<h1 part="a title">
@@ -33,29 +36,13 @@ export const ProductCard = viewbase(context => v => v
 				})(product)}
 
 				<div class=action>
-
-					${number_of_variants(product) > 1
-						? html`
-							${context.views.Coolbutton({
-								class: "button select",
-								content: html`
-									${number_of_variants(product)} Options
-								`,
-							})({
-								active: true,
-								onclick: () => {},
-							})}
-						`
-						: html`
-							${context.views.Coolbutton({class: "button add"})(
-								add_to_cart_button(
-									context.cart,
-									new ProductHelper(product).first_variant.id,
-									product,
-								)
-							)}
-						`
-					}
+					${add_button({
+						product,
+						cart: context.cart,
+						allow_select: true,
+						Coolbutton: context.views.Coolbutton,
+						variant_id: new ProductHelper(product).first_variant.id,
+					})}
 
 					<div class=pricebox>
 						${display_price({
@@ -76,4 +63,23 @@ export const ProductCard = viewbase(context => v => v
 	`)
 	.css(context.theme, style)
 ) as Viewbase<[GqlProduct]>
+
+export const card_parts = `
+	card,
+	a,
+	price,
+	pill-collection,
+	pill-tag,
+	addbutton,
+	${addbutton_states}
+	${prefix_parts("card", `
+		price,
+		pill-collection,
+		pill-tag,
+		addbutton,
+		img,
+		plate,
+		title,
+	`)}
+`
 
