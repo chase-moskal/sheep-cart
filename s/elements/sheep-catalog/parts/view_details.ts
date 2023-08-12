@@ -6,12 +6,14 @@ export const card_parts_2 = (subject: string) => `
 	card,
 	a,
 	price,
+	sale,
 	pill-collection,
 	pill-tag,
 	addbutton,
 	${addbutton_states}
 	${prefix_parts(`${subject}-card`, `
 		price,
+		sale,
 		pill-collection,
 		pill-tag,
 		addbutton,

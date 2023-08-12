@@ -7,7 +7,7 @@ export function render_sale_tag(price: MoneyValue, comparison: MoneyValue) {
 	const percent = Math.round(fraction * 100)
 
 	return html`
-		<span class=sale>
+		<span class=sale part=sale>
 			${percent}% off
 		</span>
 	`

@@ -54,7 +54,7 @@ export const SheepSearch = (context: Context) => class extends QuickElement {
 	render() {
 		return html`
 			<div class=searchbox>
-				<input type="text" @input="${this.#search}"/>
+				<input part=input type=text @input="${this.#search}"/>
 				${icon_search(svg)}
 			</div>
 			<div class=searchtags>

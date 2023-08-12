@@ -48,11 +48,11 @@ export const ProductCard = viewbase(context => v => v
 						${display_price({
 							product,
 							single_price: variant => html`
-								${context.views.Price({part: "price"})(variant)}
+								${context.views.Price({part: "price", exportparts: "sale"})(variant)}
 							`,
 							multiple_prices: variant => html`
 								<div class=info>starts at</div>
-								${context.views.Price({part: "price"})(variant)}
+								${context.views.Price({part: "price", exportparts: "sale"})(variant)}
 							`,
 						})}
 					</div>
@@ -68,12 +68,14 @@ export const card_parts = `
 	card,
 	a,
 	price,
+	sale,
 	pill-collection,
 	pill-tag,
 	addbutton,
 	${addbutton_states}
 	${prefix_parts("card", `
 		price,
+		sale,
 		pill-collection,
 		pill-tag,
 		addbutton,

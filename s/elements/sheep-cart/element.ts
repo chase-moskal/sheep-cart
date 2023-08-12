@@ -72,7 +72,10 @@ export const SheepCart = (context: Context) => class extends QuickElement {
 			</div>
 
 			<div class=price>
-				${context.views.Price()(summed_pricing)}
+				${context.views.Price({
+					part: "price",
+					exportparts: "sale",
+				})(summed_pricing)}
 			</div>
 
 			<div class=remove>
@@ -132,7 +135,7 @@ export const SheepCart = (context: Context) => class extends QuickElement {
 
 			<ol class=listing>
 				${units.map(unit => html`
-					<li>
+					<li part=line-item>
 						${this.#render_unit(unit)}
 					</li>
 				`)}
@@ -148,7 +151,10 @@ export const SheepCart = (context: Context) => class extends QuickElement {
 									Subtotal
 								</div>
 								<div class=price>
-									${context.views.Price()(sum_subtotal(units))}
+									${context.views.Price({
+										part: "price",
+										exportparts: "sale",
+									})(sum_subtotal(units))}
 								</div>
 							</div>
 						</div>
