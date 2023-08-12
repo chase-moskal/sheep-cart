@@ -89,6 +89,13 @@ export const SheepCart = (context: Context) => class extends QuickElement {
 	}
 
 	#checkout = async() => {
+		const line_items = (context.cart.units
+			.map(({variant_id, quantity}) => ({
+				variant_id,
+				quantity,
+			}))
+		)
+
 		const win = window.open("", "_blank")
 
 		if (!win)
@@ -110,14 +117,7 @@ export const SheepCart = (context: Context) => class extends QuickElement {
 			</style>
 		`
 
-		const {webUrl} = await context.shopify.checkout({
-			line_items: (context.cart.units
-				.map(({variant_id, quantity}) => ({
-					variant_id,
-					quantity,
-				}))
-			)
-		})
+		const {webUrl} = await context.shopify.checkout({line_items})
 
 		win.location.href = webUrl
 		win.focus()
