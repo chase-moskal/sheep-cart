@@ -43,7 +43,7 @@ export const ProductFocus = flappy("article", "product-focus")
 				<figure>
 					${render_img(
 						img.large(choiceHelper.chosen_image),
-						(ev: MouseEvent, img: Img) => context.modal.enlarge_image(img),
+						(_: MouseEvent, img: Img) => context.modal.enlarge_image(img),
 					)}
 				</figure>
 
@@ -72,7 +72,7 @@ export const ProductFocus = flappy("article", "product-focus")
 					${choiceHelper.side_images.map(image =>
 						render_img(
 							img.large(image),
-							(ev: MouseEvent, img: Img) => context.modal.enlarge_image(img)
+							(_: MouseEvent, img: Img) => context.modal.enlarge_image(img)
 						)
 					)}
 				</aside>
