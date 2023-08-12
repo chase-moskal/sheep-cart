@@ -73,12 +73,19 @@ export const style = css`
 	}
 
 	> .options {
+		font-size: 1.2em;
 		justify-self: end;
+
 		display: flex;
 		flex-direction: column;
 		align-items: end;
 		gap: 1em;
 		padding: 1em;
+
+		& select {
+			padding: 0.5em;
+			margin-left: 1em;
+		}
 	}
 
 	.buy {
@@ -134,7 +141,6 @@ export const style = css`
 			grid-row: span 2;
 		}
 	}
-
 }
 
 .recommendations {
