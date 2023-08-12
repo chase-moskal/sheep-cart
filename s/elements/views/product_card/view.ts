@@ -27,7 +27,10 @@ export const ProductCard = viewbase(context => v => v
 					${product.title}
 				</h1>
 
-				${context.views.Pills({part: "pills"})(product)}
+				${context.views.Pills({
+					part: "pills",
+					exportparts: "pill-collection, pill-tag",
+				})(product)}
 
 				<div class=action>
 

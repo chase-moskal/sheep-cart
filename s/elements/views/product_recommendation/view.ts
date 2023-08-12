@@ -24,7 +24,10 @@ export const ProductRecommendation = flappy("div", "product-recommendation")
 
 		return html`
 			${state.recommendations.slice(0, count).map(r =>
-				views.ProductCard({part: "card",exportparts: "title, price, plate"})(r)
+				views.ProductCard({
+					part: "card",
+					exportparts: "title, price, plate, pill-collection, pill-tag",
+				})(r)
 			)}
 	`})
 	.styles(style) as Viewbase<[string, number]>

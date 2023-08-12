@@ -21,7 +21,7 @@ export const ProductList = viewbase(context => v => v
 					.map(product =>
 						context.views.ProductCard({
 							part: "card",
-							exportparts: "a, plate, title, price",
+							exportparts: "a, plate, title, price, pill-collection, pill-tag",
 						})(product)
 					)}
 			</div>

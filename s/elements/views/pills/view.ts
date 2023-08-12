@@ -18,11 +18,11 @@ export const Pills = flappy("div", "pills")
 			<ol>
 
 				${collections.map(collection => html`
-					<li data-collection>${collection.title}</li>
+					<li part="pill-collection">${collection.title}</li>
 				`)}
 
 				${product.tags.map(tag => html`
-					<li data-tag>${tag}</li>
+					<li part="pill-tag">${tag}</li>
 				`)}
 			</ol>
 		`
@@ -40,11 +40,11 @@ export const Pills = flappy("div", "pills")
 			border: 1px solid currentColor;
 			padding: 0 0.3em;
 
-			&[data-collection] {
+			&[part="pill-collection"] {
 				border-radius: 0.3em;
 			}
 
-			&[data-tag] {
+			&[part="pill-tag"] {
 				opacity: 0.7;
 				border-radius: 1em;
 			}

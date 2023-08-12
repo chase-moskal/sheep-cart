@@ -38,16 +38,24 @@ export const SheepCatalog = ({state, router, views}: Context) => class extends Q
 					return views.CollectionList()({collections: situation.collections, prioritized, hidden})
 
 				case "products_in_collection":
-					return views.ProductList({exportparts: "a, card, plate:card-plate, title:card-title, price:card-price"})({situation})
+					return views.ProductList({
+						exportparts: "a, card, plate:card-plate, title:card-title, price:card-price, pill-collection, pill-tag",
+					})({situation})
 
 				case "all_products":
-					return views.ProductList({exportparts: "a, card, plate:card-plate, title:card-title, price:card-price"})({situation})
+					return views.ProductList({
+						exportparts: "a, card, plate:card-plate, title:card-title, price:card-price, pill-collection, pill-tag",
+					})({situation})
 
 				case "search_results":
-					return views.ProductList({exportparts: "a, card, plate:card-plate, title:card-title, price:card-price"})({situation})
+					return views.ProductList({
+						exportparts: "a, card, plate:card-plate, title:card-title, price:card-price, pill-collection, pill-tag",
+					})({situation})
 
 				case "single_product":
-					return views.ProductFocus({exportparts: "a, card, title:card-title, price:card-price, plate:card-plate"})(situation.product)
+					return views.ProductFocus({
+						exportparts: "a, card, title:card-title, price:card-price, plate:card-plate, pill-collection, pill-tag",
+					})(situation.product)
 
 				case "not_found":
 					return html`
