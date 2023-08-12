@@ -1,14 +1,33 @@
 
-import {card_parts} from "../../views/product_card/view.js"
-import {copy_and_prefix_parts} from "../../../tools/prefix_parts.js"
+import {prefix_parts} from "../../../tools/prefix_parts.js"
+import {addbutton_states} from "../../views/coolbutton/helpers/add_button.js"
+
+export const card_parts_2 = (subject: string) => `
+	card,
+	a,
+	price,
+	pill-collection,
+	pill-tag,
+	addbutton,
+	${addbutton_states}
+	${prefix_parts(`${subject}-card`, `
+		price,
+		pill-collection,
+		pill-tag,
+		addbutton,
+		img,
+		plate,
+		title,
+	`)}
+`
 
 export const list_details = {
 	part: "list",
-	exportparts: copy_and_prefix_parts("list", card_parts),
+	exportparts: card_parts_2("list"),
 }
 
 export const focus_details = {
 	part: "focus",
-	exportparts: copy_and_prefix_parts("focus", card_parts),
+	exportparts: card_parts_2("focus"),
 }
 

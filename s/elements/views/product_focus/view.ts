@@ -9,10 +9,11 @@ import {flappy} from "../../flappy.js"
 import {Choice, Img} from "./parts/types.js"
 import {Viewbase} from "../../viewbase.js"
 import {render_img} from "./parts/render_img.js"
+import {card_parts} from "../product_card/view.js"
 import {ChoiceHelper} from "./parts/choice_helper.js"
 import {ProductHelper} from "./parts/product_helper.js"
 import {render_options} from "./parts/render_options.js"
-import {add_to_cart_button} from "../coolbutton/helpers/add_to_cart_button.js"
+import {add_button} from "../coolbutton/helpers/add_button.js"
 
 export const ProductFocus = flappy("article", "product-focus")
 	.render(context => use => (product: GqlProduct) => {
@@ -29,9 +30,8 @@ export const ProductFocus = flappy("article", "product-focus")
 			state.choices = state.choices
 				.filter(choice => choice.name !== name)
 
-			if (value !== undefined) {
+			if (value !== undefined)
 				state.choices.push({name, value})
-			}
 		}
 
 		return html`
@@ -50,7 +50,10 @@ export const ProductFocus = flappy("article", "product-focus")
 
 				<h1>${product.title}</h1>
 
-				${views.Pills({class: "pills"})(product)}
+				${views.Pills({
+					class: "pills",
+					exportparts: "pill-collection, pill-tag",
+				})(product)}
 
 				<div class=options>
 					${render_options(choiceHelper, set_choice)}
@@ -60,13 +63,13 @@ export const ProductFocus = flappy("article", "product-focus")
 					${views.Price({class: "price"})(
 						choiceHelper.selected_variant,
 					)}
-					${views.Coolbutton()(
-						add_to_cart_button(
-							context.cart,
-							choiceHelper.selected_variant.id,
-							product,
-						)
-					)}
+					${add_button({
+						Coolbutton: context.views.Coolbutton,
+						cart: context.cart,
+						product,
+						variant_id: choiceHelper.selected_variant.id,
+						allow_select: false,
+					})}
 				</div>
 
 				<aside>
@@ -86,7 +89,9 @@ export const ProductFocus = flappy("article", "product-focus")
 			</div>
 			<div class=recommendations>
 				<h2>Customers also bought:</h2>
-				${views.ProductRecommendation({exportparts: "title, price, plate, card"})(product.id, 3)}
+				${views.ProductRecommendation({
+					exportparts: card_parts,
+				})(product.id, 3)}
 			</div>
 		`
 	})
