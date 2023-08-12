@@ -6,8 +6,14 @@ import {Cart} from "../../../../carting/cart.js"
 export function add_to_cart_button(
 		cart: Cart,
 		variant_id: string,
-		product: GqlProduct
+		product: GqlProduct,
 	): CoolbuttonParams {
+
+	const variant = product
+		.variants
+		.edges
+		.map(e => e.node)
+		.find(v => v.id === variant_id)!
 
 	const unit = cart
 		.units
@@ -19,7 +25,7 @@ export function add_to_cart_button(
 			active: false,
 			onclick: () => {},
 		}
-		: product.availableForSale
+		: variant.availableForSale
 			? {
 				text: "Add to Cart",
 				active: true,
