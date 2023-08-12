@@ -55,7 +55,7 @@ export class Cart {
 				const variant = product?.variants.edges
 					.map(e => e.node)
 					.find(v => v.id === data.item.variant_id)
-				return (!!product && !!variant)
+				return (!!product && !!variant && variant.availableForSale)
 					? {
 						product,
 						variant,
