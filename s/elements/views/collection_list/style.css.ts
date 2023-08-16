@@ -4,14 +4,17 @@ import {css} from "@chasemoskal/magical"
 export const style = css`
 
 :host {
+	container: collection-list / inline-size;
+}
+
+[part="grid"] {
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(24em, 1fr));
-	width: 100%;
 	gap: 1em;
 	--plate-color: var(--collection-list-plate-color, #8884);
 }
 
-:host > a {
+[part="grid"] > a {
 	padding: 1em 2em;
 	background-color: var(--plate-color);
 	background-size: cover, cover;
@@ -31,6 +34,20 @@ export const style = css`
 
 	&:hover { text-decoration: underline; }
 	&:active { text-decoration: double underline; }
+}
+
+@container collection-list (width < 30em) {
+	[part="grid"] {
+		display: flex;
+		flex-direction: column;
+	}
+}
+
+@container collection-list (width < 16em) {
+	[part="grid"] > a {
+		font-size: 1.2em;
+		padding: 0.5em 1em;
+	}
 }
 
 `

@@ -37,7 +37,9 @@ export const SheepCatalog = ({state, router, views}: Context) => class extends Q
 			switch (situation?.type) {
 
 				case "collection_list":
-					return views.CollectionList()({
+					return views.CollectionList({
+						exportparts: "grid:collection-grid, bar:collection-bar",
+					})({
 						hidden,
 						prioritized,
 						collections: situation.collections,
