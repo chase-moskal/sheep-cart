@@ -5,7 +5,7 @@ import {style} from "./style.css.js"
 import {view, View} from "../../view.js"
 import {GqlProduct} from "shopify-shepherd"
 
-export const ProductRecommendation = view("div", "product-recommendation")
+export const ProductRecommendation = view("product-recommendation")
 	.render(context => use => (id: string, count: number) => {
 		const {views} = context
 		const state = use.state({recommendations: [] as GqlProduct[]})

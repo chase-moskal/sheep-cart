@@ -10,7 +10,7 @@ import {add_button} from "../coolbutton/helpers/add_button.js"
 import {render_img} from "../product_focus/parts/render_img.js"
 import {ProductHelper} from "../product_focus/parts/product_helper.js"
 
-export const ProductCard = view("article", "product-card")
+export const ProductCard = view("product-card")
 	.render(({router, cart, views}) => _ => (product: GqlProduct) => html`
 		<a href="${router.routes.product(product).url}">
 
@@ -20,7 +20,7 @@ export const ProductCard = view("article", "product-card")
 			})}
 
 			<div part=plate>
-				<h1 part="a title" data-gpart="a">
+				<h1 part="title a" data-gpart="a">
 					${product.title}
 				</h1>
 

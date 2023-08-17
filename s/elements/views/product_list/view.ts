@@ -6,13 +6,13 @@ import {view, View} from "../../view.js"
 import {Options} from "./utils/options.js"
 import {render_op} from "../../render_op.js"
 
-export const ProductList = view("section", "product-list")
+export const ProductList = view("product-list")
 	.render(({views}) => _ => ({situation: {products, load_more_op, load_more}}: Options) => products.length > 0
 		? html`
 
 			<div class=grid>
 				${products.map(product =>
-					views.ProductCard({part: "card", "data-gpart": "card"})(product)()
+					views.ProductCard({part: "card", gpart: "card"})(product)()
 				)}
 			</div>
 

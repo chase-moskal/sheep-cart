@@ -6,7 +6,7 @@ import {GqlProduct} from "shopify-shepherd"
 import {view} from "../../view.js"
 import {ProductHelper} from "../product_focus/parts/product_helper.js"
 
-export const Pills = view("div", "pills")
+export const Pills = view("pills")
 	.render(({state}) => _ => (product: GqlProduct) => {
 
 		const productHelper = new ProductHelper(product)

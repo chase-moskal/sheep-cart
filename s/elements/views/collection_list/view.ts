@@ -7,7 +7,7 @@ import {Options} from "./utils/options.js"
 import {bgstyle} from "./utils/bgstyle.js"
 import {sort_collections} from "./utils/sort_collections.js"
 
-export const CollectionList = view("div", "collection-list")
+export const CollectionList = view("collection-list")
 	.render(({router}) => _ => ({collections, prioritized, hidden}: Options) => html`
 		<div part=grid>
 			${sort_collections(collections, prioritized, hidden)

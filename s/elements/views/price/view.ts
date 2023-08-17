@@ -8,7 +8,7 @@ import {parse_money} from "./parts/parse_money.js"
 import {render_sale_tag} from "./parts/render_sale_tag.js"
 import {render_money_value} from "./parts/render_money_value.js"
 
-export const Price = view("div", "price")
+export const Price = view("price")
 	.render(_ => _ => (variant: VariantPricing) => {
 		const {value, comparison} = parse_money(variant)
 

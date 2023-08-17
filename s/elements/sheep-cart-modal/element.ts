@@ -48,7 +48,7 @@ export const SheepCartModal = (context: Context) => class extends QuickElement {
 					</button>
 				</div>
 
-				<sheep-cart part=cart exportparts="line-item price sale">
+				<sheep-cart part=cart>
 					<slot></slot>
 				</sheep-cart>
 

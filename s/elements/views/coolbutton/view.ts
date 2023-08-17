@@ -10,7 +10,7 @@ export type CoolbuttonParams = {
 	onclick: (event: MouseEvent) => void
 }
 
-export const Coolbutton = view("div", "coolbutton")
+export const Coolbutton = view("coolbutton")
 	.render(_ => _ => ({active, text, onclick}: CoolbuttonParams) => html`
 
 		<button
@@ -25,6 +25,7 @@ export const Coolbutton = view("div", "coolbutton")
 	.styles(css`
 
 		:host {
+			display: block;
 			height: max-content;
 			width: max-content;
 		}

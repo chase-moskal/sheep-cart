@@ -119,7 +119,7 @@ h2 {
 	}
 }
 
-.checkout-button {
+[part="checkout"] {
 	font-size: 1.5em;
 	margin-top: 1em;
 	margin-left: auto;
@@ -192,7 +192,7 @@ h2 {
 		& .heading { }
 	}
 
-	.checkout-button { padding: 0.5rem; }
+	[part="checkout-button"] { padding: 0.5rem; }
 }
 
 @container (width < 20em) {

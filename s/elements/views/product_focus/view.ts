@@ -13,7 +13,7 @@ import {ProductHelper} from "./parts/product_helper.js"
 import {render_options} from "./parts/render_options.js"
 import {add_button} from "../coolbutton/helpers/add_button.js"
 
-export const ProductFocus = view("article", "product-focus")
+export const ProductFocus = view("product-focus")
 	.render(({cart, views, modal}) => use => (product: GqlProduct) => {
 
 		const state = use.state({
