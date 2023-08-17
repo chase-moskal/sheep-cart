@@ -15,6 +15,7 @@ export const style = css`
 		flex: 1;
 		max-width: 4rem;
 		object-fit: cover;
+		user-select: none;
 	}
 
 	> [part="plate"] {

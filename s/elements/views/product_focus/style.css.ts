@@ -61,6 +61,7 @@ export const style = css`
 			width: 100%;
 			height: 100%;
 			object-fit: cover;
+			user-select: none;
 		}
 	}
 
@@ -121,6 +122,7 @@ export const style = css`
 			height: 50cqi;
 			aspect-ratio: 1 / 1;
 			object-fit: cover;
+			user-select: none;
 		}
 	}
 

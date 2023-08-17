@@ -7,6 +7,7 @@ export const style = css`
 		z-index: 2;
 		width: 100%;
 	}
+
 	dialog {
 		position: fixed;
 		width: 100%;
@@ -25,5 +26,6 @@ export const style = css`
 		transform: translate(-50%, -50%);
 		border: 0.5em solid #ffffff5e;
 		cursor: pointer;
+		user-select: none;
 	}
 `

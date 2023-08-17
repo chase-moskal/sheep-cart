@@ -31,6 +31,7 @@ footer {
 		color: #000a;
 		border: none;
 		cursor: pointer;
+		user-select: none;
 		border-radius: 3em;
 		&:is(:hover, :focus) { opacity: 0.8; }
 		&:active { opacity: 1; }

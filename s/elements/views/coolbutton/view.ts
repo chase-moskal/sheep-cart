@@ -37,6 +37,7 @@ export const Coolbutton = view("coolbutton")
 			width: 100%;
 
 			cursor: pointer;
+			user-select: none;
 			padding: 0.2em 0.5em;
 			font: inherit;
 			font-weight: bold;
