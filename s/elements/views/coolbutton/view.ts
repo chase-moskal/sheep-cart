@@ -2,7 +2,7 @@
 import {css} from "@chasemoskal/magical"
 import {TemplateResult, html} from "lit"
 
-import {flappy} from "../../flappy.js"
+import {view} from "../../view.js"
 
 export type CoolbuttonParams = {
 	active: boolean
@@ -10,7 +10,7 @@ export type CoolbuttonParams = {
 	onclick: (event: MouseEvent) => void
 }
 
-export const Coolbutton = flappy("div", "coolbutton")
+export const Coolbutton = view("div", "coolbutton")
 	.render(_ => _ => ({active, text, onclick}: CoolbuttonParams) => html`
 
 		<button

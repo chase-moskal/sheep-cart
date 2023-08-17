@@ -2,26 +2,17 @@
 import {html} from "lit"
 
 import {style} from "./style.css.js"
+import {view, View} from "../../view.js"
 import {Options} from "./utils/options.js"
 import {render_op} from "../../render_op.js"
-import {card_parts} from "../product_card/view.js"
-import {Viewbase, viewbase} from "../../viewbase.js"
 
-export const ProductList = viewbase(context => v => v
-	.tag("section")
-	.name("product-list")
-	.state()
-	.actions()
-	.setup()
-	.render(() => ({situation: {products, load_more_op, load_more}}: Options) => products.length > 0
+export const ProductList = view("section", "product-list")
+	.render(({views}) => _ => ({situation: {products, load_more_op, load_more}}: Options) => products.length > 0
 		? html`
 
 			<div class=grid>
 				${products.map(product =>
-					context.views.ProductCard({
-						part: "card",
-						exportparts: card_parts,
-					})(product)
+					views.ProductCard({part: "card", "data-gpart": "card"})(product)()
 				)}
 			</div>
 
@@ -30,10 +21,10 @@ export const ProductList = viewbase(context => v => v
 					? html`<button @click=${load_more}>load more</button>`
 					: undefined)}
 			</footer>
+
 		`
 		: html`
 			<p>No products found</p>
 		`)
-	.css(context.theme, style)
-) as Viewbase<[Options]>
+	.styles(style) as View<[Options]>
 

@@ -3,22 +3,16 @@ import {html} from "lit"
 import {GqlProduct} from "shopify-shepherd"
 
 import {style} from "./style.css.js"
+import {view, View} from "../../view.js"
 import {img} from "../product_focus/parts/img.js"
-import {Viewbase, viewbase} from "../../viewbase.js"
 import {display_price} from "./parts/display_price.js"
-import {prefix_parts} from "../../../tools/prefix_parts.js"
+import {add_button} from "../coolbutton/helpers/add_button.js"
 import {render_img} from "../product_focus/parts/render_img.js"
 import {ProductHelper} from "../product_focus/parts/product_helper.js"
-import {add_button, addbutton_states} from "../coolbutton/helpers/add_button.js"
 
-export const ProductCard = viewbase(context => v => v
-	.tag("article")
-	.name("product-card")
-	.state()
-	.actions()
-	.setup()
-	.render(() => (product: GqlProduct) => html`
-		<a href="${context.router.routes.product(product).url}">
+export const ProductCard = view("article", "product-card")
+	.render(({router, cart, views}) => _ => (product: GqlProduct) => html`
+		<a href="${router.routes.product(product).url}">
 
 			${render_img({
 				part: "img",
@@ -26,21 +20,18 @@ export const ProductCard = viewbase(context => v => v
 			})}
 
 			<div part=plate>
-				<h1 part="a title">
+				<h1 part="a title" data-gpart="a">
 					${product.title}
 				</h1>
 
-				${context.views.Pills({
-					part: "pills",
-					exportparts: "pill-collection, pill-tag",
-				})(product)}
+				${views.Pills({part: "pills"})(product)()}
 
 				<div class=action>
 					${add_button({
 						product,
-						cart: context.cart,
+						cart,
 						allow_select: true,
-						Coolbutton: context.views.Coolbutton,
+						Coolbutton: views.Coolbutton,
 						variant_id: new ProductHelper(product).first_variant.id,
 					})}
 
@@ -48,11 +39,11 @@ export const ProductCard = viewbase(context => v => v
 						${display_price({
 							product,
 							single_price: variant => html`
-								${context.views.Price({part: "price", exportparts: "sale"})(variant)}
+								${views.Price({part: "price"})(variant)()}
 							`,
 							multiple_prices: variant => html`
 								<div class=info>starts at</div>
-								${context.views.Price({part: "price", exportparts: "sale"})(variant)}
+								${views.Price({part: "price"})(variant)()}
 							`,
 						})}
 					</div>
@@ -61,27 +52,5 @@ export const ProductCard = viewbase(context => v => v
 			</div>
 		</a>
 	`)
-	.css(context.theme, style)
-) as Viewbase<[GqlProduct]>
-
-export const card_parts = `
-	card,
-	a,
-	price,
-	sale,
-	pill-collection,
-	pill-tag,
-	addbutton,
-	${addbutton_states}
-	${prefix_parts("card", `
-		price,
-		sale,
-		pill-collection,
-		pill-tag,
-		addbutton,
-		img,
-		plate,
-		title,
-	`)}
-`
+	.styles(style) as View<[GqlProduct]>
 

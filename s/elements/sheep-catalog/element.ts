@@ -5,7 +5,6 @@ import {QuickElement, attributes} from "@benev/frog"
 import {style} from "./style.css.js"
 import {render_op} from "../render_op.js"
 import {Context} from "../../context/context.js"
-import {list_details, focus_details} from "./parts/view_details.js"
 
 export const SheepCatalog = ({state, router, views}: Context) => class extends QuickElement {
 	static styles = style
@@ -37,25 +36,23 @@ export const SheepCatalog = ({state, router, views}: Context) => class extends Q
 			switch (situation?.type) {
 
 				case "collection_list":
-					return views.CollectionList({
-						exportparts: "grid:collection-grid, bar:collection-bar",
-					})({
+					return views.CollectionList({part: "collection-list"})({
 						hidden,
 						prioritized,
 						collections: situation.collections,
-					})
+					})()
 
 				case "products_in_collection":
-					return views.ProductList(list_details)({situation})
+					return views.ProductList({part: "product-list"})({situation})()
 
 				case "all_products":
-					return views.ProductList(list_details)({situation})
+					return views.ProductList({part: "product-list"})({situation})()
 
 				case "search_results":
-					return views.ProductList(list_details)({situation})
+					return views.ProductList({part: "product-list"})({situation})()
 
 				case "single_product":
-					return views.ProductFocus(focus_details)(situation.product)
+					return views.ProductFocus({part: "product-focus"})(situation.product)()
 
 				case "not_found":
 					return html`

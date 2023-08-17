@@ -10,7 +10,6 @@ import {SheepCatalog} from "./sheep-catalog/element.js"
 import {SheepCartModal} from "./sheep-cart-modal/element.js"
 import {SheepCartButton} from "./sheep-cart-button/element.js"
 
-SheepCartModal
 const elements = {
 	SheepNav,
 	SheepCart,

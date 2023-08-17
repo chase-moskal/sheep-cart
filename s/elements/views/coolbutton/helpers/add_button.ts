@@ -55,45 +55,45 @@ export function add_button({
 		case "select_from_variants":
 			return Coolbutton({
 				class: "button x-select-from-variants",
-				exportparts: "button:addbutton, button:x-select-from-variants",
-				content: html`${number_of_variants} Options`,
 			})({
 				active: true,
 				onclick: () => {},
-			})
+			})(html`
+				${number_of_variants} Options
+			`)
 
 		case "in_cart":
 			return Coolbutton({
 				class: "button x-in-cart",
-				exportparts: "button:addbutton, button:x-in-cart",
-				content: html`in cart`,
 			})({
 				active: false,
 				onclick: () => {},
-			})
+			})(html`
+				in cart
+			`)
 
 		case "add_to_cart":
 			return Coolbutton({
 				class: "button x-add-to-cart",
-				exportparts: "button:addbutton, button:x-add-to-cart",
-				content: html`Add to Cart`,
 			})({
 				active: true,
 				onclick: event => {
 					event.preventDefault()
 					cart.add(variant_id, product)
 				},
-			})
+			})(html`
+				Add to Cart
+			`)
 
 		case "sold_out":
 			return Coolbutton({
 				class: "button x-sold-out",
-				exportparts: "button:addbutton, button:x-sold-out",
-				content: html`Sold Out`,
 			})({
 				active: false,
 				onclick: () => {},
-			})
+			})(html`
+				Sold Out
+			`)
 
 		default:
 			throw new Error(`unknown button type "${button_type}"`)

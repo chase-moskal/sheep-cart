@@ -13,7 +13,7 @@ import {ProductHelper} from "../views/product_focus/parts/product_helper.js"
 
 import icon_x from "../../icons/feather/icon_x.js"
 
-export const SheepCart = (context: Context) => class extends QuickElement {
+export const SheepCart = ({cart, views, shopify}: Context) => class extends QuickElement {
 	static styles = style
 
 	#render_unit = (unit: CartUnit) => {
@@ -27,11 +27,11 @@ export const SheepCart = (context: Context) => class extends QuickElement {
 			const target = e.target as HTMLInputElement
 			const quantity = parseInt(target.value)
 			if (!isNaN(quantity))
-				context.cart.set_quantity(unit.variant_id, quantity)
+				cart.set_quantity(unit.variant_id, quantity)
 		}
 
 		const handle_remove = () => {
-			context.cart.remove(unit.variant_id)
+			cart.remove(unit.variant_id)
 		}
 
 		const currencyCode = variant.price.currencyCode
@@ -72,10 +72,7 @@ export const SheepCart = (context: Context) => class extends QuickElement {
 			</div>
 
 			<div class=price>
-				${context.views.Price({
-					part: "price",
-					exportparts: "sale",
-				})(summed_pricing)}
+				${views.Price({part: "price"})(summed_pricing)()}
 			</div>
 
 			<div class=remove>
@@ -89,7 +86,7 @@ export const SheepCart = (context: Context) => class extends QuickElement {
 	}
 
 	#checkout = async() => {
-		const line_items = (context.cart.units
+		const line_items = (cart.units
 			.map(({variant_id, quantity}) => ({
 				variant_id,
 				quantity,
@@ -117,15 +114,15 @@ export const SheepCart = (context: Context) => class extends QuickElement {
 			</style>
 		`
 
-		const {webUrl} = await context.shopify.checkout({line_items})
+		const {webUrl} = await shopify.checkout({line_items})
 
 		win.location.href = webUrl
 		win.focus()
-		context.cart.clear()
+		cart.clear()
 	}
 
 	render() {
-		const {views, cart: {units}} = context
+		const {units} = cart
 		return html`
 			<h2>
 				${units.length > 0
@@ -151,10 +148,7 @@ export const SheepCart = (context: Context) => class extends QuickElement {
 									Subtotal
 								</div>
 								<div class=price>
-									${context.views.Price({
-										part: "price",
-										exportparts: "sale",
-									})(sum_subtotal(units))}
+									${views.Price({part: "price"})(sum_subtotal(units))()}
 								</div>
 							</div>
 						</div>

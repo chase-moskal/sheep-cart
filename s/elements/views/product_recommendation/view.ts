@@ -2,12 +2,10 @@
 import {html} from "lit"
 
 import {style} from "./style.css.js"
-import {flappy} from "../../flappy.js"
-import {Viewbase} from "../../viewbase.js"
+import {view, View} from "../../view.js"
 import {GqlProduct} from "shopify-shepherd"
-import {card_parts} from "../product_card/view.js"
 
-export const ProductRecommendation = flappy("div", "product-recommendation")
+export const ProductRecommendation = view("div", "product-recommendation")
 	.render(context => use => (id: string, count: number) => {
 		const {views} = context
 		const state = use.state({recommendations: [] as GqlProduct[]})
@@ -25,11 +23,8 @@ export const ProductRecommendation = flappy("div", "product-recommendation")
 
 		return html`
 			${state.recommendations.slice(0, count).map(r =>
-				views.ProductCard({
-					part: "card",
-					exportparts: card_parts,
-				})(r)
+				views.ProductCard({part: "card"})(r)
 			)}
 	`})
-	.styles(style) as Viewbase<[string, number]>
+	.styles(style) as View<[string, number]>
 

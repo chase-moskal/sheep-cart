@@ -3,26 +3,26 @@ import {html} from "lit"
 import {css} from "@chasemoskal/magical"
 import {GqlProduct} from "shopify-shepherd"
 
-import {flappy} from "../../flappy.js"
+import {view} from "../../view.js"
 import {ProductHelper} from "../product_focus/parts/product_helper.js"
 
-export const Pills = flappy("div", "pills")
-	.render(context => _ => (product: GqlProduct) => {
+export const Pills = view("div", "pills")
+	.render(({state}) => _ => (product: GqlProduct) => {
 
 		const productHelper = new ProductHelper(product)
 
 		const collections = productHelper
-			.cross_reference_collections(context.state.collections)
+			.cross_reference_collections(state.collections)
 
 		return html`
-			<ol>
+			<ol part=list>
 
 				${collections.map(collection => html`
-					<li part="pill-collection">${collection.title}</li>
+					<li part=collection>${collection.title}</li>
 				`)}
 
 				${product.tags.map(tag => html`
-					<li part="pill-tag">${tag}</li>
+					<li part=tag>${tag}</li>
 				`)}
 			</ol>
 		`
