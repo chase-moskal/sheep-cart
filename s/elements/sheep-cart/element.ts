@@ -72,7 +72,7 @@ export const SheepCart = ({cart, views, shopify}: Context) => class extends Quic
 			</div>
 
 			<div class=price>
-				${views.Price({part: "price"})(summed_pricing)()}
+				${views.Price({part: "price", props: [summed_pricing]})}
 			</div>
 
 			<div class=remove>
@@ -148,16 +148,19 @@ export const SheepCart = ({cart, views, shopify}: Context) => class extends Quic
 									Subtotal
 								</div>
 								<div class=price>
-									${views.Price({part: "price"})(sum_subtotal(units))()}
+									${views.Price({part: "price", props: [sum_subtotal(units)]})}
 								</div>
 							</div>
 						</div>
 					</div>
-					${views.Coolbutton({part: "checkout"})({
-						active: true,
-						text: "Checkout",
-						onclick: this.#checkout,
-					})()}
+					${views.Coolbutton({
+						part: "checkout",
+						props: [{
+							active: true,
+							text: "Checkout",
+							onclick: this.#checkout,
+						}],
+					})}
 				`
 				: undefined}
 		`

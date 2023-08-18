@@ -12,7 +12,7 @@ export const ProductList = view("product-list")
 
 			<div class=grid>
 				${products.map(product =>
-					views.ProductCard({part: "card", gpart: "card"})(product)()
+					views.ProductCard({part: "card", gpart: "card", props: [product]})
 				)}
 			</div>
 

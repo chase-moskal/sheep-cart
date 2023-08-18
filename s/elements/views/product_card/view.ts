@@ -24,7 +24,7 @@ export const ProductCard = view("product-card")
 					${product.title}
 				</h1>
 
-				${views.Pills({part: "pills"})(product)()}
+				${views.Pills({part: "pills", props: [product]})}
 
 				<div class=action>
 					${add_button({
@@ -39,11 +39,11 @@ export const ProductCard = view("product-card")
 						${display_price({
 							product,
 							single_price: variant => html`
-								${views.Price({part: "price"})(variant)()}
+								${views.Price({part: "price singleprice", props: [variant]})}
 							`,
 							multiple_prices: variant => html`
 								<div class=info>starts at</div>
-								${views.Price({part: "price"})(variant)()}
+								${views.Price({part: "price multiprice", props: [variant]})}
 							`,
 						})}
 					</div>

@@ -23,7 +23,7 @@ export const ProductRecommendation = view("product-recommendation")
 
 		return html`
 			${state.recommendations.slice(0, count).map(r =>
-				views.ProductCard({part: "card"})(r)()
+				views.ProductCard({part: "card", props: [r]})
 			)}
 	`})
 	.styles(style) as View<[string, number]>

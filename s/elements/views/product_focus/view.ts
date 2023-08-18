@@ -56,14 +56,14 @@ export const ProductFocus = view("product-focus")
 
 				<h1>${product.title}</h1>
 
-				${views.Pills({class: "pills"})(product)()}
+				${views.Pills({class: "pills", props: [product]})}
 
 				<div class=options>
 					${render_options(choiceHelper, set_choice)}
 				</div>
 
 				<div class=buy>
-					${views.Price({class: "price"})(choiceHelper.selected_variant)()}
+					${views.Price({class: "price", props: [choiceHelper.selected_variant]})}
 					${add_button({
 						Coolbutton: views.Coolbutton,
 						cart,
@@ -99,7 +99,7 @@ export const ProductFocus = view("product-focus")
 			</div>
 			<div class=recommendations>
 				<h2>Customers also bought:</h2>
-				${views.ProductRecommendation()(product.id, 3)()}
+				${views.ProductRecommendation({props: [product.id, 3]})}
 			</div>
 		`
 	})

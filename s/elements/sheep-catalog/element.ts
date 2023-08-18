@@ -36,23 +36,26 @@ export const SheepCatalog = ({state, router, views}: Context) => class extends Q
 			switch (situation?.type) {
 
 				case "collection_list":
-					return views.CollectionList({part: "collection-list"})({
-						hidden,
-						prioritized,
-						collections: situation.collections,
-					})()
+					return views.CollectionList({
+						part: "collection-list",
+						props: [{
+							hidden,
+							prioritized,
+							collections: situation.collections,
+						}],
+					})
 
 				case "products_in_collection":
-					return views.ProductList({part: "product-list"})({situation})()
+					return views.ProductList({part: "product-list", props: [{situation}]})
 
 				case "all_products":
-					return views.ProductList({part: "product-list"})({situation})()
+					return views.ProductList({part: "product-list", props: [{situation}]})
 
 				case "search_results":
-					return views.ProductList({part: "product-list"})({situation})()
+					return views.ProductList({part: "product-list", props: [{situation}]})
 
 				case "single_product":
-					return views.ProductFocus({part: "product-focus"})(situation.product)()
+					return views.ProductFocus({part: "product-focus", props: [situation.product]})
 
 				case "not_found":
 					return html`

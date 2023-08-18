@@ -55,45 +55,53 @@ export function add_button({
 		case "select_from_variants":
 			return Coolbutton({
 				class: "button x-select-from-variants",
-			})({
-				active: true,
-				onclick: () => {},
-			})(html`
-				${number_of_variants} Options
-			`)
+				props: [{
+					active: true,
+					onclick: () => {},
+				}],
+				content: html`
+					${number_of_variants} Options
+				`,
+			})
 
 		case "in_cart":
 			return Coolbutton({
 				class: "button x-in-cart",
-			})({
-				active: false,
-				onclick: () => {},
-			})(html`
-				in cart
-			`)
+				props: [{
+					active: false,
+					onclick: () => {},
+				}],
+				content: html`
+					in cart
+				`,
+			})
 
 		case "add_to_cart":
 			return Coolbutton({
 				class: "button x-add-to-cart",
-			})({
-				active: true,
-				onclick: event => {
-					event.preventDefault()
-					cart.add(variant_id, product)
-				},
-			})(html`
-				Add to Cart
-			`)
+				props: [{
+					active: true,
+					onclick: event => {
+						event.preventDefault()
+						cart.add(variant_id, product)
+					},
+				}],
+				content: html`
+					Add to Cart
+				`,
+			})
 
 		case "sold_out":
 			return Coolbutton({
 				class: "button x-sold-out",
-			})({
-				active: false,
-				onclick: () => {},
-			})(html`
-				Sold Out
-			`)
+				props: [{
+					active: false,
+					onclick: () => {},
+				}],
+				content: html`
+					Sold Out
+				`,
+			})
 
 		default:
 			throw new Error(`unknown button type "${button_type}"`)
