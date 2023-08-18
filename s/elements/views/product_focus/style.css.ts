@@ -19,7 +19,8 @@ export const style = css`
 		"feature feature feature options options options"
 		"feature feature feature buy     buy     buy    "
 		"feature feature feature .       .       .      " 1fr
-		"images  images  essay   essay   essay   essay  ";
+		"essay   essay   essay   essay   essay   essay  "
+		"images  images  images  images  images  images ";
 	grid-template-columns: repeat(auto-fit, minmax(1em, 1fr));
 	align-items: start;
 }
@@ -39,6 +40,13 @@ export const style = css`
 	}
 }
 
+@container (width < 30em) {
+	.grid > .aside > img {
+		width: 50cqi;
+		height: 50cqi;
+	}
+}
+
 .grid {
 	> figure { grid-area: feature; }
 	> h1 { grid-area: heading; }
@@ -46,7 +54,13 @@ export const style = css`
 	> .options { grid-area: options; }
 	> .buy { grid-area: buy; }
 	> aside { grid-area: images; }
-	> section { grid-area: essay; }
+	> section {
+		grid-area: essay;
+		text-align: center;
+		max-width: 48em;
+		justify-self: center;
+		line-height: 1.5;
+	}
 
 	> figure {
 		background: var(--frame-color);
@@ -115,11 +129,12 @@ export const style = css`
 		container-type: inline-size;
 		padding: 1em;
 		background: var(--frame-color);
+		justify-content: center;
 
 		> img {
 			display: block;
-			width: 50cqi;
-			height: 50cqi;
+			width: 25cqi;
+			height: 25cqi;
 			aspect-ratio: 1 / 1;
 			object-fit: cover;
 			user-select: none;

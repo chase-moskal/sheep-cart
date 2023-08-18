@@ -73,7 +73,7 @@ export const ProductFocus = view("product-focus")
 					})}
 				</div>
 
-				<aside>
+				<aside class=aside>
 					${choiceHelper.side_images.map(image =>
 						render_img({
 							part: "img",
