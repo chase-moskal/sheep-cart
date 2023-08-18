@@ -1,24 +1,21 @@
+
 import {Flat} from "@benev/frog"
-import {Img} from "../elements/views/product_focus/parts/types.js"
+import {TemplateResult} from "lit"
 
 export class Modal {
-	state: {img: Img | undefined}
+	state: {
+		open: boolean
+		content?: undefined | TemplateResult
+	}
 
 	constructor(flat: Flat) {
 		this.state = flat.state({
-			img: undefined
+			open: true,
 		})
 	}
 
-	enlarge_image = (img: Img) => {
-		this.state.img = img
-	}
-
-	close = () => {
-		this.state.img = undefined
-	}
-
-	get modal_state() {
-		return this.state
+	toggle_modal_open = (open = !this.state.open, content?: TemplateResult) => {
+		this.state.open = open
+		this.state.content = content
 	}
 }

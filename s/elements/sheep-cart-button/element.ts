@@ -14,7 +14,12 @@ export const SheepCartButton = (context: Context) => class extends QuickElement 
 		return html`
 			<button
 				part=button
-				@click=${() => context.toggle_cart_open()}>
+				@click=${() => context.modal.toggle_modal_open(
+					true,
+					html`
+						<sheep-cart></sheep-cart>
+					`
+				)}>
 
 				${icon_shopping_cart(svg)}
 
