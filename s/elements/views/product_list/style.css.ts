@@ -3,6 +3,14 @@ import {css} from "@chasemoskal/magical"
 
 export const style = css`
 
+
+.collection_header {
+	margin-bottom: 1em;
+	text-align: center;
+	text-transform: capitalize;
+	font-size: 1.2rem;
+}
+
 .grid {
 	display: grid;
 	grid-template-columns: repeat(auto-fill, minmax(16em, 1fr));
