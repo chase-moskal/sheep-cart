@@ -20,6 +20,10 @@ dialog {
 	margin: 0.2em auto;
 }
 
+sheep-cart {
+	padding: 1em;
+}
+
 .actions {
 	display: flex;
 	justify-content: end;
@@ -47,8 +51,6 @@ dialog {
 
 .contents {
 	padding: 1em;
-
-	background: #444c;
 	color: #fff;
 	box-shadow: 1px 2px 5px #0008;
 

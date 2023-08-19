@@ -17,7 +17,7 @@ export const SheepCartButton = (context: Context) => class extends QuickElement 
 				@click=${() => context.modal.toggle_modal_open(
 					true,
 					html`
-						<sheep-cart></sheep-cart>
+						<sheep-cart part=cart></sheep-cart>
 					`
 				)}>
 
