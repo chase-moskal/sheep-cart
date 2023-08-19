@@ -153,14 +153,24 @@ export const SheepCart = ({cart, views, shopify}: Context) => class extends Quic
 							</div>
 						</div>
 					</div>
-					${views.Coolbutton({
-						part: "checkout",
-						props: [{
-							active: true,
-							text: "Checkout",
-							onclick: this.#checkout,
-						}],
-					})}
+					<div class=actions>
+						${views.Coolbutton({
+							part: "checkout",
+							props: [{
+								active: true,
+								text: "Checkout",
+								onclick: this.#checkout,
+							}],
+						})}
+						${views.Coolbutton({
+							part: "clear-cart",
+							props: [{
+								active: true,
+								text: "clear cart",
+								onclick: () => cart.clear(),
+							}],
+						})}
+					</div>
 				`
 				: undefined}
 		`

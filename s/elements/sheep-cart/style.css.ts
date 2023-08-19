@@ -119,13 +119,27 @@ h2 {
 	}
 }
 
-[part="checkout"] {
+.actions {
+	display: flex;
+	flex-direction: row-reverse;
+	gap: 1em;
+	padding-top: 1em;
+	padding-right: 2.5rem;
+	align-items: flex-end;
+}
+
+[part="checkout"]{
 	font-size: 1.5em;
-	margin-top: 1em;
-	margin-left: auto;
-	margin-right: 2.5rem;
 	&::part(button) {
 		padding: 0.5em 1em;
+	}
+}
+
+[part="clear-cart"] {
+	font-size: 1.5em;
+	&::part(button) {
+		padding: 0.5em 1em;
+		background: red;
 	}
 }
 
@@ -192,7 +206,13 @@ h2 {
 		& .heading { }
 	}
 
-	[part="checkout-button"] { padding: 0.5rem; }
+	.actions {
+		padding-right: 0;
+	}
+
+	[part="checkout"], [part="clear-cart"] {
+		font-size: 1em;
+	}
 }
 
 @container (width < 20em) {
@@ -209,6 +229,10 @@ h2 {
 	}
 	.quantity {
 		margin-left: auto;
+	}
+
+	.actions {
+		flex-direction: column;
 	}
 }
 
