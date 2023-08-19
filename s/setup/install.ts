@@ -37,7 +37,6 @@ export function install_sheep_cart({
 
 	context.cart.load()
 	window.addEventListener("storage", () => {
-		console.log("STORAGE EVENT")
 		context.cart.load()
 	})
 
