@@ -8,7 +8,7 @@ import {get_tag_data} from "./utils/get_tag_data.js"
 export function render_search_tags(context: Context) {
 	return html`
 		${get_tag_data(context).map(({tag, active}) => html`
-			<label part="${part(active)}" ?data-active="${active}">
+			<label part="${part(active)}" data-tag="${tag}" ?data-active="${active}">
 				<input
 					type="checkbox"
 					.checked="${active}"
