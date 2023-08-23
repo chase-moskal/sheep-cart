@@ -24,17 +24,7 @@ export const style = css`
 		padding: 0.3em;
 		padding-left: 2em;
 		color: inherit;
-		transition: all 0.3s ease-in-out;
-
-		&:focus-visible {
-			outline: none;
-			border-color: lime;
-			transform: scale(1.03);
-
-			+ svg {
-				color: lime;
-			}
-		}
+		transition: transform 0.3s ease-in-out;
 	}
 
 	> svg {
@@ -45,7 +35,19 @@ export const style = css`
 		margin: auto;
 		transition: all 0.3s ease-in-out;
 	}
+
+	&[data-active] {
+		> input {
+			border-color: lime;
+			transform: scale(1.03);
+
+			+ svg {
+				color: lime;
+			}
+		}
+	}
 }
+
 
 .searchtags {
 	display: flex;

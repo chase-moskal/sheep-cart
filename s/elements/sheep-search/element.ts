@@ -52,8 +52,11 @@ export const SheepSearch = (context: Context) => class extends QuickElement {
 	})
 
 	render() {
+		const {router} = context
+		const is_search = router.route.zone === "search"
+
 		return html`
-			<div class=searchbox>
+			<div ?data-active=${is_search} class=searchbox>
 				<input part=input type=text @input="${this.#search}"/>
 				${icon_search(svg)}
 			</div>
