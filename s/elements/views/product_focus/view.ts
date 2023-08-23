@@ -48,6 +48,7 @@ export const ProductFocus = view("product-focus")
 									<img
 									alt="${img.alt}"
 									src="${img.src}"
+									@click=${() => modal.toggle_modal_open()}
 									/>
 								`
 							)
@@ -83,8 +84,9 @@ export const ProductFocus = view("product-focus")
 									true,
 									html`
 										<img
-										alt="${img.alt}"
-										src="${img.src}"
+											alt="${img.alt}"
+											src="${img.src}"
+											@click=${() => modal.toggle_modal_open()}
 										/>
 									`
 								)
