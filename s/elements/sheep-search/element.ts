@@ -53,7 +53,7 @@ export const SheepSearch = (context: Context) => class extends QuickElement {
 
 	render() {
 		const {router} = context
-		const is_search = router.route.zone === "search"
+		const is_search = router.route.zone === "search" && router.route.terms.length
 
 		return html`
 			<div ?data-active=${is_search} class=searchbox>

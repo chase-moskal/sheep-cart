@@ -7,6 +7,7 @@ export const style = css`
 	display: flex;
 	flex-direction: column;
 	gap: 0.5em;
+	--highlight: var(--sheep-highlight, lime);
 }
 
 .searchbox {
@@ -25,6 +26,10 @@ export const style = css`
 		padding-left: 2em;
 		color: inherit;
 		transition: transform 0.3s ease-in-out;
+
+		&:focus {
+			transform: scale(1.03);
+		}
 	}
 
 	> svg {
@@ -37,13 +42,9 @@ export const style = css`
 	}
 
 	&[data-active] {
-		> input {
-			border-color: lime;
-			transform: scale(1.03);
-
-			+ svg {
-				color: lime;
-			}
+		color: var(--highlight);
+		+ svg {
+			color: inherit;
 		}
 	}
 }
@@ -70,7 +71,7 @@ export const style = css`
 		}
 
 		&[data-active] {
-			color: var(--active-tag-color, lime);
+			color: var(--highlight);
 			& input { opacity: 1; }
 		}
 
