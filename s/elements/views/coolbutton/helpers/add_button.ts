@@ -54,7 +54,8 @@ export function add_button({
 	switch (button_type) {
 		case "select_from_variants":
 			return Coolbutton({
-				class: "button x-select-from-variants",
+				part: "addbutton x-select-from-variants",
+				gpart: "addbutton x-select-from-variants",
 				props: [{
 					active: true,
 					onclick: () => {},
@@ -66,7 +67,8 @@ export function add_button({
 
 		case "in_cart":
 			return Coolbutton({
-				class: "button x-in-cart",
+				part: "addbutton x-in-cart",
+				gpart: "addbutton x-in-cart",
 				props: [{
 					active: false,
 					onclick: () => {},
@@ -78,7 +80,8 @@ export function add_button({
 
 		case "add_to_cart":
 			return Coolbutton({
-				class: "button x-add-to-cart",
+				part: "addbutton x-add-to-cart",
+				gpart: "addbutton x-add-to-cart",
 				props: [{
 					active: true,
 					onclick: event => {
@@ -93,7 +96,8 @@ export function add_button({
 
 		case "sold_out":
 			return Coolbutton({
-				class: "button x-sold-out",
+				part: "addbutton x-sold-out",
+				gpart: "addbutton x-sold-out",
 				props: [{
 					active: false,
 					onclick: () => {},

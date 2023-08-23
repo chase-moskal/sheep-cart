@@ -24,7 +24,7 @@ export const ProductCard = view("product-card")
 					${product.title}
 				</h1>
 
-				${views.Pills({part: "pills", props: [product]})}
+				${views.Pills({part: "pills", gpart: "pills", props: [product]})}
 
 				<div class=action>
 					${add_button({

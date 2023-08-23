@@ -57,7 +57,7 @@ export const ProductFocus = view("product-focus")
 
 				<h1>${product.title}</h1>
 
-				${views.Pills({class: "pills", props: [product]})}
+				${views.Pills({class: "pills", gpart: "pills", props: [product]})}
 
 				<div class=options>
 					${render_options(choiceHelper, set_choice)}
