@@ -5,6 +5,7 @@ import {QuickElement, attributes} from "@benev/frog"
 import {style} from "./style.css.js"
 import {render_op} from "../render_op.js"
 import {Context} from "../../context/context.js"
+import {bgstyle} from "../views/collection_list/utils/bgstyle.js"
 
 export const SheepCatalog = ({state, router, views}: Context) => class extends QuickElement {
 	static styles = style
@@ -28,51 +29,78 @@ export const SheepCatalog = ({state, router, views}: Context) => class extends Q
 			: []
 	}
 
+	#render_collections_tab = () => {
+		const active_collection = state.route.zone === "collection"
+			? state.route.label
+			: ""
+
+		if(!active_collection)
+			return undefined
+
+		return html`
+			<div part="collections-tab">
+				${state.collections.map(c => html`
+					<a
+						style="${bgstyle(c)}"
+						href="${router.routes.collection(c).url}"
+						?data-active-collection=${c.title.toLowerCase() === active_collection}>
+						${c.title}
+					</a>
+				`)}
+			</div>
+		`
+	}
+
 	render() {
 		const prioritized = this.#prioritized_collections
 		const hidden = this.#hidden_collections
 
-		return render_op(state.situation_op, situation => {
-			switch (situation?.type) {
-
-				case "collection_list":
-					return views.CollectionList({
-						part: "collection-list",
-						props: [{
-							hidden,
-							prioritized,
-							collections: situation.collections,
-						}],
-					})
-
-				case "products_in_collection":
-					return views.ProductList({part: "product-list", props: [{situation}]})
-
-				case "all_products":
-					return views.ProductList({part: "product-list", props: [{situation}]})
-
-				case "search_results":
-					return views.ProductList({part: "product-list", props: [{situation}]})
-
-				case "single_product":
-					return views.ProductFocus({part: "product-focus", props: [situation.product]})
-
-				case "not_found":
-					return html`
-						${situation.message
-							? html`<h1>${situation.message}</h1>`
-							: html`<h1>Not found</h1>`}
-						<p>
-							<a part=a href="${router.routes.home().url}">
-								back
-							</a>
-						</p>
-					`
-
-				default:
-					return undefined
-			}
-		})
+		return html`
+			<div>
+				${this.#render_collections_tab()}
+				${render_op(state.situation_op, situation => {
+					switch (situation?.type) {
+		
+						case "collection_list":
+							return views.CollectionList({
+								part: "collection-list",
+								props: [{
+									hidden,
+									prioritized,
+									collections: situation.collections,
+								}],
+							})
+		
+						case "products_in_collection":
+							return views.ProductList({part: "product-list", props: [{situation}]})
+		
+						case "all_products":
+							return views.ProductList({part: "product-list", props: [{situation}]})
+		
+						case "search_results":
+							return views.ProductList({part: "product-list", props: [{situation}]})
+		
+						case "single_product":
+							return views.ProductFocus({part: "product-focus", props: [situation.product]})
+		
+						case "not_found":
+							return html`
+								${situation.message
+									? html`<h1>${situation.message}</h1>`
+									: html`<h1>Not found</h1>`}
+								<p>
+									<a part=a href="${router.routes.home().url}">
+										back
+									</a>
+								</p>
+							`
+		
+						default:
+							return undefined
+					}
+				})}
+			</div>
+		`
 	}
 }
 
