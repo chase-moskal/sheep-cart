@@ -38,13 +38,17 @@ export const SheepNav = (context: Context) => class extends QuickElement {
 			<a
 				href="${areas.collections.url}"
 				?data-marked="${areas.collections.marked}">
-				collections
+				<slot name=collections>
+					collections
+				</slot>
 			</a>
 
 			<a
 				href="${areas.products.url}"
 				?data-marked="${areas.products.marked}">
-				all products
+				<slot name=products>
+					all products
+				</slot>
 			</a>
 		`
 	}
