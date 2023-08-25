@@ -12,6 +12,7 @@ export type CardAddParams = {
 	product: GqlProduct
 	allow_select: boolean
 	Coolbutton: RequirementProvided<typeof Coolbutton>
+	set_show_popup?: () => void
 }
 
 export function add_button({
@@ -20,6 +21,7 @@ export function add_button({
 		variant_id,
 		allow_select,
 		Coolbutton,
+		set_show_popup = () => {},
 	}: CardAddParams) {
 
 	type ButtonType = (
@@ -59,7 +61,10 @@ export function add_button({
 				gpart: "addbutton x-select-from-variants",
 				props: [{
 					active: true,
-					onclick: () => {},
+					onclick: event => {
+						event.preventDefault()
+						set_show_popup()
+					},
 				}],
 				content: html`
 					${number_of_variants} Options
