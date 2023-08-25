@@ -18,7 +18,10 @@ export const ProductRecommendation = view("product-recommendation")
 
 				state.recommendations = products
 			}()
-			return () => {}
+			return {
+				result: undefined,
+				setdown: () => {},
+			}
 		})
 
 		return html`
