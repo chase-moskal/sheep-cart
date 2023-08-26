@@ -15,7 +15,7 @@ export default template(async basics => {
 			<sheep-modal></sheep-modal>
 
 			<div class="follower slice">
-				<sheep-cart-button></sheep-cart-button>
+				<sheep-cart-button triggers-modal></sheep-cart-button>
 			</div>
 
 			<header class="header slice">

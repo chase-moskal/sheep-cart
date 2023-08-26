@@ -53,17 +53,12 @@ export const ProductFocus = view({
 				${render_img({
 					part: "img",
 					img: img.large(choiceHelper.chosen_image),
-					onclick: (_: MouseEvent, img: Img) =>
-						modal.toggle_modal_open(
-							true,
-							html`
-								<img
-								alt="${img.alt}"
-								src="${img.src}"
-								@click=${() => modal.toggle_modal_open()}
-								/>
-							`
-						)
+					onclick: (_: MouseEvent, img: Img) => (
+						modal.open({
+							kind: "image",
+							img,
+						})
+					),
 				})}
 			</figure>
 
@@ -91,17 +86,12 @@ export const ProductFocus = view({
 					render_img({
 						part: "img",
 						img: img.large(image),
-						onclick: (_: MouseEvent, img: Img) =>
-							modal.toggle_modal_open(
-								true,
-								html`
-									<img
-										alt="${img.alt}"
-										src="${img.src}"
-										@click=${() => modal.toggle_modal_open()}
-									/>
-								`
-							)
+						onclick: (_: MouseEvent, img: Img) => (
+							modal.open({
+								kind: "image",
+								img,
+							})
+						),
 					})
 				)}
 			</aside>

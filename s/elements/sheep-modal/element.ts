@@ -57,7 +57,7 @@ export const SheepModal = component(({modal}) => class extends QuickElement {
 		}
 	}
 
-	#open = ({id, modal}: {id: string, modal: ModalSpec.Whatever}) => {
+	#open({id, modal}: {id: string, modal: ModalSpec.Whatever}) {
 		const dialog = document.createElement("dialog")
 		dialog.setAttribute("data-id", id)
 
@@ -88,60 +88,7 @@ export const SheepModal = component(({modal}) => class extends QuickElement {
 	}
 
 	init() {
-		modal.on.open(this.#open)
+		modal.on.open(o => this.#open(o))
 	}
 })
-
-// export const SheepModal = (context: Context) => class extends QuickElement {
-// 	static styles = style
-
-// 	#attrs = Attrs.base<{open: string}>(this)
-
-// 	get #dialog() {
-// 		return this.root.querySelector("dialog")!
-// 	}
-
-// 	init() {
-// 		this.setup(() => context.flat.auto({
-// 			debounce: false,
-// 			discover: false,
-// 			collector: () => ({modal_open: context.modal.state.open}),
-// 			responder: ({modal_open}) => {
-// 				this.#attrs.boolean.open = modal_open
-// 				if (modal_open)
-// 					this.#dialog.showModal()
-// 				else
-// 					this.#dialog.close()
-// 			},
-// 		}))
-// 	}
-
-// 	#close = () => context.modal.toggle_modal_open(false)
-
-// 	#backdrop_close = (event: MouseEvent) => {
-// 		if (event.target === this.#dialog)
-// 			this.#close()
-// 	}
-
-// 	render() {
-// 		return html`
-// 			<dialog
-// 				@click=${this.#backdrop_close}
-// 				@close=${this.#close}
-// 				>
-
-// 				<div class=actions>
-// 					<button class=close @click=${this.#close}>
-// 						${icon_x_circle(svg)}
-// 					</button>
-// 				</div>
-
-// 				<div class=contents>
-// 					${context.modal.state.content}
-// 				</div>
-
-// 			</dialog>
-// 		`
-// 	}
-// }
 

@@ -1,25 +1,31 @@
 
 import {html, svg} from "lit"
-import {css} from "@chasemoskal/magical"
-import {QuickElement} from "@benev/frog"
-
-import {Context} from "../../context/context.js"
+import {Attrs, QuickElement} from "@benev/frog"
 
 import icon_shopping_cart from "../../icons/feather/icon_shopping_cart.js"
 
+import {styles} from "./styles.css.js"
+import {Context} from "../../context/context.js"
+
 export const SheepCartButton = (context: Context) => class extends QuickElement {
+	static styles = styles
+	#attrs = Attrs.base<{"triggers-modal": string}>(this as QuickElement)
+
+	get #triggers_modal() {
+		return this.#attrs.boolean["triggers-modal"]
+	}
 
 	render() {
 		const {units} = context.cart
+
+		const onclick = this.#triggers_modal
+			? () => context.modal.open({kind: "cart"})
+			: () => {}
+
 		return html`
 			<button
 				part=button
-				@click=${() => context.modal.toggle_modal_open(
-					true,
-					html`
-						<sheep-cart part=cart></sheep-cart>
-					`
-				)}>
+				@click=${onclick}>
 
 				${icon_shopping_cart(svg)}
 
@@ -29,36 +35,5 @@ export const SheepCartButton = (context: Context) => class extends QuickElement 
 			</button>
 		`
 	}
-
-	static styles = css`
-		button {
-			position: relative;
-			padding: 1em;
-			background: #eeee;
-			color: #222;
-			border: none;
-			border-radius: 1em;
-			box-shadow: 0.1em 0.1em 0.3em #0008;
-			cursor: pointer;
-		}
-
-		.count {
-			position: absolute;
-			top: -0.5em;
-			right: -0.5em;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			width: 1.5em;
-			height: 1.5em;
-			border-radius: 1em;
-			background: red;
-			font-family: sans-serif;
-			font-weight: bold;
-			color: white;
-			text-shadow: 0.1em 0.1em 0.1em #0008;
-			&[hidden] { display: none; }
-		}
-	`
 }
 
