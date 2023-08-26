@@ -38,10 +38,15 @@ export const SheepModal = component(({modal}) => class extends QuickElement {
 
 			case "image": {
 				const {img: {src, alt}} = modal
+				const close = () => this.close(id)
 				return {
-					on_backdrop_click: () => this.close(id),
+					on_backdrop_click: close,
 					content: html`
-						<img part=img src="${src}" alt="${alt}"/>
+						<img
+							part=img
+							src="${src}"
+							alt="${alt}"
+							@click=${close} />
 					`,
 				}
 			}
