@@ -10,12 +10,11 @@ export const style = css`
 
 [part="collections-tab"] {
 	display: flex;
-	gap: 0.5em;
 	margin-bottom: 1em;
 	flex-wrap: wrap;
 
 	> a {
-		padding: 0.3em 0.7em;
+		padding: 0.2em 0.5em;
 		background-color: var(--plate-color);
 		background-size: cover, cover;
 		background-position: center center, center center;
@@ -30,10 +29,18 @@ export const style = css`
 			0.05em 0.10em 0 black;
 		opacity: 0.5;
 		transition: all 0.3s ease-in-out;
+		font-weight: bold;
+		-webkit-user-drag: none;
+		user-drag: none;
+		user-select: none;
 
 		&[data-active-collection] {
 			opacity: 1;
-			font-weight: bold;
+		}
+
+		&:not([data-active-collection]) {
+			background: transparent !important;
+			box-shadow: none;
 		}
 	}
 }
