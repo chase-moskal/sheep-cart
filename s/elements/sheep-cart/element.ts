@@ -2,10 +2,13 @@
 import {html, svg} from "lit"
 import {QuickElement} from "@benev/frog"
 
+import {views} from "../frontend.js"
 import {style} from "./style.css.js"
+import {Price} from "../views/price/view.js"
 import {Context} from "../../context/context.js"
 import {sum_subtotal} from "./parts/sum_subtotal.js"
 import {CartUnit} from "../../carting/parts/types.js"
+import {Coolbutton} from "../views/coolbutton/view.js"
 import {img} from "../views/product_focus/parts/img.js"
 import {VariantPricing} from "../views/price/parts/types.js"
 import {render_img} from "../views/product_focus/parts/render_img.js"
@@ -13,10 +16,13 @@ import {ProductHelper} from "../views/product_focus/parts/product_helper.js"
 
 import icon_x from "../../icons/feather/icon_x.js"
 
-export const SheepCart = ({cart, views, shopify}: Context) => class extends QuickElement {
+export const SheepCart = (context: Context) => class extends QuickElement {
 	static styles = style
 
+	#views = views(context, {Price, Coolbutton})
+
 	#render_unit = (unit: CartUnit) => {
+		const {cart} = context
 		const producthelp = new ProductHelper(unit.product)
 		const image = producthelp.get_variant_image(unit.variant_id)
 		const variant = producthelp.get_variant(unit.variant_id)
@@ -72,7 +78,7 @@ export const SheepCart = ({cart, views, shopify}: Context) => class extends Quic
 			</div>
 
 			<div class=price>
-				${views.Price({part: "price", props: [summed_pricing]})}
+				${this.#views.Price({part: "price", props: [summed_pricing]})}
 			</div>
 
 			<div class=remove>
@@ -86,7 +92,7 @@ export const SheepCart = ({cart, views, shopify}: Context) => class extends Quic
 	}
 
 	#checkout = async() => {
-		const line_items = (cart.units
+		const line_items = (context.cart.units
 			.map(({variant_id, quantity}) => ({
 				variant_id,
 				quantity,
@@ -114,15 +120,15 @@ export const SheepCart = ({cart, views, shopify}: Context) => class extends Quic
 			</style>
 		`
 
-		const {webUrl} = await shopify.checkout({line_items})
+		const {webUrl} = await context.shopify.checkout({line_items})
 
 		win.location.href = webUrl
 		win.focus()
-		cart.clear()
+		context.cart.clear()
 	}
 
 	render() {
-		const {units} = cart
+		const {units} = context.cart
 		return html`
 			<h2>
 				${units.length > 0
@@ -148,13 +154,13 @@ export const SheepCart = ({cart, views, shopify}: Context) => class extends Quic
 									Subtotal
 								</div>
 								<div class=price>
-									${views.Price({part: "price", props: [sum_subtotal(units)]})}
+									${this.#views.Price({part: "price", props: [sum_subtotal(units)]})}
 								</div>
 							</div>
 						</div>
 					</div>
 					<div class=actions>
-						${views.Coolbutton({
+						${this.#views.Coolbutton({
 							part: "checkout",
 							props: [{
 								active: true,
@@ -162,12 +168,12 @@ export const SheepCart = ({cart, views, shopify}: Context) => class extends Quic
 								onclick: this.#checkout,
 							}],
 						})}
-						${views.Coolbutton({
+						${this.#views.Coolbutton({
 							part: "clear-cart",
 							props: [{
 								active: true,
 								text: "clear cart",
-								onclick: () => cart.clear(),
+								onclick: () => context.cart.clear(),
 							}],
 						})}
 					</div>

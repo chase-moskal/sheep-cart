@@ -1,16 +1,17 @@
 
 import {html} from "lit"
 import {GqlProduct} from "shopify-shepherd"
+import {RequirementProvided} from "@benev/frog"
 
+import {Coolbutton} from "../view.js"
 import {Cart} from "../../../../carting/cart.js"
-import {Context} from "../../../../context/context.js"
 
 export type CardAddParams = {
 	cart: Cart
 	variant_id: string
 	product: GqlProduct
 	allow_select: boolean
-	Coolbutton: Context["views"]["Coolbutton"]
+	Coolbutton: RequirementProvided<typeof Coolbutton>
 }
 
 export function add_button({

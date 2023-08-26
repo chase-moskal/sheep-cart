@@ -10,7 +10,6 @@ import {Router} from "../routing/router.js"
 import {Situation} from "./types/situations.js"
 import {State, init_state} from "./parts/init_state.js"
 import {CartStore} from "../carting/parts/cart_store.js"
-import {prepare_all_views} from "../elements/prepare_all_views.js"
 
 export class Context {
 	flat = new Flat()
@@ -19,7 +18,6 @@ export class Context {
 	readonly state: State
 
 	modal: Modal
-	views = prepare_all_views(this)
 	cart: Cart
 
 	constructor(

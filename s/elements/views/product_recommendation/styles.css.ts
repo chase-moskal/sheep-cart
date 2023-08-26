@@ -1,7 +1,7 @@
 
 import {css} from "@chasemoskal/magical"
 
-export const style = css`
+export const styles = css`
 
 :host {
 	display: flex;

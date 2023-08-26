@@ -1,33 +1,37 @@
 
 import {html} from "lit"
-
-import {style} from "./style.css.js"
-import {view, View} from "../../view.js"
 import {GqlProduct} from "shopify-shepherd"
 
-export const ProductRecommendation = view("product-recommendation")
-	.render(context => use => (id: string, count: number) => {
-		const {views} = context
-		const state = use.state({recommendations: [] as GqlProduct[]})
+import {view} from "../../frontend.js"
+import {styles} from "./styles.css.js"
+import {ProductCard} from "../product_card/view.js"
 
-		use.setup(() => {
-			void async function () {
-				const products = await context
-					.shopify
-					.product_recommendations({product_id: id})
+export const ProductRecommendation = view({
+		name: "product-recommendation",
+		styles,
+		views: {ProductCard},
+	}).render(context => views => use => (id: string, count: number) => {
 
-				state.recommendations = products
-			}()
-			return {
-				result: undefined,
-				setdown: () => {},
-			}
-		})
+	const state = use.state({recommendations: [] as GqlProduct[]})
 
-		return html`
-			${state.recommendations.slice(0, count).map(r =>
-				views.ProductCard({part: "card", props: [r]})
-			)}
-	`})
-	.styles(style) as View<[string, number]>
+	use.setup(() => {
+		void async function () {
+			const products = await context
+				.shopify
+				.product_recommendations({product_id: id})
+
+			state.recommendations = products
+		}()
+		return {
+			result: undefined,
+			setdown: () => {},
+		}
+	})
+
+	return html`
+		${state.recommendations.slice(0, count).map(r =>
+			views.ProductCard({part: "card", props: [r]})
+		)}
+	`
+})
 

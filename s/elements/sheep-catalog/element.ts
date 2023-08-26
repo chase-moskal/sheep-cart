@@ -1,16 +1,23 @@
 
 import {html} from "lit"
-import {QuickElement, attributes} from "@benev/frog"
+import {Attrs, QuickElement} from "@benev/frog"
 
 import {style} from "./style.css.js"
+import {component} from "../frontend.js"
 import {render_op} from "../render_op.js"
-import {Context} from "../../context/context.js"
+import {ProductList} from "../views/product_list/view.js"
+import {ProductFocus} from "../views/product_focus/view.js"
+import {CollectionList} from "../views/collection_list/view.js"
 import {bgstyle} from "../views/collection_list/utils/bgstyle.js"
 
-export const SheepCatalog = ({state, router, views}: Context) => class extends QuickElement {
+export const SheepCatalog = component.views({
+	CollectionList,
+	ProductList,
+	ProductFocus,
+}).element(({state, router}) => views => class extends QuickElement {
 	static styles = style
 
-	#attrs = attributes<{
+	#attrs = Attrs.base<{
 		"prioritized-collections": string
 		"hidden-collections": string
 	}>(this)
@@ -60,7 +67,7 @@ export const SheepCatalog = ({state, router, views}: Context) => class extends Q
 				${this.#render_collections_tab()}
 				${render_op(state.situation_op, situation => {
 					switch (situation?.type) {
-		
+
 						case "collection_list":
 							return views.CollectionList({
 								part: "collection-list",
@@ -70,19 +77,19 @@ export const SheepCatalog = ({state, router, views}: Context) => class extends Q
 									collections: situation.collections,
 								}],
 							})
-		
+
 						case "products_in_collection":
 							return views.ProductList({part: "product-list", props: [{situation}]})
-		
+
 						case "all_products":
 							return views.ProductList({part: "product-list", props: [{situation}]})
-		
+
 						case "search_results":
 							return views.ProductList({part: "product-list", props: [{situation}]})
-		
+
 						case "single_product":
 							return views.ProductFocus({part: "product-focus", props: [situation.product]})
-		
+
 						case "not_found":
 							return html`
 								${situation.message
@@ -94,7 +101,7 @@ export const SheepCatalog = ({state, router, views}: Context) => class extends Q
 									</a>
 								</p>
 							`
-		
+
 						default:
 							return undefined
 					}
@@ -102,5 +109,5 @@ export const SheepCatalog = ({state, router, views}: Context) => class extends Q
 			</div>
 		`
 	}
-}
+})
 
