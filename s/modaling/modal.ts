@@ -1,21 +1,21 @@
 
-import {Flat} from "@benev/frog"
-import {TemplateResult} from "lit"
+import {pub} from "@benev/frog"
+
+import {ModalSpec} from "./spec.js"
+import {IdPuller} from "../tools/id_puller.js"
 
 export class Modal {
-	state: {
-		open: boolean
-		content?: undefined | TemplateResult
+	#id = new IdPuller()
+
+	on = {
+		open: pub<{id: string, modal: ModalSpec.Whatever}>(),
 	}
 
-	constructor(flat: Flat) {
-		this.state = flat.state({
-			open: true,
+	open(modal: ModalSpec.Whatever) {
+		this.on.open.publish({
+			modal,
+			id: this.#id.pull().toString(),
 		})
 	}
-
-	toggle_modal_open = (open = !this.state.open, content?: TemplateResult) => {
-		this.state.open = open
-		this.state.content = content
-	}
 }
+
