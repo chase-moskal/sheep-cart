@@ -8,7 +8,9 @@ import {render_op} from "../render_op.js"
 import {ProductList} from "../views/product_list/view.js"
 import {ProductFocus} from "../views/product_focus/view.js"
 import {CollectionList} from "../views/collection_list/view.js"
+import {process_comma_list} from "./utils/process_comma_list.js"
 import {bgstyle} from "../views/collection_list/utils/bgstyle.js"
+import {sort_collections} from "../views/collection_list/utils/sort_collections.js"
 
 export const SheepCatalog = component.views({
 	CollectionList,
@@ -17,40 +19,35 @@ export const SheepCatalog = component.views({
 }).element(({state, router}) => views => class extends QuickElement {
 	static styles = style
 
-	#attrs = Attrs.base<{
+	#attrs = Attrs.base(this) as Attrs<{
 		"prioritized-collections": string
 		"hidden-collections": string
-	}>(this)
+	}>
 
-	get #prioritized_collections() {
-		const raw: string = this.#attrs.string["prioritized-collections"]
-		return raw
-			? raw.split(/\s+/).map(id => id.trim())
-			: []
+	get #option_attributes() {
+		return {
+			hidden: process_comma_list(this.#attrs.string["hidden-collections"]),
+			prioritized: process_comma_list(this.#attrs.string["prioritized-collections"]),
+		}
 	}
 
-	get #hidden_collections() {
-		const raw: string = this.#attrs.string["hidden-collections"]
-		return raw
-			? raw.split(/\s+/).map(id => id.trim())
-			: []
-	}
+	#render_collections_tabs = (prioritized: string[], hidden: string[]) => {
+		const active_collection_id = state.route.zone === "collection"
+			? state.route.id
+			: undefined
 
-	#render_collections_tab = () => {
-		const active_collection = state.route.zone === "collection"
-			? state.route.label
-			: ""
-
-		if(!active_collection)
+		if (!active_collection_id)
 			return undefined
+
+		const collections = sort_collections(state.collections, prioritized, hidden)
 
 		return html`
 			<div part="collections-tab">
-				${state.collections.map(c => html`
+				${collections.map(c => html`
 					<a
 						style="${bgstyle(c)}"
 						href="${router.routes.collection(c).url}"
-						?data-active-collection=${c.title.toLowerCase() === active_collection}>
+						?data-active-collection=${c.id === active_collection_id}>
 						${c.title}
 					</a>
 				`)}
@@ -59,12 +56,10 @@ export const SheepCatalog = component.views({
 	}
 
 	render() {
-		const prioritized = this.#prioritized_collections
-		const hidden = this.#hidden_collections
-
+		const {hidden, prioritized} = this.#option_attributes
 		return html`
 			<div>
-				${this.#render_collections_tab()}
+				${this.#render_collections_tabs(prioritized, hidden)}
 				${render_op(state.situation_op, situation => {
 					switch (situation?.type) {
 
@@ -78,8 +73,9 @@ export const SheepCatalog = component.views({
 								}],
 							})
 
-						case "products_in_collection":
+						case "products_in_collection": {
 							return views.ProductList({part: "product-list", props: [{situation}]})
+						}
 
 						case "all_products":
 							return views.ProductList({part: "product-list", props: [{situation}]})
