@@ -56,7 +56,6 @@ export const styles = css`
 	> aside { grid-area: images; }
 	> section {
 		grid-area: essay;
-		text-align: center;
 		max-width: 48em;
 		justify-self: center;
 		line-height: 1.5;
