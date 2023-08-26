@@ -13,10 +13,11 @@ import {bgstyle} from "../views/collection_list/utils/bgstyle.js"
 import {sort_collections} from "../views/collection_list/utils/sort_collections.js"
 
 export const SheepCatalog = component.views({
-	CollectionList,
-	ProductList,
-	ProductFocus,
-}).element(({state, router}) => views => class extends QuickElement {
+		CollectionList,
+		ProductList,
+		ProductFocus,
+	}).element(({state, router}) => views => class extends QuickElement {
+
 	static styles = style
 
 	#attrs = Attrs.base(this) as Attrs<{
