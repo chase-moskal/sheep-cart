@@ -28,6 +28,12 @@ sheep-cart {
 	display: flex;
 	justify-content: end;
 	align-items: center;
+
+	pointer-events: none;
+
+	> * {
+		pointer-events: all;
+	}
 }
 
 .close {
