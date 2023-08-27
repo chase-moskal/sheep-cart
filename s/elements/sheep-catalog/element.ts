@@ -76,17 +76,29 @@ export const SheepCatalog = component.views({
 							})
 
 						case "products_in_collection": {
-							return views.ProductList({part: "product-list", props: [{situation}]})
+							return views.ProductList({
+								part: "product-list",
+								props: [{situation}],
+							})
 						}
 
 						case "all_products":
-							return views.ProductList({part: "product-list", props: [{situation}]})
+							return views.ProductList({
+								part: "product-list",
+								props: [{situation}],
+							})
 
 						case "search_results":
-							return views.ProductList({part: "product-list", props: [{situation}]})
+							return views.ProductList({
+								part: "product-list",
+								props: [{situation}],
+							})
 
 						case "single_product":
-							return views.ProductFocus({part: "product-focus", props: [situation.product]})
+							return views.ProductFocus({
+								part: "product-focus",
+								props: [situation.product],
+							})
 
 						case "not_found":
 							return html`
