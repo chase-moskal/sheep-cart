@@ -14,11 +14,11 @@ li {
 	border: 1px solid currentColor;
 	padding: 0 0.3em;
 
-	&[part="pill-collection"] {
+	&[part="collection"] {
 		border-radius: 0.3em;
 	}
 
-	&[part="pill-tag"] {
+	&[part="tag"] {
 		opacity: 0.7;
 		border-radius: 1em;
 	}

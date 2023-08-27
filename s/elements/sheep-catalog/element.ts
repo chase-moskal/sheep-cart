@@ -7,9 +7,9 @@ import {component} from "../frontend.js"
 import {render_op} from "../render_op.js"
 import {ProductList} from "../views/product_list/view.js"
 import {ProductFocus} from "../views/product_focus/view.js"
+import {bg_img} from "../views/collection_list/utils/bg_img.js"
 import {CollectionList} from "../views/collection_list/view.js"
 import {process_comma_list} from "./utils/process_comma_list.js"
-import {bgstyle} from "../views/collection_list/utils/bgstyle.js"
 import {sort_collections} from "../views/collection_list/utils/sort_collections.js"
 
 export const SheepCatalog = component.views({
@@ -43,13 +43,14 @@ export const SheepCatalog = component.views({
 		const collections = sort_collections(state.collections, prioritized, hidden)
 
 		return html`
-			<div part="collections-tab">
-				${collections.map(c => html`
+			<div part=collection-tab-list>
+				${collections.map(collection => html`
 					<a
-						style="${bgstyle(c)}"
-						href="${router.routes.collection(c).url}"
-						?data-active-collection=${c.id === active_collection_id}>
-						${c.title}
+						part=collection-tab
+						href="${router.routes.collection(collection).url}"
+						?data-active-collection=${collection.id === active_collection_id}>
+						<span class=bgimg style="${bg_img(collection)}"></span>
+						<span class=text>${collection.title}</span>
 					</a>
 				`)}
 			</div>

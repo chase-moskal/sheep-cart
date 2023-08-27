@@ -3,8 +3,8 @@ import {html} from "lit"
 
 import {styles} from "./style.css.js"
 import {view} from "../../frontend.js"
+import {bg_img} from "./utils/bg_img.js"
 import {Options} from "./utils/options.js"
-import {bgstyle} from "./utils/bgstyle.js"
 import {sort_collections} from "./utils/sort_collections.js"
 
 export const CollectionList = view({
@@ -19,9 +19,9 @@ export const CollectionList = view({
 				<a
 					part=bar
 					data-id="${collection.id}"
-					style="${bgstyle(collection)}"
+					style="${bg_img(collection)}"
 					href="${router.routes.collection(collection).url}">
-						${collection.title}
+					${collection.title}
 				</a>
 			`)
 		}

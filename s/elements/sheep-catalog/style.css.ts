@@ -5,42 +5,52 @@ export const style = css`
 
 :host {
 	display: block;
-	--plate-color: var(--collections-tab-plate-color, #8884)
 }
 
-[part="collections-tab"] {
+[part="collection-tab-list"] {
 	display: flex;
 	margin-bottom: 1em;
 	flex-wrap: wrap;
+	justify-content: center;
 
-	> a {
+	> [part="collection-tab"] {
 		padding: 0.2em 0.5em;
-		background-color: var(--plate-color);
-		background-size: cover, cover;
-		background-position: center center, center center;
 		color: white;
 		border-radius: 0.5em;
-		box-shadow: rgba(0, 0, 0, 0.267) 0.1em 0.2em 0.5em;
 		font-size: 1.1em;
 		text-decoration: none;
-		text-shadow:
-			0.05em 0.10em 0.5em black,
-			0.05em 0.10em 0.5em black,
-			0.05em 0.10em 0 black;
-		opacity: 0.5;
+		text-shadow: 0.05em 0.1em 0.1em #0008;
 		transition: all 0.3s ease-in-out;
 		font-weight: bold;
 		-webkit-user-drag: none;
 		user-drag: none;
 		user-select: none;
+		overflow: hidden;
 
 		&[data-active-collection] {
-			opacity: 1;
+			box-shadow: 0.1em 0.2em 0.3em #0002;
 		}
 
-		&:not([data-active-collection]) {
-			background: transparent !important;
-			box-shadow: none;
+		position: relative;
+
+		> .bgimg {
+			opacity: 0;
+			z-index: 1;
+			position: absolute;
+			inset: 0;
+			background-size: cover;
+			background-position: top center;
+			transition: all 1s ease;
+		}
+
+		> .text {
+			z-index: 2;
+			position: relative;
+		}
+
+		&[data-active-collection] > .bgimg {
+			opacity: 0.5;
+			background-position: center center;
 		}
 	}
 }

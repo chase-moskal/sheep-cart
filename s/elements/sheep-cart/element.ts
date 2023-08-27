@@ -138,7 +138,7 @@ export const SheepCart = (context: Context) => class extends QuickElement {
 
 			<ol class=listing>
 				${units.map(unit => html`
-					<li part=line-item>
+					<li part=line-item data-gpart=line-item>
 						${this.#render_unit(unit)}
 					</li>
 				`)}
