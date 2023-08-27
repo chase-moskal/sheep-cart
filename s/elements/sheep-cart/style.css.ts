@@ -125,21 +125,23 @@ h2 {
 	gap: 1em;
 	padding-top: 1em;
 	padding-right: 2.5rem;
-	align-items: flex-end;
+	align-items: center;
 }
 
 [part="checkout"]{
 	font-size: 1.5em;
+
 	&::part(button) {
 		padding: 0.5em 1em;
 	}
 }
 
 [part="clear-cart"] {
-	font-size: 1.5em;
+	font-size: 1em;
+
 	&::part(button) {
 		padding: 0.5em 1em;
-		background: red;
+		background: transparent;
 	}
 }
 
