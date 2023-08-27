@@ -103,7 +103,7 @@ export const ProductFocus = view({
 		</div>
 		<div class=recommendations>
 			<h2>Customers also bought:</h2>
-			${views.ProductRecommendation({props: [product.id, 3]})}
+			${views.ProductRecommendation({part: "recommendations", props: [product.id, 3]})}
 		</div>
 	`
 })

@@ -18,7 +18,7 @@ export const styles = css`
 	gap: 0.5rem;
 }
 
-[data-view="product-card"] {
+[view="product-card"] {
 	font-size: 0.8em;
 	max-width: 100%;
 }

@@ -114,7 +114,7 @@ export const styles = css`
 			justify-content: center;
 		}
 
-		> [data-view="coolbutton"] {
+		> [view="coolbutton"] {
 			flex: 2;
 			&::part(button) {
 				padding: 1em;
@@ -167,7 +167,7 @@ export const styles = css`
 		margin-bottom: 1em;
 	}
 
-	> [data-view="product-recommendation"] {
+	> [view="product-recommendation"] {
 		justify-content: center;
 	}
 }

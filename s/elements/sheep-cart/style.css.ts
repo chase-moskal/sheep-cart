@@ -189,7 +189,7 @@ h2 {
 				font-size: 1em !important;
 			}
 
-			& [data-view="price"] {
+			& [view="price"] {
 				font-size: 0.8em;
 			}
 		}

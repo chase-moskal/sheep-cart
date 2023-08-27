@@ -9,7 +9,7 @@ export const styles = css`
 	gap: 1em;
 }
 
-[data-view="product-card"] {
+[view="product-card"] {
 	flex: 30%;
 	min-width: 18em;
 	max-width: 30em;

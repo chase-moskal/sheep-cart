@@ -30,7 +30,7 @@ export const ProductRecommendation = view({
 
 	return html`
 		${state.recommendations.slice(0, count).map(r =>
-			views.ProductCard({part: "card", props: [r]})
+			views.ProductCard({part: "card", gpart: "card", props: [r]})
 		)}
 	`
 })
