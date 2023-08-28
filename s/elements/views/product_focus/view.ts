@@ -45,11 +45,11 @@ export const ProductFocus = view({
 
 	return html`
 		<div
-			class=grid
+			part=grid
 			?data-no-additional-images=${productHelper.images.length < 2}
 			?data-no-options=${productHelper.variants.length < 2}>
 
-			<figure>
+			<figure part=figure>
 				${render_img({
 					part: "img",
 					img: img.large(choiceHelper.chosen_image),
@@ -62,15 +62,15 @@ export const ProductFocus = view({
 				})}
 			</figure>
 
-			<h1>${product.title}</h1>
+			<h1 part=title>${product.title}</h1>
 
-			${views.Pills({class: "pills", gpart: "pills", props: [product]})}
+			${views.Pills({class: "pills", part: "pills", gpart: "pills", props: [product]})}
 
-			<div class=options>
+			<div part=options class=options>
 				${render_options(choiceHelper, set_choice)}
 			</div>
 
-			<div class=buy>
+			<div part=buy class=buy>
 				${views.Price({class: "price", props: [choiceHelper.selected_variant]})}
 				${add_button({
 					Coolbutton: views.Coolbutton,
@@ -81,7 +81,7 @@ export const ProductFocus = view({
 				})}
 			</div>
 
-			<aside class=aside>
+			<aside part=aside class=aside>
 				${choiceHelper.side_images.map(image =>
 					render_img({
 						part: "img",
@@ -96,14 +96,17 @@ export const ProductFocus = view({
 				)}
 			</aside>
 
-			<section class="standard-content">
+			<section part=standard-content class="standard-content">
 				${unsafeHTML(product.descriptionHtml)}
 			</section>
 
 		</div>
-		<div class=recommendations>
+		<div part=recbox class=recommendations>
 			<h2>Customers also bought:</h2>
-			${views.ProductRecommendation({part: "recommendations", props: [product.id, 3]})}
+			${views.ProductRecommendation({
+				part: "recommendations",
+				props: [product.id, 3],
+			})}
 		</div>
 	`
 })

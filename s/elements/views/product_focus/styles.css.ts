@@ -6,10 +6,12 @@ export const styles = css`
 :host {
 	display: block;
 	container-type: inline-size;
-	--frame-color: var(--sheep-frame-color, #fff2);
+	--border-radius: var(--sheep-border-radius, 0.2em);
+	--frame-padding: var(--sheep-frame-padding, 1em);
+	--frame-background: var(--sheep-frame-background, #fff2);
 }
 
-.grid {
+[part="grid"] {
 	display: grid;
 	gap: 1em;
 	grid:
@@ -26,7 +28,7 @@ export const styles = css`
 }
 
 @container (width < 30em) {
-	.grid {
+	[part="grid"] {
 		grid:
 			"feature"
 			"heading"
@@ -41,13 +43,13 @@ export const styles = css`
 }
 
 @container (width < 30em) {
-	.grid > .aside > img {
+	[part="aside"] > img {
 		width: 50cqi;
 		height: 50cqi;
 	}
 }
 
-.grid {
+[part="grid"] {
 	> figure { grid-area: feature; }
 	> h1 { grid-area: heading; }
 	> .pills { grid-area: pills; }
@@ -62,8 +64,8 @@ export const styles = css`
 	}
 
 	> figure {
-		background: var(--frame-color);
-		padding: 1em;
+		padding: var(--frame-padding);
+		background: var(--frame-background);
 		width: 100%;
 		height: 100%;
 		align-self: center;
@@ -75,6 +77,7 @@ export const styles = css`
 			height: 100%;
 			object-fit: cover;
 			user-select: none;
+			border-radius: var(--border-radius);
 		}
 	}
 
@@ -126,8 +129,8 @@ export const styles = css`
 		display: flex;
 		flex-wrap: wrap;
 		container-type: inline-size;
-		padding: 1em;
-		background: var(--frame-color);
+		padding: var(--frame-padding);
+		background: var(--frame-background);
 		justify-content: center;
 
 		> img {
@@ -137,6 +140,7 @@ export const styles = css`
 			aspect-ratio: 1 / 1;
 			object-fit: cover;
 			user-select: none;
+			border-radius: var(--border-radius);
 		}
 	}
 
@@ -159,7 +163,7 @@ export const styles = css`
 	}
 }
 
-.recommendations {
+[part="recbox"] {
 	margin-top: 4em;
 
 	> h2 {

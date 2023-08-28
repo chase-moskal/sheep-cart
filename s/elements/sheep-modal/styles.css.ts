@@ -60,16 +60,16 @@ sheep-cart {
 	color: #fff;
 	box-shadow: 1px 2px 5px #0008;
 
-	> img {
+	> [part="img"] {
 		position: fixed;
 		max-width: 90vw;
 		max-height: 90vh;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%);
-		border: 0.5em solid #ffffff5e;
+		inset: 0;
+		margin: auto;
+
 		cursor: pointer;
 		user-select: none;
+		border-radius: var(--sheep-border-radius, 0.2em);
 	}
 }
 
