@@ -13,8 +13,8 @@ export const ProductList = view({
 		views: {ProductCard},
 	}).render(_ => views => _ =>
 
-	({situation: {products, load_more_op, load_more}}: Options) =>
-		products.length > 0
+	({situation: {products, load_more_op, load_more}}: Options) => (
+		((products.length > 0)
 			? html`
 				<div class=grid>
 					${products.map(product =>
@@ -31,5 +31,7 @@ export const ProductList = view({
 			: html`
 				<p>No products found</p>
 			`
+		)
+	)
 )
 

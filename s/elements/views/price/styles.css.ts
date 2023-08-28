@@ -21,6 +21,7 @@ export const styles = css`
 .coolstack {
 	display: flex;
 	flex-direction: row-reverse;
+	flex-wrap: wrap;
 	align-items: center;
 	gap: 0.5em;
 	flex: flex-wrap;

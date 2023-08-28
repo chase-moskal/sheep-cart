@@ -3,6 +3,10 @@ import {css} from "@chasemoskal/magical"
 
 export const styles = css`
 
+:host {
+	display: block;
+	container-type: inline-size;
+}
 
 .collection_header {
 	margin-bottom: 1em;
@@ -16,6 +20,13 @@ export const styles = css`
 	grid-template-columns: repeat(auto-fill, minmax(16em, 1fr));
 	width: 100%;
 	gap: 0.5rem;
+}
+
+@container (width < 16em) {
+	.grid {
+		display: flex;
+		flex-direction: column;
+	}
 }
 
 [view="product-card"] {
