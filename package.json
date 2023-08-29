@@ -1,6 +1,6 @@
 {
 	"name": "sheep-cart",
-	"version": "0.1.3",
+	"version": "0.2.0-dev.0",
 	"description": "embed your shopify store on any website",
 	"license": "MIT",
 	"author": "Chase Moskal <chasemoskal@gmail.com>",
