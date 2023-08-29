@@ -14,22 +14,18 @@ export const style = css`
 	justify-content: center;
 
 	> [part="collection-tab"] {
+		color: inherit;
+		text-shadow: none;
 		padding: 0.2em 0.5em;
-		color: white;
 		border-radius: 0.5em;
 		font-size: 1.1em;
 		text-decoration: none;
-		text-shadow: 0.05em 0.1em 0.1em #0008;
 		transition: all 0.3s ease-in-out;
 		font-weight: bold;
 		-webkit-user-drag: none;
 		user-drag: none;
 		user-select: none;
 		overflow: hidden;
-
-		&[data-active-collection] {
-			box-shadow: 0.1em 0.2em 0.3em #0002;
-		}
 
 		position: relative;
 
@@ -48,9 +44,14 @@ export const style = css`
 			position: relative;
 		}
 
-		&[data-active-collection] > .bgimg {
-			opacity: 0.5;
-			background-position: center center;
+		&[data-active-collection] {
+			color: white;
+			text-shadow: 0.05em 0.1em 0.1em #0008;
+			box-shadow: 0.1em 0.2em 0.3em #0002;
+			& > .bgimg {
+				opacity: 0.5;
+				background-position: center center;
+			}
 		}
 	}
 }
