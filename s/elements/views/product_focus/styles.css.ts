@@ -15,14 +15,13 @@ export const styles = css`
 	display: grid;
 	gap: 1em;
 	grid:
-		"feature feature feature .       .       .      " 1fr
-		"feature feature feature heading heading heading"
-		"feature feature feature pills   pills   pills  "
-		"feature feature feature options options options"
-		"feature feature feature buy     buy     buy    "
-		"feature feature feature .       .       .      " 1fr
-		"essay   essay   essay   essay   essay   essay  "
-		"images  images  images  images  images  images ";
+		"feature feature feature .        .        .       " 1fr
+		"feature feature feature heading  heading  heading "
+		"feature feature feature pills    pills    pills   "
+		"feature feature feature variants variants variants"
+		"feature feature feature .        .        .       " 1fr
+		"essay   essay   essay   essay    essay    essay   "
+		"images  images  images  images   images   images  ";
 	grid-template-columns: repeat(auto-fit, minmax(1em, 1fr));
 	align-items: start;
 }
@@ -33,8 +32,7 @@ export const styles = css`
 			"feature"
 			"heading"
 			"pills"
-			"options"
-			"buy"
+			"variants"
 			"essay"
 			"images"
 			/ 1fr;
@@ -53,8 +51,7 @@ export const styles = css`
 	> figure { grid-area: feature; }
 	> h1 { grid-area: heading; }
 	> .pills { grid-area: pills; }
-	> .options { grid-area: options; }
-	> .buy { grid-area: buy; }
+	> .product-variant { grid-area: variants; }
 	> aside { grid-area: images; }
 	> section {
 		grid-area: essay;
@@ -89,42 +86,6 @@ export const styles = css`
 		font-size: 0.8em;
 	}
 
-	> .options {
-		font-size: 1.2em;
-		justify-self: end;
-
-		display: flex;
-		flex-direction: column;
-		align-items: end;
-		gap: 1em;
-		padding: 1em;
-
-		& select {
-			padding: 0.5em;
-			margin-left: 1em;
-		}
-	}
-
-	.buy {
-		display: flex;
-		justify-content: end;
-		font-size: 1em;
-		gap: 1rem;
-
-		> .price {
-			flex: 1;
-			display: flex;
-			justify-content: center;
-		}
-
-		> [view="coolbutton"] {
-			flex: 2;
-			&::part(button) {
-				padding: 1em;
-			}
-		}
-	}
-
 	> aside {
 		display: flex;
 		flex-wrap: wrap;
@@ -150,15 +111,6 @@ export const styles = css`
 		}
 		> section {
 			grid-area: images / images / essay / essay;
-		}
-	}
-
-	&[data-no-options] {
-		> .options {
-			display: none;
-		}
-		> .pills {
-			grid-row: span 2;
 		}
 	}
 }

@@ -13,8 +13,7 @@ import {Coolbutton} from "../coolbutton/view.js"
 import {render_img} from "./parts/render_img.js"
 import {ChoiceHelper} from "./parts/choice_helper.js"
 import {ProductHelper} from "./parts/product_helper.js"
-import {render_options} from "./parts/render_options.js"
-import {add_button} from "../coolbutton/helpers/add_button.js"
+import {ProductVariant} from "../product_variant/view.js"
 import {ProductRecommendation} from "../product_recommendation/view.js"
 
 export const ProductFocus = view({
@@ -24,9 +23,10 @@ export const ProductFocus = view({
 			Pills,
 			Price,
 			Coolbutton,
+			ProductVariant,
 			ProductRecommendation,
 		},
-	}).render(({cart, modal}) => views => use => (product: GqlProduct) => {
+	}).render(({modal}) => views => use => (product: GqlProduct) => {
 
 	const state = use.state({
 		choices: [] as Choice[],
@@ -66,20 +66,14 @@ export const ProductFocus = view({
 
 			${views.Pills({class: "pills", part: "pills", gpart: "pills", props: [product]})}
 
-			<div part=options class=options>
-				${render_options(choiceHelper, set_choice)}
-			</div>
-
-			<div part=buy class=buy>
-				${views.Price({class: "price", props: [choiceHelper.selected_variant]})}
-				${add_button({
-					Coolbutton: views.Coolbutton,
-					cart,
-					product,
-					variant_id: choiceHelper.selected_variant.id,
-					allow_select: false,
-				})}
-			</div>
+			${views.ProductVariant(
+				{
+					class: "product-variant",
+					props: [{
+						choiceHelper, product, set_choice
+					}]
+				}
+			)}
 
 			<aside part=aside class=aside>
 				${choiceHelper.side_images.map(image =>
