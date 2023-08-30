@@ -8,7 +8,7 @@ import {GqlProduct} from "shopify-shepherd"
 import {Coolbutton} from "../coolbutton/view.js"
 import {add_button} from "../coolbutton/helpers/add_button.js"
 import {ChoiceHelper} from "../product_focus/parts/choice_helper.js"
-import {render_options} from "../product_focus/parts/render_options.js"
+import {render_variant_options} from "./parts/render_variant_options.js"
 
 interface VariantOptions {
 	product: GqlProduct
@@ -33,7 +33,7 @@ export const ProductVariant = view({
 				? undefined
 				: html`
 					<div part=options class=options>
-						${render_options(choiceHelper, set_choice)}
+						${render_variant_options(choiceHelper, set_choice)}
 					</div>
 				`
 			}

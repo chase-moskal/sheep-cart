@@ -9,17 +9,39 @@ export const styles = css`
 .grid {
 	> .options {
 			font-size: 1.2em;
-			justify-self: end;
 	
 			display: flex;
 			flex-direction: column;
-			align-items: end;
 			gap: 1em;
-			padding: 1em;
+			padding: 0.5em 0px;
 	
 			& select {
 				padding: 0.5em;
 				margin-left: 1em;
+			}
+
+			.one-dimension {
+				display: flex;
+				gap: 0.2em;
+
+				> div {
+					display: flex;
+					flex-direction: column;
+					max-width: 5em;
+					overflow-x: hidden;
+					cursor: pointer;
+
+					> img {
+						max-width: 100%;
+						height: auto;
+						user-select: none;
+					}
+
+					> p {
+						font-size: 0.8em;
+						text-align: center;
+					}
+				}
 			}
 		}
 	
