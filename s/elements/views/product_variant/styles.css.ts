@@ -23,26 +23,49 @@ export const styles = css`
 			.one-dimension {
 				display: flex;
 				gap: 0.2em;
+				align-items: flex-end;
 
 				> div {
 					display: flex;
 					flex-direction: column;
 					max-width: 5em;
-					overflow-x: hidden;
+					text-align: center;
 					cursor: pointer;
 
 					> img {
 						max-width: 100%;
 						height: auto;
 						user-select: none;
+						border: 2px dashed;
+						border-color: transparent;
+						transition: all 0.3s ease-in-out;
 					}
 
 					> p {
 						font-size: 0.8em;
 						text-align: center;
 					}
+
+					.status {
+						text-transform: uppercase;
+					}
+
+					&[data-selected] {
+						> img {
+							border-color: currentColor;
+						}
+					}
+
+					&[data-in-cart] {
+						.status {
+							color: lime
+						}
+					}
+
+					&[data-sold-out] {}
 				}
 			}
+
 		}
 	
 		.buy {

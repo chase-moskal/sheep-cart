@@ -33,11 +33,11 @@ export const ProductVariant = view({
 				? undefined
 				: html`
 					<div part=options class=options>
-						${render_variant_options(choiceHelper, set_choice)}
+						${render_variant_options(choiceHelper, set_choice, cart)}
 					</div>
 				`
 			}
-	
+
 			<div part=buy class=buy>
 				${views.Price({class: "price", props: [choiceHelper.selected_variant]})}
 				${add_button({
