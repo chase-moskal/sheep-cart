@@ -41,7 +41,7 @@ export const styles = css`
 }
 
 @container (width < 30em) {
-	[part="aside"] > img {
+	[part="grid"] > [part="aside"] > img {
 		width: 50cqi;
 		height: 50cqi;
 	}

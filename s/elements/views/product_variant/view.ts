@@ -28,26 +28,24 @@ export const ProductVariant = view({
 	const {productHelper} = choiceHelper
 
 	return html`
-		<div class=grid>
-			${productHelper.variants.length < 2
-				? undefined
-				: html`
-					<div part=options class=options>
-						${render_variant_options(choiceHelper, set_choice, cart)}
-					</div>
-				`
-			}
+		${productHelper.variants.length < 2
+			? undefined
+			: html`
+				<div part=options class=options>
+					${render_variant_options(choiceHelper, set_choice, cart)}
+				</div>
+			`
+		}
 
-			<div part=buy class=buy>
-				${views.Price({class: "price", props: [choiceHelper.selected_variant]})}
-				${add_button({
-					Coolbutton: views.Coolbutton,
-					cart,
-					product,
-					variant_id: choiceHelper.selected_variant.id,
-					allow_select: false,
-				})}
-			</div>
+		<div part=buy class=buy>
+			${views.Price({class: "price", props: [choiceHelper.selected_variant]})}
+			${add_button({
+				Coolbutton: views.Coolbutton,
+				cart,
+				product,
+				variant_id: choiceHelper.selected_variant.id,
+				allow_select: false,
+			})}
 		</div>
 	`
 })
