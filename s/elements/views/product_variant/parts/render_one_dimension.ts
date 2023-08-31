@@ -1,8 +1,11 @@
 
-import {html} from "lit"
-import {ChoiceHelper} from "../../product_focus/parts/choice_helper.js"
-import {GqlImage, GqlVariant} from "shopify-shepherd"
+import {html, svg} from "lit"
+
 import {Cart} from "../../../../carting/cart.js"
+import {ChoiceHelper} from "../../product_focus/parts/choice_helper.js"
+
+import icon_x from "../../../../icons/feather/icon_x.js"
+import icon_check from "../../../../icons/feather/icon_check.js"
 
 export function render_one_dimension(
 		choiceHelper: ChoiceHelper,
@@ -33,6 +36,12 @@ export function render_one_dimension(
 						? ""
 						: "sold out"
 
+				const icon = status === "in cart"
+					? html`<div class=icon>${icon_check(svg)}</div>`
+					: status === "sold out"
+						? html`<div class=icon>${icon_x(svg)}</div>`
+						: undefined
+
 				return html`
 					<div
 						@click=${() => set_choice(name, value)}
@@ -40,10 +49,12 @@ export function render_one_dimension(
 						?data-in-cart=${status === "in cart"}
 						?data-sold-out=${status === "sold out"}>
 						${!!status ? html`<p class=status>${status}</p>` : undefined}
-						<img
-							alt="${img.altText}"
-							src="${img.url_tiny}"
-							/>
+						<div class=img>
+							<img
+								alt="${img.altText}"
+								src="${img.url_tiny}"/>
+							${icon}
+						</div>
 						<p>${v.title}</p>
 					</div>
 				`

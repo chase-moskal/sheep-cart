@@ -5,6 +5,9 @@ export const styles = css`
 
 :host {
 	display: block;
+	--in-cart-color: var(--variant-in-cart-color, lime);
+	--sold-out-color: var(--variant-sold-out-color, red);
+	--select-highlight-color: var(--varaint-select-color);
 }
 .grid {
 	> .options {
@@ -13,7 +16,7 @@ export const styles = css`
 			display: flex;
 			flex-direction: column;
 			gap: 1em;
-			padding: 0.5em 0px;
+			padding: 1em 0px;
 	
 			& select {
 				padding: 0.5em;
@@ -23,7 +26,6 @@ export const styles = css`
 			.one-dimension {
 				display: flex;
 				gap: 0.2em;
-				align-items: flex-end;
 
 				> div {
 					display: flex;
@@ -31,14 +33,34 @@ export const styles = css`
 					max-width: 5em;
 					text-align: center;
 					cursor: pointer;
+					position: relative;
 
-					> img {
-						max-width: 100%;
-						height: auto;
-						user-select: none;
-						border: 2px dashed;
+					.img {
+						display: flex;
+						position: relative;
+						border: 3px dashed;
 						border-color: transparent;
 						transition: all 0.3s ease-in-out;
+
+						.icon {
+							position: absolute;
+							inset: 0;
+							padding: 0.5em;
+							backdrop-filter: brightness(0.6);
+							color: grey;
+
+							> svg {
+								width: 100%;
+    						height: 100%;
+							}
+						}
+
+						> img {
+							max-width: 100%;
+							height: auto;
+							user-select: none;
+							
+						}
 					}
 
 					> p {
@@ -48,21 +70,31 @@ export const styles = css`
 
 					.status {
 						text-transform: uppercase;
+						position: absolute;
+						top: -15%;
+						width: 100%;
 					}
 
 					&[data-selected] {
-						> img {
-							border-color: currentColor;
+						.img {
+							border-color: var(--select-highlight-color, #fbf505);
 						}
 					}
 
 					&[data-in-cart] {
 						.status {
-							color: lime
+							color: var(--in-cart-color);
+						}
+						.icon {
+							color: var(--in-cart-color);
 						}
 					}
 
-					&[data-sold-out] {}
+					&[data-sold-out] {
+						.status {
+							color: var(--sold-out-color);
+						}
+					}
 				}
 			}
 
