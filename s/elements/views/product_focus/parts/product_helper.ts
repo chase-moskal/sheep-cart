@@ -1,5 +1,5 @@
 
-import {GqlCollection, GqlImage, GqlProduct} from "shopify-shepherd"
+import {GqlCollection, GqlImage, GqlProduct, GqlVariant} from "shopify-shepherd"
 
 export class ProductHelper {
 	constructor(public readonly product: GqlProduct) {}
@@ -43,6 +43,25 @@ export class ProductHelper {
 		if (variant && variant.image) {
 			return this.images.find(i => i.id === variant!.image!.id)
 		}
+	}
+
+	get_variant_chosen_image(variant: GqlVariant) {
+		let image: GqlImage | undefined
+
+		if (variant.image)
+			image = this.images
+				.find(i => i.id === variant.image!.id)
+
+		if (!image)
+			image = this.featured_image
+
+		return image
+	}
+
+	get_variant_side_images(variant: GqlVariant) {
+		const primary_image = this.get_variant_chosen_image(variant)
+		return this.images
+			.filter(image => image.id !== primary_image?.id)
 	}
 
 	cross_reference_collections(all_collections: GqlCollection[]) {

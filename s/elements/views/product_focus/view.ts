@@ -1,17 +1,16 @@
 
 import {html} from "lit"
-import {GqlProduct} from "shopify-shepherd"
+import {GqlProduct, GqlVariant} from "shopify-shepherd"
 import {unsafeHTML} from "lit/directives/unsafe-html.js"
 
 import {img} from "./parts/img.js"
+import {Img} from "./parts/types.js"
 import {view} from "../../frontend.js"
 import {Pills} from "../pills/view.js"
 import {Price} from "../price/view.js"
 import {styles} from "./styles.css.js"
-import {Choice, Img} from "./parts/types.js"
 import {Coolbutton} from "../coolbutton/view.js"
 import {render_img} from "./parts/render_img.js"
-import {ChoiceHelper} from "./parts/choice_helper.js"
 import {ProductHelper} from "./parts/product_helper.js"
 import {ProductVariant} from "../product_variant/view.js"
 import {ProductRecommendation} from "../product_recommendation/view.js"
@@ -28,31 +27,26 @@ export const ProductFocus = view({
 		},
 	}).render(({modal}) => views => use => (product: GqlProduct) => {
 
+	const product_helper = new ProductHelper(product)
+
 	const state = use.state({
-		choices: [] as Choice[],
+		selected_varaint: product_helper.first_variant,
 	})
 
-	const productHelper = new ProductHelper(product)
-	const choiceHelper = new ChoiceHelper(productHelper, state.choices)
-
-	function set_choice(name: string, value: undefined | string) {
-		state.choices = state.choices
-			.filter(choice => choice.name !== name)
-
-		if (value !== undefined)
-			state.choices.push({name, value})
+	function set_selected_variant(variant: GqlVariant) {
+		state.selected_varaint = variant
 	}
 
 	return html`
 		<div
 			part=grid
-			?data-no-additional-images=${productHelper.images.length < 2}
-			?data-no-options=${productHelper.variants.length < 2}>
+			?data-no-additional-images=${product_helper.images.length < 2}
+			?data-no-options=${product_helper.variants.length < 2}>
 
 			<figure part=figure>
 				${render_img({
 					part: "img",
-					img: img.large(choiceHelper.chosen_image),
+					img: img.large(product_helper.get_variant_chosen_image(state.selected_varaint)),
 					onclick: (_: MouseEvent, img: Img) => (
 						modal.open({
 							kind: "image",
@@ -70,13 +64,14 @@ export const ProductFocus = view({
 				{
 					class: "product-variant",
 					props: [{
-						choiceHelper, product, set_choice
+						product,
+						on_variant_change: (variant) => set_selected_variant(variant)
 					}]
 				}
 			)}
 
 			<aside part=aside class=aside>
-				${choiceHelper.side_images.map(image =>
+				${product_helper.get_variant_side_images(state.selected_varaint).map(image =>
 					render_img({
 						part: "img",
 						img: img.large(image),
