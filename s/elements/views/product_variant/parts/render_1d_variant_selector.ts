@@ -1,23 +1,14 @@
 
 import {html, svg} from "lit"
-import {GqlVariant} from "shopify-shepherd"
 
-import {Cart} from "../../../../carting/cart.js"
-import {ProductHelper} from "../../product_focus/parts/product_helper.js"
+import {VariantSelectorOptions} from "./types.js"
 
 import icon_x from "../../../../icons/feather/icon_x.js"
 import icon_check from "../../../../icons/feather/icon_check.js"
 
-interface VariantSelectorOptions1D {
-	cart: Cart
-	selected_variant: GqlVariant
-	product_helper: ProductHelper
-	set_variant: (variant: GqlVariant) => void
-}
-
 export function render_1d_variant_selector({
 		cart, product_helper, selected_variant, set_variant
-	}: VariantSelectorOptions1D) {
+	}: VariantSelectorOptions) {
 
 	function is_selected(id: string) {
 		return id === selected_variant.id
@@ -47,6 +38,7 @@ export function render_1d_variant_selector({
 
 				return html`
 					<div
+						class=thumbnail
 						@click=${() => set_variant(v)}
 						?data-selected=${is_selected(v.id)}
 						?data-in-cart=${status === "in cart"}

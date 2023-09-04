@@ -1,15 +1,8 @@
 
 import {html} from "lit"
 
-import {Choice} from "../../product_focus/parts/types.js"
+import {VariantSelectorOptionsND} from "./types.js"
 import {ChoiceHelper} from "../../product_focus/parts/choice_helper.js"
-import {ProductHelper} from "../../product_focus/parts/product_helper.js"
-
-interface VariantSelectorOptionsND {
-	choices: Choice[]
-	product_helper: ProductHelper
-	set_choices: (name: string, value: string) => void
-}
 
 export function render_variant_selector_dropdowns({
 		choices, product_helper, set_choices

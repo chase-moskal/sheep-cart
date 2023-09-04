@@ -11,6 +11,7 @@ import {add_button} from "../coolbutton/helpers/add_button.js"
 import {ChoiceHelper} from "../product_focus/parts/choice_helper.js"
 import {ProductHelper} from "../product_focus/parts/product_helper.js"
 import {render_1d_variant_selector} from "./parts/render_1d_variant_selector.js"
+import {render_2d_variant_selector} from "./parts/render_2d_variant_selector.js"
 import {render_variant_selector_dropdowns} from "./parts/render_variant_selector_dropdowns.js"
 import {ascertain_variant_situation_for_product} from "./parts/ascertain_variant_situation_for_product.js"
 
@@ -69,14 +70,19 @@ export const ProductVariant = view({
 				})
 			}
 		
-			// case "2-dimensional": {
-			// 	const set_variant = (variant: GqlVariant) => {
-			// 		state.situation = {
-			// 			...state.situation, variant
-			// 		} as VariantGridSituation.TwoDimensional
-			// 	}
-			// 	return render_2d_variant_selector(state.situation, set_variant)
-			// }
+			case "2-dimensional": {
+				const set_variant = (variant: GqlVariant) => {
+					state.situation = {
+						...state.situation, variant
+					} as VariantGridSituation.TwoDimensional
+				}
+				return render_2d_variant_selector({
+					cart,
+					set_variant,
+					product_helper,
+					selected_variant,
+				})
+			}
 		
 			case "n-dimensional": {
 				const set_choices = (name: string, value: string) => {

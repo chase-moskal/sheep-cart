@@ -15,17 +15,16 @@ export function ascertain_variant_situation_for_product(product: GqlProduct, pro
 		}
 	}
 
-	// else if (product.options.length === 2) {
-	// 	return {
-	// 		situation: {
-	// 			kind: "2-dimensional",
-	// 			variant: product_helper.first_variant,
-	// 		} as VariantGridSituation.TwoDimensional
-	// 	}
-	// }
+	else if (product.options.length === 2) {
+		return {
+			situation: {
+				kind: "2-dimensional",
+				variant: product_helper.first_variant,
+			} as VariantGridSituation.TwoDimensional
+		}
+	}
 
-	// boolean check is temporary (should be >2)
-	else if (product.options.length > 1) {
+	else if (product.options.length > 2) {
 		return {
 			situation: {
 				kind: "n-dimensional",

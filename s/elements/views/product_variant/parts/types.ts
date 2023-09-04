@@ -1,6 +1,8 @@
 
 import {GqlVariant} from "shopify-shepherd"
 import {Choice} from "../../product_focus/parts/types.js"
+import {Cart} from "../../../../carting/cart.js"
+import {ProductHelper} from "../../product_focus/parts/product_helper.js"
 
 export namespace VariantGridSituation {
 	export type Kind = "1-dimensional" | "2-dimensional" | "n-dimensional"
@@ -25,4 +27,18 @@ export namespace VariantGridSituation {
 	}
 
 	export type Whatever = OneDimensional | TwoDimensional | NDimensional
+}
+
+
+export interface VariantSelectorOptions {
+	cart: Cart
+	selected_variant: GqlVariant
+	product_helper: ProductHelper
+	set_variant: (variant: GqlVariant) => void
+}
+
+export interface VariantSelectorOptionsND {
+	choices: Choice[]
+	product_helper: ProductHelper
+	set_choices: (name: string, value: string) => void
 }
