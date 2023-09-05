@@ -38,7 +38,7 @@ export const styles = css`
 	.thumbnail {
 		display: flex;
 		flex-direction: column;
-		max-width: 4em;
+		max-width: 5em;
 		text-align: center;
 		cursor: pointer;
 		position: relative;
@@ -102,6 +102,63 @@ export const styles = css`
 			.status {
 				color: var(--sold-out-color);
 			}
+		}
+	}
+
+	.v-grid {
+		display: grid;
+		gap: 0.3em;
+		width: max-content;
+
+		grid:
+			".    vtwo   vtwo"
+			"vone thumbs thumbs";
+
+		> .vone {
+			grid-area: vone;
+			display: grid;
+			align-items: center;
+			font-size: 0.75em;
+			max-width: 7em;
+			text-align: center;
+		}
+		> .vtwo {
+			grid-area: vtwo;
+			display: grid;
+			grid-auto-flow: column;
+			justify-items: center;
+
+			font-size: 0.75em;
+			grid-template-columns: repeat(auto-fit, minmax(4em, 1fr));
+		}
+		> .thumbs {
+			grid-area: thumbs;
+			 > .thmb {
+				display: grid;
+				grid-auto-flow: column;
+				justify-content: center;
+			 }
+		}
+
+	}
+
+	.dd {
+		width: fit-content;
+
+		.d-y {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			gap: 0.5em;
+
+			> p {
+				font-size: 0.75em;
+			}
+		}
+
+		.thmb {
+			display: grid;
+			grid-auto-flow: column;
 		}
 	}
 

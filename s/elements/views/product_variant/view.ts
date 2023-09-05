@@ -75,6 +75,8 @@ export const ProductVariant = view({
 					state.situation = {
 						...state.situation, variant
 					} as VariantGridSituation.TwoDimensional
+
+					on_variant_change(variant)
 				}
 				return render_2d_variant_selector({
 					cart,
