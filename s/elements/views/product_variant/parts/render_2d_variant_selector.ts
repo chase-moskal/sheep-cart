@@ -52,7 +52,10 @@ export function render_2d_variant_selector({
 									<div
 										part=thumbnail
 										class=thumbnail
-										@click=${() => set_variant(v)}
+										@click=${(e: Event) => {
+											e.preventDefault()
+											set_variant(v)
+											}}
 										?data-selected=${is_selected(v.id)}
 										?data-in-cart=${status === "in cart"}
 										?data-sold-out=${status === "sold out"}>

@@ -22,6 +22,7 @@ export function render_variant_selector_dropdowns({
 
 	function handle_input(name: string) {
 		return (event: InputEvent) => {
+			event.preventDefault()
 			const target = event.target as HTMLSelectElement
 			set_choices(name, target.value)
 		}

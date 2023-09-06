@@ -11,6 +11,8 @@ export const styles = css`
 	text-decoration: none;
 	color: inherit;
 
+	position: relative;
+
 	> img {
 		flex: 1;
 		max-width: 4rem;
@@ -59,6 +61,24 @@ export const styles = css`
 				margin-left: auto;
 			}
 		}
+	}
+
+	.popup {
+		position: absolute;
+		top: 100%;
+		min-width: 100%;
+
+		z-index: 1;
+		background: cadetblue;
+	}
+
+	.blanket {
+		position: fixed;
+		inset: 0;
+	}
+
+	.product-variant {
+		position: relative;
 	}
 }
 

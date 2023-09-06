@@ -53,7 +53,7 @@ export const ProductVariant = view({
 
 	const render_variant_selector = () => {
 		switch (state.situation.kind) {
-	
+
 			case "1-dimensional": {
 				const set_variant = (variant: GqlVariant) => {
 					state.situation = {
@@ -69,7 +69,7 @@ export const ProductVariant = view({
 					selected_variant,
 				})
 			}
-		
+
 			case "2-dimensional": {
 				const set_variant = (variant: GqlVariant) => {
 					state.situation = {
@@ -85,7 +85,7 @@ export const ProductVariant = view({
 					selected_variant,
 				})
 			}
-		
+
 			case "n-dimensional": {
 				const set_choices = (name: string, value: string) => {
 					const situation = state.situation as VariantGridSituation.NDimensional
@@ -105,7 +105,6 @@ export const ProductVariant = view({
 
 					on_variant_change(choice_helper.selected_variant)
 				}
-
 				return render_variant_selector_dropdowns({
 					cart,
 					set_choices,
