@@ -15,6 +15,7 @@ export function render_2d_variant_selector({
 	const first_option = product.options[0]
 	const values_for_first_option = product.options[0].values
 	const values_for_second_option = product.options[1].values
+	const names = product.options.map(p => p.name)
 
 	const y = first_option.values.map(val => ({
 		value: val,
@@ -27,6 +28,9 @@ export function render_2d_variant_selector({
 
 	return html`
 		<div class="v-grid">
+			<div class=names>
+				${names.map(n => html`<p>${n}</p>`)}
+			</div>
 			<div class=vone>
 				${values_for_first_option.map(v => (
 					html`<p>${v}</p>`

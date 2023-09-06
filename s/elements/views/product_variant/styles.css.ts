@@ -108,19 +108,30 @@ export const styles = css`
 	.v-grid {
 		display: grid;
 		gap: 0.3em;
-		width: max-content;
+		max-width: max-content;
 
 		grid:
-			".    vtwo   vtwo"
-			"vone thumbs thumbs";
+			"names vtwo   vtwo"
+			"vone  thumbs thumbs";
+
+		> .names {
+			grid-area: names;
+			font-size: 0.75em;
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			grid-template-rows: 1fr 1fr;
+			color: #e8ee25;
+
+			& :nth-child(1) { grid-area: 2 / 1; }
+			& :nth-child(2) { grid-area: 1 / 2; }
+		}
 
 		> .vone {
 			grid-area: vone;
 			display: grid;
 			align-items: center;
 			font-size: 0.75em;
-			max-width: 7em;
-			text-align: center;
+			max-width: 6em;
 		}
 		> .vtwo {
 			grid-area: vtwo;
@@ -140,26 +151,6 @@ export const styles = css`
 			 }
 		}
 
-	}
-
-	.dd {
-		width: fit-content;
-
-		.d-y {
-			display: flex;
-			align-items: center;
-			justify-content: space-between;
-			gap: 0.5em;
-
-			> p {
-				font-size: 0.75em;
-			}
-		}
-
-		.thmb {
-			display: grid;
-			grid-auto-flow: column;
-		}
 	}
 
 }

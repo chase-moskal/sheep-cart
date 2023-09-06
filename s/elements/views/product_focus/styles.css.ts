@@ -26,7 +26,7 @@ export const styles = css`
 	align-items: start;
 }
 
-@container (width < 30em) {
+@container (width < 40em) {
 	[part="grid"] {
 		grid:
 			"feature"
