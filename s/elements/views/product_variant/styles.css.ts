@@ -33,6 +33,13 @@ export const styles = css`
 		display: flex;
 		gap: 0.2em;
 		padding: 1em 0;
+
+		.status {
+			text-transform: uppercase;
+			position: absolute;
+			top: -15%;
+			width: 100%;
+		}
 	}
 
 	.thumbnail {
@@ -58,8 +65,8 @@ export const styles = css`
 				color: grey;
 
 				> svg {
-					width: 100%;
-					height: 100%;
+					width: 85%;
+					height: 85%;
 				}
 			}
 
@@ -74,13 +81,6 @@ export const styles = css`
 		> p {
 			font-size: 0.7em;
 			text-align: center;
-		}
-
-		.status {
-			text-transform: uppercase;
-			position: absolute;
-			top: -15%;
-			width: 100%;
 		}
 
 		&[data-selected] {
@@ -107,7 +107,6 @@ export const styles = css`
 
 	.v-grid {
 		display: grid;
-		gap: 0.3em;
 		max-width: max-content;
 
 		grid:
@@ -117,13 +116,21 @@ export const styles = css`
 		> .names {
 			grid-area: names;
 			font-size: 0.75em;
-			display: grid;
-			grid-template-columns: 1fr 1fr;
-			grid-template-rows: 1fr 1fr;
-			color: #e8ee25;
+			display: flex;
+			flex-direction: column-reverse;
+			text-transform: uppercase;
+			text-align: center;
+			line-height: 1.7;
 
-			& :nth-child(1) { grid-area: 2 / 1; }
-			& :nth-child(2) { grid-area: 1 / 2; }
+			& :nth-child(1) {
+				background: darkslategray;
+				color: white;
+			}
+			& :nth-child(2) {
+				border-top-left-radius: 0.5em;
+				background: cadetblue;
+				color: white;
+			}
 		}
 
 		> .vone {
@@ -132,15 +139,21 @@ export const styles = css`
 			align-items: center;
 			font-size: 0.75em;
 			max-width: 6em;
+
+			text-align: center;
+			padding: 0 0.5em;
+			width: min-content;
+			background: darkslategrey;
 		}
 		> .vtwo {
 			grid-area: vtwo;
 			display: grid;
 			grid-auto-flow: column;
-			justify-items: center;
-
+			place-items: center;
 			font-size: 0.75em;
 			grid-template-columns: repeat(auto-fit, minmax(4em, 1fr));
+
+			background: cadetblue;
 		}
 		> .thumbs {
 			grid-area: thumbs;
@@ -149,6 +162,17 @@ export const styles = css`
 				grid-auto-flow: column;
 				justify-content: center;
 			 }
+		}
+
+		.icon {
+			display: flex;
+			align-items: center;
+			flex-direction: column;
+			text-transform: uppercase;
+
+			> p {
+				font-size: 0.6em;
+			}
 		}
 
 	}

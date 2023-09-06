@@ -60,9 +60,9 @@ export function render_2d_variant_selector({
 										: "sold out"
 				
 								const icon = status === "in cart"
-									? html`<div class=icon>${icon_check(svg)}</div>`
+									? icon_check(svg)
 									: status === "sold out"
-										? html`<div class=icon>${icon_x(svg)}</div>`
+										? icon_x(svg)
 										: undefined
 				
 								return html`
@@ -71,12 +71,20 @@ export function render_2d_variant_selector({
 										@click=${() => set_variant(v)}
 										?data-selected=${is_selected(v.id)}
 										?data-in-cart=${status === "in cart"}
-										?data-sold-out=${status === "sold out"}>-->
+										?data-sold-out=${status === "sold out"}>
 										<div class=img>
 											<img
 												alt="${img.altText}"
 												src="${img.url_tiny}"/>
-											${icon}
+											${!!status
+													? html`
+														<div class=icon>
+															<p class=status>${status}</p>
+															${icon}
+														</div>
+													`
+													: undefined
+												}
 										</div>
 									</div>
 								`
