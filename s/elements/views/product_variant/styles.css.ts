@@ -113,7 +113,7 @@ export const styles = css`
 			"names vtwo   vtwo"
 			"vone  thumbs thumbs";
 
-		> .names {
+		> .option_names {
 			grid-area: names;
 			font-size: 0.75em;
 			display: flex;

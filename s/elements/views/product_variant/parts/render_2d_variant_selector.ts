@@ -1,10 +1,8 @@
 
-import {html, svg} from "lit"
+import {html} from "lit"
 
 import {VariantSelectorOptions} from "./types.js"
-
-import icon_x from "../../../../icons/feather/icon_x.js"
-import icon_check from "../../../../icons/feather/icon_check.js"
+import {extract_variant_details} from "./extract_variant_details.js"
 
 export function render_2d_variant_selector({
 		cart, set_variant, product_helper, selected_variant
@@ -13,13 +11,13 @@ export function render_2d_variant_selector({
 	const {product} = product_helper
 
 	const first_option = product.options[0]
-	const values_for_first_option = product.options[0].values
+	const values_for_first_option = first_option.values
 	const values_for_second_option = product.options[1].values
-	const names = product.options.map(p => p.name)
+	const option_names = product.options.map(product => product.name)
 
-	const y = first_option.values.map(val => ({
-		value: val,
-		variants: product_helper.variants.filter(v => v.title.includes(val))
+	const variant_grid = first_option.values.map(value => ({
+		value,
+		variants: product_helper.variants.filter(v => v.title.includes(value))
 	}))
 
 	function is_selected(id: string) {
@@ -28,43 +26,28 @@ export function render_2d_variant_selector({
 
 	return html`
 		<div class="v-grid">
-			<div class=names>
-				${names.map(n => html`<p>${n}</p>`)}
+			<div class=option_names>
+				${option_names.map(name => html`<p>${name}</p>`)}
 			</div>
 			<div class=vone>
-				${values_for_first_option.map(v => (
-					html`<p>${v}</p>`
+				${values_for_first_option.map(value => (
+					html`<p>${value}</p>`
 				))}
 			</div>
 			<div class=vtwo>
-				${values_for_second_option.map(v => (
-					html`<p>${v}</p>`
+				${values_for_second_option.map(value => (
+					html`<p>${value}</p>`
 				))}
 			</div>
 			<div class=thumbs>
-				${y.map((d) => (
+				${variant_grid.map(row => (
 					html`
 						<div class=thmb>
-							${d.variants.map(v => {
-								const img = product_helper.get_variant_image(v.id) ?? {
-									altText: `${v.title} image`,
-									url_tiny: "https://i.imgur.com/h1v2noQ.webp"
-								}
-								const unit = cart.units
-									.find(u => u.variant_id === v.id)
-				
-								const status = unit
-									? "in cart"
-									: v.availableForSale
-										? ""
-										: "sold out"
-				
-								const icon = status === "in cart"
-									? icon_check(svg)
-									: status === "sold out"
-										? icon_x(svg)
-										: undefined
-				
+							${row.variants.map(v => {
+								const {
+									img, icon, status
+								} = extract_variant_details(v, cart, product_helper)
+
 								return html`
 									<div
 										class=thumbnail
