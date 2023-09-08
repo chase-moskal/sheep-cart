@@ -38,6 +38,7 @@ export interface VariantSelectorOptions {
 }
 
 export interface VariantSelectorOptionsND {
+	cart: Cart
 	choices: Choice[]
 	product_helper: ProductHelper
 	set_choices: (name: string, value: string) => void

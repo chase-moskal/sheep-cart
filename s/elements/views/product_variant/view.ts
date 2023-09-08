@@ -107,6 +107,7 @@ export const ProductVariant = view({
 				}
 
 				return render_variant_selector_dropdowns({
+					cart,
 					set_choices,
 					product_helper,
 					choices: state.situation.choices,

@@ -17,17 +17,7 @@ export const styles = css`
 }
 
 .options {
-	font-size: 1.2em;
-
-	display: flex;
-	flex-direction: column;
-	gap: 1em;
 	padding: 1em 0px;
-
-	& select {
-		padding: 0.5em;
-		margin-left: 1em;
-	}
 
 	.one-dimension {
 		display: flex;
@@ -174,6 +164,51 @@ export const styles = css`
 				font-size: 0.6em;
 			}
 		}
+
+	}
+
+	.nd-grid {
+		display: flex;
+		gap: 1.5em;
+
+		.dropdowns {
+			display: flex;
+			flex-direction: column;
+			gap: 1em;
+
+			& select {
+				padding: 0.5em;
+				margin-left: 1em;
+			}
+		}
+
+		.cart-items {
+			display: flex;
+			flex-direction: column;
+			gap: 0.3em;
+
+			> p {
+				text-transform: uppercase;
+			}
+
+			.item {
+				display: flex;
+				gap: 1em;
+				align-items: center;
+
+				> img {
+					max-width: 3em
+				}
+
+				&[data-selected] {
+					> img {
+						border: 2px dashed;
+						border-color: var(--select-highlight-color, #fbf505);
+					}
+				}
+			}
+		}
+
 
 	}
 
