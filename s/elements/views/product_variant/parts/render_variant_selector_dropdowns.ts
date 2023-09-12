@@ -28,7 +28,7 @@ export function render_variant_selector_dropdowns({
 	}
 
 	return html`
-		<div class=nd-grid>
+		<div class="n-d-selector">
 			<div class=dropdowns>
 				${product.options.map(({name, values}) => html`
 				<label>
@@ -65,5 +65,4 @@ export function render_variant_selector_dropdowns({
 		</div>
 	`
 }
-
 

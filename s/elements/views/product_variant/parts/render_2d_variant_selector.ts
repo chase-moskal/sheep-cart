@@ -25,24 +25,24 @@ export function render_2d_variant_selector({
 	}
 
 	return html`
-		<div class="v-grid">
-			<div class=option_names>
+		<div class="two-d-selector">
+			<div class=option-names>
 				${option_names.map(name => html`<p>${name}</p>`)}
 			</div>
-			<div class=vone>
+			<div class="values-one">
 				${values_for_first_option.map(value => (
 					html`<p>${value}</p>`
 				))}
 			</div>
-			<div class=vtwo>
+			<div class="values-two">
 				${values_for_second_option.map(value => (
 					html`<p>${value}</p>`
 				))}
 			</div>
-			<div class=thumbs>
+			<div class="thumbnail-grid">
 				${variant_grid.map(row => (
 					html`
-						<div class=thmb>
+						<div class=row>
 							${row.variants.map(v => {
 								const {
 									img, icon, status
@@ -50,6 +50,7 @@ export function render_2d_variant_selector({
 
 								return html`
 									<div
+										part=thumbnail
 										class=thumbnail
 										@click=${() => set_variant(v)}
 										?data-selected=${is_selected(v.id)}

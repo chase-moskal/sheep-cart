@@ -11,15 +11,15 @@ export const styles = css`
 }
 
 @container (width < 30em) {
-	.one-dimension {
+	.one-d-selector {
 		justify-content: center;
 	}
 }
 
 .options {
-	padding: 1em 0px;
+	margin-bottom: 1em;
 
-	.one-dimension {
+	.one-d-selector {
 		display: flex;
 		gap: 0.2em;
 		padding: 1em 0;
@@ -30,15 +30,138 @@ export const styles = css`
 			top: -15%;
 			width: 100%;
 		}
+
+		.thumbnail {
+			max-width: 5em;
+		}
+	}
+
+	.two-d-selector {
+		display: grid;
+		max-width: max-content;
+
+		grid:
+			"names vtwo   vtwo"
+			"vone  thumbs thumbs";
+
+		> .option-names {
+			grid-area: names;
+			font-size: 0.75em;
+			display: flex;
+			flex-direction: column-reverse;
+			text-transform: uppercase;
+			text-align: center;
+			line-height: 1.7;
+
+			& :nth-child(1) {
+				background: darkslategray;
+				color: white;
+			}
+			& :nth-child(2) {
+				border-top-left-radius: 0.5em;
+				background: cadetblue;
+				color: white;
+			}
+		}
+
+		> .values-one {
+			grid-area: vone;
+			display: grid;
+			align-items: center;
+			font-size: 0.75em;
+			max-width: 6em;
+
+			text-align: center;
+			padding: 0 0.5em;
+			width: min-content;
+			background: darkslategrey;
+		}
+
+		> .values-two {
+			grid-area: vtwo;
+			display: grid;
+			place-items: center;
+			font-size: 0.75em;
+			grid-template-columns: repeat(auto-fit, minmax(4em, 1fr));
+
+			background: cadetblue;
+		}
+
+		> .thumbnail-grid {
+			grid-area: thumbs;
+			 > .row {
+				display: grid;
+				grid-auto-flow: column;
+				justify-content: center;
+
+				> .thumbnail {
+					max-width: 7em;
+				}
+			 }
+		}
+
+		.icon {
+			display: flex;
+			align-items: center;
+			flex-direction: column;
+			text-transform: uppercase;
+
+			> p {
+				font-size: 0.75em;
+			}
+		}
+
+	}
+
+	.n-d-selector {
+		display: flex;
+		gap: 1.5em;
+
+		.dropdowns {
+			display: flex;
+			flex-direction: column;
+			gap: 1em;
+
+			& select {
+				padding: 0.5em;
+				margin-left: 1em;
+			}
+		}
+
+		.cart-items {
+			display: flex;
+			flex-direction: column;
+			gap: 0.3em;
+
+			> p {
+				text-transform: uppercase;
+			}
+
+			.item {
+				display: flex;
+				gap: 1em;
+				align-items: center;
+
+				> img {
+					max-width: 3em
+				}
+
+				&[data-selected] {
+					> img {
+						border: 2px dashed;
+						border-color: var(--select-highlight-color, #fbf505);
+					}
+				}
+			}
+		}
 	}
 
 	.thumbnail {
 		display: flex;
 		flex-direction: column;
-		max-width: 5em;
 		text-align: center;
-		cursor: pointer;
 		position: relative;
+		cursor: pointer;
 
 		.img {
 			display: flex;
@@ -94,124 +217,6 @@ export const styles = css`
 			}
 		}
 	}
-
-	.v-grid {
-		display: grid;
-		max-width: max-content;
-
-		grid:
-			"names vtwo   vtwo"
-			"vone  thumbs thumbs";
-
-		> .option_names {
-			grid-area: names;
-			font-size: 0.75em;
-			display: flex;
-			flex-direction: column-reverse;
-			text-transform: uppercase;
-			text-align: center;
-			line-height: 1.7;
-
-			& :nth-child(1) {
-				background: darkslategray;
-				color: white;
-			}
-			& :nth-child(2) {
-				border-top-left-radius: 0.5em;
-				background: cadetblue;
-				color: white;
-			}
-		}
-
-		> .vone {
-			grid-area: vone;
-			display: grid;
-			align-items: center;
-			font-size: 0.75em;
-			max-width: 6em;
-
-			text-align: center;
-			padding: 0 0.5em;
-			width: min-content;
-			background: darkslategrey;
-		}
-		> .vtwo {
-			grid-area: vtwo;
-			display: grid;
-			grid-auto-flow: column;
-			place-items: center;
-			font-size: 0.75em;
-			grid-template-columns: repeat(auto-fit, minmax(4em, 1fr));
-
-			background: cadetblue;
-		}
-		> .thumbs {
-			grid-area: thumbs;
-			 > .thmb {
-				display: grid;
-				grid-auto-flow: column;
-				justify-content: center;
-			 }
-		}
-
-		.icon {
-			display: flex;
-			align-items: center;
-			flex-direction: column;
-			text-transform: uppercase;
-
-			> p {
-				font-size: 0.6em;
-			}
-		}
-
-	}
-
-	.nd-grid {
-		display: flex;
-		gap: 1.5em;
-
-		.dropdowns {
-			display: flex;
-			flex-direction: column;
-			gap: 1em;
-
-			& select {
-				padding: 0.5em;
-				margin-left: 1em;
-			}
-		}
-
-		.cart-items {
-			display: flex;
-			flex-direction: column;
-			gap: 0.3em;
-
-			> p {
-				text-transform: uppercase;
-			}
-
-			.item {
-				display: flex;
-				gap: 1em;
-				align-items: center;
-
-				> img {
-					max-width: 3em
-				}
-
-				&[data-selected] {
-					> img {
-						border: 2px dashed;
-						border-color: var(--select-highlight-color, #fbf505);
-					}
-				}
-			}
-		}
-
-
-	}
-
 }
 
 .buy {
