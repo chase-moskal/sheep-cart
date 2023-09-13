@@ -9,10 +9,10 @@ import {Pills} from "../pills/view.js"
 import {Coolbutton} from "../coolbutton/view.js"
 import {img} from "../product_focus/parts/img.js"
 import {display_price} from "./parts/display_price.js"
+import {ProductVariant} from "../product_variant/view.js"
 import {add_button} from "../coolbutton/helpers/add_button.js"
 import {render_img} from "../product_focus/parts/render_img.js"
 import {ProductHelper} from "../product_focus/parts/product_helper.js"
-import {ProductVariant} from "../product_variant/view.js"
 
 export const ProductCard = view({
 		styles,
@@ -79,6 +79,7 @@ export const ProductCard = view({
 								}}
 								class="blanket"></div>
 							${views.ProductVariant({
+								part: "variant",
 								class: "product-variant",
 								props: [{
 									product,

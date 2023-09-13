@@ -62,6 +62,7 @@ export const ProductFocus = view({
 
 			${views.ProductVariant(
 				{
+					part: "variant",
 					class: "product-variant",
 					props: [{
 						product,

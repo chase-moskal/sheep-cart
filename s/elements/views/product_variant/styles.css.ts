@@ -7,13 +7,8 @@ export const styles = css`
 	display: block;
 	--in-cart-color: var(--variant-in-cart-color, lime);
 	--sold-out-color: var(--variant-sold-out-color, red);
-	--select-highlight-color: var(--varaint-select-color);
-}
-
-@container (width < 30em) {
-	.one-d-selector {
-		justify-content: center;
-	}
+	--select-highlight-color: var(--varaint-select-color, #fbf505);
+	--thumbnail-max-width: var(--variant-thumbnail-max-width, 7em);
 }
 
 .options {
@@ -32,7 +27,7 @@ export const styles = css`
 		}
 
 		.thumbnail {
-			max-width: 5em;
+			max-width: 7em;
 		}
 	}
 
@@ -68,7 +63,7 @@ export const styles = css`
 			grid-area: vone;
 			display: grid;
 			align-items: center;
-			font-size: 0.75em;
+			font-size: 0.9em;
 			max-width: 6em;
 
 			text-align: center;
@@ -81,7 +76,7 @@ export const styles = css`
 			grid-area: vtwo;
 			display: grid;
 			place-items: center;
-			font-size: 0.75em;
+			font-size: 0.9em;
 			grid-template-columns: repeat(auto-fit, minmax(4em, 1fr));
 
 			background: cadetblue;
@@ -95,7 +90,7 @@ export const styles = css`
 				justify-content: center;
 
 				> .thumbnail {
-					max-width: 7em;
+					max-width: var(--thumbnail-max-width);
 				}
 			 }
 		}
@@ -149,7 +144,7 @@ export const styles = css`
 				&[data-selected] {
 					> img {
 						border: 2px dashed;
-						border-color: var(--select-highlight-color, #fbf505);
+						border-color: var(--select-highlight-color);
 					}
 				}
 			}
@@ -192,7 +187,7 @@ export const styles = css`
 		}
 
 		> p {
-			font-size: 0.7em;
+			font-size: 0.9em;
 			text-align: center;
 		}
 

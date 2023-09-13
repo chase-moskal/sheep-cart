@@ -65,20 +65,21 @@ export const styles = css`
 
 	.popup {
 		position: absolute;
+		padding: 0.5em;
 		top: 100%;
 		min-width: 100%;
-
 		z-index: 1;
 		background: cadetblue;
-	}
 
-	.blanket {
-		position: fixed;
-		inset: 0;
-	}
+		.blanket {
+			position: fixed;
+			inset: 0;
+		}
 
-	.product-variant {
-		position: relative;
+		.product-variant {
+			--variant-thumbnail-max-width: none;
+			position: relative;
+		}
 	}
 }
 
