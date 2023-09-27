@@ -1,18 +1,21 @@
 
 import {html, svg} from "lit"
-import {Attrs, QuickElement} from "@benev/frog"
+import {Attributes, GoldElement} from "@benev/slate"
 
 import icon_shopping_cart from "../../icons/feather/icon_shopping_cart.js"
 
 import {styles} from "./styles.css.js"
 import {Context} from "../../context/context.js"
 
-export const SheepCartButton = (context: Context) => class extends QuickElement {
+export const SheepCartButton = (context: Context) => class extends GoldElement {
 	static styles = styles
-	#attrs = Attrs.base<{"triggers-modal": string}>(this as QuickElement)
+
+	#attrs = Attributes.base(this as GoldElement, {
+		"triggers-modal": Boolean
+	})
 
 	get #triggers_modal() {
-		return this.#attrs.boolean["triggers-modal"]
+		return this.#attrs["triggers-modal"]
 	}
 
 	render() {

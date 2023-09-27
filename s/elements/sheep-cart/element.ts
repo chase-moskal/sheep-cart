@@ -1,6 +1,6 @@
 
 import {html, svg} from "lit"
-import {QuickElement} from "@benev/frog"
+import {GoldElement} from "@benev/slate"
 
 import {views} from "../frontend.js"
 import {style} from "./style.css.js"
@@ -16,7 +16,7 @@ import {ProductHelper} from "../views/product_focus/parts/product_helper.js"
 
 import icon_x from "../../icons/feather/icon_x.js"
 
-export const SheepCart = (context: Context) => class extends QuickElement {
+export const SheepCart = (context: Context) => class extends GoldElement {
 	static styles = style
 
 	#views = views(context, {Price, Coolbutton})

@@ -1,6 +1,6 @@
 
 import {html, svg} from "lit"
-import {prep_render_op} from "@benev/frog"
+import {prep_render_op} from "@benev/slate"
 
 import icon_loader from "../icons/feather/icon_loader.js"
 import icon_alert_circle from "../icons/feather/icon_alert_circle.js"

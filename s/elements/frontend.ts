@@ -1,8 +1,6 @@
 
-import {prepare} from "@benev/frog"
+import {prepare_frontend} from "@benev/slate"
 import {Context} from "../context/context.js"
 
-export const {component, components, view, views} = prepare<Context>({
-	default_auto_exportparts: true,
-})
+export const {component, components, view, views} = prepare_frontend<Context>()
 

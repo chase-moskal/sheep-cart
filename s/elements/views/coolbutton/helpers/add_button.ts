@@ -1,7 +1,7 @@
 
 import {html} from "lit"
 import {GqlProduct} from "shopify-shepherd"
-import {RequirementProvided} from "@benev/frog"
+import {RequirementProvided} from "@benev/slate"
 
 import {Coolbutton} from "../view.js"
 import {Cart} from "../../../../carting/cart.js"

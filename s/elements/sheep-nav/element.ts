@@ -1,11 +1,11 @@
 
 import {html} from "lit"
-import {QuickElement} from "@benev/frog"
+import {GoldElement} from "@benev/slate"
 
 import {style} from "./style.css.js"
 import {Context} from "../../context/context.js"
 
-export const SheepNav = (context: Context) => class extends QuickElement {
+export const SheepNav = (context: Context) => class extends GoldElement {
 	static styles = style
 
 	get #areas() {

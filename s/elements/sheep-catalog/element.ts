@@ -1,10 +1,11 @@
 
 import {html} from "lit"
-import {Attrs, QuickElement} from "@benev/frog"
+import {GqlProduct} from "shopify-shepherd"
+import {Attributes, GoldElement} from "@benev/slate"
 
 import {style} from "./style.css.js"
-import {component} from "../frontend.js"
 import {render_op} from "../render_op.js"
+import {component, views} from "../frontend.js"
 import {ProductList} from "../views/product_list/view.js"
 import {ProductFocus} from "../views/product_focus/view.js"
 import {bg_img} from "../views/collection_list/utils/bg_img.js"
@@ -12,27 +13,29 @@ import {CollectionList} from "../views/collection_list/view.js"
 import {process_comma_list} from "./utils/process_comma_list.js"
 import {sort_collections} from "../views/collection_list/utils/sort_collections.js"
 
-export const SheepCatalog = component.views({
-		CollectionList,
-		ProductList,
-		ProductFocus,
-	}).element(({state, router}) => views => class extends QuickElement {
-
+export const SheepCatalog = component(context => class extends GoldElement {
 	static styles = style
 
-	#attrs = Attrs.base(this) as Attrs<{
-		"prioritized-collections": string
-		"hidden-collections": string
-	}>
+	#attrs = Attributes.base(this as GoldElement, {
+		"prioritized-collections": String,
+		"hidden-collections": String
+	})
+
+	#views = (product?: GqlProduct) => views(context, {
+		CollectionList,
+		ProductList,
+		ProductFocus: ProductFocus(product!),
+	})
 
 	get #option_attributes() {
 		return {
-			hidden: process_comma_list(this.#attrs.string["hidden-collections"]),
-			prioritized: process_comma_list(this.#attrs.string["prioritized-collections"]),
+			hidden: process_comma_list(this.#attrs["hidden-collections"]!),
+			prioritized: process_comma_list(this.#attrs["prioritized-collections"]!),
 		}
 	}
 
 	#render_collections_tabs = (prioritized: string[], hidden: string[]) => {
+		const {state, router} = context
 		const active_collection_id = state.route.zone === "collection"
 			? state.route.id
 			: undefined
@@ -58,6 +61,7 @@ export const SheepCatalog = component.views({
 	}
 
 	render() {
+		const {state, router} = context
 		const {hidden, prioritized} = this.#option_attributes
 		return html`
 			<div>
@@ -66,7 +70,7 @@ export const SheepCatalog = component.views({
 					switch (situation?.type) {
 
 						case "collection_list":
-							return views.CollectionList({
+							return this.#views().CollectionList({
 								part: "collection-list",
 								props: [{
 									hidden,
@@ -76,26 +80,26 @@ export const SheepCatalog = component.views({
 							})
 
 						case "products_in_collection": {
-							return views.ProductList({
+							return this.#views().ProductList({
 								part: "product-list",
 								props: [{situation}],
 							})
 						}
 
 						case "all_products":
-							return views.ProductList({
+							return this.#views().ProductList({
 								part: "product-list",
 								props: [{situation}],
 							})
 
 						case "search_results":
-							return views.ProductList({
+							return this.#views().ProductList({
 								part: "product-list",
 								props: [{situation}],
 							})
 
 						case "single_product":
-							return views.ProductFocus({
+							return this.#views(situation.product).ProductFocus({
 								part: "product-focus",
 								props: [situation.product],
 							})

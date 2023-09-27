@@ -1,5 +1,5 @@
 
-import {Flat, Op} from "@benev/frog"
+import {Flat, Op} from "@benev/slate"
 import {GqlCollection, GqlTag} from "shopify-shepherd"
 
 import {Router} from "../../routing/router.js"

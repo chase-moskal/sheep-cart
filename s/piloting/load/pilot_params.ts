@@ -1,5 +1,5 @@
 
-import {Op} from "@benev/frog"
+import {Op} from "@benev/slate"
 import {GqlCollection, Shopify} from "shopify-shepherd"
 
 import {HomeArea} from "../../routing/types.js"

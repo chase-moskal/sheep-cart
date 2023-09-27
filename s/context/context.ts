@@ -1,6 +1,6 @@
 
 import {CSSResultGroup} from "lit"
-import {Flat, Op} from "@benev/frog"
+import {Flat, Op} from "@benev/slate"
 import {GqlCollection, GqlTag, Shopify} from "shopify-shepherd"
 
 import {Cart} from "../carting/cart.js"

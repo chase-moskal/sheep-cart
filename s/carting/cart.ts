@@ -1,5 +1,5 @@
 
-import {Flat, Op} from "@benev/frog"
+import {Flat, Op} from "@benev/slate"
 import {GqlProduct, Shopify} from "shopify-shepherd"
 
 import {CartStore} from "./parts/cart_store.js"

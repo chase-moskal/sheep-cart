@@ -1,5 +1,5 @@
 
-import {QuickElement} from "@benev/frog"
+import {GoldElement} from "@benev/slate"
 import {TemplateResult, html, render, svg} from "lit"
 
 import icon_x_circle from "../../icons/feather/icon_x_circle.js"
@@ -13,7 +13,7 @@ type ModalDetails = {
 	on_backdrop_click: () => void
 }
 
-export const SheepModal = component(({modal}) => class extends QuickElement {
+export const SheepModal = component(({modal}) => class extends GoldElement {
 	static styles = styles
 
 	#modal_dressing(id: string, content: TemplateResult) {
@@ -95,5 +95,7 @@ export const SheepModal = component(({modal}) => class extends QuickElement {
 	init() {
 		modal.on.open(o => this.#open(o))
 	}
+
+	render() {}
 })
 

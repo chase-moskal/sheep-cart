@@ -18,6 +18,7 @@
 	},
 	"dependencies": {
 		"@benev/frog": "^0.6.0-dev.5",
+		"@benev/slate": "^0.0.0-dev.5",
 		"@chasemoskal/magical": "^0.1.7",
 		"@chasemoskal/snapstate": "^0.0.9",
 		"es-module-shims": "^1.8.0",

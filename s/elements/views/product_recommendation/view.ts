@@ -1,37 +1,41 @@
 
 import {html} from "lit"
+import {ShaleView} from "@benev/slate"
 import {GqlProduct} from "shopify-shepherd"
 
-import {view} from "../../frontend.js"
 import {styles} from "./styles.css.js"
+import {view, views} from "../../frontend.js"
 import {ProductCard} from "../product_card/view.js"
 
-export const ProductRecommendation = view({
-		name: "product-recommendation",
-		styles,
-		views: {ProductCard},
-	}).render(context => views => use => (id: string, count: number) => {
+export const ProductRecommendation = (product_id: string) => view(context => class extends ShaleView {
+	static name = "product-recommendation"
+	static styles = styles
 
-	const state = use.state({recommendations: [] as GqlProduct[]})
-
-	use.setup(() => {
-		void async function () {
-			const products = await context
-				.shopify
-				.product_recommendations({product_id: id})
-
-			state.recommendations = products
-		}()
-		return {
-			result: undefined,
-			setdown: () => {},
-		}
+	#state = context.flat.state({
+		recommendations: [] as GqlProduct[]
 	})
 
-	return html`
-		${state.recommendations.slice(0, count).map(r =>
-			views.ProductCard({part: "card", gpart: "card", props: [r]})
-		)}
-	`
+	#views = views(context, {
+		ProductCard
+	})
+
+	setup = () => () => {
+		(async () => {
+			const products = await context
+				.shopify
+				.product_recommendations({product_id})
+			
+			this.#state.recommendations = products
+		})()
+	}
+
+	render(id: string, count: number) {
+
+		return html`
+			${this.#state.recommendations!.slice(0, count).map(r =>
+				this.#views.ProductCard({part: "card", gpart: "card", props: [r]})
+			)}
+		`
+	}
 })
 

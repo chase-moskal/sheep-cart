@@ -1,10 +1,11 @@
 
 import {html} from "lit"
+import {ShaleView} from "@benev/slate"
 import {GqlProduct, GqlVariant} from "shopify-shepherd"
 
 import {styles} from "./styles.css.js"
-import {view} from "../../frontend.js"
 import {Price} from "../price/view.js"
+import {view, views} from "../../frontend.js"
 import {Coolbutton} from "../coolbutton/view.js"
 import {VariantGridSituation} from "./parts/types.js"
 import {add_button} from "../coolbutton/helpers/add_button.js"
@@ -20,121 +21,128 @@ interface VariantOptions {
 	on_variant_change: (variant: GqlVariant) => void
 }
 
-export const ProductVariant = view({
-		styles,
-		views: {
-			Price,
-			Coolbutton,
-		},
-		name: "product-variant",
-	}).render(({cart}) => views => use => ({product, on_variant_change}: VariantOptions) => {
+export const ProductVariant = (product: GqlProduct) => view(context => class extends ShaleView {
+	static name = "product-variant"
+	static styles = styles
 
-	const product_helper = new ProductHelper(product)
+	get product_helper() {
+		return new ProductHelper(product)
+	}
 
-	const state = use.state(
-		ascertain_variant_situation_for_product(product, product_helper)
+	#state = context.flat.state<ReturnType<typeof ascertain_variant_situation_for_product>>(
+		ascertain_variant_situation_for_product(product, this.product_helper)
 	)
 
-	if (!state.situation) {
-		return undefined
+	#views = views(context, {
+		Price,
+		Coolbutton,
+	})
+
+	render({product, on_variant_change}: VariantOptions) {
+		const {cart} = context
+		const {product_helper} = this
+
+		if (!this.#state.situation) {
+			return undefined
+		}
+
+		const selected_variant = (() => {
+			let variant = product_helper.first_variant
+			if (this.#state.situation.kind === "n-dimensional") {
+				const choice_helper = new ChoiceHelper(product_helper, this.#state.situation.choices)
+				variant = choice_helper.selected_variant
+			}
+			else {
+				variant = this.#state.situation.variant
+			}
+			return variant
+		})()
+
+		const render_variant_selector = () => {
+			switch (this.#state.situation!.kind) {
+
+				case "1-dimensional": {
+					const set_variant = (variant: GqlVariant) => {
+						this.#state.situation = {
+							...this.#state.situation, variant
+						} as VariantGridSituation.OneDimensional
+	
+						on_variant_change(variant)
+					}
+					return render_1d_variant_selector({
+						cart,
+						set_variant,
+						product_helper,
+						selected_variant,
+					})
+				}
+
+				case "2-dimensional": {
+					const set_variant = (variant: GqlVariant) => {
+						this.#state.situation = {
+							...this.#state.situation, variant
+						} as VariantGridSituation.TwoDimensional
+
+						on_variant_change(variant)
+					}
+					return render_2d_variant_selector({
+						cart,
+						set_variant,
+						product_helper,
+						selected_variant,
+					})
+				}
+
+				case "n-dimensional": {
+					const set_choices = (name: string, value: string) => {
+						const situation = this.#state.situation as VariantGridSituation.NDimensional
+						const choices = situation.choices
+							.filter(choice => choice.name !== name)
+
+						if (value !== undefined)
+							choices.push({name, value})
+
+						this.#state.situation = {
+							...this.#state.situation, choices
+						} as VariantGridSituation.NDimensional
+
+						const choice_helper = new ChoiceHelper(
+							product_helper, this.#state.situation.choices
+						)
+
+						on_variant_change(choice_helper.selected_variant)
+					}
+					return render_variant_selector_dropdowns({
+						cart,
+						set_choices,
+						product_helper,
+						choices: this.#state.situation!.choices,
+					})
+				}
+			}
+		}
+
+		const has_options = product_helper.variants.length > 1
+		return html`
+			${has_options
+					? html`
+						<div part=options class=options>
+							${render_variant_selector()}
+						</div>
+					`
+					: undefined
+			}
+
+			<div part=buy class=buy>
+				${this.#views.Price({class: "price", props: [selected_variant]})}
+				${add_button({
+					Coolbutton: this.#views.Coolbutton,
+					cart,
+					product,
+					variant_id: selected_variant.id,
+					allow_select: false,
+				})}
+			</div>
+		`
 	}
-
-	const selected_variant = (() => {
-		let variant = product_helper.first_variant
-		if (state.situation.kind === "n-dimensional") {
-			const choice_helper = new ChoiceHelper(product_helper, state.situation.choices)
-			variant = choice_helper.selected_variant
-		}
-		else {
-			variant = state.situation.variant
-		}
-		return variant
-	})()
-
-	const render_variant_selector = () => {
-		switch (state.situation.kind) {
-
-			case "1-dimensional": {
-				const set_variant = (variant: GqlVariant) => {
-					state.situation = {
-						...state.situation, variant
-					} as VariantGridSituation.OneDimensional
-
-					on_variant_change(variant)
-				}
-				return render_1d_variant_selector({
-					cart,
-					set_variant,
-					product_helper,
-					selected_variant,
-				})
-			}
-
-			case "2-dimensional": {
-				const set_variant = (variant: GqlVariant) => {
-					state.situation = {
-						...state.situation, variant
-					} as VariantGridSituation.TwoDimensional
-
-					on_variant_change(variant)
-				}
-				return render_2d_variant_selector({
-					cart,
-					set_variant,
-					product_helper,
-					selected_variant,
-				})
-			}
-
-			case "n-dimensional": {
-				const set_choices = (name: string, value: string) => {
-					const situation = state.situation as VariantGridSituation.NDimensional
-					const choices = situation.choices
-						.filter(choice => choice.name !== name)
-
-					if (value !== undefined)
-						choices.push({name, value})
-
-					state.situation = {
-						...state.situation, choices
-					} as VariantGridSituation.NDimensional
-
-					const choice_helper = new ChoiceHelper(
-						product_helper, state.situation.choices
-					)
-
-					on_variant_change(choice_helper.selected_variant)
-				}
-				return render_variant_selector_dropdowns({
-					cart,
-					set_choices,
-					product_helper,
-					choices: state.situation.choices,
-				})
-			}
-		}
-	}
-
-	const has_options = product_helper.variants.length > 1
-	return html`
-		${has_options
-				? html`
-					<div part=options class=options>
-						${render_variant_selector()}
-					</div>
-				`
-				: undefined
-		}
-
-		<div part=buy class=buy>
-			${views.Price({class: "price", props: [selected_variant]})}
-			${add_button({
-				Coolbutton: views.Coolbutton,
-				cart,
-				product,
-				variant_id: selected_variant.id,
-				allow_select: false,
-			})}
-		</div>
-	`
 })

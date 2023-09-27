@@ -1,11 +1,12 @@
 
 import {html} from "lit"
+import {ShaleView} from "@benev/slate"
 import {GqlProduct, GqlVariant} from "shopify-shepherd"
 import {unsafeHTML} from "lit/directives/unsafe-html.js"
 
 import {img} from "./parts/img.js"
 import {Img} from "./parts/types.js"
-import {view} from "../../frontend.js"
+import {view, views} from "../../frontend.js"
 import {Pills} from "../pills/view.js"
 import {Price} from "../price/view.js"
 import {styles} from "./styles.css.js"
@@ -15,89 +16,98 @@ import {ProductHelper} from "./parts/product_helper.js"
 import {ProductVariant} from "../product_variant/view.js"
 import {ProductRecommendation} from "../product_recommendation/view.js"
 
-export const ProductFocus = view({
-		styles,
-		name: "product-focus",
-		views: {
-			Pills,
-			Price,
-			Coolbutton,
-			ProductVariant,
-			ProductRecommendation,
-		},
-	}).render(({modal}) => views => use => (product: GqlProduct) => {
+export const ProductFocus = (product: GqlProduct) => view(context => class extends ShaleView{
+	static name = "product-focus"
+	static styles = styles
 
-	const product_helper = new ProductHelper(product)
-
-	const state = use.state({
-		selected_varaint: product_helper.first_variant,
-	})
-
-	function set_selected_variant(variant: GqlVariant) {
-		state.selected_varaint = variant
+	get product_helper() {
+		return new ProductHelper(product)
 	}
 
-	return html`
-		<div
-			part=grid
-			?data-no-additional-images=${product_helper.images.length < 2}
-			?data-no-options=${product_helper.variants.length < 2}>
 
-			<figure part=figure>
-				${render_img({
-					part: "img",
-					img: img.large(product_helper.get_variant_chosen_image(state.selected_varaint)),
-					onclick: (_: MouseEvent, img: Img) => (
-						modal.open({
-							kind: "image",
-							img,
-						})
-					),
-				})}
-			</figure>
+	#state = context.flat.state({
+		selected_variant: this.product_helper.first_variant
+	})
 
-			<h1 part=title>${product.title}</h1>
+	#set_selected_variant = (variant: GqlVariant) => {
+		this.#state.selected_variant = variant
+	}
 
-			${views.Pills({class: "pills", part: "pills", gpart: "pills", props: [product]})}
+	#views = views(context, {
+		Pills,
+		Price,
+		Coolbutton,
+		ProductVariant: ProductVariant(product),
+		ProductRecommendation: ProductRecommendation(product.id),
+	})
 
-			${views.ProductVariant(
-				{
-					part: "variant",
-					class: "product-variant",
-					props: [{
-						product,
-						on_variant_change: (variant) => set_selected_variant(variant)
-					}]
-				}
-			)}
+	render(product: GqlProduct) {
+		const {modal} = context
+		const {product_helper} = this
 
-			<aside part=aside class=aside>
-				${product_helper.get_variant_side_images(state.selected_varaint).map(image =>
-					render_img({
+		return html`
+			<div
+				part=grid
+				?data-no-additional-images=${product_helper.images.length < 2}
+				?data-no-options=${product_helper.variants.length < 2}>
+
+				<figure part=figure>
+					${render_img({
 						part: "img",
-						img: img.large(image),
+						img: img.large(product_helper.get_variant_chosen_image(this.#state.selected_variant!)),
 						onclick: (_: MouseEvent, img: Img) => (
 							modal.open({
 								kind: "image",
 								img,
 							})
 						),
-					})
+					})}
+				</figure>
+
+				<h1 part=title>${product.title}</h1>
+
+				${this.#views.Pills({class: "pills", part: "pills", gpart: "pills", props: [product]})}
+
+				${this.#views.ProductVariant(
+					{
+						part: "variant",
+						class: "product-variant",
+						props: [{
+							product,
+							on_variant_change: (variant) => this.#set_selected_variant(variant)
+						}]
+					}
 				)}
-			</aside>
 
-			<section part=standard-content class="standard-content">
-				${unsafeHTML(product.descriptionHtml)}
-			</section>
+				<aside part=aside class=aside>
+					${product_helper.get_variant_side_images(this.#state.selected_variant!).map(image =>
+						render_img({
+							part: "img",
+							img: img.large(image),
+							onclick: (_: MouseEvent, img: Img) => (
+								modal.open({
+									kind: "image",
+									img,
+								})
+							),
+						})
+					)}
+				</aside>
 
-		</div>
-		<div part=recbox class=recommendations>
-			<h2>Customers also bought:</h2>
-			${views.ProductRecommendation({
-				part: "recommendations",
-				props: [product.id, 3],
-			})}
-		</div>
-	`
+				<section part=standard-content class="standard-content">
+					${unsafeHTML(product.descriptionHtml)}
+				</section>
+
+			</div>
+			<div part=recbox class=recommendations>
+				<h2>Customers also bought:</h2>
+				${this.#views.ProductRecommendation({
+					part: "recommendations",
+					props: [product.id, 3],
+				})}
+			</div>
+		`
+
+	}
 })
 

@@ -1,5 +1,5 @@
 
-import {Op} from "@benev/frog"
+import {Op} from "@benev/slate"
 import {GqlProduct, ShopifyNotFoundError} from "shopify-shepherd"
 
 import {Situation} from "../../context/types/situations.js"

@@ -1,6 +1,6 @@
 
 import {html, svg} from "lit"
-import {QuickElement} from "@benev/frog"
+import {GoldElement} from "@benev/slate"
 import {debounce} from "@chasemoskal/magical"
 
 import {style} from "./style.css.js"
@@ -12,7 +12,7 @@ import {populate_input_with_route_search_terms_when_user_is_not_focused_on_input
 
 import icon_search from "../../icons/feather/icon_search.js"
 
-export const SheepSearch = (context: Context) => class extends QuickElement {
+export const SheepSearch = (context: Context) => class extends GoldElement {
 	static styles = style
 
 	constructor() {
@@ -24,7 +24,7 @@ export const SheepSearch = (context: Context) => class extends QuickElement {
 			() => this.#input,
 		)
 
-		this.setup(() => context.router.on_route_change(route =>
+		this.register_setup(() => context.router.on_route_change(route =>
 			populate_input_with_route_search_terms_when_user_is_not_focused_on_input(
 				route,
 				this.#user_is_focused_on_input,
