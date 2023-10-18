@@ -1,11 +1,10 @@
 
-import {GoldElement} from "@benev/slate"
-import {TemplateResult, html, render, svg} from "lit"
+import {TemplateResult, html, render, svg} from "@benev/slate"
 
 import icon_x_circle from "../../icons/feather/icon_x_circle.js"
 
+import {carbon} from "../frontend.js"
 import {styles} from "./styles.css.js"
-import {component} from "../frontend.js"
 import {ModalSpec} from "../../modaling/spec.js"
 
 type ModalDetails = {
@@ -13,13 +12,15 @@ type ModalDetails = {
 	on_backdrop_click: () => void
 }
 
-export const SheepModal = component(({modal}) => class extends GoldElement {
-	static styles = styles
+export const SheepModal = carbon({styles}, use => {
+	const {modal} = use.context
 
-	#modal_dressing(id: string, content: TemplateResult) {
+	use.prepare(() => modal.on.open(o => open(o)))
+
+	function modal_dressing(id: string, content: TemplateResult) {
 		return html`
 			<div class=actions>
-				<button class=close @click=${() => this.close(id)}>
+				<button class=close @click=${() => close_dialog(id)}>
 					${icon_x_circle(svg)}
 				</button>
 			</div>
@@ -29,7 +30,7 @@ export const SheepModal = component(({modal}) => class extends GoldElement {
 		`
 	}
 
-	#distinguish_modal_details(
+	function distinguish_modal_details(
 			id: string,
 			modal: ModalSpec.Whatever,
 		): ModalDetails {
@@ -38,7 +39,7 @@ export const SheepModal = component(({modal}) => class extends GoldElement {
 
 			case "image": {
 				const {img: {src, alt}} = modal
-				const close = () => this.close(id)
+				const close = () => close_dialog(id)
 				return {
 					on_backdrop_click: close,
 					content: html`
@@ -53,7 +54,7 @@ export const SheepModal = component(({modal}) => class extends GoldElement {
 
 			case "cart": {
 				return {
-					on_backdrop_click: () => this.close(id),
+					on_backdrop_click: () => close_dialog(id),
 					content: html`
 						<sheep-cart part=cart></sheep-cart>
 					`,
@@ -62,12 +63,12 @@ export const SheepModal = component(({modal}) => class extends GoldElement {
 		}
 	}
 
-	#open({id, modal}: {id: string, modal: ModalSpec.Whatever}) {
+	function open({id, modal}: {id: string, modal: ModalSpec.Whatever}) {
 		const dialog = document.createElement("dialog")
 		dialog.setAttribute("data-id", id)
 
 		const {content, on_backdrop_click} = (
-			this.#distinguish_modal_details(id, modal)
+			distinguish_modal_details(id, modal)
 		)
 
 		dialog.onclick = event => {
@@ -75,15 +76,15 @@ export const SheepModal = component(({modal}) => class extends GoldElement {
 				on_backdrop_click()
 		}
 
-		render(this.#modal_dressing(id, content), dialog)
+		render(modal_dressing(id, content), dialog)
 
-		this.root.appendChild(dialog)
+		use.shadow.appendChild(dialog)
 		dialog.showModal()
 	}
 
-	close(id: string) {
-		const dialog = this
-			.root
+	function close_dialog (id: string) {
+		const dialog = use
+			.shadow
 			.querySelector<HTMLDialogElement>(`[data-id="${id}"]`)
 
 		if (dialog) {
@@ -91,11 +92,5 @@ export const SheepModal = component(({modal}) => class extends GoldElement {
 			dialog.remove()
 		}
 	}
-
-	init() {
-		modal.on.open(o => this.#open(o))
-	}
-
-	render() {}
 })
 

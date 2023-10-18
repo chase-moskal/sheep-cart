@@ -1,7 +1,7 @@
 
-import {Context} from "../../../../context/context.js"
+import {AppContext} from "../../../../context/context.js"
 
-export function get_tag_data({state}: Context) {
+export function get_tag_data({state}: AppContext) {
 	const {route, tags} = state
 	const active_tag_names = (route && route.zone === "search")
 		? route.tags

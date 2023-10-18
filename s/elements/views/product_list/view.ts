@@ -1,41 +1,34 @@
 
-import {html} from "lit"
-import {ShaleView} from "@benev/slate"
+import {html} from "@benev/slate"
 
 import {styles} from "./styles.css.js"
+import {obsidian} from "../../frontend.js"
 import {Options} from "./utils/options.js"
 import {render_op} from "../../render_op.js"
-import {view, views} from "../../frontend.js"
 import {ProductCard} from "../product_card/view.js"
 
-export const ProductList = view(context => class extends ShaleView {
-	static name = "product-list"
-	static styles = styles
+export const ProductList = obsidian({styles, name: "product_list"}, _ => (props: Options) => {
+	const {situation: {products, load_more_op, load_more}} = props
 
-	#views = views(context, {
-		ProductCard
-	})
+	return ((products.length > 0)
+		? html`
+			<div class=grid>
+				${products.map(product =>
+					ProductCard([product], {
+						attrs: {part: "card", gpart: "card"}
+					})
+				)}
+			</div>
 
-	render({situation: {products, load_more_op, load_more}}: Options) {
-
-		return ((products.length > 0)
-			? html`
-				<div class=grid>
-					${products.map(product =>
-						this.#views.ProductCard({part: "card", gpart: "card", props: [product]})
-					)}
-				</div>
-
-				<footer>
-					${render_op(load_more_op, () => load_more
-						? html`<button @click=${load_more}>load more</button>`
-						: undefined)}
-				</footer>
-			`
-			: html`
-				<p>No products found</p>
-			`
-		)
-	}
+			<footer>
+				${render_op(load_more_op, () => load_more
+					? html`<button @click=${load_more}>load more</button>`
+					: undefined)}
+			</footer>
+		`
+		: html`
+			<p>No products found</p>
+		`
+	)
 })
 

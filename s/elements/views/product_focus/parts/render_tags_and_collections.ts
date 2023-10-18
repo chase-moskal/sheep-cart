@@ -1,5 +1,5 @@
 
-import {html} from "lit"
+import {html} from "@benev/slate"
 import {GqlCollection} from "shopify-shepherd"
 import {ProductHelper} from "./product_helper.js"
 

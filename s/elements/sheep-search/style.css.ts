@@ -1,4 +1,5 @@
 
+import {CSSResult} from "@benev/slate"
 import {css} from "@chasemoskal/magical"
 
 export const style = css`
@@ -82,5 +83,5 @@ export const style = css`
 	}
 }
 
-`
+` as any as CSSResult
 

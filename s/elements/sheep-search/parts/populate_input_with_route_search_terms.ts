@@ -2,7 +2,7 @@
 import {Router} from "../../../routing/router.js"
 
 export async function populate_input_with_route_search_terms(
-		wait: Promise<void>,
+		wait: Promise<boolean>,
 		router: Router,
 		get_input: () => HTMLInputElement,
 	) {

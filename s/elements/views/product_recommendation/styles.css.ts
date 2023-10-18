@@ -1,4 +1,5 @@
 
+import {CSSResult} from "@benev/slate"
 import {css} from "@chasemoskal/magical"
 
 export const styles = css`
@@ -15,5 +16,5 @@ export const styles = css`
 	max-width: 30em;
 }
 
-`
+` as any as CSSResult
 

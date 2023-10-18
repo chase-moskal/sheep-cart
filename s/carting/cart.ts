@@ -117,7 +117,7 @@ export class Cart {
 			.map(i => i.product_id)
 
 		const new_caches: ProductCache[] = new_product_ids
-			.map(product_id => ({product_id, op: Op.loading()}))
+			.map(product_id => ({product_id, op: Op.loading<GqlProduct>()}))
 			.map(this.#flatstate)
 
 		this.#state.products = [

@@ -1,5 +1,5 @@
 
-import {html} from "lit"
+import {html} from "@benev/slate"
 
 import {VariantSelectorOptionsND} from "./types.js"
 import {ChoiceHelper} from "../../product_focus/parts/choice_helper.js"

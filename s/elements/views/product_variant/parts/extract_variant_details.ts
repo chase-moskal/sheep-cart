@@ -1,5 +1,5 @@
 
-import {svg} from "lit"
+import {svg} from "@benev/slate"
 import {GqlVariant} from "shopify-shepherd"
 
 import {Cart} from "../../../../carting/cart.js"

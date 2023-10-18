@@ -1,42 +1,33 @@
 
-import {html, svg} from "lit"
-import {Attributes, GoldElement} from "@benev/slate"
+import {html, svg} from "@benev/slate"
 
 import icon_shopping_cart from "../../icons/feather/icon_shopping_cart.js"
 
+import {carbon} from "../frontend.js"
 import {styles} from "./styles.css.js"
-import {Context} from "../../context/context.js"
 
-export const SheepCartButton = (context: Context) => class extends GoldElement {
-	static styles = styles
+export const SheepCartButton = carbon({styles}, use => {
+	const {cart, modal} = use.context
+	const {units} = cart
 
-	#attrs = Attributes.base(this as GoldElement, {
+	const attributes = use.attrs({
 		"triggers-modal": Boolean
 	})
 
-	get #triggers_modal() {
-		return this.#attrs["triggers-modal"]
-	}
+	const onclick = attributes["triggers-modal"]
+		? () => modal.open({kind: "cart"})
+		: () => {}
 
-	render() {
-		const {units} = context.cart
+	return html`
+		<button
+			part=button
+			@click=${onclick}>
 
-		const onclick = this.#triggers_modal
-			? () => context.modal.open({kind: "cart"})
-			: () => {}
+			${icon_shopping_cart(svg)}
 
-		return html`
-			<button
-				part=button
-				@click=${onclick}>
-
-				${icon_shopping_cart(svg)}
-
-				<div class=count ?hidden=${units.length === 0}>
-					${units.length}
-				</div>
-			</button>
-		`
-	}
-}
-
+			<div class=count ?hidden=${units.length === 0}>
+				${units.length}
+			</div>
+		</button>
+	`
+})

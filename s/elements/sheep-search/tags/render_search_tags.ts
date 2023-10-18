@@ -1,11 +1,11 @@
 
-import {html} from "lit"
+import {html} from "@benev/slate"
 
 import {update_tag} from "./utils/update_tag.js"
-import {Context} from "../../../context/context.js"
 import {get_tag_data} from "./utils/get_tag_data.js"
+import {AppContext} from "../../../context/context.js"
 
-export function render_search_tags(context: Context) {
+export function render_search_tags(context: AppContext) {
 	return html`
 		${get_tag_data(context).map(({tag, active}) => html`
 			<label part="${part(active)}" data-tag="${tag}" ?data-active="${active}">

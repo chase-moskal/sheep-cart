@@ -1,4 +1,5 @@
 
+import {CSSResult} from "@benev/slate"
 import {css} from "@chasemoskal/magical"
 
 export const theme = css`
@@ -55,5 +56,5 @@ export const theme = css`
 	}
 }
 
-`
+` as any as CSSResult
 

@@ -1,5 +1,5 @@
 
-import {html} from "lit"
+import {html} from "@benev/slate"
 
 import {VariantSelectorOptions} from "./types.js"
 import {extract_variant_details} from "./extract_variant_details.js"

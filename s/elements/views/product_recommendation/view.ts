@@ -1,41 +1,25 @@
 
-import {html} from "lit"
-import {ShaleView} from "@benev/slate"
+import {html} from "@benev/slate"
 import {GqlProduct} from "shopify-shepherd"
 
 import {styles} from "./styles.css.js"
-import {view, views} from "../../frontend.js"
+import {obsidian} from "../../frontend.js"
 import {ProductCard} from "../product_card/view.js"
 
-export const ProductRecommendation = (product_id: string) => view(context => class extends ShaleView {
-	static name = "product-recommendation"
-	static styles = styles
+export const ProductRecommendation = obsidian({styles}, use => (id: string, count: number) => {
+	const {shopify} = use.context
+	const recommendations = use.signal<GqlProduct[]>([])
 
-	#state = context.flat.state({
-		recommendations: [] as GqlProduct[]
+	use.prepare(async () => {
+		const products = await shopify
+			.product_recommendations({product_id: id})
+		recommendations.value = products
 	})
 
-	#views = views(context, {
-		ProductCard
-	})
-
-	setup = () => () => {
-		(async () => {
-			const products = await context
-				.shopify
-				.product_recommendations({product_id})
-			
-			this.#state.recommendations = products
-		})()
-	}
-
-	render(id: string, count: number) {
-
-		return html`
-			${this.#state.recommendations!.slice(0, count).map(r =>
-				this.#views.ProductCard({part: "card", gpart: "card", props: [r]})
-			)}
-		`
-	}
+	return html`
+		${recommendations.value.slice(0, count).map(r =>
+			ProductCard([r], {attrs: {part: "card", gpart: "card"}})
+		)}
+	`
 })
 

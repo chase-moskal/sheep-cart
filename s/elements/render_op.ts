@@ -1,5 +1,5 @@
 
-import {html, svg} from "lit"
+import {html, svg} from "@benev/slate"
 import {prep_render_op} from "@benev/slate"
 
 import icon_loader from "../icons/feather/icon_loader.js"

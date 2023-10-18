@@ -1,4 +1,5 @@
 
+import {CSSResult} from "@benev/slate"
 import {css} from "@chasemoskal/magical"
 
 export const styles = css`
@@ -32,5 +33,5 @@ button {
 	&[hidden] { display: none; }
 }
 
-`
+` as any as CSSResult
 

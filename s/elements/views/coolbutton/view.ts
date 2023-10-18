@@ -1,9 +1,8 @@
 
-import {ShaleView} from "@benev/slate"
-import {TemplateResult, html} from "lit"
+import {TemplateResult, html} from "@benev/slate"
 
-import {view} from "../../frontend.js"
 import {styles} from "./styles.css.js"
+import {obsidian} from "../../frontend.js"
 
 export type CoolbuttonParams = {
 	active: boolean
@@ -11,20 +10,17 @@ export type CoolbuttonParams = {
 	onclick: (event: MouseEvent) => void
 }
 
-export const Coolbutton = view(_ => class extends ShaleView {
-	static name = "coolbutton"
-	static styles =styles
+export const Coolbutton = obsidian({styles}, _ => (props: CoolbuttonParams) => {
+	const {active, text, onclick} = props
 
-	render({active, text, onclick}: CoolbuttonParams) {
-		return html`
-			<button
-				part=button
-				@click=${onclick}
-				?disabled=${!active}>
-				<slot part=slot></slot>
-				${text}
-			</button>
-		`
-	}
+	return html`
+		<button
+			part=button
+			@click=${onclick}
+			?disabled=${!active}>
+			<slot part=slot></slot>
+			${text}
+		</button>
+	`
 })
 

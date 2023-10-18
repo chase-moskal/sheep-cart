@@ -1,6 +1,6 @@
 
-import {CSSResultGroup} from "lit"
-import {Flat, Op} from "@benev/slate"
+import {CSSResultGroup} from "@benev/slate"
+import {Context, Flat, Op} from "@benev/slate"
 import {GqlCollection, GqlTag, Shopify} from "shopify-shepherd"
 
 import {Cart} from "../carting/cart.js"
@@ -11,21 +11,25 @@ import {Situation} from "./types/situations.js"
 import {State, init_state} from "./parts/init_state.js"
 import {CartStore} from "../carting/parts/cart_store.js"
 
-export class Context {
-	flat = new Flat()
+const deferred = undefined as any
 
-	#state: State
-	readonly state: State
+export class AppContext extends Context {
+	shopify: Shopify = deferred
+	router: Router = deferred
 
-	cart: Cart
+	#state: State = deferred
+	state: State = deferred
+
+	cart: Cart = deferred
 	modal = new Modal()
 
-	constructor(
-			public shopify: Shopify,
-			public router: Router,
-			public theme: CSSResultGroup,
+	setup(
+			shopify: Shopify,
+			router: Router,
 			cart_store: CartStore,
 		) {
+		this.shopify = shopify
+		this.router = router
 		this.#state = init_state(this.flat, router)
 		this.state = Flat.readonly(this.#state)
 		this.cart = new Cart(this.flat, this.shopify, cart_store)
@@ -41,3 +45,4 @@ export class Context {
 	}
 }
 
+export const context = new AppContext()

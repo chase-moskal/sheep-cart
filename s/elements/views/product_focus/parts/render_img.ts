@@ -1,5 +1,6 @@
 
-import {html} from "lit"
+import {html} from "@benev/slate"
+
 import {Img} from "./types.js"
 
 export function render_img({

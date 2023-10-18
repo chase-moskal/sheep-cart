@@ -1,6 +1,5 @@
 
 import {prepare_frontend} from "@benev/slate"
-import {Context} from "../context/context.js"
+import {context} from "../context/context.js"
 
-export const {component, components, view, views} = prepare_frontend<Context>()
-
+export const {carbon, obsidian, oxygen, quartz} = prepare_frontend(context)
