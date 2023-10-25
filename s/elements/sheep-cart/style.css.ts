@@ -4,7 +4,9 @@ import {css} from "@chasemoskal/magical"
 export const style = css`
 
 :host {
-	display: block;
+	display: flex;
+	flex-direction: column;
+	gap: 1em;
 }
 
 :host([hidden]) {
@@ -15,7 +17,6 @@ h2 {
 	opacity: 0.4;
 	text-transform: uppercase;
 	text-align: center;
-	margin-bottom: 1em;
 }
 
 .listing {
@@ -119,6 +120,21 @@ h2 {
 	}
 }
 
+.terms, .terms-checkbox {
+	display: block;
+	padding-right: 2.5rem;
+
+	&:is(.terms) {
+		margin-top: 2rem;
+	}
+
+	&:is(.terms-checkbox) {
+		margin-top: 2rem;
+		margin-left: auto;
+		text-align: right;
+	}
+}
+
 .actions {
 	display: flex;
 	flex-direction: row-reverse;
@@ -197,7 +213,6 @@ h2 {
 
 	.subtotal {
 		padding: 0;
-		margin-top: 2rem;
 		& hr { display: none; }
 		& .block {
 			justify-content: end;
@@ -210,6 +225,10 @@ h2 {
 
 	.actions {
 		padding-right: 0;
+	}
+
+	.terms, .terms-checkbox {
+		padding: 0;
 	}
 
 	[part="checkout"], [part="clear-cart"] {

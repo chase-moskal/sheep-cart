@@ -12,7 +12,20 @@ export default template(async basics => {
 			<link rel="icon" href="${path.root('assets/sheep-favicon.png')}"/>
 		`,
 		body: html`
-			<sheep-modal></sheep-modal>
+			<sheep-modal cart-require-checkout-terms>
+				<div slot=cart-terms>
+					<h4>Terms of service</h4>
+					<details>
+						<summary>Click to see details</summary>
+						<p>This store, and all its products, are fake.</p>
+						<p>This website is for testing and demonstration purposes.</p>
+						<p>Do not purchase.</p>
+					</details>
+				</div>
+				<span slot=cart-terms-checkbox-label>
+					I understand the terms.
+				</span>
+			</sheep-modal>
 
 			<div class="follower slice">
 				<sheep-cart-button triggers-modal></sheep-cart-button>

@@ -1,6 +1,6 @@
 
 import {html, svg} from "lit"
-import {QuickElement} from "@benev/frog"
+import {Attrs, QuickElement} from "@benev/frog"
 
 import {views} from "../frontend.js"
 import {style} from "./style.css.js"
@@ -18,6 +18,10 @@ import icon_x from "../../icons/feather/icon_x.js"
 
 export const SheepCart = (context: Context) => class extends QuickElement {
 	static styles = style
+
+	#state = context.flat.state({termsChecked: false})
+	#attrs = Attrs.base(this as QuickElement)
+		// require-checkout-terms: Boolean
 
 	#views = views(context, {Price, Coolbutton})
 
@@ -159,11 +163,27 @@ export const SheepCart = (context: Context) => class extends QuickElement {
 							</div>
 						</div>
 					</div>
+					<slot class=terms name=terms></slot>
+					${this.#attrs.boolean["require-checkout-terms"] ? html`
+						<div class=terms-checkbox>
+							<label>
+								<input type="checkbox" @input=${(event: InputEvent) => {
+									const input = event.currentTarget as HTMLInputElement
+									this.#state.termsChecked = input.checked
+								}} />
+								<slot name=terms-checkbox-label>
+									I accept the terms above <em>(required for checkout)</em>
+								</slot>
+							</label>
+						</div>
+					` : undefined}
 					<div class=actions>
 						${this.#views.Coolbutton({
 							part: "checkout",
 							props: [{
-								active: true,
+								active: this.#attrs.boolean["require-checkout-terms"]
+									? this.#state.termsChecked
+									: true,
 								text: "Checkout",
 								onclick: this.#checkout,
 							}],

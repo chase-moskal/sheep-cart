@@ -1,5 +1,5 @@
 
-import {QuickElement} from "@benev/frog"
+import {Attrs, QuickElement} from "@benev/frog"
 import {TemplateResult, html, render, svg} from "lit"
 
 import icon_x_circle from "../../icons/feather/icon_x_circle.js"
@@ -15,6 +15,13 @@ type ModalDetails = {
 
 export const SheepModal = component(({modal}) => class extends QuickElement {
 	static styles = styles
+
+	#is_slotted = {
+		cart_terms_checkbox_label: this.querySelector(`[slot="cart-terms-checkbox-label"]`),
+	}
+
+	#attrs = Attrs.base(this as QuickElement)
+		// cart-require-checkout-terms: Boolean
 
 	#modal_dressing(id: string, content: TemplateResult) {
 		return html`
@@ -55,7 +62,15 @@ export const SheepModal = component(({modal}) => class extends QuickElement {
 				return {
 					on_backdrop_click: () => this.close(id),
 					content: html`
-						<sheep-cart part=cart></sheep-cart>
+						<sheep-cart
+							part=cart
+							require-checkout-terms=${this.#attrs.boolean["cart-require-checkout-terms"]}
+							>
+							<slot name=cart-terms slot=terms></slot>
+							${this.#is_slotted.cart_terms_checkbox_label ? html`
+								<slot name=cart-terms-checkbox-label slot=terms-checkbox-label></slot>
+							` : undefined}
+						</sheep-cart>
 					`,
 				}
 			}
