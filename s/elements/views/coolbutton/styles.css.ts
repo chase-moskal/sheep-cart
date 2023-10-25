@@ -39,7 +39,7 @@ button {
 	}
 
 	&[disabled] {
-		opacity: 0.5;
+		opacity: 0.2;
 		background: #888;
 		color: white;
 		cursor: default;
