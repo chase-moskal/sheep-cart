@@ -135,6 +135,18 @@ h2 {
 	}
 }
 
+.terms-checkbox {
+	& label {
+		display: flex;
+		align-items: center;
+		gap: 0.5em;
+	}
+	& input {
+		width: 1.5em;
+		height: 1.5em;
+	}
+}
+
 .actions {
 	display: flex;
 	flex-direction: row-reverse;
