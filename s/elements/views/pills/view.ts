@@ -1,21 +1,20 @@
 
-import {html} from "lit"
+import {html} from "@benev/slate"
 import {GqlProduct} from "shopify-shepherd"
 
-import {view} from "../../frontend.js"
+import {slate} from "../../frontend.js"
 import {styles} from "./styles.css.js"
 import {ProductHelper} from "../product_focus/parts/product_helper.js"
 
-export const Pills = view({
+export const Pills = slate.shadow_view({
 		name: "pills",
 		styles,
-		views: {},
-	}).render(({state}) => _ => _ => (product: GqlProduct) => {
+	}, use => (product: GqlProduct) => {
 
 	const productHelper = new ProductHelper(product)
 
 	const collections = productHelper
-		.cross_reference_collections(state.collections)
+		.cross_reference_collections(use.context.state.collections)
 
 	return html`
 		<ol part=list>

@@ -1,5 +1,5 @@
 
-import {TemplateResult} from "lit"
+import {TemplateResult} from "@benev/slate"
 import {GqlPrice, GqlProduct, GqlVariant} from "shopify-shepherd"
 
 export function display_price({

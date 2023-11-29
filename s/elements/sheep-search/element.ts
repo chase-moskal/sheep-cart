@@ -1,49 +1,45 @@
 
-import {html, svg} from "lit"
-import {QuickElement} from "@benev/frog"
-import {debounce} from "@chasemoskal/magical"
+import {html, svg, debounce} from "@benev/slate"
 
-import {style} from "./style.css.js"
-import {Context} from "../../context/context.js"
+import icon_search from "../../icons/feather/icon_search.js"
+
+import {slate} from "../frontend.js"
+import {style as styles} from "./style.css.js"
 import {render_search_tags} from "./tags/render_search_tags.js"
 import {ascertain_search_details} from "./parts/ascertain_search_details.js"
 import {populate_input_with_route_search_terms} from "./parts/populate_input_with_route_search_terms.js"
 import {populate_input_with_route_search_terms_when_user_is_not_focused_on_input} from "./parts/populate_input_with_route_search_terms_when_user_is_not_focused_on_input.js"
 
-import icon_search from "../../icons/feather/icon_search.js"
+export const SheepSearch = slate.shadow_component({styles}, use => {
+	const {router} = use.context
+	const is_search = router.route.zone === "search" && router.route.terms.length
 
-export const SheepSearch = (context: Context) => class extends QuickElement {
-	static styles = style
+	function get_input() {
+		return use.shadow.querySelector<HTMLInputElement>("input")!
+	}
 
-	constructor() {
-		super()
+	function get_user_is_focused_on_input() {
+		return document.activeElement === use.element || use.element.contains(document.activeElement)
+	}
 
+	use.setup(() => {
 		populate_input_with_route_search_terms(
-			this.wait,
-			context.router,
-			() => this.#input,
+			use.element.updateComplete.then(() => undefined),
+			use.context.router,
+			get_input,
 		)
-
-		this.setup(() => context.router.on_route_change(route =>
+		return use.context.router.on_route_change(route =>
 			populate_input_with_route_search_terms_when_user_is_not_focused_on_input(
 				route,
-				this.#user_is_focused_on_input,
-				this.#input,
+				get_user_is_focused_on_input(),
+				get_input(),
 			)
-		))
-	}
+		)
+	})
 
-	get #input() {
-		return this.root.querySelector<HTMLInputElement>("input")!
-	}
-
-	get #user_is_focused_on_input() {
-		return document.activeElement === this || this.contains(document.activeElement)
-	}
-
-	#search: () => Promise<void> = debounce(250, () => {
-		const {router} = context
-		const details = ascertain_search_details(router, this.#input.value)
+	const search: () => Promise<void> = debounce(250, () => {
+		const {router} = use.context
+		const details = ascertain_search_details(router, get_input().value)
 
 		if (details.there_is_nothing_to_search_for)
 			router.routes.home().go()
@@ -51,19 +47,14 @@ export const SheepSearch = (context: Context) => class extends QuickElement {
 			router.routes.search(details.terms, router.search_tags).go()
 	})
 
-	render() {
-		const {router} = context
-		const is_search = router.route.zone === "search" && router.route.terms.length
-
-		return html`
-			<div ?data-active=${is_search} class=searchbox>
-				<input part=input type=text @input="${this.#search}"/>
-				${icon_search(svg)}
-			</div>
-			<div class=searchtags>
-				${render_search_tags(context)}
-			</div>
-		`
-	}
-}
+	return html`
+		<div ?data-active=${is_search} class=searchbox>
+			<input part=input type=text @input="${search}"/>
+			${icon_search(svg)}
+		</div>
+		<div class=searchtags>
+			${render_search_tags(use.context)}
+		</div>
+	`
+})
 

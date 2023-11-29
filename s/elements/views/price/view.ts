@@ -1,18 +1,17 @@
 
-import {html} from "lit"
+import {html} from "@benev/slate"
 
-import {view} from "../../frontend.js"
+import {slate} from "../../frontend.js"
 import {styles} from "./styles.css.js"
 import {VariantPricing} from "./parts/types.js"
 import {parse_money} from "./parts/parse_money.js"
 import {render_sale_tag} from "./parts/render_sale_tag.js"
 import {render_money_value} from "./parts/render_money_value.js"
 
-export const Price = view({
+export const Price = slate.shadow_view({
 		styles,
 		name: "price",
-		views: {},
-	}).render(_context => _views => _use => (variant: VariantPricing) => {
+	}, _use => (variant: VariantPricing) => {
 
 	const {value, comparison} = parse_money(variant)
 

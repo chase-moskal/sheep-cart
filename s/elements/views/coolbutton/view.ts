@@ -1,7 +1,7 @@
 
-import {TemplateResult, html} from "lit"
+import {TemplateResult, html} from "@benev/slate"
 
-import {view} from "../../frontend.js"
+import {slate} from "../../frontend.js"
 import {styles} from "./styles.css.js"
 
 export type CoolbuttonParams = {
@@ -10,11 +10,10 @@ export type CoolbuttonParams = {
 	onclick: (event: MouseEvent) => void
 }
 
-export const Coolbutton = view({
+export const Coolbutton = slate.shadow_view({
 		name: "coolbutton",
 		styles,
-		views: {},
-	}).render(_ => _ => _ => ({active, text, onclick}: CoolbuttonParams) => html`
+	}, _use => ({active, text, onclick}: CoolbuttonParams) => html`
 
 	<button
 		part=button

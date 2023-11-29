@@ -1,39 +1,30 @@
 
-import {html, svg} from "lit"
-import {Attrs, QuickElement} from "@benev/frog"
-
+import {html, svg} from "@benev/slate"
 import icon_shopping_cart from "../../icons/feather/icon_shopping_cart.js"
 
+import {slate} from "../frontend.js"
 import {styles} from "./styles.css.js"
-import {Context} from "../../context/context.js"
 
-export const SheepCartButton = (context: Context) => class extends QuickElement {
-	static styles = styles
-	#attrs = Attrs.base<{"triggers-modal": string}>(this as QuickElement)
+export const SheepCartButton = slate.shadow_component({styles}, use => {
+	const attrs = use.attrs({"triggers-modal": Boolean})
 
-	get #triggers_modal() {
-		return this.#attrs.boolean["triggers-modal"]
-	}
+	const {units} = use.context.cart
 
-	render() {
-		const {units} = context.cart
+	const onclick = attrs["triggers-modal"]
+		? () => use.context.modal.open({kind: "cart"})
+		: () => {}
 
-		const onclick = this.#triggers_modal
-			? () => context.modal.open({kind: "cart"})
-			: () => {}
+	return html`
+		<button
+			part=button
+			@click=${onclick}>
 
-		return html`
-			<button
-				part=button
-				@click=${onclick}>
+			${icon_shopping_cart(svg)}
 
-				${icon_shopping_cart(svg)}
-
-				<div class=count ?hidden=${units.length === 0}>
-					${units.length}
-				</div>
-			</button>
-		`
-	}
-}
+			<div class=count ?hidden=${units.length === 0}>
+				${units.length}
+			</div>
+		</button>
+	`
+})
 

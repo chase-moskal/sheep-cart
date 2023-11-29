@@ -1,11 +1,11 @@
 
-import {html} from "lit"
+import {html} from "@benev/slate"
 import {GqlProduct} from "shopify-shepherd"
 
-import {view} from "../../frontend.js"
 import {styles} from "./styles.css.js"
 import {Price} from "../price/view.js"
 import {Pills} from "../pills/view.js"
+import {slate} from "../../frontend.js"
 import {Coolbutton} from "../coolbutton/view.js"
 import {img} from "../product_focus/parts/img.js"
 import {display_price} from "./parts/display_price.js"
@@ -13,13 +13,12 @@ import {add_button} from "../coolbutton/helpers/add_button.js"
 import {render_img} from "../product_focus/parts/render_img.js"
 import {ProductHelper} from "../product_focus/parts/product_helper.js"
 
-export const ProductCard = view({
+export const ProductCard = slate.shadow_view({
 		styles,
 		name: "product-card",
-		views: {Price, Pills, Coolbutton},
-	}).render(({router, cart}) => views => _ => (product: GqlProduct) => html`
+	}, use => (product: GqlProduct) => html`
 
-	<a href="${router.routes.product(product).url}">
+	<a href="${use.context.router.routes.product(product).url}">
 
 		${render_img({
 			part: "img",
@@ -31,14 +30,14 @@ export const ProductCard = view({
 				${product.title}
 			</h1>
 
-			${views.Pills({part: "pills", gpart: "pills", props: [product]})}
+			${Pills([product], {attrs: {part: "pills", gpart: "pills"}})}
 
 			<div class=action>
 				${add_button({
 					product,
-					cart,
+					cart: use.context.cart,
 					allow_select: true,
-					Coolbutton: views.Coolbutton,
+					Coolbutton,
 					variant_id: new ProductHelper(product).first_variant.id,
 				})}
 
@@ -46,11 +45,11 @@ export const ProductCard = view({
 					${display_price({
 						product,
 						single_price: variant => html`
-							${views.Price({part: "price singleprice", props: [variant]})}
+							${Price([variant], {attrs: {part: "price singleprice"}})}
 						`,
 						multiple_prices: variant => html`
 							<div class=info>starts at</div>
-							${views.Price({part: "price multiprice", props: [variant]})}
+							${Price([variant], {attrs: {part: "price multiprice"}})}
 						`,
 					})}
 				</div>

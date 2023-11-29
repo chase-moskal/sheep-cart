@@ -1,11 +1,9 @@
 
-import {html, svg} from "lit"
-import {Attrs, QuickElement} from "@benev/frog"
+import {html, svg} from "@benev/slate"
 
-import {views} from "../frontend.js"
-import {style} from "./style.css.js"
+import {slate} from "../frontend.js"
 import {Price} from "../views/price/view.js"
-import {Context} from "../../context/context.js"
+import {style as styles} from "./style.css.js"
 import {sum_subtotal} from "./parts/sum_subtotal.js"
 import {CartUnit} from "../../carting/parts/types.js"
 import {Coolbutton} from "../views/coolbutton/view.js"
@@ -16,17 +14,14 @@ import {ProductHelper} from "../views/product_focus/parts/product_helper.js"
 
 import icon_x from "../../icons/feather/icon_x.js"
 
-export const SheepCart = (context: Context) => class extends QuickElement {
-	static styles = style
+export const SheepCart = slate.shadow_component({styles}, use => {
+	const {cart, shopify} = use.context
+	const {units} = use.context.cart
 
-	#state = context.flat.state({termsChecked: false})
-	#attrs = Attrs.base(this as QuickElement)
-		// require-checkout-terms: Boolean
+	const state = use.flatstate({termsChecked: false})
+	const attrs = use.attrs({"require-checkout-terms": Boolean})
 
-	#views = views(context, {Price, Coolbutton})
-
-	#render_unit = (unit: CartUnit) => {
-		const {cart} = context
+	function render_unit(unit: CartUnit) {
 		const producthelp = new ProductHelper(unit.product)
 		const image = producthelp.get_variant_image(unit.variant_id)
 		const variant = producthelp.get_variant(unit.variant_id)
@@ -82,7 +77,7 @@ export const SheepCart = (context: Context) => class extends QuickElement {
 			</div>
 
 			<div class=price>
-				${this.#views.Price({part: "price", props: [summed_pricing]})}
+				${Price([summed_pricing], {attrs: {part: "price"}})}
 			</div>
 
 			<div class=remove>
@@ -95,8 +90,8 @@ export const SheepCart = (context: Context) => class extends QuickElement {
 		`
 	}
 
-	#checkout = async() => {
-		const line_items = (context.cart.units
+	async function checkout() {
+		const line_items = (cart.units
 			.map(({variant_id, quantity}) => ({
 				variant_id,
 				quantity,
@@ -124,82 +119,79 @@ export const SheepCart = (context: Context) => class extends QuickElement {
 			</style>
 		`
 
-		const {webUrl} = await context.shopify.checkout({line_items})
+		const {webUrl} = await shopify.checkout({line_items})
 
 		win.location.href = webUrl
 		win.focus()
-		context.cart.clear()
+		cart.clear()
 	}
 
-	render() {
-		const {units} = context.cart
-		return html`
-			<h2>
-				${units.length > 0
-					? "Your Cart"
-					: "Cart is Empty"}
-			</h2>
-
-			<ol class=listing>
-				${units.map(unit => html`
-					<li part=line-item data-gpart=line-item>
-						${this.#render_unit(unit)}
-					</li>
-				`)}
-			</ol>
-
+	return html`
+		<h2>
 			${units.length > 0
-				? html`
-					<div class=subtotal>
-						<div class=group>
-							<hr/>
-							<div class=block>
-								<div class=heading>
-									Subtotal
-								</div>
-								<div class=price>
-									${this.#views.Price({part: "price", props: [sum_subtotal(units)]})}
-								</div>
+				? "Your Cart"
+				: "Cart is Empty"}
+		</h2>
+
+		<ol class=listing>
+			${units.map(unit => html`
+				<li part=line-item data-gpart=line-item>
+					${render_unit(unit)}
+				</li>
+			`)}
+		</ol>
+
+		${units.length > 0
+			? html`
+				<div class=subtotal>
+					<div class=group>
+						<hr/>
+						<div class=block>
+							<div class=heading>
+								Subtotal
+							</div>
+							<div class=price>
+								${Price([sum_subtotal(units)], {attrs: {part: "price"}})}
 							</div>
 						</div>
 					</div>
-					<slot class=terms name=terms></slot>
-					${this.#attrs.boolean["require-checkout-terms"] ? html`
-						<div class=terms-checkbox>
-							<label>
-								<input type="checkbox" @input=${(event: InputEvent) => {
-									const input = event.currentTarget as HTMLInputElement
-									this.#state.termsChecked = input.checked
-								}} />
-								<slot name=terms-checkbox-label>
-									I accept the terms above <em>(required for checkout)</em>
-								</slot>
-							</label>
-						</div>
-					` : undefined}
-					<div class=actions>
-						${this.#views.Coolbutton({
-							part: "checkout",
-							props: [{
-								active: this.#attrs.boolean["require-checkout-terms"]
-									? this.#state.termsChecked
-									: true,
-								text: "Checkout",
-								onclick: this.#checkout,
-							}],
-						})}
-						${this.#views.Coolbutton({
-							part: "clear-cart",
-							props: [{
-								active: true,
-								text: "clear cart",
-								onclick: () => context.cart.clear(),
-							}],
-						})}
+				</div>
+				<slot class=terms name=terms></slot>
+				${attrs["require-checkout-terms"] ? html`
+					<div class=terms-checkbox>
+						<label>
+							<input type="checkbox" @input=${(event: InputEvent) => {
+								const input = event.currentTarget as HTMLInputElement
+								state.termsChecked = input.checked
+							}} />
+							<slot name=terms-checkbox-label>
+								I accept the terms above <em>(required for checkout)</em>
+							</slot>
+						</label>
 					</div>
-				`
-				: undefined}
-		`
-	}
-}
+				` : undefined}
+				<div class=actions>
+					${Coolbutton(
+						[{
+							active: attrs["require-checkout-terms"]
+								? state.termsChecked
+								: true,
+							text: "Checkout",
+							onclick: checkout,
+						}],
+						{attrs: {part: "checkout"}},
+					)}
+					${Coolbutton(
+						[{
+							active: true,
+							text: "clear cart",
+							onclick: () => cart.clear(),
+						}],
+						{attrs: {part: "clear-cart"}},
+					)}
+				</div>
+			`
+			: undefined}
+	`
+})
 

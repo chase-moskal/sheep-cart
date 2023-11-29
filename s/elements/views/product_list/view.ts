@@ -1,24 +1,23 @@
 
-import {html} from "lit"
+import {html} from "@benev/slate"
 
-import {view} from "../../frontend.js"
 import {styles} from "./styles.css.js"
+import {slate} from "../../frontend.js"
 import {Options} from "./utils/options.js"
 import {render_op} from "../../render_op.js"
 import {ProductCard} from "../product_card/view.js"
 
-export const ProductList = view({
+export const ProductList = slate.shadow_view({
 		styles,
 		name: "product-list",
-		views: {ProductCard},
-	}).render(_ => views => _ =>
+	}, _use =>
 
 	({situation: {products, load_more_op, load_more}}: Options) => (
 		((products.length > 0)
 			? html`
 				<div class=grid>
 					${products.map(product =>
-						views.ProductCard({part: "card", gpart: "card", props: [product]})
+						ProductCard([product], {attrs: {part: "card", gpart: "card"}})
 					)}
 				</div>
 

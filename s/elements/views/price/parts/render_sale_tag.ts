@@ -1,5 +1,5 @@
 
-import {html} from "lit"
+import {html} from "@benev/slate"
 import {MoneyValue} from "./types.js"
 
 export function render_sale_tag(price: MoneyValue, comparison: MoneyValue) {

@@ -1,20 +1,18 @@
 
-import {Flat, Op} from "@benev/frog"
+import {Flat, flat, Op} from "@benev/slate"
 import {GqlProduct, Shopify} from "shopify-shepherd"
 
 import {CartStore} from "./parts/cart_store.js"
 import {CartItem, CartState, CartUnit, ProductCache} from "./parts/types.js"
 
 export class Cart {
-	#flat: Flat
 	#shopify: Shopify
 	#store: CartStore
 
 	#state: CartState
 	readonly state: CartState
 
-	constructor(flat: Flat, shopify: Shopify, store: CartStore) {
-		this.#flat = flat
+	constructor(shopify: Shopify, store: CartStore) {
 		this.#shopify = shopify
 		this.#store = store
 		this.#state = flat.state({
@@ -24,7 +22,7 @@ export class Cart {
 		this.state = Flat.readonly(this.#state)
 	}
 
-	#flatstate = <X extends {}>(x: X) => this.#flat.state<X>(x)
+	#flatstate = <X extends {}>(x: X) => flat.state<X>(x)
 
 	save() {
 		const {items} = this.#state
@@ -117,7 +115,7 @@ export class Cart {
 			.map(i => i.product_id)
 
 		const new_caches: ProductCache[] = new_product_ids
-			.map(product_id => ({product_id, op: Op.loading()}))
+			.map(product_id => ({product_id, op: Op.loading<GqlProduct>()}))
 			.map(this.#flatstate)
 
 		this.#state.products = [

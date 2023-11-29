@@ -1,11 +1,10 @@
 
-import {Attrs, QuickElement} from "@benev/frog"
-import {TemplateResult, html, render, svg} from "lit"
+import {TemplateResult, html, render, svg} from "@benev/slate"
 
 import icon_x_circle from "../../icons/feather/icon_x_circle.js"
 
+import {slate} from "../frontend.js"
 import {styles} from "./styles.css.js"
-import {component} from "../frontend.js"
 import {ModalSpec} from "../../modaling/spec.js"
 
 type ModalDetails = {
@@ -13,20 +12,19 @@ type ModalDetails = {
 	on_backdrop_click: () => void
 }
 
-export const SheepModal = component(({modal}) => class extends QuickElement {
-	static styles = styles
+export const SheepModal = slate.shadow_component({styles}, use => {
+	const attrs = use.attrs({"cart-require-checkout-terms": Boolean})
 
-	#is_slotted = {
-		cart_terms_checkbox_label: this.querySelector(`[slot="cart-terms-checkbox-label"]`),
+	use.setup(() => use.context.modal.on.open(o => open_modal(o)))
+
+	const is_slotted = {
+		cart_terms_checkbox_label: use.element.querySelector(`[slot="cart-terms-checkbox-label"]`),
 	}
 
-	#attrs = Attrs.base(this as QuickElement)
-		// cart-require-checkout-terms: Boolean
-
-	#modal_dressing(id: string, content: TemplateResult) {
+	function modal_dressing(id: string, content: TemplateResult) {
 		return html`
 			<div class=actions>
-				<button class=close @click=${() => this.close(id)}>
+				<button class=close @click=${() => close_modal(id)}>
 					${icon_x_circle(svg)}
 				</button>
 			</div>
@@ -36,7 +34,7 @@ export const SheepModal = component(({modal}) => class extends QuickElement {
 		`
 	}
 
-	#distinguish_modal_details(
+	function distinguish_modal_details(
 			id: string,
 			modal: ModalSpec.Whatever,
 		): ModalDetails {
@@ -45,29 +43,29 @@ export const SheepModal = component(({modal}) => class extends QuickElement {
 
 			case "image": {
 				const {img: {src, alt}} = modal
-				const close = () => this.close(id)
+				const closer = () => close_modal(id)
 				return {
-					on_backdrop_click: close,
+					on_backdrop_click: closer,
 					content: html`
 						<img
 							part=img
 							src="${src}"
 							alt="${alt}"
-							@click=${close} />
+							@click=${closer} />
 					`,
 				}
 			}
 
 			case "cart": {
 				return {
-					on_backdrop_click: () => this.close(id),
+					on_backdrop_click: () => close_modal(id),
 					content: html`
 						<sheep-cart
 							part=cart
-							require-checkout-terms=${this.#attrs.boolean["cart-require-checkout-terms"]}
+							require-checkout-terms=${attrs["cart-require-checkout-terms"]}
 							>
 							<slot name=cart-terms slot=terms></slot>
-							${this.#is_slotted.cart_terms_checkbox_label ? html`
+							${is_slotted.cart_terms_checkbox_label ? html`
 								<slot name=cart-terms-checkbox-label slot=terms-checkbox-label></slot>
 							` : undefined}
 						</sheep-cart>
@@ -77,12 +75,12 @@ export const SheepModal = component(({modal}) => class extends QuickElement {
 		}
 	}
 
-	#open({id, modal}: {id: string, modal: ModalSpec.Whatever}) {
+	function open_modal({id, modal}: {id: string, modal: ModalSpec.Whatever}) {
 		const dialog = document.createElement("dialog")
 		dialog.setAttribute("data-id", id)
 
 		const {content, on_backdrop_click} = (
-			this.#distinguish_modal_details(id, modal)
+			distinguish_modal_details(id, modal)
 		)
 
 		dialog.onclick = event => {
@@ -90,15 +88,15 @@ export const SheepModal = component(({modal}) => class extends QuickElement {
 				on_backdrop_click()
 		}
 
-		render(this.#modal_dressing(id, content), dialog)
+		render(modal_dressing(id, content), dialog)
 
-		this.root.appendChild(dialog)
+		use.shadow.appendChild(dialog)
 		dialog.showModal()
 	}
 
-	close(id: string) {
-		const dialog = this
-			.root
+	function close_modal(id: string) {
+		const dialog = use
+			.shadow
 			.querySelector<HTMLDialogElement>(`[data-id="${id}"]`)
 
 		if (dialog) {
@@ -107,8 +105,6 @@ export const SheepModal = component(({modal}) => class extends QuickElement {
 		}
 	}
 
-	init() {
-		modal.on.open(o => this.#open(o))
-	}
+	return html``
 })
 

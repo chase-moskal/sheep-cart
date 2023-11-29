@@ -1,6 +1,6 @@
 
-import {CSSResultGroup} from "lit"
-import {Flat, Op} from "@benev/frog"
+import {CSSResultGroup} from "@benev/slate"
+import {Op, Flat, Context as SlateContext} from "@benev/slate"
 import {GqlCollection, GqlTag, Shopify} from "shopify-shepherd"
 
 import {Cart} from "../carting/cart.js"
@@ -11,8 +11,7 @@ import {Situation} from "./types/situations.js"
 import {State, init_state} from "./parts/init_state.js"
 import {CartStore} from "../carting/parts/cart_store.js"
 
-export class Context {
-	flat = new Flat()
+export class Context extends SlateContext {
 
 	#state: State
 	readonly state: State
@@ -26,9 +25,10 @@ export class Context {
 			public theme: CSSResultGroup,
 			cart_store: CartStore,
 		) {
-		this.#state = init_state(this.flat, router)
+		super()
+		this.#state = init_state(router)
 		this.state = Flat.readonly(this.#state)
-		this.cart = new Cart(this.flat, this.shopify, cart_store)
+		this.cart = new Cart(this.shopify, cart_store)
 	}
 
 	set_route = (route: Route) => this.#state.route = route

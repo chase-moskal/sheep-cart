@@ -1,16 +1,14 @@
 
-import {html} from "lit"
-import {QuickElement} from "@benev/frog"
+import {html} from "@benev/slate"
 
-import {style} from "./style.css.js"
-import {Context} from "../../context/context.js"
+import {slate} from "../frontend.js"
+import {style as styles} from "./style.css.js"
 
-export const SheepNav = (context: Context) => class extends QuickElement {
-	static styles = style
+export const SheepNav = slate.shadow_component({styles}, use => {
+	const {route} = use.context.state
+	const {routes} = use.context.router
 
-	get #areas() {
-		const {route} = context.state
-		const {routes} = context.router
+	function get_areas() {
 		return {
 
 			collections: {
@@ -31,26 +29,24 @@ export const SheepNav = (context: Context) => class extends QuickElement {
 		}
 	}
 
-	render() {
-		const areas = this.#areas
-		return html`
+	const areas = get_areas()
 
-			<a
-				href="${areas.collections.url}"
-				?data-marked="${areas.collections.marked}">
-				<slot name=collections>
-					collections
-				</slot>
-			</a>
+	return html`
+		<a
+			href="${areas.collections.url}"
+			?data-marked="${areas.collections.marked}">
+			<slot name=collections>
+				collections
+			</slot>
+		</a>
 
-			<a
-				href="${areas.products.url}"
-				?data-marked="${areas.products.marked}">
-				<slot name=products>
-					all products
-				</slot>
-			</a>
-		`
-	}
-}
+		<a
+			href="${areas.products.url}"
+			?data-marked="${areas.products.marked}">
+			<slot name=products>
+				all products
+			</slot>
+		</a>
+	`
+})
 
