@@ -2,6 +2,7 @@
 import {CSSResultGroup} from "@benev/slate"
 import {Shopify, ShopifySettings} from "shopify-shepherd"
 
+import {slate} from "../elements/slate.js"
 import {Router} from "../routing/router.js"
 import {HomeArea} from "../routing/types.js"
 import {Context} from "../context/context.js"
@@ -9,7 +10,6 @@ import {elements} from "../elements/elements.js"
 import {prepare_pilot} from "../piloting/pilot.js"
 import {CartStore} from "../carting/parts/cart_store.js"
 import {theme as default_theme} from "../elements/theme.css.js"
-import { slate } from "../elements/slate.js"
 
 export function install_sheep_cart({
 		domain,
@@ -30,14 +30,17 @@ export function install_sheep_cart({
 
 	const router = Router.setup(home)
 
-	const context = slate.context = new Context(
+	const context = new Context(
 		shopify,
 		router,
 		theme,
 		new CartStore("sheep_cart", localStorage),
 	)
 
+	slate.context = context
+
 	context.cart.load()
+
 	window.addEventListener("storage", () => {
 		context.cart.load()
 	})

@@ -1,7 +1,6 @@
 
-import {CSSResultGroup} from "@benev/slate"
-import {Op, Flat, Context as SlateContext} from "@benev/slate"
 import {GqlCollection, GqlTag, Shopify} from "shopify-shepherd"
+import {Op, Flat, CSSResultGroup, Context as SlateContext} from "@benev/slate"
 
 import {Cart} from "../carting/cart.js"
 import {Route} from "../routing/types.js"
