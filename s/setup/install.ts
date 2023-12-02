@@ -9,7 +9,7 @@ import {elements} from "../elements/elements.js"
 import {prepare_pilot} from "../piloting/pilot.js"
 import {CartStore} from "../carting/parts/cart_store.js"
 import {theme as default_theme} from "../elements/theme.css.js"
-import { slate } from "../elements/frontend.js"
+import { slate } from "../elements/slate.js"
 
 export function install_sheep_cart({
 		domain,

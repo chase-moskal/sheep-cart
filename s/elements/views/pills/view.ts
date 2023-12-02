@@ -2,7 +2,7 @@
 import {html} from "@benev/slate"
 import {GqlProduct} from "shopify-shepherd"
 
-import {slate} from "../../frontend.js"
+import {slate} from "../../slate.js"
 import {styles} from "./styles.css.js"
 import {ProductHelper} from "../product_focus/parts/product_helper.js"
 

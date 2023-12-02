@@ -2,7 +2,7 @@
 import {html, svg} from "@benev/slate"
 import icon_shopping_cart from "../../icons/feather/icon_shopping_cart.js"
 
-import {slate} from "../frontend.js"
+import {slate} from "../slate.js"
 import {styles} from "./styles.css.js"
 
 export const SheepCartButton = slate.shadow_component({styles}, use => {

@@ -1,7 +1,7 @@
 
 import {html} from "@benev/slate"
 
-import {slate} from "../../frontend.js"
+import {slate} from "../../slate.js"
 import {styles} from "./styles.css.js"
 import {VariantPricing} from "./parts/types.js"
 import {parse_money} from "./parts/parse_money.js"

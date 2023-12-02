@@ -2,7 +2,7 @@
 import {html} from "@benev/slate"
 
 import {styles} from "./styles.css.js"
-import {slate} from "../../frontend.js"
+import {slate} from "../../slate.js"
 import {Options} from "./utils/options.js"
 import {render_op} from "../../render_op.js"
 import {ProductCard} from "../product_card/view.js"

@@ -1,7 +1,7 @@
 
 import {TemplateResult, html} from "@benev/slate"
 
-import {slate} from "../frontend.js"
+import {slate} from "../slate.js"
 import {render_op} from "../render_op.js"
 import {style as styles} from "./style.css.js"
 import {ProductList} from "../views/product_list/view.js"

@@ -3,7 +3,7 @@ import {html} from "@benev/slate"
 import {GqlProduct} from "shopify-shepherd"
 
 import {styles} from "./styles.css.js"
-import {slate} from "../../frontend.js"
+import {slate} from "../../slate.js"
 import {ProductCard} from "../product_card/view.js"
 
 export const ProductRecommendation = slate.shadow_view({

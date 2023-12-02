@@ -3,7 +3,7 @@ import {TemplateResult, html, render, svg} from "@benev/slate"
 
 import icon_x_circle from "../../icons/feather/icon_x_circle.js"
 
-import {slate} from "../frontend.js"
+import {slate} from "../slate.js"
 import {styles} from "./styles.css.js"
 import {ModalSpec} from "../../modaling/spec.js"
 

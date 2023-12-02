@@ -2,7 +2,7 @@
 import {html} from "@benev/slate"
 
 import {styles} from "./style.css.js"
-import {slate} from "../../frontend.js"
+import {slate} from "../../slate.js"
 import {bg_img} from "./utils/bg_img.js"
 import {Options} from "./utils/options.js"
 import {sort_collections} from "./utils/sort_collections.js"

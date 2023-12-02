@@ -1,7 +1,7 @@
 
 import {html, svg} from "@benev/slate"
 
-import {slate} from "../frontend.js"
+import {slate} from "../slate.js"
 import {Price} from "../views/price/view.js"
 import {style as styles} from "./style.css.js"
 import {sum_subtotal} from "./parts/sum_subtotal.js"

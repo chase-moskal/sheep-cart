@@ -3,7 +3,7 @@ import {html, svg, debounce} from "@benev/slate"
 
 import icon_search from "../../icons/feather/icon_search.js"
 
-import {slate} from "../frontend.js"
+import {slate} from "../slate.js"
 import {style as styles} from "./style.css.js"
 import {render_search_tags} from "./tags/render_search_tags.js"
 import {ascertain_search_details} from "./parts/ascertain_search_details.js"

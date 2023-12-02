@@ -1,7 +1,7 @@
 
 import {html} from "@benev/slate"
 
-import {slate} from "../frontend.js"
+import {slate} from "../slate.js"
 import {style as styles} from "./style.css.js"
 
 export const SheepNav = slate.shadow_component({styles}, use => {
