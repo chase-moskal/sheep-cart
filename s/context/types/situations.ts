@@ -1,5 +1,5 @@
 
-import {Op} from "@benev/frog"
+import {Op} from "@benev/slate"
 import {GqlCollection, GqlProduct} from "shopify-shepherd"
 
 export namespace Situation {

@@ -1,5 +1,5 @@
 
-import {html} from "lit"
+import {html} from "@benev/slate"
 
 import {update_tag} from "./utils/update_tag.js"
 import {Context} from "../../../context/context.js"

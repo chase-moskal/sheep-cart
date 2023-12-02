@@ -1,5 +1,5 @@
 
-import {html} from "lit"
+import {html} from "@benev/slate"
 import {MoneyValue} from "./types.js"
 
 export function render_money_value({symbol, currency, big, small}: MoneyValue) {

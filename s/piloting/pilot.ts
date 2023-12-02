@@ -1,5 +1,5 @@
 
-import {Op} from "@benev/frog"
+import {Op} from "@benev/slate"
 
 import {Route} from "../routing/types.js"
 import {PilotParams} from "./load/pilot_params.js"

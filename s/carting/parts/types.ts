@@ -1,5 +1,5 @@
 
-import {Op} from "@benev/frog"
+import {Op} from "@benev/slate"
 import {GqlProduct, GqlVariant} from "shopify-shepherd"
 
 export type CartState = {

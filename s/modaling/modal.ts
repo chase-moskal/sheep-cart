@@ -1,5 +1,5 @@
 
-import {pub} from "@benev/frog"
+import {pub} from "@benev/slate"
 
 import {ModalSpec} from "./spec.js"
 import {IdPuller} from "../tools/id_puller.js"

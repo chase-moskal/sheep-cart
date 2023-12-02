@@ -1,13 +1,13 @@
 
-import {html} from "lit"
+import {html} from "@benev/slate"
 import {GqlProduct} from "shopify-shepherd"
 import {unsafeHTML} from "lit/directives/unsafe-html.js"
 
 import {img} from "./parts/img.js"
-import {view} from "../../frontend.js"
 import {Pills} from "../pills/view.js"
 import {Price} from "../price/view.js"
 import {styles} from "./styles.css.js"
+import {slate} from "../../slate.js"
 import {Choice, Img} from "./parts/types.js"
 import {Coolbutton} from "../coolbutton/view.js"
 import {render_img} from "./parts/render_img.js"
@@ -17,18 +17,14 @@ import {render_options} from "./parts/render_options.js"
 import {add_button} from "../coolbutton/helpers/add_button.js"
 import {ProductRecommendation} from "../product_recommendation/view.js"
 
-export const ProductFocus = view({
+export const ProductFocus = slate.shadow_view({
 		styles,
 		name: "product-focus",
-		views: {
-			Pills,
-			Price,
-			Coolbutton,
-			ProductRecommendation,
-		},
-	}).render(({cart, modal}) => views => use => (product: GqlProduct) => {
+	}, use => (product: GqlProduct) => {
 
-	const state = use.state({
+	const {cart, modal} = use.context
+
+	const state = use.flatstate({
 		choices: [] as Choice[],
 	})
 
@@ -64,16 +60,16 @@ export const ProductFocus = view({
 
 			<h1 part=title>${product.title}</h1>
 
-			${views.Pills({class: "pills", part: "pills", gpart: "pills", props: [product]})}
+			${Pills([product], {attrs: {class: "pills", part: "pills", gpart: "pills"}})}
 
 			<div part=options class=options>
 				${render_options(choiceHelper, set_choice)}
 			</div>
 
 			<div part=buy class=buy>
-				${views.Price({class: "price", props: [choiceHelper.selected_variant]})}
+				${Price([choiceHelper.selected_variant], {attrs: {class: "price"}})}
 				${add_button({
-					Coolbutton: views.Coolbutton,
+					Coolbutton,
 					cart,
 					product,
 					variant_id: choiceHelper.selected_variant.id,
@@ -103,9 +99,10 @@ export const ProductFocus = view({
 		</div>
 		<div part=recbox class=recommendations>
 			<h2>Customers also bought:</h2>
-			${views.ProductRecommendation({
-				part: "recommendations",
-				props: [product.id, 3],
+			${ProductRecommendation([product.id, 3], {
+				attrs: {
+					part: "recommendations",
+				},
 			})}
 		</div>
 	`

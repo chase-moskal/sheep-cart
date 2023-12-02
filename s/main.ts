@@ -1,5 +1,5 @@
 
-import {register_to_dom} from "@benev/frog"
+import {register_to_dom} from "@benev/slate"
 import {install_sheep_cart} from "./setup/install.js"
 
 const {elements, load} = install_sheep_cart({

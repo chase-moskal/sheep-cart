@@ -1,5 +1,4 @@
 
-import { pub } from "@benev/frog"
 import {CartStoreData} from "./types.js"
 
 export class CartStore {

@@ -1,5 +1,5 @@
 
-import {pub} from "@benev/frog"
+import {pub} from "@benev/slate"
 
 import {Translation} from "./hashing/translation.js"
 import {HomeArea, Route, RouterOptions, SetHash} from "./types.js"

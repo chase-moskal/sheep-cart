@@ -1,5 +1,5 @@
 
-import {CSSResultGroup} from "lit"
+import {CSSResultGroup} from "@benev/slate"
 import {Shopify, ShopifySettings} from "shopify-shepherd"
 
 import {Router} from "../routing/router.js"
@@ -9,6 +9,7 @@ import {elements} from "../elements/elements.js"
 import {prepare_pilot} from "../piloting/pilot.js"
 import {CartStore} from "../carting/parts/cart_store.js"
 import {theme as default_theme} from "../elements/theme.css.js"
+import { slate } from "../elements/slate.js"
 
 export function install_sheep_cart({
 		domain,
@@ -28,7 +29,8 @@ export function install_sheep_cart({
 	})
 
 	const router = Router.setup(home)
-	const context = new Context(
+
+	const context = slate.context = new Context(
 		shopify,
 		router,
 		theme,
@@ -54,7 +56,7 @@ export function install_sheep_cart({
 	router.on_route_change(() => pilot(context.state.route))
 
 	return {
-		elements: elements(context),
+		elements,
 
 		async load() {
 			await Promise.all([

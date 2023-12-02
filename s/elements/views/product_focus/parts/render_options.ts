@@ -1,5 +1,5 @@
 
-import {html} from "lit"
+import {html} from "@benev/slate"
 import {ChoiceHelper} from "./choice_helper.js"
 
 export function render_options(
